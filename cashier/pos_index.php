@@ -144,8 +144,8 @@ function fill_unit_select_box($connect, $branchid)
 									<label>Tax</label>
 									<select name="tax" id="tax" class="form-control">
 										<option value="1">Regular</option>
-										<option value="2">Discount</option>
-										<option value="3">Tax Free</option>
+										<option value="2">Senior Discount</option>
+										
 									</select>
 								</div>
 								<div class="col col-sm-3" style="float: right;">
@@ -363,7 +363,7 @@ $(document).ready(function(){
         var productid = $(this).val();
         var price = currentRow.find(".item_price");
         var name = currentRow.find(".item_name");
-        var totalPrice = currentRow	.find();
+        var available = currentRow.find(".available_quantity");
         var actualPrice;
         $.ajax({
             url: "../actions/fetchproductinfo.php",
@@ -372,6 +372,7 @@ $(document).ready(function(){
             dataType: "JSON",
             success: function (data) {
                 actualPrice = data.price.replace(/^/, '₱');
+                available.val(data.available);
                 price.val(actualPrice);
                 name.val(data.name); 
             }
@@ -400,12 +401,17 @@ $(document).ready(function(){
 
 				number = totalprice;
 				number = number.replace(/[^a-zA-Z0-9]/g, '');
-				vatSale = number * .88;
-				number = number * .12;
-				number = parseFloat(number).toFixed(2);
-				vatSale = parseFloat(vatSale).toFixed(2);
-				$('#vat').val(number);
-				$('#vatable-sale').val(vatSale);
+
+				if (tax == 1) {
+					vatSale = number * .88;
+					number = number * .12;
+
+					number = parseFloat(number).toFixed(2);
+					vatSale = parseFloat(vatSale).toFixed(2);
+					$('#vat').val(number);
+					$('#vatable-sale').val(vatSale);
+				} 
+
 
 
 			}
@@ -419,6 +425,7 @@ $(document).ready(function(){
 
 		var sum = 0;
 		var currency = "₱"
+		var tax = $('#tax').val();
 		$('.item_total').each(function () {
 			var num = $(this).val().replace(/[^a-zA-Z0-9]/g, '');
 			
@@ -427,11 +434,16 @@ $(document).ready(function(){
 			if(num != 0) {
 				
 				sum += parseFloat(num);
-				
+				$('#vat').val(0.00);
+				$('#vatable-sale').val(0.00);
 			}
 
 		});
+		if (tax == 2) {
+			sum = (sum * .12) * 8
 
+		} 
+		
 		sum = sum.toLocaleString("en-US");
 		sum = sum.replace(/^/, '₱');
 		$("#total").val(sum);

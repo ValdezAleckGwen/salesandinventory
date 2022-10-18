@@ -1,12 +1,22 @@
 <?php
 	
 //index.php	
-
+session_start();
+include '../actions/getdata.php';
+include '../x-function/redirect_if_notLogin.php';
+include '../actions/adddata.php';
 include '../actions/database_connection.php';
 
-	
+
+$id = $_SESSION['uid'];
+
+
+//remove this if cookie is configured
+
 function fill_unit_select_box_branch($connect)
 {
+	
+
 	$output = '';
 
 	$query = "SELECT id AS branchid, name AS branchname from tblbranch";
@@ -15,27 +25,19 @@ function fill_unit_select_box_branch($connect)
 
 	foreach($result as $row)
 	{
+	
 		$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+		
 	}
 
 	return $output;
 }
 
-
-
-
-	
-
-		
 ?>
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>INVENTORY ADJUSTMENT</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -54,27 +56,112 @@ function fill_unit_select_box_branch($connect)
       
 <!-- Start of Menu Proper -->
       <div class="menu">
+        <!-- Dashboard -->
+        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Dashboard</a></div>
 
-    <!-- Inventory-->
-        <div class="item"><a href="inventory_index.php"><i class="fa-regular fa-warehouse"></i>Inventory</a></div>
-       
+        <!-- Analytics -->
+        <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
+
+        <!-- Branch -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addbranch_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Branch</a>
+            <a href="editbranch_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Branch</a>
+          </div>
+        </div>      
+
+        <!-- Products -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addproduct_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Products</a>
+            <a href="editproduct_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Products</a>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addcategory_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Category</a>
+            <a href="editcategory_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Category</a>
+          </div>
+        </div>
+
+        <!-- Inventory-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
+          </div>
+        </div>
+
+
+        <!-- Purchase Order -->
+        <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+        
+        <!-- Delivery Order -->
+        <div class="item"><a href="delivery_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
 
         <!-- Orders-->
         <div class="item"><a href="orders_index.php"><i class="fa-regular fa-cart-shopping"></i>Orders</a></div>
 
+        <!-- Suppliers-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addsuppliers_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Suppliers</a>
+            <a href="editsuppliers_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Suppliers</a>
+          </div>
+        </div>
 
-        <!-- Point of salesv2-->
-        <div class="item"><a href="posv2_index.php"><i class="fa-regular fa-calculator"></i>Point of Salesv2</a></div>
+        <!-- Sales-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+         </div>
+        </div>
+
+        <!-- Payments -->
+        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+
+        <!-- Users -->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-user"></i>Users<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="user_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="adduser_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Users</a>
+            <a href="edituser_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Users</a>
+          </div>
+        </div>
+
+
+        <!-- Audit Logs -->
+        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>         
+
+        <!-- Settings -->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="tax_index.php" class="sub-item"><i class="fa-solid fa-percent"></i>TAX</a>
+         </div>
+        </div>
 
         <!-- Logout -->
-        <div class="item"><a href="../admin/login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
+        <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
-        <div class="clearfix"></div>
-    <br/>
-
-        </div>
+      </div>
     </div>
-		<div class="usericon">Cashier <i class="fa-regular fa-user"></i></div>
+		
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -93,29 +180,37 @@ function fill_unit_select_box_branch($connect)
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
-
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
 							<span id="error"></span>
+							<table class="table table-bordered" id="item_table">
+							<div class="float-end">
+								<label for="po_number">INVENTORY ADJUSTMENT #:</label>
+								<input type="text" name="ia_number" class="input-field" value="<?php echo createId('tblinventoryadjustment'); ?>" id="ia_number" readonly>
+							</div>
+
+							<!--remove this if cookie is configured-->
+							<div class="container m-1">
+								<label for="branch_id">For Branch</h5>
+								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option>Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
+							</div>
+
+								<tr>
+									<th width="20%">Inventory ID</th>
+									<th width="20%">Product Code</th>
+									<th width="40%">Product Name</th>
+									<th width="10%">Available Quantity</th>
+									<th width="20%">Adjustment Quantity -</th>
+									<th width="20%">Adjustment Quantity +</th>
+									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
+								</tr>
+							<footer>
 							<div class="row">
 
 								<div class="col-sm-7">
 									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-								</div>
-							<div class="container m-1">
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
-							</div>
-							<table class="table table-bordered" id="item_table">
-								<tr>
-									<th width="20%">Product Code</th>
-									<th width="50%">Product Name</th>
-									<th width="10%"><i class="fa-sharp fa-solid fa-minus"></i></th>
-									<th width="10%"><i class="fa-sharp fa-solid fa-plus"></i></th>
 
-									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
-								</tr>
-								
-							</div>
+							</footer>
 							</table>
 							</div>
 						</div>
@@ -130,21 +225,22 @@ function fill_unit_select_box_branch($connect)
 
 $(document).ready(function(){
 
+	
+
 	var count = 0;
 	
-
-	
-
 	$(document).on('click', '.add', function(){
 
-		var branchid = $('#branch_id').val();
-		var rowType = 1;
-		count++;
+		var id = $('#supplier_id').val();
 		
+		var branchid = $('#branch_id').val();
+		
+		count++;
+
 		$.ajax({
-        url: "../actions/addrow.php",
+        url: "../actions/addrowinventoryadjustment.php",
         method: "POST",
-        data: {branchid: branchid, rowType: rowType},
+        data: {id: id, branchid, branchid},
         success: function (data) {
             
         	$('#item_table').append(data);
@@ -154,7 +250,11 @@ $(document).ready(function(){
             }
         });
 
+
+		
+
 	});
+
 
 	$(document).on('change')
 
@@ -170,15 +270,28 @@ $(document).ready(function(){
 
 		var error = '';
 
-		count = 1;
+		
 
 
 		count = 1;
 
+		$('.item_quantity').each(function(){
+
+			if($(this).val() == '')
+			{
+
+				error += "<li>Enter Item Quantity at Row "+count+"</li>";
+
+			}
+
+			count = count + 1;
+
+		});
+
 
 		count = 1;
 
-		$("select[name='inventory_id[]']").each(function(){
+		$("select[name='item_id[]']").each(function(){
 
 			if($(this).val() == '')
 			{
@@ -193,6 +306,8 @@ $(document).ready(function(){
 
 
 
+
+
 		var form_data = $(this).serialize();
 
 		if(error == '')
@@ -200,13 +315,13 @@ $(document).ready(function(){
 
 			$.ajax({
 
-				url:"../actions/insert.php",
+				url:"../actions/insertinvenadjustment.php",
 
 				type:"POST",
 
 				data:form_data,
 
-				// data:$('#insert_form').serialize(),
+				
 
 				beforeSend:function()
 	    		{
@@ -217,6 +332,7 @@ $(document).ready(function(){
 
 				success:function(data)
 				{
+					alert(data)
 
 					if(!data)
 					{
@@ -251,24 +367,35 @@ $(document).ready(function(){
 
 	});
 
-	$(document).on("change", ".inventory_id", function  () {
-
-        var currentRow = $(this).closest("tr");
-        var inventoryid = $(this).val();
-        var name = currentRow.find(".item_name");
+	$(document).on("change", ".item_id", function  () {
+		
         
+        var dataType = 5;
+        var currentRow = $(this).closest("tr");
+        var productid = $(this).val();
+        var itemid = currentRow.find(".item_code");
+        var name = currentRow.find(".item_name");
+        var quantity = currentRow.find(".item_quantity")
         $.ajax({
-            url: "../actions/fetchinventoryinfo.php",
+            url: "../actions/fetchproductinfo.php",
             method: "POST",
-            data: {inventoryid: inventoryid},
+            data: {productid: productid, dataType: dataType},
             dataType: "JSON",
             success: function (data) {
-                name.val(data.name); 
-            } 
-
+            	itemid.val(data.productid);
+            	name.val(data.name);
+                quantity.val(data.quantity);	
+                
+                
+            }
         });
         return false;
     });
+
+
+
+
 	 
 });
+
 </script>
