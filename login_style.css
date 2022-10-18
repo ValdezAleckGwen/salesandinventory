@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+
+
+body {
+    height: 100;
+    text-align: center;
+    margin: auto;
+}
+form {
+    display: inline-block;
+    margin-top: 70%;
+}
+
+h2, h6 {
+    position: absolute;
+    left: 43%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 50px;
+
+
+}
+
+img {
+    width: 20%;
+    margin-top: 5%;
+}
+
+.login{
+  width: 280px;
+  position: absolute;
+  top: 48%;
+  left: 42%;
+  transform: translate(-50%,-50%);
+  color: white;
+}
+
+
+.login .button .btn2{
+  margin-left: 62%;
+}
+
+
+.textbox{
+  width: 230%;
+  overflow: hidden;
+  font-size: 20px;
+  padding: 2px 0;
+  margin-right: 10px 0;
+  margin-bottom: 50px;
+  border-bottom: 2px solid black;
+}
+
+.textbox i{
+  width: 26px;
+  float: left;
+  text-align: center;
+}
+
+.textbox input{
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  outline: none;
+  background: none;
+  color: black;
+  font-size: 18px;
+  width: 80%;
+  float: left;
+  margin-bottom: 9px;
+  margin-top: 14px;
+}
+
+.btn1{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  border:none;
+  outline: none;
+  height:36px;
+  width: 230%;
+  background-color:black;
+  color: white;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.btn1:hover{
+  background: white;
+  border: 1px solid;
+  color: black;
+  cursor: pointer;
+}
+.btn2{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  border:none;
+  outline: none;
+  height:36px;
+  width: 80%;
+  background-color:black;
+  color: white;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.btn2:hover{
+  background: white;
+  border: 1px solid;
+  color: black;
+  cursor: pointer;
+}
+.pass a{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: black;
+  position: relative;
+    left: 65%;
+    margin-top: 20%;
+    text-decoration: none;
+}
+
+.pass a:hover{
+  color: gray;
+}
