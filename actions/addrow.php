@@ -10,7 +10,7 @@ if (isset($_POST['branchid'])) {
 			$db = new DbConnect;
 			$conn = $db->connect();
 
-			$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = :branchid");
+			$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = :branchid AND tblinventory.quantity != 0");
 			$stmt->execute(['branchid' => $branchid]);
 			$inventories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				$output = '';

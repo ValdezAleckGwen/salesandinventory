@@ -1,12 +1,17 @@
 <?php
-	
-//index.php	
-
+session_start();
+include '../actions/getdata.php';
+include '../x-function/redirect_if_notLogin.php';
+include '../actions/adddata.php';
 include '../actions/database_connection.php';
+
+$id = $_SESSION['uid'];
 
 	
 function fill_unit_select_box_branch($connect)
 {
+	
+
 	$output = '';
 
 	$query = "SELECT id AS branchid, name AS branchname from tblbranch";
@@ -15,22 +20,33 @@ function fill_unit_select_box_branch($connect)
 
 	foreach($result as $row)
 	{
-		$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+		
 	}
 
 	return $output;
 }
 
+
+
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+}
+
+
 		
 ?>
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>STOCK TRANSFER</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -50,26 +66,36 @@ function fill_unit_select_box_branch($connect)
 <!-- Start of Menu Proper -->
       <div class="menu">
 
-    <!-- Inventory-->
-        <div class="item"><a href="inventory_index.php"><i class="fa-regular fa-warehouse"></i>Inventory</a></div>
-       
+        <!-- Inventory-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+          </div>
+        </div>
 
-        <!-- Orders-->
-        <div class="item"><a href="orders_index.php"><i class="fa-regular fa-cart-shopping"></i>Orders</a></div>
+         <!-- Purchase Order -->
+        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
 
+        <!-- Delivery Order -->
+        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
 
-        <!-- Point of salesv2-->
-        <div class="item"><a href="posv2_index.php"><i class="fa-regular fa-calculator"></i>Point of Salesv2</a></div>
+        <!-- Settings -->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
+         </div>
+        </div>
 
         <!-- Logout -->
-        <div class="item"><a href="../admin/login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
+        <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
-        <div class="clearfix"></div>
-    <br/>
-
-        </div>
+      </div>
     </div>
-		<div class="usericon">Cashier <i class="fa-regular fa-user"></i></div>
+<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -91,26 +117,34 @@ function fill_unit_select_box_branch($connect)
 
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
+
 							<span id="error"></span>
+							<table class="table table-bordered" id="item_table">
+							<div class="float-end">
+								<label for="po_number">ST #:</label>
+								<input type="text" name="stocktransfer_number" class="input-field" value="<?php echo createId('tblstocktransfer');  ?>" readonly>
+							</div>
 							<div class="row">
 
 								<div class="col-sm-7">
 									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
 								</div>
 							<div class="container m-1">
-								<h5>Source Branch</h5>
+								<h5>Source Branch</label>
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch" id="source_branch"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<div class="container m-1">
-								<h5>Destination Branch</h5>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option value="">Select Unit</option></select>
+								<h5>Destination Branch</label>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option value="">Select Unit</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
-							<table class="table table-bordered" id="item_table">
+							
 								<tr>
-									<th width="20%">Product Code</th>
+									<th width="15%">Inventory Code</th>
+									<th width="15%">Product Code</th>
 									<th width="50%">Product Name</th>
-									<th width="10%"><i class="fa-sharp fa-solid fa-minus"></i></th>
-									<th width="10%"><i class="fa-sharp fa-solid fa-plus"></i></th>
+									<th width="15%">Avaible Item</th>
+									<th width="15%">Item Transfer</th>
+									
 
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
@@ -129,6 +163,7 @@ function fill_unit_select_box_branch($connect)
 <script>
 
 $(document).ready(function(){
+	
 
 	var count = 0;
 	
@@ -137,14 +172,13 @@ $(document).ready(function(){
 
 	$(document).on('click', '.add', function(){
 
-		var id = $('#source_branch').val();
-		var rowType = 1;
+		var branchid = $('#source_branch').val();
 		count++;
 
 		$.ajax({
         url: "../actions/addrow.php",
         method: "POST",
-        data: {id: id, rowType: rowType},
+        data: {branchid: branchid},
         success: function (data) {
             
         	$('#item_table').append(data);
@@ -229,7 +263,7 @@ $(document).ready(function(){
 
 			$.ajax({
 
-				url:"../actions/insert.php",
+				url:"../actions/insertstocktransfer.php",
 
 				type:"POST",
 
@@ -252,6 +286,7 @@ $(document).ready(function(){
 						alert("ERROR");
 
 					} else {
+						alert(data);
 						$('#item_table').find('tr:gt(0)').remove();
 
 						$('#error').html('<div class="alert alert-success">Item Details Saved</div>');
@@ -285,6 +320,8 @@ $(document).ready(function(){
         var currentRow = $(this).closest("tr");
         var inventoryid = $(this).val();
         var name = currentRow.find(".item_name");
+        var code = currentRow.find(".item_code");
+        var quantity = currentRow.find(".item_available");
         
         $.ajax({
             url: "../actions/fetchinventoryinfo.php",
@@ -292,12 +329,21 @@ $(document).ready(function(){
             data: {inventoryid: inventoryid},
             dataType: "JSON",
             success: function (data) {
+            	quantity.val(data.quantity);
+            	code.val(data.productid);
                 name.val(data.name); 
             } 
 
         });
         return false;
     });
+
+  
+    
+
+
 	 
 });
+
+
 </script>

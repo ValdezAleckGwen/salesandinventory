@@ -13,7 +13,12 @@ if(isset($_POST["item_id"]))
 	$stocktransferid = createId('tblstocktransfer');
 	$destinationbranch = $_POST['destination_branch'];
 	$userid = $_SESSION['uid'];
-	$sourcebranch = getBranch($userid);
+	if (getPermission($userid) == 1) {
+		$sourcebranch =  $_POST['source_branch'];
+	} else {
+		$sourcebranch = getBranch($userid);
+	}
+	
 
 	// create a sale
 	$salesquery = "
