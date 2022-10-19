@@ -6,7 +6,7 @@ include '../actions/adddata.php';
 include '../actions/database_connection.php';
 
 $id = $_SESSION['uid'];
-
+$branchid = getBranch($id);
 	
 function fill_unit_select_box_branch($connect)
 {
@@ -20,8 +20,10 @@ function fill_unit_select_box_branch($connect)
 
 	foreach($result as $row)
 	{
-			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
 		
+		
+			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+				
 	}
 
 	return $output;
@@ -135,7 +137,7 @@ function displayUser() {
 							</div>
 							<div class="container m-1">
 								<h5>Destination Branch</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option value="">Select Unit</option><?php echo fill_unit_select_box_branch($connect); ?></select>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option>Select Branch</option></select>
 							</div>
 							
 								<tr>
@@ -332,6 +334,26 @@ $(document).ready(function(){
             	quantity.val(data.quantity);
             	code.val(data.productid);
                 name.val(data.name); 
+            } 
+
+        });
+        return false;
+    });
+
+
+	$(document).on("change", "#source_branch", function  () {
+
+
+        var branch = $(this).val();
+        
+        
+        $.ajax({
+            url: "../actions/branch.php",
+            method: "POST",
+            data: {branch: branch},
+            
+            success: function (data) {
+            $('#destination_branch').append(data);
             } 
 
         });
