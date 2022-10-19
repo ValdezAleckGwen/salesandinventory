@@ -2,16 +2,23 @@
 require 'DbConnect.php';
 
  
-if (isset($_POST['id'])) {
+if (isset($_POST['supplier_id'])) {
 	$output = '';
 
-			$branchid = $_POST['branchid'];
-			$supplierid = $_POST['id'];
+			$branchid = $_POST['branch_id'];
+			$supplierid = $_POST['supplier_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
 
-			$stmt = $conn->prepare("SELECT tblpurchaseorder.supplierid as supplierid, tblpurchaseorderitem.id as poitemid, tblpurchaseorderitem.branchid as branch, tblpurchaseorder.id as poid, tblpurchaseorderitem.quantity as quantity FROM tblpurchaseorder INNER JOIN tblpurchaseorderitem ON tblpurchaseorder.id=tblpurchaseorderitem.poid WHERE quantity > 0 AND supplierid = :supplierid AND tblpurchaseorderitem.branchid = :branchid;");
-			$stmt->execute([':supplierid' => $supplierid, ':branchid' => $branchid]);
+			$stmt = $conn->prepare("SELECT tblpurchaseorder.supplierid as supplierid, tblpurchaseorderitem.id as poitemid, tblpurchaseorderitem.branchid as branch, tblpurchaseorder.id as poid, tblpurchaseorderitem.quantity as quantity FROM tblpurchaseorder INNER JOIN tblpurchaseorderitem ON tblpurchaseorder.id=tblpurchaseorderitem.poid WHERE quantity > 0 AND supplierid = '".$supplierid."' AND tblpurchaseorderitem.branchid = '".$branchid."'");
+			if (isset($_POST["item_id"])) {
+				for($count = 0; $count < count($_POST["item_id"]); $count++) {
+					$itemid = $_POST['item_id'][$count];
+					$query .= " AND tblpurchaseorderitem.id != '".$itemid."'";
+				}
+			} 
+
+			$stmt->execute();
 			$poitems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				$output = '';
 				$output .= '<tr style="display: block;">';

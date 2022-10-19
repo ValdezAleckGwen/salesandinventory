@@ -3,25 +3,23 @@ require 'DbConnect.php';
 
 
 
-if (isset($_POST['id'])) {
+if (isset($_POST['branch_id'])) {
 	$output = '';
 
-			$supplierid = $_POST['id'];
+			$supplierid = $_POST['supplier_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
-			$query = "SELECT tblproducts.id AS productid, tblsupplier.name as suppliername FROM tblproducts INNER JOIN tblsupplier ON tblproducts.supplier=tblsupplier.id WHERE tblsupplier.id = :supplierid ";
+			$query = "SELECT tblproducts.id AS productid, tblsupplier.name as suppliername FROM tblproducts INNER JOIN tblsupplier ON tblproducts.supplier=tblsupplier.id WHERE tblsupplier.id = '".$supplierid."'";
+			if (isset($_POST["item_id"])) {
+				for($count = 0; $count < count($_POST["item_id"]); $count++) {
+					$itemid = $_POST['item_id'][$count];
+					$query .= " AND tblproducts.id != '".$itemid."'";
+				}
+			} 
 
-			//check if the id is selected
-			// if (isset($_POST['item_id'])) {
-			// 	for($count = 0; $count < count($_POST["item_id"]); $count++)
-			// 	{
-			// 		$query .= 'AND  tblproducts.id != '.$_POST['item_id'][$count].' ';
-
-			// 	}
-			// }
 			$stmt = $conn->prepare($query);
 
-			$stmt->execute(['supplierid' => $supplierid]);
+			$stmt->execute();
 			$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				$output = '';
 				$output .= '<tr style="display: block;">';
@@ -44,7 +42,7 @@ if (isset($_POST['id'])) {
 
 
 } else {
-	$output = 'alert("no data available")';
+	$output = 'no data available';
 }
 
 echo $output;

@@ -1,5 +1,5 @@
-<?php
-session_start();
+<?php 
+session_start(); 
 include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';
@@ -28,7 +28,7 @@ function fill_unit_select_box_supplier($connect)
 
 //remove this if cookie is configured
 
-function fill_unit_select_box_branch($connect, $branchid)
+function fill_unit_select_box_branch($connect)
 {
 	
 
@@ -40,11 +40,8 @@ function fill_unit_select_box_branch($connect, $branchid)
 
 	foreach($result as $row)
 	{
-		if ($branchid == $row["branchid"]) {
-			$output .= '<option value="'.$row["branchid"].'" selected>'.$row["branchname"] . '</option>';
-		} else {
+		
 			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
-		}
 		
 	}
 
@@ -66,7 +63,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>DELIVERY ORDER</title>
+		<title>PURCHASE ORDER</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -115,7 +112,7 @@ function displayUser() {
 
       </div>
     </div>
-		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
+<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -128,7 +125,7 @@ function displayUser() {
     <div class="main">
 
   
-    <h3 style="margin-top: 40px;">DELIVERY ORDER</h3><br>
+    <h3 style="margin-top: 40px;">PURCHASE ORDER</h3><br>
 		<div class="container">
 			<br />
 			<div class="card">
@@ -137,57 +134,51 @@ function displayUser() {
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
 							<span id="error"></span>
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
 								<label for="po_number">PO #:</label>
-								<input type="text" name="do_number" class="input-field" value="<?php echo createId('tblpurchaseorder'); ?>" id="do_number" readonly>
+								<input type="text" name="po_number" class="input-field" value="<?php echo createId('tblpurchaseorder'); ?>" readonly>
 							</div>
 							<div class="container m-1">
-								<label for="branch_id">For Branch: <?php echo displayBranch($id); ?></h5>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+								<label for="branch_id" id="labeler">For Branch:</label>
+								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</h5>
+								<label for="supplier_id">Supplier</label>
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
-							<!--remove this if cookie is configured-->
-							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
+							
+
 								<thead style=" display: block; ">
 								<tr>
-									<th width="15%">Item ID</th>
-									<th width="15%">PO ID</th>
-									<th width="15%">Product Code</th>
-									<th width="18%">Product Name</th>
-									<th width="10%">Price</th>
-									<th width="15.4%">Quantity</th>
-									<th width="14%">Total Price</th>
+									<th width="20%">Product Code</th>
+									<th width="30%">Product Name</th>
+									<th width="15%">Price</th>
+									<th width="15%">Enter Quantity</th>
+									<th width="30%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
 								</thead>
 								<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
 							<tr>
-									
+								
 								</tr>
 							</tbody>
-							<footer>
-							<div class="row">
-							
-							</footer>
-							
 							</table>
-								<div class="col-sm-6" style="float: left">
-									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-								</div>
-								<div class="col-sm-5" style="float: right">
+							<div class="col-sm-7" style="float: left">
+								<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
+							</div>
+							</div>
+							<div class="col-sm-5" style="float: right">
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Total</span>
 									  <input type="text" name="total" id="total" class="form-control total" readonly/>
 									</div>
-								</div>					
-							</div>
+								</div>		
 						</div>
 					</form>
+					
 				</div>
-								
 			</div>
 		</div>
 	</body>
@@ -196,26 +187,51 @@ function displayUser() {
 
 $(document).ready(function(){
 
+	 
+
 	var count = 0;
 	
 	$(document).on('click', '.add', function(){
-
 		var form_data = $('#insert_form').serialize();
-		console.log(form_data)
+		
+
 		count++;
 
 		$.ajax({
-        url: "../actions/addrowdeliveryorder.php",
+        url: "../actions/addrowpurchaseorder.php",
         method: "POST",
         data: form_data,
-        success: function (data) {            
-			$(data).insertAfter($("#add-row > tr").eq(0));
+        success: function (data) {
+            
+        	//$('#item_table').append(data);
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
+
             }
         });
 
+	});
 
+
+	$(document).on('change', '#source_branch', function(){
+
+		var branchid = $('#source_branch').val();
 		
+		count++;
+
+		$.ajax({
+        url: "../actions/addbranch.php",
+        method: "POST",
+        data: {branchid: branchid},
+        success: function (data) {
+            
+        	$('#destination_branch').html(data);
+
+			$('.selectpicker').selectpicker('refresh');
+
+            }
+        });
+
 
 	});
 
@@ -252,6 +268,26 @@ $(document).ready(function(){
 
 		});
 
+
+		//validation no duplicate product allowed
+
+		$('.item_id').each(function(){
+			var	itemid1 = $(this).val();
+
+			$('.item_id').each(function(){
+			var itemid2 = $(this).val();
+
+				if (itemid1 == itemid2) {
+					error = "<li>Duplicate products not allowed</li>";
+					return false;
+				}
+
+			});
+
+		});
+
+		//end of validation
+
 		count = 1;
 
 		$("select[name='item_id[]']").each(function(){
@@ -278,8 +314,7 @@ $(document).ready(function(){
 
 			$.ajax({
 
-				url:"../actions/insertdeliveryorder.php",
-				// url:"../actions/testing.php",
+				url:"../actions/insertpurchaseorder.php",
 
 				type:"POST",
 
@@ -331,27 +366,19 @@ $(document).ready(function(){
 
 	});
 	 
-});
-</script>
-<script>
+
+
 	
-	
-$(document).ready(function(){
   
 	$(document).on("change", ".item_id", function  () {
-		
         
-        var dataType = 3;
+        var dataType = 2;
         var currentRow = $(this).closest("tr");
         var productid = $(this).val();
-        var poid = currentRow.find(".po_id");
-        var itemid = currentRow.find(".item_code");
-        var name = currentRow.find(".item_name");
         var price = currentRow.find(".item_price");
-        var quantity = currentRow.find(".quantity")
-        var total = currentRow.find(".item_total")
+        var name = currentRow.find(".item_name");
+        var totalPrice = currentRow	.find();
         var actualPrice;
-        
         $.ajax({
             url: "../actions/fetchproductinfo.php",
             method: "POST",
@@ -359,13 +386,8 @@ $(document).ready(function(){
             dataType: "JSON",
             success: function (data) {
                 actualPrice = data.price.replace(/^/, '₱');
-                poid.val(data.poid);
-                itemid.val(data.productid);
-                name.val(data.name); 
                 price.val(actualPrice);
-                quantity.val(data.quantity);	
-                total.val(data.total);
-                
+                name.val(data.name); 
             }
         });
         return false;
@@ -432,14 +454,6 @@ $(document).ready(function(){
 	$(document).on("change", ".item_quantity", function() {
 		total_amount();
 	})
-
-	
-	
-		
-		
-
-	
-
 
 
 
