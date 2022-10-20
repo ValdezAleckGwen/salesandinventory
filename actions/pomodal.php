@@ -5,7 +5,7 @@ if (isset($_POST['id'])) {
 $id = $_POST['id'];
 
 $query = "SELECT 
-tblpurchaseorder.id AS purchid,
+tblpurchaseorder.id AS poid,
 tblsupplier.name AS suppliername,
 tblproducts.id AS productid,
 tblproducts.name AS name,
@@ -46,7 +46,7 @@ $purchases = $statement->fetchAll();
     </head>
     <body>
 
-            <div class="container">
+            <div class="container" style="pointer-events: none;">
                 <div class="row printme">
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
@@ -56,27 +56,16 @@ $purchases = $statement->fetchAll();
                             Address Here
                         </p>
                     </div>
-                    <div class="col-sm-6 text-muted mt-sm-0 mt-4 d-none d-sm-flex justify-content-sm-end">
-                        <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Invoice
-                            </h4>
-                            <p class="fs18">
-                                Date: 10/28/2021
-                            </p>
-                            <p class="fs18">
-                                Invoice # 001
-                            </p>
-                        </div>
-                    </div>
+
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
                             ISSUED BY:
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            PO ID: <?php echo $purchases[0]['purchid']; ?>
+                            PO ID: <?php echo $purchases[0]['poid']; ?>
                         </h4>
                     </div>
+
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
                         <div>
                             <h4 class="fs35 gorditaB text-uppercase mb-1">
@@ -87,6 +76,9 @@ $purchases = $statement->fetchAll();
                             </p>
                         </div>
                     </div>
+
+  
+
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
                             <table class="table">
@@ -127,11 +119,11 @@ $purchases = $statement->fetchAll();
                                         $output .= '<td>
                                                 <p>'.$purhcase['quantity'].'</p>
                                             </td>';
-                                        $output .= '<td>
+                                        $output .= '<td style = "border-bottom:5px solid">
                                                 <p>'.$purhcase['price'].'</p>
                                             </td>';
                                         
-                                        $output .= '<td>
+                                        $output .= '<td style = "border-bottom:5px solid">
                                                 <p>'.$purhcase['total'].'</p>
                                             </td>';
                                         $output .= '</tr>';
@@ -145,10 +137,10 @@ $purchases = $statement->fetchAll();
                                 <tfoot>
 
                                    
+                                
                                     <tr>
-
-                                    </tr>
-                                    <tr>
+                                        <td></td>
+                                        <td></td>
                                         <td colspan="2" class="text-end border_sm_top"></td>
                                         <td class="text-end border-top">TOTAL AMOUNT</td>
                                         <td class="border">

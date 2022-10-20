@@ -1,22 +1,44 @@
-<?php 
+<?php
 session_start();
+include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
+include '../actions/adddata.php';
+include '../actions/database_connection.php';
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+} 
+
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARCI - Delivery Order</title>
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-    
-  </head>
-  <body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PURCHASE ORDER</title>
+        <link rel="stylesheet" href="../admin/assets/style.css">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
+        <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script> 
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
 
-<!-- Start of sidebar -->
+
+    </head>
+    
+    </style>
+    <body>
+    <!-- Start of sidebar -->
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
@@ -35,7 +57,7 @@ include '../x-function/redirect_if_notLogin.php';
             <a href="addbranch_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Branch</a>
             <a href="editbranch_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Branch</a>
           </div>
-        </div>      
+        </div>              
 
         <!-- Products -->
         <div class="item">
@@ -66,7 +88,7 @@ include '../x-function/redirect_if_notLogin.php';
           </div>
         </div>
 
-        <!-- Purchase Order -->
+         <!-- Purchase Order -->
         <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
 
         <!-- Delivery Order -->
@@ -84,7 +106,7 @@ include '../x-function/redirect_if_notLogin.php';
             <a href="editsuppliers_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Suppliers</a>
           </div>
         </div>
-        
+
         <!-- Sales-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
@@ -109,7 +131,7 @@ include '../x-function/redirect_if_notLogin.php';
 
 
         <!-- Audit Logs -->
-        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>          
+        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>           
 
         <!-- Settings -->
         <div class="item">
@@ -127,7 +149,7 @@ include '../x-function/redirect_if_notLogin.php';
     </div>
 
 
-    <div class="usericon">Admin <i class="fa-regular fa-user"></i></div>      
+<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -143,90 +165,88 @@ include '../x-function/redirect_if_notLogin.php';
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>DELIVERY ORDER</h3>
-          <div style="display: inline-block;">
-            <a href="adddeliveryorder.php"><button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-circle-plus"></i> Add</button></a>            
-            <button onclick="window.location.href='#'" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><a href="deliveryorderreport.php"></a><i class="fa-solid fa-print"></i>Print</button>
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>            
-          </div>
-          <div style="float: right;">
-            <label><span>Search: </span><input type="text" class="input-field" name="field3" value=""/></label>
+        <h3>PURCHASE ORDER</h3>
+        <div style="display: inline">
+            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+        <div style="float: right;">
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        </div>
           </div>
         </div>
-        <table class="table-fill">
-        <thead>
-        <tr>
-        <th class="text-center">Delivery Order I.D.</th>
-        <th class="text-center">Purchase Order I.D.</th>
-        <th class="text-center">Supplier Name</th>
-        <th class="text-center">Total</th>
-        <th class="text-left">Action</th>
-        </tr>
-        </thead>
-        <tbody class="table-hover">
-
-        <tr>
-        <td class="text-center">DO001</td>
-        <td class="text-center">PO001</td>
-        <td class="text-left">Jon Geoffrey</td>
-        <td class="text-center">0</td>
-        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
-        </tr>
-
-        <tr>
-        <td class="text-center">DO002</td>
-        <td class="text-center">PO002</td>
-        <td class="text-left">Lesley Katelyn</td>
-        <td class="text-center">22</td>
-        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
-        </tr>
-
-        <tr>
-        <td class="text-center">DO003</td>
-        <td class="text-center">PO003</td>
-        <td class="text-left">Sofia Tranquilla</td>
-        <td class="text-center">19</td>
-        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
-        </tr>
-
-        <tr>
-        <td class="text-center">DO004</td>
-        <td class="text-center">PO004</td>
-        <td class="text-left">Shop Thrifty</td>
-        <td class="text-center">13</td>
-        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
-        </tr>
-
-        <tr>
-        <td class="text-center">DO005</td>
-        <td class="text-center">PO005</td>
-        <td class="text-left">Kirsten Clothing</td>
-        <td class="text-center">31</td>
-        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
-        </tr>
-
-        <tr>
-        <td class="text-center">DO006</td>
-        <td class="text-center">PO006</td>
-        <td class="text-left">AMARAH</td>
-        <td class="text-center">27</td>
-        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
-        </tr>
-
-        <tr>
-        <td class="text-center">DO007</td>
-        <td class="text-center">PO007</td>
-        <td class="text-left">Kira Monica</td>
-        <td class="text-center">0</td>
-        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
-        </tr>      
-
-        </tbody>
-        </table>
-     </div>
-  </div>
-</div>    
-
-
-  </body>
+       
+        <div border='1' class='table-responsive' id="dynamic_content">
+        <!--product content-->
+        </div>
+        
+      <!-- modal start -->
+        <div class="modal fade " id="pomodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                  </div>
+                    <style>
+                        #model-body-container > .container{
+                            width: 100% !important;}
+                        #model-body-container .col-sm-6
+                        {
+                            width: 25% !important;
+                        }
+                    </style>
+                  <div class="modal-body" id='model-body-container'>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>      
+        </div>
+        <!-- modal end -->
+        
+    </body>
 </html>
+<script>
+  $(document).ready(function(){
+    //modal start
+    $(document).on('click', '.data', function() {
+      var id = $(this).data('id');
+      
+
+      $.ajax({
+        url: '../actions/pomodal.php', //modal structure
+        type: 'post',
+        data: {id: id},
+        success: function(response){ 
+            $('.modal-body').html(response); 
+            $('#pomodal').modal('show'); 
+        }
+    });
+
+    });
+    //modal end
+    load_data(1);
+
+    function load_data(page, query = '')
+    {
+      $.ajax({
+        url:"../actions/fetchpurchaseorder.php",
+        method:"POST",
+        data:{page:page, query:query},
+        success:function(data)
+        {
+          $('#dynamic_content').html(data);
+        }
+      });
+    }
+
+    $(document).on('click', '.page-link', function(){
+      var page = $(this).data('page_number');
+      var query = $('#search_box').val();
+      load_data(page, query);
+    });
+
+    $('#search_box').keyup(function(){
+      var query = $('#search_box').val();
+      load_data(1, query);
+    });
+
+  });
+</script>

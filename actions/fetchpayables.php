@@ -1,18 +1,15 @@
 <?php
-
+session_start();
 include 'database_connection.php';
+include 'getdata.php';
 
-// function get_total_row($connect)
-// {
-//   $query = "
-//   SELECT * FROM tblcategory
-//   ";
-//   $statement = $connect->prepare($query);
-//   $statement->execute();
-//   return $statement->rowCount();
-// }
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+$permission = getPermission($id);
 
-// $total_record = get_total_row($connect);
+
+$limit = '10';
+$page = 1;
 
 $limit = '10';
 $page = 1;
@@ -36,6 +33,7 @@ INNER JOIN tblusers
 ON tblpayables.userid=tblusers.id
 WHERE tblpayables.active = 1
 ";
+
 
 if($_POST['query'] != '')
 {
@@ -72,7 +70,7 @@ if($total_data > 0)
   foreach($result as $row)
   {
     $output .= '
-    <tr data-id="'.$row["pyid"].'">
+    <tr class="data" data-id="'.$row["pyid"].'">
       <td style="border: 1px solid;">'.$row["pyid"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["calendar"].'</td>

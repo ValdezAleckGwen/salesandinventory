@@ -1,21 +1,16 @@
 <?php
- 
+session_start();
 include 'database_connection.php';
+include 'getdata.php';
 
-function get_total_row($connect)
-{
-  $query = "
-  SELECT * FROM tblcategory
-  ";
-  $statement = $connect->prepare($query);
-  $statement->execute();
-  return $statement->rowCount();
-}
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+$permission = getPermission($id);
 
-$total_record = get_total_row($connect);
 
 $limit = '10';
 $page = 1;
+
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);

@@ -1,21 +1,16 @@
 <?php
-
+session_start();
 include 'database_connection.php';
+include 'getdata.php';
 
-// function get_total_row($connect)
-// {
-//   $query = "
-//   SELECT * FROM tblcategory
-//   ";
-//   $statement = $connect->prepare($query);
-//   $statement->execute();
-//   return $statement->rowCount();
-// }
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+$permission = getPermission($id);
 
-// $total_record = get_total_row($connect);
 
 $limit = '10';
 $page = 1;
+
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);
@@ -26,6 +21,7 @@ else
   $start = 0;
 }
 
+if ($permission == 1) {
 $query = "
 SELECT tblpurchaseorder.id AS poid, 
 tblbranch.name AS branchname, 
@@ -41,6 +37,28 @@ ON tblpurchaseorder.supplierid=tblsupplier.id
 INNER JOIN tblusers 
 ON tblpurchaseorder.userid=tblusers.id
 ";
+  
+} else {
+$query = "
+SELECT tblpurchaseorder.id AS poid, 
+tblbranch.name AS branchname, 
+tblsupplier.name AS suppliername,
+tblusers.lastname AS username,
+tblpurchaseorder.date AS det,
+tblpurchaseorder.total as total
+FROM tblpurchaseorder 
+INNER JOIN tblbranch
+ON tblpurchaseorder.branchid=tblbranch.id
+INNER JOIN tblsupplier 
+ON tblpurchaseorder.supplierid=tblsupplier.id
+INNER JOIN tblusers 
+ON tblpurchaseorder.userid=tblusers.id
+WHERE tblusers.branchid = '".$branchid."'
+";
+}
+
+
+
 
 if($_POST['query'] != '')
 {
@@ -79,7 +97,7 @@ if($total_data > 0)
   foreach($result as $row)
   {
     $output .= '
-    <tr data-id="'.$row["poid"].'">
+    <tr class="data" data-id="'.$row["poid"].'">
       <td style="border: 1px solid;">'.$row["poid"].'</td>
       <td style="border: 1px solid;">'.$row["branchname"].'</td>
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>

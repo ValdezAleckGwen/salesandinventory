@@ -18,20 +18,21 @@ function displayUser() {
   }
   return $output;
 } 
-?>
 
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SALES</title>
+        <title>PURCHASE ORDER</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script> 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
+
 
     </head>
     
@@ -148,7 +149,7 @@ function displayUser() {
     </div>
 
 
-    <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
+<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -164,7 +165,7 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>SALES</h3>
+        <h3>PURCHASE ORDER</h3>
         <div style="display: inline">
             <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
         <div style="float: right;">
@@ -178,7 +179,7 @@ function displayUser() {
         </div>
         
       <!-- modal start -->
-        <div class="modal fade " id="salesmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+        <div class="modal fade " id="pomodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
               <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -199,35 +200,34 @@ function displayUser() {
               </div>      
         </div>
         <!-- modal end -->
-  </body>
+        
+    </body>
 </html>
 <script>
   $(document).ready(function(){
     //modal start
     $(document).on('click', '.data', function() {
       var id = $(this).data('id');
+      
 
       $.ajax({
-        url: '../actions/salesmodal.php', //modal structure
+        url: '../actions/pomodal.php', //modal structure
         type: 'post',
         data: {id: id},
         success: function(response){ 
             $('.modal-body').html(response); 
-            $('#salesmodal').modal('show'); 
+            $('#pomodal').modal('show'); 
         }
     });
 
     });
     //modal end
-
-
-
     load_data(1);
 
     function load_data(page, query = '')
     {
       $.ajax({
-        url:"../actions/fetchsales.php",
+        url:"../actions/fetchpurchaseorder.php",
         method:"POST",
         data:{page:page, query:query},
         success:function(data)
