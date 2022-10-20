@@ -41,8 +41,8 @@ if(isset($_POST["item_id"]))
 
 		$query = "
 		INSERT INTO tblpurchaseorderitem 
-        (id, poid, productid, branchid, price, quantity, total) 
-        VALUES (:purchaseorderitemid, :poid, :productid, :branchid, :price, :item_quantity, :totalprice)
+        (id, poid, productid, branchid, price, quantity, poquantity, total) 
+        VALUES (:purchaseorderitemid, :poid, :productid, :branchid, :price, :item_quantity, :poquantity, :totalprice)
 		";
 
 		$purchaseorderitemid = createId('tblpurchaseorderitem'); //incrementing sales item id
@@ -60,6 +60,7 @@ if(isset($_POST["item_id"]))
 				':branchid' 		=> $branchid,
 				':price'	        =>	$price,
 				':item_quantity'    =>	$item_quantity,
+				':poquantity'    	=>	$item_quantity,
 				':totalprice'	    =>	$totalprice
 			)
 		);
