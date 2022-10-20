@@ -12,19 +12,20 @@ if (isset($_POST['source_branch'])) {
 
 			$query = "SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = '".$branchid."' AND tblinventory.quantity != 0";
 			if (isset($_POST["item_id"])) {
+				
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {
 					$itemid = $_POST['item_id'][$count];
 					$query .= " AND tblinventory.id != '".$itemid."'";
 				}
 			} 
-
+			
 			$stmt = $conn->prepare($query);
 			$stmt->execute();
 			$inventories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-				
+				$output = '';
 				$output .= '<tr>';
 
-				$output .= '<td><select name="item_id[]" class="col col-sm-2 form-control selectpicker inventory_id" data-live-search="true"><option value="">Select Product</option>';
+				$output .= '<td><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Product</option>';
 				foreach ($inventories as $inventory) {
 				$output .= '<option value="'. $inventory['inventory'] .'">'. $inventory['inventory'] .'</option>';
 				}

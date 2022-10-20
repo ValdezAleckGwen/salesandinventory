@@ -1,18 +1,11 @@
 <?php
+session_start();
+include 'database_connection.php';
+include 'getdata.php';
 
-$connect = new PDO("mysql:host=localhost; dbname=itlog", "root", "");
-
-// function get_total_row($connect)
-// {
-//   $query = "
-//   SELECT * FROM tblcategory
-//   ";
-//   $statement = $connect->prepare($query);
-//   $statement->execute();
-//   return $statement->rowCount();
-// }
-
-// $total_record = get_total_row($connect);
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+$permission = getPermission($id);
 
 $limit = '10';
 $page = 1;
@@ -26,23 +19,44 @@ else
   $start = 0;
 }
 
-$query = "
-SELECT tbldeliveryorder.id AS doid, 
-tblsupplier.name as suppliername,
-tblbranch.name as branchname,
-tblusers.lastname as username,
-tbldeliveryorder.total as total,
-tbldeliveryorder.date as ddate,
-tbldeliveryorder.time as  ttime
-FROM tbldeliveryorder 
-INNER JOIN tblsupplier 
-ON tbldeliveryorder.supplierid=tblsupplier.id
-INNER JOIN tblbranch
-ON tbldeliveryorder.branchid=tblbranch.id
-INNER JOIN tblusers
-ON tbldeliveryorder.userid=tblusers.id
+if ($permission == 1) {
+    $query = "
+  SELECT tbldeliveryorder.id AS doid, 
+  tblsupplier.name as suppliername,
+  tblbranch.name as branchname,
+  tblusers.lastname as username,
+  tbldeliveryorder.total as total,
+  tbldeliveryorder.date as ddate,
+  tbldeliveryorder.time as  ttime
+  FROM tbldeliveryorder 
+  INNER JOIN tblsupplier 
+  ON tbldeliveryorder.supplierid=tblsupplier.id
+  INNER JOIN tblbranch
+  ON tbldeliveryorder.branchid=tblbranch.id
+  INNER JOIN tblusers
+  ON tbldeliveryorder.userid=tblusers.id
+  ";
+} else {
+    $query = "
+  SELECT tbldeliveryorder.id AS doid, 
+  tblsupplier.name as suppliername,
+  tblbranch.name as branchname,
+  tblusers.lastname as username,
+  tbldeliveryorder.total as total,
+  tbldeliveryorder.date as ddate,
+  tbldeliveryorder.time as  ttime
+  FROM tbldeliveryorder 
+  INNER JOIN tblsupplier 
+  ON tbldeliveryorder.supplierid=tblsupplier.id
+  INNER JOIN tblbranch
+  ON tbldeliveryorder.branchid=tblbranch.id
+  INNER JOIN tblusers
+  ON tbldeliveryorder.userid=tblusers.id
+  WHERE tblusers.branchid = '".$branchid."'
 
-";
+  ";
+}
+
 
 if($_POST['query'] != '')
 {

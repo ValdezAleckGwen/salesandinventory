@@ -7,7 +7,7 @@ include '../actions/database_connection.php';
 
 $id = $_SESSION['uid'];
 $branchid = getBranch($id);
-	
+
 function fill_unit_select_box_branch($connect, $branchid)
 {
 	
@@ -21,7 +21,7 @@ function fill_unit_select_box_branch($connect, $branchid)
 	foreach($result as $row)
 	{
 		if ($branchid == $row["branchid"]) {
-			$output .= '<option value="'.$row["branchid"].'" selected>'.$row["branchname"] . '</option>';
+			$output .= '<option selected="selected" value="'.$row["branchid"].'" >'.$row["branchname"] . '</option>';
 		} else {
 			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
 		}
@@ -148,8 +148,8 @@ function displayUser() {
 									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
 								</div>
 							<div class="container m-1">
-								<h5>Source Branch</label>
-								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch" id="source_branch" disabled><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+								<h5>Source Branch: <?php echo displayBranch($id); ?></label>
+								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch d-none" id="source_branch" ><option value="default">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
 								<h5>Destination Branch</label>
@@ -181,7 +181,7 @@ function displayUser() {
 <script>
 
 $(document).ready(function(){
-	
+	 $('#source_branch').unbind();
 
 	var count = 0;
 	
@@ -190,15 +190,18 @@ $(document).ready(function(){
 
 	$(document).on('click', '.add', function(){
 
-		var branchid = $('#source_branch').val();
-		count++;
+		
+		
+		var form_data = $('#insert_form').serialize();
+		
+		console.log(form_data)
 
 		$.ajax({
-        url: "../actions/addrow.php",
+        url: "../actions/addrowv2.php",
         method: "POST",
-        data: {branchid: branchid},
+        data: form_data,
         success: function (data) {
-            
+            console.log(data)
         	$('#item_table').append(data);
 
 			$('.selectpicker').selectpicker('refresh');
@@ -232,8 +235,6 @@ $(document).ready(function(){
             }
         });
 
-
-		
 
 	});
 
@@ -332,11 +333,14 @@ $(document).ready(function(){
 		}
 
 	});
-
-	$(document).on("change", ".inventory_id", function  () {
-
+	var items = [];
+	$(document).on("change", ".item_id", function  () {
+		
         var currentRow = $(this).closest("tr");
         var inventoryid = $(this).val();
+
+        
+
         var name = currentRow.find(".item_name");
         var code = currentRow.find(".item_code");
         var quantity = currentRow.find(".item_available");
@@ -356,7 +360,12 @@ $(document).ready(function(){
         return false;
     });
 
-  
+
+
+
+
+
+
     
 
 

@@ -226,7 +226,7 @@ if(isset($_POST["item_id"]))
 				':productid'	=>	$productid,
 				':supplierid'	=>	$supplierid, //supplier id is already declared in 147
 				':branchid'		=>	$destinationbranch, //destination branch is already declared in line 13
-				':quantity'		=>  $quantity // declared at line 175-179
+				
 			)
 		);
 
