@@ -8,10 +8,6 @@ include('database_connection.php');
 if(isset($_POST["item_id"]))
 {
 
-	
-
-	
-	
 	$salesid = createId('tblsales');
 	
 	$total = preg_replace('/[^0-9]/s', "",$_POST["total"]);
@@ -76,8 +72,35 @@ if(isset($_POST["item_id"]))
 	}
 
 	$result = $statement->fetchAll();
+
+
 	
 	//remove item from inventory
+
+	for($count = 0; $count < count($_POST["item_id"]); $count++)
+	{
+
+		$query = "
+		UPDATE tblinventory SET tblinventory.quantity = :quantity WHERE tblinventory.id = :inventoryid
+		";
+
+
+		$item_quantity = 0;
+		$availablequantity = 0;
+		$inventoryid = $_POST["item_id"][$count];
+		$availablequantity = getInventoryCount($inventoryid);
+		$item_quantity = $_POST["item_quantity"][$count];
+		$quantity = $availablequantity - $item_quantity;
+		$statement = $connect->prepare($query);
+		
+		$statement->execute(
+			array(
+				':inventoryid'		=>	$inventoryid,
+				':quantity'=>	$quantity,
+			)
+		);
+
+	}
 	
 
 	if(isset($result))

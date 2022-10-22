@@ -77,6 +77,23 @@ function getPermission(string $uid) {
 	return $id;
 }
 
+function getInventoryCount(string $inventoryid) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	
+	$stmt = $conn->prepare("SELECT tblinventory.quantity AS quantity FROM tblinventory WHERE tblinventory.id = :inventoryid");
+	$stmt->execute([
+		':inventoryid' => $inventoryid
+	]);
+	$inventories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($inventories as $inventory) {
+		$count = $inventory['quantity'];
+	}
+	return $count;
+}
+
+
+
 
 
  ?>
