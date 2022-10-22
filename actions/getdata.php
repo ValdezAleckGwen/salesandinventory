@@ -92,6 +92,20 @@ function getInventoryCount(string $inventoryid) {
 	return $count;
 }
 
+function getTax () {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$tax;
+	$stmt = $conn->prepare("SELECT * from tbltax");
+	$stmt->execute();
+	$taxes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($taxes as $tax) {
+		$tax = $tax['tax'];
+	}
+	return $tax;
+}
+
+
 
 
 

@@ -150,8 +150,8 @@ function fill_unit_select_box($connect, $branchid)
 								</div>
 								<div class="col col-sm-3" style="float: right;">
 									<div class="input-group mb-3">
-									  <span class="input-group-text" id="basic-addon3">Vatable Sale</span>
-									  <input type="text" class="form-control"name="vatable-sale" id="vatable-sale" aria-describedby="basic-addon3" readonly>
+									  <span class="input-group-text" id="basic-addon3">Vattable Sale</span>
+									  <input type="text" class="form-control"name="vattable-sale" id="vattable-sale" aria-describedby="basic-addon3" readonly>
 									</div>
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Vat</span>
@@ -301,7 +301,7 @@ $(document).ready(function(){
 
 						$('#tax').val('');
 						
-						$('vatable-sale').val('');
+						$('vattable-sale').val('');
 
 						$('#submit_button').attr('disabled', false);
 					}
@@ -348,6 +348,25 @@ $(document).ready(function(){
         });
         return false;
     });
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".available_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        
+        var availval = available.val();
+        
+        if (quantityval > availval) {
+        	quantity.addClass("border border-2 border-danger");
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
 	//
 
 	$(document).on("keyup", ".item_quantity", function() {
@@ -367,21 +386,9 @@ $(document).ready(function(){
 			success	: function (totalprice) {
 				totalprice = totalprice.replace(/^/, '₱ ');
 				totalPrice.val(totalprice);
-
+				
 				number = totalprice;
 				number = number.replace(/[^a-zA-Z0-9]/g, '');
-
-				if (tax == 1) {
-					vatSale = number * .88;
-					number = number * .12;
-
-					number = parseFloat(number).toFixed(2);
-					vatSale = parseFloat(vatSale).toFixed(2);
-					$('#vat').val(number);
-					$('#vatable-sale').val(vatSale);
-				} 
-
-
 
 			}
 		});
@@ -390,37 +397,36 @@ $(document).ready(function(){
 	});
 
 
-	var	total_amount = function () {
 
-		var sum = 0;
-		var currency = "₱"
-		var tax = $('#tax').val();
-		$('.item_total').each(function () {
-			var num = $(this).val().replace(/[^a-zA-Z0-9]/g, '');
-			
-			// var num = $(this).val();
-			console.log(num);
-			if(num != 0) {
-				
-				sum += parseFloat(num);
-				$('#vat').val(0.00);
-				$('#vatable-sale').val(0.00);
-			}
-
-		});
-		if (tax == 2) {
-			sum = (sum * .12) * 8
-
-		} 
-		
-		sum = sum.toLocaleString("en-US");
-		sum = sum.replace(/^/, '₱');
-		$("#total").val(sum);
-	}
 
 	$(document).on("change", ".item_quantity", function() {
-		total_amount();
-	})
+		var form_data = $('#insert_form').serialize();
+		
+		$.ajax({
+			url: "../actions/fetchtax.php",
+			method: "POST",
+			data: form_data,
+			dataType: "JSON",
+			success	: function (data) {
+			
+			if (data.status = 1) {
+				$('#vattable-sale').val(data.vattablesale);
+				$('#vat').val(data.vat);
+				$('#total').val(data.total);
+
+			} else {
+				$('#vattable-sale').val(0.0);
+				$('#vat').val(0.0);
+				$('#total').val(data.total);
+			}
+			
+
+
+
+			}
+		});
+
+	});
 
 	
 	

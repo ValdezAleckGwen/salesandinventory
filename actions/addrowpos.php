@@ -41,7 +41,7 @@ if (isset($branchid)) {
 				$output .= '<td width="12%"><input type="text" name="item_price[]" class="col col-sm-2 form-control item_price" readonly/></td>';
 
 				$output .= '<td width="10.05%"><input type="text" name="available_quantity[]" class="col col-sm-1 form-control available_quantity" readonly/></td>';
-				$output .= '<td width="10%"><input type="text" name="item_quantity[]" class="col col-sm-1 form-control item_quantity" /></td>';
+				$output .= '<td width="10%"><input type="text" name="item_quantity[]" class="col col-sm-1 form-control  item_quantity" /></td>';
 				
 				$output .= '<td width="11.22%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" readonly/></td>';
 
