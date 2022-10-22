@@ -1,5 +1,11 @@
 <?php
-require_once 'DbConnect.php';
+session_start();
+include 'database_connection.php';
+include 'getdata.php';
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+$permission = getPermission($id);
 
 if (isset($_POST['inventoryid'])) {
 	$inventoryid = $_POST['inventoryid'];

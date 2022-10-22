@@ -204,27 +204,12 @@ function displayUser() {
     </body>
 </html>
 <script>
+
+ // Start of Pagination Query // 
   $(document).ready(function(){
-    //modal start
-    $(document).on('click', '.data', function() {
-      var id = $(this).data('id');
-      
+        load_data(1);
 
-      $.ajax({
-        url: '../actions/pomodal.php', //modal structure
-        type: 'post',
-        data: {id: id},
-        success: function(response){ 
-            $('.modal-body').html(response); 
-            $('#pomodal').modal('show'); 
-        }
-    });
-
-    });
-    //modal end
-    load_data(1);
-
-    function load_data(page, query = '')
+    function load_data(page = 1, query = '')
     {
       $.ajax({
         url:"../actions/fetchpurchaseorder.php",
@@ -245,8 +230,32 @@ function displayUser() {
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(1, query);
+      load_data(2, query);
     });
 
   });
+
+    //Start of DO Modal
+    $(document).on('click', '.data', function() {
+      var id = $(this).data('id');
+      
+
+      $.ajax({
+        url: '../actions/pomodal.php', //modal structure
+        type: 'post',
+        data: {id: id},
+        success: function(response){ 
+            $('.modal-body').html(response); 
+            $('#pomodal').modal('show'); 
+        }
+    });
+
+    });
+    //modal end
+
+
+
+   
+ 
+
 </script>
