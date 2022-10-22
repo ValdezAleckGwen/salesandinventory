@@ -8,7 +8,8 @@ if (isset($_POST['item_total'])) {
 	$vattablesale = 0.00;
 	$vat = 0.00;
 	for($count = 0; $count < count($_POST["item_total"]); $count++) {
-		$totalprice = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$totalprice = $_POST["item_total"][$count];
+		$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$sum += $totalprice;
 	}
 

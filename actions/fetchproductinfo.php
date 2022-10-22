@@ -18,7 +18,8 @@ if (isset($_POST['inventoryid'])) {
 				foreach ($products as $product) {
 					$data['name'] = $product['name'];
 					$data['available'] = $product['count'];
-					$data['price'] = number_format($product['price']);
+					$price = $product['price'];
+					$data['price'] = number_format((float)$price, 2, '.', ',');
 				}
 
 				
