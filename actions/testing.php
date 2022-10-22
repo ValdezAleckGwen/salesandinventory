@@ -24,14 +24,16 @@ $sum = 0.00;
     $status = 2;
   }
   $sum = number_format((float)$sum, 2, '.', '');
-  $vattablesale = number_format((float)$vattablesale, 2, '.', '')
+  $vattablesale = number_format((float)$vattablesale, 2, '.', '');
   $vat = number_format((float)$vat, 2, '.', '');
-
+  $psum = "₱" . $sum;
+  $pvattablesale = "₱". $vattablesale;
+  $pvat = "₱". $vat;
 
   $data['status'] = $status;
-  $data['total'] = $sum;
-  $data['vattablesale'] = $vattablesale;
-  $data['vat'] = $vat;
+  $data['total'] = $psum;
+  $data['vattablesale'] = $pvattablesale;
+  $data['vat'] = $pvat;
 
   echo json_encode($data);
 
