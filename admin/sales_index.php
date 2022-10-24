@@ -1,3 +1,25 @@
+<?php
+session_start();
+include '../actions/getdata.php';
+include '../x-function/redirect_if_notLogin.php';
+include '../actions/adddata.php';
+include '../actions/database_connection.php';
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+} 
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -126,7 +148,7 @@
     </div>
 
 
-<div class="usericon">Admin <i class="fa-regular fa-user"></i></div>     
+    <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -180,29 +202,12 @@
   </body>
 </html>
 <script>
+
+   // Start of Pagination Query // 
   $(document).ready(function(){
-    //modal start
-    $(document).on('click', '.data', function() {
-      var id = $(this).data('id');
+        load_data(1);
 
-      $.ajax({
-        url: '../actions/salesmodal.php', //modal structure
-        type: 'post',
-        data: {id: id},
-        success: function(response){ 
-            $('.modal-body').html(response); 
-            $('#salesmodal').modal('show'); 
-        }
-    });
-
-    });
-    //modal end
-
-
-
-    load_data(1);
-
-    function load_data(page, query = '')
+    function load_data(page = 1, query = '')
     {
       $.ajax({
         url:"../actions/fetchsales.php",
@@ -223,8 +228,32 @@
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(1, query);
+      load_data(2, query);
     });
 
   });
+
+    //Start of DO Modal
+    $(document).on('click', '.data', function() {
+      var id = $(this).data('id');
+      
+
+      $.ajax({
+        url: '../actions/salesmodal.php', //modal structure
+        type: 'post',
+        data: {id: id},
+        success: function(response){ 
+            $('.modal-body').html(response); 
+            $('#salesmodal').modal('show'); 
+        }
+    });
+
+    });
+    //modal end
+
+
+
+   
+ 
+
 </script>

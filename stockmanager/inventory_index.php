@@ -1,7 +1,13 @@
-<?php 
+<?php
 session_start();
 include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
+include '../actions/adddata.php';
+include '../actions/database_connection.php';
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
 
 function displayUser() {
   $output = '';
@@ -102,32 +108,17 @@ function displayUser() {
     </body>
 </html>
 <script>
+
+// Start of Pagination Query // 
   $(document).ready(function(){
+        load_data(1);
 
-    // $("tr").each(function(){
-
-    // var row = $(this).closest("tr");
-    // var quantity = $(this).closest('.quantity').val();
-
-    // console.log(quantity)
-
-    
-
-    // });
-
-
-
-    //
-    load_data(1);
-
-    function load_data(page, query = '')
+    function load_data(page = 1, query = '')
     {
-      var id = $('#user').data('id')
-
       $.ajax({
         url:"../actions/fetchinventory.php",
         method:"POST",
-        data:{page:page, query:query, id:id },
+        data:{page:page, query:query},
         success:function(data)
         {
           $('#dynamic_content').html(data);
@@ -143,7 +134,7 @@ function displayUser() {
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(1, query);
+      load_data(2, query);
     });
 
   });

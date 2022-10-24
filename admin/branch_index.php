@@ -19,30 +19,14 @@ function displayUser() {
   return $output;
 } 
 
-
-function fill_unit_select_box_branch($connect)
-{
-    $output = '';
-
-    $query = "SELECT id AS branchid, name AS branchname from tblbranch WHERE active = 1";
-
-    $result = $connect->query($query);
-
-    foreach($result as $row)
-    {
-        $output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
-    }
-
-    return $output;
-}   
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch</title>
 
-    <title>Users</title>
         <link rel="stylesheet" href="assets/style.css">
 
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
@@ -53,9 +37,10 @@ function fill_unit_select_box_branch($connect)
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-        
-    <!-- Delete Function Jquery -->
+
         <script>
+
+    // Delete Function Jquery //
             $(document).ready(function () {
 
                 // Delete 
@@ -71,7 +56,7 @@ function fill_unit_select_box_branch($connect)
                         if (result) {
                             // AJAX Request
                             $.ajax({
-                                url: '../actions/deleteuser.php',
+                                url: '../actions/deletebranch.php',
                                 type: 'POST',
                                 data: {id: deleteid},
                                 success: function (response) {
@@ -98,6 +83,7 @@ function fill_unit_select_box_branch($connect)
             });
         </script>
 
+    
   </head>
   <body>
 
@@ -212,7 +198,7 @@ function fill_unit_select_box_branch($connect)
     </div>
 
     
-    <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
+    <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
     
     <script type="text/javascript">
     $(document).ready(function(){
@@ -224,158 +210,137 @@ function fill_unit_select_box_branch($connect)
     });
 
     </script>
+
+
 <div class="main">
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>USERS</h3>
+        
+        <h3>BRANCH</h3>
+
           <div style="display: inline;">
                         <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userAddModal">
-                            Add User
-                        </button> 
-
+                            Add Branch
+                        </button>
             <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
           </div>
+
           <div style="float: right;">
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
           </div>
         </div>
         
-        <div class="table-responsive" id="dynamic_content"></div>
 
-     </div>
+        <div class="table-responsive" id="dynamic_content"></div>
+    </div>
   </div>
 </div>
 
-<!-- Add User Modal -->
+<!-- Add branch modal -->
 <div class="modal fade" id="userAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form id="saveuser">
-            <div class="modal-body">
-
-                <div id="errorMessage" class="alert alert-warning d-none"></div>
-
-                <div class="mb-3">
-                    <label for="">ID</label>
-                    <input type="text" name="id" class="form-control" value="<?php echo createId('tblusers');?>" readonly/>
-                </div>
-
-                <div class="mb-3">
-                    <label for="">FIRST NAME</label>
-                    <input type="text" name="firstname" class="form-control" />
-                </div>
-
-                 <div class="mb-3">
-                    <label for="">LAST NAME</label>
-                    <input type="text" name="lastname" class="form-control" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="">EMAIL ADDRESS</label>
-                    <input type="text" name="email" class="form-control" />
-                </div>
-                <div class="mb-3">
-                <label for="permission">Permission</h5>
-                <select name="permission" class="form-control permission" id="permission"><option value="">Select Permission</option>
-                    <option value="1">Admin</option>
-                    <option value="2">Cashier</option>
-                    <option value="3">Stock Manager</option></select>
-                </div>
-
-                <div class="mb-3">
-                <label for="branch_id">For Branch</h5>
-                <select name="branch" class="form-control branch" id="branch"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
-                </div>
-
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Branch</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save User</button>    
-            </div>
-        </form>
 
+            <form id="savebranch">
+                <div class="modal-body">
+
+                    <div id="errorMessage" class="alert alert-warning d-none"></div>
+
+                    <div class="mb-3">
+                        <label for="">ID</label>
+                        <input type="text" name="id" class="form-control" value="<?php echo createId('tblbranch');?>" readonly/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="">NAME</label>
+                        <input type="text" name="name" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="">BRANCH ADDRESS</label>
+                        <input type="text" name="address" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="">CONTACT NUMBER</label>
+                        <input type="text" name="contact" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Branch</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Edit User Modal -->
+<!-- Edit branch Modal -->
 <div class="modal fade" id="userEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Student</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Branch</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form id="edituser">
+        <form id="editbranch">
             <div class="modal-body">
 
                 <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
 
                 <div class="mb-3">
                     <label for="">ID</label>
-                    <input type="text" name="id" class="form-control userid"   id="eid" value="" readonly/>
+                    <input type="text" name="id" class="form-control id"   id="eid" value="" readonly/>
                 </div>
 
                 <div class="mb-3">
-                    <label for="">FIRST NAME</label>
-                    <input type="text" name="firstname" class="form-control firstname" id="efirstname" />
-                </div>
-
-                 <div class="mb-3">
-                    <label for="">LAST NAME</label>
-                    <input type="text" name="lastname" class="form-control lastname" id="elastname" />
+                    <label for="">NAME</label>
+                    <input type="text" name="name" class="form-control name" id="ename" />
                 </div>
 
                 <div class="mb-3">
-                    <label for="">EMAIL ADDRESS</label>
-                    <input type="text" name="email" class="form-control email" id="eemail" />
-                </div>
-                <div class="mb-3">
-                <label for="permission">Permission</h5>
-                <select name="permission" class="form-control permission" id="epermission"><option value="">Select Permission</option>
-                    <option value="1">Admin</option>
-                    <option value="2">Cashier</option>
-                    <option value="3">Stock Manager</option></select>
+                    <label for="">ADDRESS</label>
+                    <input type="text" name="address" class="form-control name" id="eaddress" />
                 </div>
 
                 <div class="mb-3">
-                <label for="ebranch">For Branch</h5>
-                <select name="branch" class="form-control branch" id="ebranch"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
+                    <label for="">CONTACT</label>
+                    <input type="text" name="contact" class="form-control name" id="econtact" />
                 </div>
+
+
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Update Student</button>
+                <button type="submit" class="btn btn-primary">Update Branch</button>
             </div>
         </form>
         </div>
     </div>
 </div>
 
-
-
-  </body>
+</body>
 </html>
+
 <script>
 
-
-    // Pagination Jquery // 
+  // Pagination//
   $(document).ready(function(){
     load_data(1);
 
     function load_data(page = 1, query = '')
     {
       $.ajax({
-        url:"../actions/fetchuser.php",
+        url:"../actions/fetchbranch.php",
         method:"POST",
         data:{page:page, query:query},
         success:function(data)
@@ -397,51 +362,52 @@ function fill_unit_select_box_branch($connect)
     });
 
   });
-            // Add User Jquery // 
-          $(document).on('submit', '#saveuser', function (e) {
-            e.preventDefault();
 
-            var formData = new FormData(this);
-            formData.append("save_user", true);
+    // Add Function//
+    $(document).on('submit', '#savebranch', function (e) {
+    e.preventDefault();
 
-            $.ajax({
-                type: "POST",
-                url: "../actions/insertuser.php",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
+    var formData = new FormData(this);
+    formData.append("save_branch", true);
+
+
+    $.ajax({
+        type: "POST",
+        url: "../actions/insertbranch.php",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+                  
+            var res = jQuery.parseJSON(response);
                     
-                    var res = jQuery.parseJSON(response);
-                    
-                    if(res.status == 422) {
-                        $('#errorMessage').removeClass('d-none');
-                        $('#errorMessage').text(res.message);
+            if(res.status == 422) {
+                $('#errorMessage').removeClass('d-none');
+                $('#errorMessage').text(res.message);
 
-                    }else if(res.status == 200){
-                        alert('egg')
-                        $('#errorMessage').addClass('d-none');
-                        $('#userAddModal').modal('hide');
-                        $('#saveUser')[0].reset();
+            }else if(res.status == 200){
+                $('#errorMessage').addClass('d-none');
+                $('#userAddModal').modal('hide');
+                $('#savebranch')[0].reset();
 
-                        alertify.set('notifier','position', 'top-right');
-                        alertify.success(res.message);
+                alertify.set('notifier','position', 'top-right');
+                alertify.success(res.message);
 
-                        $('#myTable').load(location.href + " #myTable");
+                $('#myTable').load(location.href + " #myTable");
 
-                    }else if(res.status == 500) {
-                        $('#errorMessage').removeClass('d-none');
-                        $('#errorMessage').text(res.message);
-                    } else if (res.status == 69) {
-                        $('#errorMessage').removeClass('d-none');
-                        $('#errorMessage').text(res.message);
-                    }
-                }
-            });
+            }else if(res.status == 500) {
+                $('#errorMessage').removeClass('d-none');
+                $('#errorMessage').text(res.message);
 
-        });
+            } else if (res.status == 69) {
+                $('#errorMessage').removeClass('d-none');
+                $('#errorMessage').text(res.message);
+            }
+        }
+    });
+    });
 
-          // Edit User Get Data //
+ // Edit User Get Data //
         $(document).on('click', '#edit', function () {
 
            var id = $(this).data('id');
@@ -450,19 +416,16 @@ function fill_unit_select_box_branch($connect)
             
             $.ajax({
                 type: "GET",
-                url: "../actions/edituser.php",
+                url: "../actions/editbranch.php",
                 data: {id: id},
                 dataType: "JSON",
                 success: function (data) {
-                var branchid = $.trim(data.branchid);
+                
                 // var res = jQuery.parseJSON(response)
                 $('#eid').val(data.id);
-                $('#efirstname').val(data.firstname);
-                $('#elastname').val(data.lastname);
-                $('#eemail').val(data.email);
-                $('#epermission').val(data.permission);
-                $('#ebranch').val(branchid);
-
+                $('#ename').val(data.name);
+                $('#eaddress').val(data.branchaddress);
+                $('#econtact').val(data.contactnumber);
                 $('#userEditModal').modal('show');
                         
                         
@@ -474,20 +437,20 @@ function fill_unit_select_box_branch($connect)
         });
 
         // Update User Jquery //
-        $(document).on('submit', '#edituser', function (e) {
+        $(document).on('submit', '#editbranch', function (e) {
             e.preventDefault();
 
             var formData = new FormData(this);
-            formData.append("edit_user", true);
+            formData.append("edit_branch", true);
 
             $.ajax({
                 type: "POST",
-                url: "../actions/insertuser.php",
+                url: "../actions/insertbranch.php",
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    
+                    alert(response);
                     var res = jQuery.parseJSON(response);
                     
                     if(res.status == 422) {
@@ -498,7 +461,7 @@ function fill_unit_select_box_branch($connect)
 
                         $('#errorMessage').addClass('d-none');
                         $('#userAddModal').modal('hide');
-                        $('#edituser')[0].reset();
+                        $('#editbranch')[0].reset();
 
                         alertify.set('notifier','position', 'top-right');
                         alertify.success(res.message);
