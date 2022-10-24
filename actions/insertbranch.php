@@ -1,13 +1,16 @@
 <?php
 include 'database_connection.php';
 
-if(isset($_POST['save_category'])) {
+if(isset($_POST['save_branch']))
+{
     $id = $_POST['id'];
     $name =  $_POST['name'];
+    $address =  $_POST['address'];
+    $contact =  $_POST['contact'];
 
 
 
-    if($id == NULL || $name == NULL) {
+    if($id == NULL || $name == NULL || $address == NULL || $contact == NULL ) {
         $res = [
             'status' => 422,
             'message' => 'All fields are mandatory'
@@ -16,35 +19,39 @@ if(isset($_POST['save_category'])) {
     } else {
     
     $query = "
-    INSERT INTO tblcategory (id, name, active) 
-    VALUES (:id, :name, 1)
+    INSERT INTO tblbranch (id, name, branchaddress, contactnumber, audit, active) 
+    VALUES (:id, :name, :address, :contact, 'AT00', 1)
     ";
 
     $statement  = $connect->prepare($query);
     $statement->execute([
         ':id' => $id,
-        ':name' => $name
+        ':name' => $name,
+        ':address' => $address,
+        ':contact' => $contact
+        
     ]);
-
-    
 
     $result = $statement->fetchAll();
 
     if (isset($result)) {
         $res = [
             'status' => 200,
-            'message' => 'User Category Created Successfully'
+            'message' => 'User Branch Created Successfully'
         ];
 
     }
 
     } 
+    
     echo json_encode($res);
     return;
 
-} else if(isset($_POST['edit_category'])) {
+} else if(isset($_POST['edit_branch'])) {
     $id = $_POST['id'];
     $name =  $_POST['name'];
+    $address =  $_POST['address'];
+    $contact =  $_POST['contact'];
 
 
 
@@ -57,15 +64,20 @@ if(isset($_POST['save_category'])) {
     } else {
     
     $query = "
-    UPDATE tblcategory 
-    SET name = :name
+    UPDATE tblbranch
+    SET name = :name,
+        branchaddress = :branchaddress,
+        contactnumber = :contactnumber
+        
     WHERE id = :id
     ";
 
     $statement  = $connect->prepare($query);
     $statement->execute([
         ':id' => $id,
-        ':name' => $name
+        ':name' => $name,
+        ':branchaddress' => $address,
+        ':contactnumber' => $contact
     ]);
 
     

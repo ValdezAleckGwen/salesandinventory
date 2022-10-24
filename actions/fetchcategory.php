@@ -1,21 +1,15 @@
 <?php
-
+session_start();
 include 'database_connection.php';
+include 'getdata.php';
 
-// function get_total_row($connect)
-// {
-//   $query = "
-//   SELECT * FROM tblcategory
-//   ";
-//   $statement = $connect->prepare($query);
-//   $statement->execute();
-//   return $statement->rowCount();
-// }
-
-// $total_record = get_total_row($connect);
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+$permission = getPermission($id);
 
 $limit = '10';
 $page = 1;
+
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);
@@ -67,7 +61,12 @@ if($total_data > 0)
     <tr data-id="'.$row["categoryid"].'">
       <td style="border: 1px solid;">'.$row["categoryid"].'</td>
       <td style="border: 1px solid;">'.$row["categoryname"].'</td>
-      <td class="text-center" style="border: 1px solid;"> <button class="btn btn-info" id="#" data-id="#"><i class="fa-solid fa-pen-to-square"> </i></button> <button class="delete btn btn-danger" id="del_'.$row["categoryid"].'" data-id="'.$row["categoryid"].'"><i class="fa-solid fa-circle-minus" ></i></button></td>
+
+      <td class="text-center" style="border: 1px solid;">
+      <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["categoryid"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 
+      <button class="delete btn btn-danger" id="del_'.$row["categoryid"].'" data-id="'.$row["categoryid"].'"><i class="fa-solid
+        fa-circle-minus" ></i></button>
+      </td>
     </tr>
     ';
   }
