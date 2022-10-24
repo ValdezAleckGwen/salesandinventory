@@ -96,7 +96,7 @@ function fill_unit_select_box($connect, $branchid)
     <div class="main">
 
   
-    <h3 style="margin-top: 40px; font-weight: 600;">POINT OF SALES</h3><br>
+    <h3 style="margin-top: 40px; font-weight: 600;">POINT OF SALES - <?php echo displayBranch($id); ?></h3><br>
 		<div class="container" style="margin-top: -39px;">
 			<br />
 			<div class="card">
@@ -150,8 +150,8 @@ function fill_unit_select_box($connect, $branchid)
 								</div>
 								<div class="col col-sm-3" style="float: right;">
 									<div class="input-group mb-3">
-									  <span class="input-group-text" id="basic-addon3">Vatable Sale</span>
-									  <input type="text" class="form-control"name="vatable-sale" id="vatable-sale" aria-describedby="basic-addon3" readonly>
+									  <span class="input-group-text" id="basic-addon3">Vattable Sale</span>
+									  <input type="text" class="form-control"name="vattable-sale" id="vattable-sale" aria-describedby="basic-addon3" readonly>
 									</div>
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Vat</span>
@@ -176,55 +176,24 @@ $(document).ready(function(){
 	var count = 0;
 	
 
-	function add_input_field(count)
-	{
-		
 
-		var html = '';
-		
-		html += '<tr style="display: block;">';
-
-		html += '<td width="5%"><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Unit</option><?php echo fill_unit_select_box($connect, $branchid); ?></select></td>';
-		
-		html += '<td width="40%"><input type="text" name="item_name[]" class="col col-sm-5 form-control item_name" readonly/></td>';
-
-		html += '<td width="12%"><input type="text" name="item_price[]" class="col col-sm-2 form-control item_price" readonly/></td>';
-
-		html += '<td width="10.05%"><input type="text" name="available_quantity[]" class="col col-sm-1 form-control available_quantity" readonly/></td>';
-
-		html += '<td width="10%"><input type="text" name="item_quantity[]" class="col col-sm-1 form-control item_quantity" /></td>';
-
-		html += '<td width="11.22%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" readonly/></td>';
-		
-
-		var remove_button = '';
-
-		if(count >= 0)
-		{
-			remove_button = '<button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="fas fa-minus"></i></button>';
-		}
-
-		html += '<td>'+remove_button+'</td></tr>';
-
-		return html;
-
-	}
-
-	$(document).on('change','.item_id', function() {
-
-	});
-
-	$('#item_table').append(add_input_field(0));
-
-	$('.selectpicker').selectpicker('refresh');
 
 	$(document).on('click', '.add', function(){
+		var form_data = $('#insert_form').serialize();
+		console.log(form_data)
+		$.ajax({
+        url: "../actions/addrowpos.php",
+        method: "POST",
+        data: form_data,
+        success: function (data) {
+            
+        	
+        	$(data).insertAfter($("#add-row > tr").eq(0));
+			$('.selectpicker').selectpicker('refresh');
 
-		count++;
+            }
+        });
 
-		$('#item_table').append(add_input_field(count));
-
-		$('.selectpicker').selectpicker('refresh');
 
 	});
 
@@ -332,7 +301,7 @@ $(document).ready(function(){
 
 						$('#tax').val('');
 						
-						$('vatable-sale').val('');
+						$('vattable-sale').val('');
 
 						$('#submit_button').attr('disabled', false);
 					}
@@ -360,7 +329,7 @@ $(document).ready(function(){
 
         var dataType = 1;
         var currentRow = $(this).closest("tr");
-        var productid = $(this).val();
+        var inventoryid = $(this).val();
         var price = currentRow.find(".item_price");
         var name = currentRow.find(".item_name");
         var available = currentRow.find(".available_quantity");
@@ -368,7 +337,7 @@ $(document).ready(function(){
         $.ajax({
             url: "../actions/fetchproductinfo.php",
             method: "POST",
-            data: {productid: productid, dataType, dataType},
+            data: {inventoryid: inventoryid, dataType, dataType},
             dataType: "JSON",
             success: function (data) {
                 actualPrice = data.price.replace(/^/, '₱');
@@ -378,6 +347,25 @@ $(document).ready(function(){
             }
         });
         return false;
+    });
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".available_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        
+        var availval = available.val();
+        
+        if (quantityval > availval) {
+        	quantity.addClass("border border-2 border-danger");
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
     });
 	//
 
@@ -398,21 +386,9 @@ $(document).ready(function(){
 			success	: function (totalprice) {
 				totalprice = totalprice.replace(/^/, '₱ ');
 				totalPrice.val(totalprice);
-
+				
 				number = totalprice;
 				number = number.replace(/[^a-zA-Z0-9]/g, '');
-
-				if (tax == 1) {
-					vatSale = number * .88;
-					number = number * .12;
-
-					number = parseFloat(number).toFixed(2);
-					vatSale = parseFloat(vatSale).toFixed(2);
-					$('#vat').val(number);
-					$('#vatable-sale').val(vatSale);
-				} 
-
-
 
 			}
 		});
@@ -421,37 +397,36 @@ $(document).ready(function(){
 	});
 
 
-	var	total_amount = function () {
 
-		var sum = 0;
-		var currency = "₱"
-		var tax = $('#tax').val();
-		$('.item_total').each(function () {
-			var num = $(this).val().replace(/[^a-zA-Z0-9]/g, '');
-			
-			// var num = $(this).val();
-			console.log(num);
-			if(num != 0) {
-				
-				sum += parseFloat(num);
-				$('#vat').val(0.00);
-				$('#vatable-sale').val(0.00);
-			}
-
-		});
-		if (tax == 2) {
-			sum = (sum * .12) * 8
-
-		} 
-		
-		sum = sum.toLocaleString("en-US");
-		sum = sum.replace(/^/, '₱');
-		$("#total").val(sum);
-	}
 
 	$(document).on("change", ".item_quantity", function() {
-		total_amount();
-	})
+		var form_data = $('#insert_form').serialize();
+		
+		$.ajax({
+			url: "../actions/fetchtax.php",
+			method: "POST",
+			data: form_data,
+			dataType: "JSON",
+			success	: function (data) {
+			
+			if (data.status = 1) {
+				$('#vattable-sale').val(data.vattablesale);
+				$('#vat').val(data.vat);
+				$('#total').val(data.total);
+
+			} else {
+				$('#vattable-sale').val(0.0);
+				$('#vat').val(0.0);
+				$('#total').val(data.total);
+			}
+			
+
+
+
+			}
+		});
+
+	});
 
 	
 	

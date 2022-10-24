@@ -1,14 +1,20 @@
 <?php 
 include 'getdata.php';
 include 'database_connection.php';
+setlocale(LC_MONETARY, 'en_IN');
+
+  $output = '';
+  $quantity = 1;
+  $productprice = '₱18,150.75';
+  $output .= "<li>".$productprice. "</li>";
+  $output .= "<li>".$productprice. "</li>";
 
 
+  echo $output;
+  
+  
+ 
 
-  if (isset($_POST['item_id'])) {
-    for($count = 0; $count < count($_POST["item_id"]); $count++) {
-    echo $_POST["item_id"][$count];
-  }
-  }
   
 
 ?>
