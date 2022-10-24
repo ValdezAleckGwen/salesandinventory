@@ -6,7 +6,7 @@ include '../actions/adddata.php';
 include '../actions/database_connection.php';
 
 $id = $_SESSION['uid'];
-
+$branchid = getBranch($id);
 	
 function fill_unit_select_box_branch($connect)
 {
@@ -20,8 +20,26 @@ function fill_unit_select_box_branch($connect)
 
 	foreach($result as $row)
 	{
-			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
 		
+		
+			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+				
+	}
+
+	return $output;
+}
+
+function fill_unit_select_box_branch2($connect, $branchid)
+{
+	$output = '';
+
+	$query = "SELECT id AS branchid, name AS branchname from tblbranch WHERE id != '".$branchid."'";
+
+	$result = $connect->query($query);
+
+	foreach($result as $row)
+	{
+		$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
 	}
 
 	return $output;
@@ -135,7 +153,7 @@ function displayUser() {
 							</div>
 							<div class="container m-1">
 								<h5>Destination Branch</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option value="">Select Unit</option><?php echo fill_unit_select_box_branch($connect); ?></select>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option>Select Branch</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
 							
 								<tr>
@@ -172,13 +190,13 @@ $(document).ready(function(){
 
 	$(document).on('click', '.add', function(){
 
-		var branchid = $('#source_branch').val();
-		count++;
-
+		
+		var form_data = $('#insert_form').serialize();
+		console.log(form_data);
 		$.ajax({
         url: "../actions/addrow.php",
         method: "POST",
-        data: {branchid: branchid},
+        data: form_data,
         success: function (data) {
             
         	$('#item_table').append(data);
@@ -332,6 +350,26 @@ $(document).ready(function(){
             	quantity.val(data.quantity);
             	code.val(data.productid);
                 name.val(data.name); 
+            } 
+
+        });
+        return false;
+    });
+
+
+	$(document).on("change", "#source_branch", function  () {
+
+
+        var branch = $(this).val();
+        
+        
+        $.ajax({
+            url: "../actions/branch.php",
+            method: "POST",
+            data: {branch: branch},
+            
+            success: function (data) {
+            $('#destination_branch').append(data);
             } 
 
         });

@@ -1,23 +1,25 @@
 <?php
 require_once 'DbConnect.php';
 
-if (isset($_POST['productid'])) {
+if (isset($_POST['inventoryid'])) {
 	$datatype = $_POST['dataType'];
 	
 	switch ($datatype) {
 		case 1:
-			$inventoryid = $_POST['productid'];
+			$inventoryid = $_POST['inventoryid'];
 			if ($inventoryid != 0) {
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
-				$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.name AS name, tblproducts.markupPrice AS price FROM tblinventory INNER JOIN tblproducts ON tblinventory.productId=tblproducts.id WHERE tblproducts.id = :inventoryid");
+				$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.name AS name, tblproducts.markupPrice AS price FROM tblinventory INNER JOIN tblproducts ON tblinventory.productId=tblproducts.id WHERE tblinventory.id = :inventoryid");
 				$stmt->execute([':inventoryid' => $inventoryid]);
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
 				foreach ($products as $product) {
 					$data['name'] = $product['name'];
-					$data['price'] = number_format($product['price']);
+					$data['available'] = $product['count'];
+					$price = $product['price'];
+					$data['price'] = number_format((float)$price, 2, '.', ',');
 				}
 
 				

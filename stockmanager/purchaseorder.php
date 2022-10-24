@@ -1,5 +1,5 @@
 <?php 
-session_start();
+session_start(); 
 include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';
@@ -143,8 +143,8 @@ function displayUser() {
 								<input type="text" name="po_number" class="input-field" value="<?php echo createId('tblpurchaseorder'); ?>" readonly>
 							</div>
 							<div class="container m-1">
-								<label for="branch_id" id="labeler">For Branch</label>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id" disabled><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+								<label for="branch_id" id="labeler">For Branch: <?php echo displayBranch($id); ?></label>
+								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
 								<label for="supplier_id">Supplier</label>
@@ -197,15 +197,15 @@ $(document).ready(function(){
 	$(document).on('click', '.add', function(){
 		var form_data = $('#insert_form').serialize();
 		var id = $('#supplier_id').val();
+		console.log(form_data)
 		
-		var branchid = $('#branch_id').val();
 
 		count++;
 
 		$.ajax({
         url: "../actions/addrowpurchaseorder.php",
         method: "POST",
-        data: {id: id, form_data},
+        data: form_data,
         success: function (data) {
             
         	//$('#item_table').append(data);
