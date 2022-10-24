@@ -11,7 +11,7 @@ if(isset($_POST["item_id"]))
 	$salesid = createId('tblsales');
 	
 	$total = preg_replace('/[^0-9]/s', "",$_POST["total"]);
-	$vattableSale = $_POST['vatable-sale'];
+	$vattableSale = $_POST['vattable-sale'];
 	$vat = $_POST['vat'];
 	$taxid = $_POST['tax'];
 	$pending = 1;
