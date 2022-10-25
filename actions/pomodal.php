@@ -65,7 +65,7 @@ $userid = $purchases[0]['userid'];
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
                             ISSUED BY:
-                            <?php echo getFirstName($userid); ?>
+                            <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
                             PO ID: <?php echo $purchases[0]['poid']; ?>

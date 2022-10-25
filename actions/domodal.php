@@ -1,5 +1,7 @@
 <?php 
 include('database_connection.php');
+include('getdata.php');
+
 if (isset($_POST['id'])) {
     
 $id = $_POST['id'];
@@ -7,13 +9,16 @@ $id = $_POST['id'];
 $query = "SELECT 
 tbldeliveryorder.id AS delivery,
 tblsupplier.name AS suppliername,
+tblsupplier.address AS address,
 tbldeliveryorder.date AS deliverydate,
 tblproducts.id AS productid,
 tblproducts.name AS name,
 tbldeliveryorderitem.quantity AS quantity,
 tbldeliveryorderitem.price AS price,
 tbldeliveryorderitem.total AS total,
-tbldeliveryorder.total  AS grandtotal
+tbldeliveryorder.total  AS grandtotal,
+tbldeliveryorder.userid AS userid
+
 FROM tbldeliveryorder
 INNER JOIN tblsupplier
 ON tbldeliveryorder.supplierid=tblsupplier.id
@@ -32,6 +37,7 @@ $statement->execute([
 ]);
 
 $deors = $statement->fetchAll();
+$userid = $deors[0]['userid'];
 
 }
 
@@ -49,23 +55,30 @@ $deors = $statement->fetchAll();
                 <div class="row printme">
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
-                            Company Name
+                           <?php echo $deors[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            Address Here
+                            <?php echo $deors[0]['address']; ?>
                         </p>
                     </div>
 
-                    <div class="col-sm-6 text-muted mt-sm-0 mt-4 d-none d-sm-flex justify-content-sm-end">
+                    <div class="col-sm-12 col-6 mt-sm-0 mt-4">
+                        <h4 class="fs18 text-uppercase mb-2">
+                            ISSUED BY:
+                            <?php echo getFullName($userid); ?>
+                        </h4>
+                        <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
+                            DO ID: <?php echo $deors[0]['delivery']; ?>
+                        </h4>
+                    </div>
+
+                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
                         <div>
                             <h4 class="fs35 gorditaB text-uppercase mb-1">
                                 Invoice
                             </h4>
                             <p class="fs18">
-                                DO ID: <?php echo $deors[0]['delivery']; ?>
-                            </p>
-                            <p class="fs18">
-                                Invoice # 001
+                                Date: <?php echo $deors[0]['deliverydate']; ?>
                             </p>
                         </div>
                     </div>
