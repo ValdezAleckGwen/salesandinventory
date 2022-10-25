@@ -1,5 +1,4 @@
 <?php
-// minus from inventory
 session_start(); 
 include '../actions/getdata.php';
 include 'adddata.php';
@@ -19,7 +18,7 @@ if(isset($_POST["item_id"]))
 
 	// create a sale
 	$salesquery = "
-	INSERT INTO tblpurchaseorder (id, supplierid, branchid, total, userid, auditid) VALUES (:purchaseorderid, :supplierid, :branchid, :total, :userid,  )
+	INSERT INTO tblpurchaseorder (id, supplierid, branchid, total, userid) VALUES (:purchaseorderid, :supplierid, :branchid, :total, :userid)
 	";
 
 	$statement  = $connect->prepare($salesquery);
@@ -28,7 +27,7 @@ if(isset($_POST["item_id"]))
 		':supplierid' => $supplierid,
 		':branchid' => $branchid,
 		':total' => $total,
-		':userid' => $userid,
+		':userid' => $userid
 	]);
 
 	
@@ -46,8 +45,10 @@ if(isset($_POST["item_id"]))
 		";
 
 		$purchaseorderitemid = createId('tblpurchaseorderitem'); //incrementing sales item id
-		$price = preg_replace('/[^0-9]/s', "",$_POST["item_price"][$count]);
-		$totalprice = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$price = $_POST["item_price"][$count];
+		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$totalprice = $_POST["item_total"][$count];
+		$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$productid = $_POST["item_id"][$count];
 		$item_quantity = $_POST["item_quantity"][$count];
 		$statement = $connect->prepare($query);

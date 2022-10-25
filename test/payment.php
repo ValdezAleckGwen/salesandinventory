@@ -76,7 +76,7 @@ function fill_unit_select_box_supplier($connect)
     <div class="main">
 
   
-    <h3>PAYMENT</h3><br>
+    <h3 style="margin-top: 40px;">PAYMENT</h3><br>
 		<div class="container">
 			<br />
 			<div class="card">
@@ -85,7 +85,6 @@ function fill_unit_select_box_supplier($connect)
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
 							<span id="error"></span>
-							<table class="table table-bordered" id="item_table">
 							<div class="float-end">
 								<label for="po_number">PAYMENT #:</label>
 								<input type="text" name="payment_number" class="input-field" value="<?php echo createId('tblpayables'); ?>" id="payment_number" readonly>
@@ -95,33 +94,39 @@ function fill_unit_select_box_supplier($connect)
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							<!--remove this if cookie is configured-->
-
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
+								<thead style=" display: block; ">
 								<tr>
 									<th width="15%">Item ID</th>
 									<th width="15%">DO ID</th>
-									<th width="15%">Branch</th>
+									<th width="12%">Branch</th>
 									<th width="15%">Product Code</th>
 									<!-- <th width="30%">Product Name</th> -->
 									<th width="15%">Price</th>
-									<th width="5%">Quantity</th>
-									<th width="20%">Total Price</th>
+									<th width="15%">Quantity</th>
+									<th width="14%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
-							<footer>
-							<div class="row">
-
-								<div class="col-sm-7">
+								</thead>
+								<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
+							<tr>
+								
+								</tr>
+							</tbody>
+							<footer>						
+							</footer>
+							</table>
+								<div class="col-sm-6" style="float: left">
 									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-								</div class="col-sm-5">
+								</div>
+								<div class="col-sm-5" style="float: right">
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Total</span>
 									  <input type="text" name="total" id="total" class="form-control total" readonly/>
 									</div>
-									
-								</div>
-							</footer>
-							</table>
+								</div>					
 							</div>
+
 						</div>
 					</form>
 					
@@ -150,8 +155,8 @@ $(document).ready(function(){
         data: {id: id, branchid, branchid},
         success: function (data) {
             
-        	$('#item_table').append(data);
-
+        	//$('#item_table').append(data);
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
             }
