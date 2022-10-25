@@ -105,6 +105,45 @@ function getTax () {
 	return $tax;
 }
 
+function getCompanyName() {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT name from tblcompany");
+	$stmt->execute();
+	$company = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($company as $comp) {
+		$compname = $comp['name'];
+	}
+	return $compname;
+}
+
+function getCompanyAddress() {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT address from tblcompany");
+	$stmt->execute();
+	$company = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($company as $comp) {
+		$compadd = $comp['address'];
+	}
+	return $compadd;
+}
+
+function getDeliveryOrder(string $deliveryorderid) {
+
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT id from tblcompany");
+	$stmt->execute();
+	$company = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($company as $comp) {
+		$compadd = $comp['address'];
+	}
+	return $compadd;
+}
 
 
 
