@@ -102,7 +102,7 @@ function fill_unit_select_box_branch($connect, $branchid)
     <div class="main">
 
   
-    <h3>INVENTORY ADJUSTMENT</h3><br>
+    <h3 style="margin-top: 40px;">INVENTORY ADJUSTMENT</h3><br>
 		<div class="container">
 			<br />
 			<div class="card">
@@ -111,7 +111,7 @@ function fill_unit_select_box_branch($connect, $branchid)
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
 							<span id="error"></span>
-							<table class="table table-bordered" id="item_table">
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
 								<label for="po_number">INVENTORY ADJUSTMENT #:</label>
 								<input type="text" name="ia_number" class="input-field" value="<?php echo createId('tblinventoryadjustment'); ?>" id="ia_number" readonly>
@@ -122,25 +122,28 @@ function fill_unit_select_box_branch($connect, $branchid)
 								<label for="branch_id">For Branch</h5>
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id" disabled><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
-
+								<thead style=" display: block; ">
 								<tr>
-									<th width="20%">Inventory ID</th>
-									<th width="20%">Product Code</th>
-									<th width="40%">Product Name</th>
+									<th width="13.9%">Inventory ID</th>
+									<th width="15.9%">Product Code</th>
+									<th width="22.6%">Product Name</th>
 									<th width="10%">Available Quantity</th>
-									<th width="20%">Adjustment Quantity -</th>
-									<th width="20%">Adjustment Quantity +</th>
+									<th width="16%">Adjustment Quantity -</th>
+									<th width="16%">Adjustment Quantity +</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
+							</thead>
+								<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
+								<tr>
+									
+								</tr>
+							</tbody>
 							<footer>
-							<div class="row">
-
-								<div class="col-sm-7">
-									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-
 							</footer>
 							</table>
-							</div>
+								<div class="col-sm-6" style="float: left">
+									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
+								</div>
 						</div>
 					</form>
 					
@@ -171,8 +174,8 @@ $(document).ready(function(){
         data: {id: id, branchid, branchid},
         success: function (data) {
             
-        	$('#item_table').append(data);
-
+        	//$('#item_table').append(data);
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
             }
