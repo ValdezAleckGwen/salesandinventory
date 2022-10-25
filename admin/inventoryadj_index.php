@@ -61,7 +61,7 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
           </div>
         </div>
@@ -98,14 +98,7 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-user"></i>Users<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="user_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="adduser_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Users</a>
-            <a href="edituser_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Users</a>
-          </div>
-        </div>
+        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
 
         <!-- Audit Logs -->
         <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>        
