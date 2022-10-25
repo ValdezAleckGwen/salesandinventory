@@ -1,5 +1,4 @@
 <?php
-// minus from inventory
 session_start(); 
 include '../actions/getdata.php';
 include 'adddata.php';
@@ -19,7 +18,7 @@ if(isset($_POST["item_id"]))
 
 	// create a sale
 	$salesquery = "
-	INSERT INTO tblpurchaseorder (id, supplierid, branchid, total, userid, auditid) VALUES (:purchaseorderid, :supplierid, :branchid, :total, :userid,  )
+	INSERT INTO tblpurchaseorder (id, supplierid, branchid, total, userid) VALUES (:purchaseorderid, :supplierid, :branchid, :total, :userid)
 	";
 
 	$statement  = $connect->prepare($salesquery);
@@ -28,7 +27,7 @@ if(isset($_POST["item_id"]))
 		':supplierid' => $supplierid,
 		':branchid' => $branchid,
 		':total' => $total,
-		':userid' => $userid,
+		':userid' => $userid
 	]);
 
 	

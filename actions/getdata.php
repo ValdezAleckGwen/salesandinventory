@@ -148,18 +148,22 @@ function getCompanyAddress() {
 	return $compadd;
 }
 
-function getDeliveryOrder(string $deliveryorderid) {
+function getDeliveryOrder(string $poid) {
 
 	$db = new DbConnect;
 	$conn = $db->connect();
 	$compname = '';
-	$stmt = $conn->prepare("SELECT id from tblcompany");
-	$stmt->execute();
-	$company = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	foreach ($company as $comp) {
-		$compadd = $comp['address'];
+	$stmt = $conn->prepare("SELECT id from tbldeliveryorderitem WHERE poid = :poid");
+	$stmt->execute([
+	":poid" => $poid
+	]);
+	$deliveryorder = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if (!empty($deliveryorder)) {
+		return true;
+	} else {
+		return false;
 	}
-	return $compadd;
+	
 }
 
 

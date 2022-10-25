@@ -379,7 +379,7 @@ $(document).ready(function(){
 		var quantity = $(this).val();
 		var price = currentRow.find(".item_price").val();
 		var totalPrice = currentRow.find(".item_total");
-		var tax = $('#tax').val();
+		
 		var number;
 		var vatSale;
 		$.ajax({
@@ -387,18 +387,12 @@ $(document).ready(function(){
 			method: "POST",
 			data: {quantity: quantity, price:price },
 			success	: function (totalprice) {
+
 				totalprice = totalprice.replace(/^/, '₱ ');
 				totalPrice.val(totalprice);
-
-				// number = totalprice;
-				// number = number.replace(/[^a-zA-Z0-9]/g, '');
-				// vatSale = number * .88;
-				// number = number * .12;
-				// number = parseFloat(number).toFixed(2);
-				// vatSale = parseFloat(vatSale).toFixed(2);
-				// $('#vat').val(number);
-				// $('#vatable-sale').val(vatSale);
-
+				
+				number = totalprice;
+				number = number.replace(/[^a-zA-Z0-9]/g, '');
 
 			}
 		});
