@@ -6,9 +6,10 @@ if (isset($_POST['item_id'])) {
 	for($count = 0; $count < count($_POST["item_id"]); $count++) {
 		$availablequantity = $_POST['available_quantity'][$count];
 		$inputquantity = $_POST['item_quantity'][$count];
+		$row = $count + 1;
 		if ($availablequantity < $inputquantity) {
 			$status = 1;
-			$output .= "<li>Enter Item Quantity at Row ".$count."</li>";
+			$output .= "<li>Entered quantity exceeds avaialble quantity at row ".$row."</li>";
 		} else {
 			$status = 2;
 		}
