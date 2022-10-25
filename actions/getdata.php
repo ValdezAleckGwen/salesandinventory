@@ -17,6 +17,23 @@ function getFirstName(string $uid) {
 	return $firstname;
 }
 
+function getFullName(string $uid) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$fullname = '';
+	$stmt = $conn->prepare("SELECT tblusers.firstname AS firstname, tblusers.lastname AS lastname FROM tblusers WHERE id = :uid");
+	$stmt->execute([
+		':uid' => $uid
+	]);
+	$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($users as $user) {
+		$firstname = $user['firstname'];
+		$lastname = $user['lastname'];
+	}
+	$fullname = $firstname . ' ' . $lastname;
+	return $fullname;
+}
+
 function getId(string $uid) {
 	$db = new DbConnect;
 	$conn = $db->connect();
