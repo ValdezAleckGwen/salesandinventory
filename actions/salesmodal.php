@@ -1,5 +1,6 @@
 <?php 
 include('database_connection.php');
+include 'getdata.php';
 if (isset($_POST['id'])) {
     
 $id = $_POST['id'];
@@ -47,31 +48,21 @@ $sales = $statement->fetchAll();
                 <div class="row printme">
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
-                            Company Name
+                            <?php echo getCompanyName(); ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            Address Here
+                            <?php echo getCompanyAddress(); ?>
                         </p>
-                    </div>
-                    <div class="col-sm-6 text-muted mt-sm-0 mt-4 d-none d-sm-flex justify-content-sm-end">
-                        <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Invoice
-                            </h4>
-                            <p class="fs18">
-                                Date: 10/28/2021
-                            </p>
-                            <p class="fs18">
-                                Invoice # 001
-                            </p>
-                        </div>
                     </div>
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
                             ISSUED BY:
                         </h4>
-                        <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            Sales ID: <?php echo $sales[0]['salesid']; ?>
+                        <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center d-inline">
+                            Sales ID: 
+                        </h4>
+                        <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center" id="salesid" data-id="<?php echo $sales[0]['salesid']; ?>">
+                            <?php echo $sales[0]['salesid']; ?>
                         </h4>
                     </div>
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
@@ -182,3 +173,4 @@ $sales = $statement->fetchAll();
     </body>
 
 </html>
+

@@ -366,9 +366,10 @@ $(document).ready(function(){
         var available = currentRow.find(".available_quantity");
         var quantity = currentRow.find(".item_quantity");
         var quantityval = $(this).val();
-        
+        quantityval = parseInt(quantityval);
         var availval = available.val();
-        
+        availval = parseInt(availval);
+
         if (quantityval > availval) {
         	quantity.addClass("border border-2 border-danger");
         } else {
