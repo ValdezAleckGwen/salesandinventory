@@ -197,7 +197,7 @@ $(document).ready(function(){
 	$(document).on('click', '.add', function(){
 		var form_data = $('#insert_form').serialize();
 		var id = $('#supplier_id').val();
-		console.log(form_data)
+		
 		
 
 		count++;
@@ -256,20 +256,7 @@ $(document).ready(function(){
 
 		//validation no duplicate product allowed
 
-		$('.item_id').each(function(){
-			var	itemid1 = $(this).val();
 
-			$('.item_id').each(function(){
-			var itemid2 = $(this).val();
-
-				if (itemid1 == itemid2) {
-					error = "<li>Duplicate products not allowed</li>";
-					return false;
-				}
-
-			});
-
-		});
 
 		//end of validation
 
@@ -352,25 +339,25 @@ $(document).ready(function(){
 	});
 	 
 
-
-	
   
 	$(document).on("change", ".item_id", function  () {
-        
+        //computeTotal();
+
         var dataType = 2;
         var currentRow = $(this).closest("tr");
         var productid = $(this).val();
         var price = currentRow.find(".item_price");
         var name = currentRow.find(".item_name");
-        var totalPrice = currentRow	.find();
+        var available = currentRow.find(".available_quantity");
         var actualPrice;
         $.ajax({
             url: "../actions/fetchproductinfo.php",
             method: "POST",
-            data: {productid: productid, dataType: dataType},
+            data: {productid: productid, dataType, dataType},
             dataType: "JSON",
             success: function (data) {
                 actualPrice = data.price.replace(/^/, '₱');
+                available.val(data.available);
                 price.val(actualPrice);
                 name.val(data.name); 
             }
@@ -386,7 +373,7 @@ $(document).ready(function(){
 		var quantity = $(this).val();
 		var price = currentRow.find(".item_price").val();
 		var totalPrice = currentRow.find(".item_total");
-		var tax = $('#tax').val();
+		
 		var number;
 		var vatSale;
 		$.ajax({
@@ -394,18 +381,12 @@ $(document).ready(function(){
 			method: "POST",
 			data: {quantity: quantity, price:price },
 			success	: function (totalprice) {
+
 				totalprice = totalprice.replace(/^/, '₱ ');
 				totalPrice.val(totalprice);
-
-				// number = totalprice;
-				// number = number.replace(/[^a-zA-Z0-9]/g, '');
-				// vatSale = number * .88;
-				// number = number * .12;
-				// number = parseFloat(number).toFixed(2);
-				// vatSale = parseFloat(vatSale).toFixed(2);
-				// $('#vat').val(number);
-				// $('#vatable-sale').val(vatSale);
-
+				
+				number = totalprice;
+				number = number.replace(/[^a-zA-Z0-9]/g, '');
 
 			}
 		});
@@ -414,31 +395,24 @@ $(document).ready(function(){
 	});
 
 
-	var	total_amount = function () {
+	$(document).on("change", ".item_quantity", function() {
+		var form_data = $('#insert_form').serialize();
+		
+		console.log(form_data)
+		$.ajax({
+			url: "../actions/fetchtotal.php",
+			method: "POST",
+			data: form_data,
+			dataType: "JSON",
+			success	: function (data) {
+				
+				
+				$('#total').val(data.total);
 
-		var sum = 0;
-		var currency = "₱"
-		$('.item_total').each(function () {
-			var num = $(this).val().replace(/[^a-zA-Z0-9]/g, '');
-			
-			// var num = $(this).val();
-			console.log(num);
-			if(num != 0) {
-				
-				sum += parseFloat(num);
-				
 			}
-
 		});
 
-		sum = sum.toLocaleString("en-US");
-		sum = sum.replace(/^/, '₱');
-		$("#total").val(sum);
-	}
-
-	$(document).on("change", ".item_quantity", function() {
-		total_amount();
-	})
+	});
 
 
 

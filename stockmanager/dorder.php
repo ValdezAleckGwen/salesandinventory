@@ -330,14 +330,7 @@ $(document).ready(function(){
 		}
 
 	});
-	 
-});
-</script>
-<script>
-	
-	
-$(document).ready(function(){
-  
+
 	$(document).on("change", ".item_id", function  () {
 		
         
@@ -364,13 +357,13 @@ $(document).ready(function(){
                 name.val(data.name); 
                 price.val(actualPrice);
                 quantity.val(data.quantity);	
-                total.val(data.total);
+                
                 
             }
         });
         return false;
     });
-	//
+
 
 	$(document).on("keyup", ".item_quantity", function() {
 		// total_amount();
@@ -379,7 +372,7 @@ $(document).ready(function(){
 		var quantity = $(this).val();
 		var price = currentRow.find(".item_price").val();
 		var totalPrice = currentRow.find(".item_total");
-		var tax = $('#tax').val();
+		
 		var number;
 		var vatSale;
 		$.ajax({
@@ -387,18 +380,12 @@ $(document).ready(function(){
 			method: "POST",
 			data: {quantity: quantity, price:price },
 			success	: function (totalprice) {
+
 				totalprice = totalprice.replace(/^/, '₱ ');
 				totalPrice.val(totalprice);
-
-				// number = totalprice;
-				// number = number.replace(/[^a-zA-Z0-9]/g, '');
-				// vatSale = number * .88;
-				// number = number * .12;
-				// number = parseFloat(number).toFixed(2);
-				// vatSale = parseFloat(vatSale).toFixed(2);
-				// $('#vat').val(number);
-				// $('#vatable-sale').val(vatSale);
-
+				
+				number = totalprice;
+				number = number.replace(/[^a-zA-Z0-9]/g, '');
 
 			}
 		});
@@ -407,44 +394,28 @@ $(document).ready(function(){
 	});
 
 
-	var	total_amount = function () {
+	$(document).on("change", ".item_quantity", function() {
+		var form_data = $('#insert_form').serialize();
+		
+		console.log(form_data)
+		$.ajax({
+			url: "../actions/fetchtotal.php",
+			method: "POST",
+			data: form_data,
+			dataType: "JSON",
+			success	: function (data) {
+				
+				
+				$('#total').val(data.total);
 
-		var sum = 0;
-		var currency = "₱"
-		$('.item_total').each(function () {
-			var num = $(this).val().replace(/[^a-zA-Z0-9]/g, '');
-			
-			// var num = $(this).val();
-			console.log(num);
-			if(num != 0) {
-				
-				sum += parseFloat(num);
-				
 			}
-
 		});
 
-		sum = sum.toLocaleString("en-US");
-		sum = sum.replace(/^/, '₱');
-		$("#total").val(sum);
-	}
-
-	$(document).on("change", ".item_quantity", function() {
-		total_amount();
-	})
-
-	
-	
-		
-		
-
-	
+	});
 
 
 
 
+	 
 });
-
-
-
 </script>
