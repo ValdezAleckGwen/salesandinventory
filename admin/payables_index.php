@@ -1,22 +1,43 @@
-<?php 
+<?php
 session_start();
+include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
-?>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARCI - Payments</title>
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-    
-  </head>
-  <body>
+include '../actions/adddata.php';
+include '../actions/database_connection.php';
 
-<!-- Start of sidebar -->
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+} 
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PAYABLES</title>
+        <link rel="stylesheet" href="../admin/assets/style.css">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
+        <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script> 
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
+
+    </head>
+    
+    </style>
+    <body>
+    <!-- Start of sidebar -->
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
@@ -35,7 +56,7 @@ include '../x-function/redirect_if_notLogin.php';
             <a href="addbranch_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Branch</a>
             <a href="editbranch_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Branch</a>
           </div>
-        </div>      
+        </div>              
 
         <!-- Products -->
         <div class="item">
@@ -66,7 +87,7 @@ include '../x-function/redirect_if_notLogin.php';
           </div>
         </div>
 
-        <!-- Purchase Order -->
+         <!-- Purchase Order -->
         <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
 
         <!-- Delivery Order -->
@@ -84,7 +105,7 @@ include '../x-function/redirect_if_notLogin.php';
             <a href="editsuppliers_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Suppliers</a>
           </div>
         </div>
-        
+
         <!-- Sales-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
@@ -109,7 +130,7 @@ include '../x-function/redirect_if_notLogin.php';
 
 
         <!-- Audit Logs -->
-        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>       
+        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>           
 
         <!-- Settings -->
         <div class="item">
@@ -127,7 +148,7 @@ include '../x-function/redirect_if_notLogin.php';
     </div>
 
 
-<div class="usericon">Admin <i class="fa-regular fa-user"></i></div>  
+<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -137,88 +158,103 @@ include '../x-function/redirect_if_notLogin.php';
         $(this).find('.dropdown').toggleClass('rotate');
       });
     });
-  
+
     </script>
 <div class="main">
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>Payments</h3>
-        <div style="display: inline;">
-          <a href="paymentreport.php"><button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button></a>
+        <h3>PAYABLES</h3>
+        <div style="display: inline">
+            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+        <div style="float: right;">
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
         </div>
-          <div style="float: right;">
-            <label><span>Search: </span><input type="text" class="input-field" name="field3" value=""/></label>
           </div>
         </div>
-        <table class="table-fill">
-        <thead>
+       
+        <div border='1' class='table-responsive' id="dynamic_content">
+        <!--product content-->
+        </div>
 
-        <tr>
-        <th class="text-center">Payment I.D.</th>
-        <th class="text-center">Supplier</th>
-        <th class="text-center">Quantity</th>
-        <th class="text-left">Total Price (₱)</th>
-        </tr>
-        </thead>
-        <tbody class="table-hover">
-
-        <tr>
-        <td class="text-center">1</td>
-        <td class="text-left">Jeremy Langcay</td>
-        <td class="text-center">1</td>
-        <td class="text-right">298.00</td>
-        </tr>
-
-        <tr>
-        <td class="text-center">2</td>
-        <td class="text-left">Aleck Valdez</td>
-        <td class="text-center">22</td>
-        <td class="text-right">6,358.00</td>
-        </tr>
-
-        <tr>
-        <td class="text-center">3</td>
-        <td class="text-left">Kim Quiambao</td>
-        <td class="text-center">19</td>
-        <td class="text-right">5,491.00</td>
-        </tr>
-
-        <tr>
-        <td class="text-center">4</td>
-        <td class="text-left">Arne Bana</td>
-        <td class="text-center">13</td>
-        <td class="text-right">2,925.00</td>
-        </tr>
-
-        <tr>
-        <td class="text-center">5</td>
-        <td class="text-left">John Vincent Peduche</td>
-        <td class="text-center">31</td>
-        <td class="text-right">11,439.00</td>
-        </tr>
-
-        <tr>
-        <td class="text-center">6</td>
-        <td class="text-left">Ray Santos</td>
-        <td class="text-center">27</td>
-        <td class="text-right">8,050</td>
-        </tr>
-
-        <tr>
-        <td class="text-center">7</td>
-        <td class="text-left">Richmonde Toledo</td>
-        <td class="text-center">1</td>
-        <td class="text-right">368.00</td>
-        </tr>
-
-
-        </tbody>
-        </table><br>
-     </div>
-  </div>
-</div>      
-
-
-  </body>
+      <!-- modal start -->
+        <div class="modal fade " id="payablesmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                  </div>
+                    <style>
+                        #model-body-container > .container{
+                            width: 100% !important;}
+                        #model-body-container .col-sm-6
+                        {
+                            width: 25% !important;
+                        }
+                    </style>
+                  <div class="modal-body" id='model-body-container'>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>      
+        </div>
+        <!-- modal end -->
+        
+    </body>
 </html>
+<script>
+
+   // Start of Pagination Query // 
+  $(document).ready(function(){
+        load_data(1);
+
+    function load_data(page = 1, query = '')
+    {
+      $.ajax({
+        url:"../actions/fetchpayables.php",
+        method:"POST",
+        data:{page:page, query:query},
+        success:function(data)
+        {
+          $('#dynamic_content').html(data);
+        }
+      });
+    }
+
+    $(document).on('click', '.page-link', function(){
+      var page = $(this).data('page_number');
+      var query = $('#search_box').val();
+      load_data(page, query);
+    });
+
+    $('#search_box').keyup(function(){
+      var query = $('#search_box').val();
+      load_data(2, query);
+    });
+
+  });
+
+    //Start of DO Modal
+    $(document).on('click', '.data', function() {
+      var id = $(this).data('id');
+      
+
+      $.ajax({
+        url: '../actions/payablemodal.php', //modal structure
+        type: 'post',
+        data: {id: id},
+        success: function(response){ 
+            $('.modal-body').html(response); 
+            $('#payablesmodal').modal('show'); 
+        }
+    });
+
+    });
+    //modal end
+
+
+
+   
+ 
+
+</script>

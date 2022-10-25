@@ -213,18 +213,20 @@ $(document).ready(function(){
 
 		count = 1;
 
-		// $('.item_name').each(function(){
+		var form_data = $(this).serialize();
 
-		// 	if($(this).val() == '')
-		// 	{
+		$.ajax({
+            url: "../actions/quantitycheck.php",
+            method: "POST",
+            data: form_data,
+            dataType: "JSON",
+            success: function (data) {
+                if (data.status == 1) {
+                	error += data.message;
+                }
 
-		// 		error += "<li>Enter Item Name at "+count+" Row</li>";
-
-		// 	}
-
-		// 	count = count + 1;
-
-		// });
+            }
+        });
 
 		count = 1;
 
@@ -258,7 +260,8 @@ $(document).ready(function(){
 
 
 
-		var form_data = $(this).serialize();
+
+        
 
 		if(error == '')
 		{
@@ -321,9 +324,16 @@ $(document).ready(function(){
 </script>
 <script>
 	
-	
 $(document).ready(function(){
-  
+  	
+  			
+
+
+	
+
+
+
+
 	$(document).on("change", ".item_id", function  () {
         //computeTotal();
 
@@ -356,9 +366,10 @@ $(document).ready(function(){
         var available = currentRow.find(".available_quantity");
         var quantity = currentRow.find(".item_quantity");
         var quantityval = $(this).val();
-        
+        quantityval = parseInt(quantityval);
         var availval = available.val();
-        
+        availval = parseInt(availval);
+
         if (quantityval > availval) {
         	quantity.addClass("border border-2 border-danger");
         } else {
@@ -376,7 +387,7 @@ $(document).ready(function(){
 		var quantity = $(this).val();
 		var price = currentRow.find(".item_price").val();
 		var totalPrice = currentRow.find(".item_total");
-		var tax = $('#tax').val();
+		
 		var number;
 		var vatSale;
 		$.ajax({
@@ -384,6 +395,7 @@ $(document).ready(function(){
 			method: "POST",
 			data: {quantity: quantity, price:price },
 			success	: function (totalprice) {
+
 				totalprice = totalprice.replace(/^/, '₱ ');
 				totalPrice.val(totalprice);
 				
@@ -401,7 +413,7 @@ $(document).ready(function(){
 
 	$(document).on("change", ".item_quantity", function() {
 		var form_data = $('#insert_form').serialize();
-		
+		console.log(form_data)
 		$.ajax({
 			url: "../actions/fetchtax.php",
 			method: "POST",

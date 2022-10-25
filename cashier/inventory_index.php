@@ -1,7 +1,13 @@
-<?php 
+<?php
 session_start();
 include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
+include '../actions/adddata.php';
+include '../actions/database_connection.php';
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
 
 function displayUser() {
   $output = '';
@@ -38,20 +44,35 @@ function displayUser() {
 
 <!-- Start of Menu Proper -->
       <div class="menu">
-    <!-- Point of salesv2-->
-    <div class="item"><a href="pos_index.php"><i class="fa-regular fa-calculator"></i>Point of Sales</a></div>
 
-    <!-- Inventory-->
-        <div class="item"><a href="inventory_index.php"><i class="fa-regular fa-warehouse"></i>Inventory</a></div>
-       
+        <!-- Inventory-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+          </div>
+        </div>
 
-    <!-- Logout -->
+         <!-- Purchase Order -->
+        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+
+        <!-- Delivery Order -->
+        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+
+        <!-- Settings -->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
+         </div>
+        </div>
+
+        <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
-        <div class="clearfix"></div>
-    <br/>
-
-        </div>
+      </div>
     </div>
 
 
@@ -87,32 +108,17 @@ function displayUser() {
     </body>
 </html>
 <script>
+
+// Start of Pagination Query // 
   $(document).ready(function(){
+        load_data(1);
 
-    // $("tr").each(function(){
-
-    // var row = $(this).closest("tr");
-    // var quantity = $(this).closest('.quantity').val();
-
-    // console.log(quantity)
-
-    
-
-    // });
-
-
-
-    //
-    load_data(1);
-
-    function load_data(page, query = '')
+    function load_data(page = 1, query = '')
     {
-      var id = $('#user').data('id')
-
       $.ajax({
         url:"../actions/fetchinventory.php",
         method:"POST",
-        data:{page:page, query:query, id:id },
+        data:{page:page, query:query},
         success:function(data)
         {
           $('#dynamic_content').html(data);
@@ -128,7 +134,7 @@ function displayUser() {
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(1, query);
+      load_data(2, query);
     });
 
   });

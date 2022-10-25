@@ -7,10 +7,8 @@ $id = $_SESSION['uid'];
 $branchid = getBranch($id);
 $permission = getPermission($id);
 
-
 $limit = '10';
 $page = 1;
-
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);
@@ -21,29 +19,30 @@ else
   $start = 0;
 }
 
-$query = "
-SELECT 
-tblsales.id AS salesid,
-tblbranch.name AS branchname,
-tblusers.lastname as username,
-tblsales.date as calendar,
-tblsales.total AS total
-FROM tblsales 
-INNER JOIN tblbranch 
-ON tblsales.branchid=tblbranch.id
-INNER JOIN tblusers 
-ON tblsales.userid=tblusers.id
-WHERE tblsales.active = 1
-";
+
+  $query = "
+  SELECT 
+  tblinventoryadjustment.id AS iaid,
+  tblbranch.name as branchname,
+  tblusers.lastname as username,
+  tblinventoryadjustment.date as ddate
+  FROM tblinventoryadjustment
+  INNER JOIN tblbranch
+  ON tblinventoryadjustment.branchid=tblbranch.id
+  INNER JOIN tblusers
+  ON tblinventoryadjustment.auditid=tblusers.id
+  ";
+
+
 
 if($_POST['query'] != '')
 {
   $query .= '
-  AND tblsales.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  AND tblinventoryadjustment.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
-$query .= 'ORDER BY salesid ASC ';
+$query .= 'ORDER BY tblinventoryadjustment.id ASC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -60,11 +59,10 @@ $output = '
 <label>Total Records - '.$total_data.'</label>
 <table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
   <tr>
-    <th class="text-center" style="border: 1px solid;">Sales ID</th>
-    <th class="text-center" style="border: 1px solid;">Branch</th>
-    <th class="text-center" style="border: 1px solid;">Creator</th>
-    <th class="text-center" style="border: 1px solid;">Date</th>
-    <th class="text-center" style="border: 1px solid;">Total (₱)</th>
+        <th class="text-center" style="border: 1px solid;">Inventory Adjustment ID</th>
+        <th class="text-center" style="border: 1px solid;">Branch</th>
+        <th class="text-center" style="border: 1px solid;">Creator</th>
+        <th class="text-center" style="border: 1px solid;">Date</th>
   </tr>
 ';
 if($total_data > 0)
@@ -72,14 +70,12 @@ if($total_data > 0)
   foreach($result as $row)
   {
     $output .= '
-    <tr class="data" data-id="'.$row["salesid"].'">
-      <td style="border: 1px solid;">'.$row["salesid"].'</td>
+    <tr class="data" data-id="'.$row["iaid"].'">
+      <td style="border: 1px solid;">'.$row["iaid"].'</td>
       <td style="border: 1px solid;">'.$row["branchname"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
-      <td style="border: 1px solid;">'.$row["calendar"].'</td>
-      <td class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
-      
-
+      <td style="border: 1px solid;">'.$row["ddate"].'</td>
+    </tr>
     ';
   }
 }
