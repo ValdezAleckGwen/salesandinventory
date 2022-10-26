@@ -21,6 +21,8 @@ if (isset($_POST['id'])) {
 
 	if (isset($result)) {
 		echo "Purchase Order Deleted";
+	} else {
+		echo "Error Deleting Purchase Order";
 	}
 
 
