@@ -42,11 +42,12 @@ if(isset($_POST["item_id"]))
 
 		$query = "
 		INSERT INTO tbldeliveryorderitem 
-        (id, doid, poid, branchid, productid, price, quantity, total) 
-        VALUES (:deliveryorderitemid, :deliveryorderid, :poid, :branchid, :productid,  :price, :item_quantity, :totalprice)
+        (id, doid, poiid, poid, branchid, productid, price, quantity, total) 
+        VALUES (:deliveryorderitemid, :deliveryorderid, :poiid, :poid, :branchid, :productid,  :price, :item_quantity, :totalprice)
 		";
 
 		$deliveryorderitemid = createId('tbldeliveryorderitem'); //incrementing delivery order item id
+		$purchaseorderitemid = $_POST['item_id'][$count];
 		$purchaseorderid = $_POST['po_id'][$count];
 		$productid = $_POST["item_code"][$count];
 		$price = preg_replace('/[^0-9]/s', "",$_POST["item_price"][$count]);
@@ -56,8 +57,9 @@ if(isset($_POST["item_id"]))
 		
 		$statement->execute(
 			array(
-				':deliveryorderitemid'	    =>	$deliveryorderitemid,
-				':deliveryorderid' => $deliveryorderid,
+				':deliveryorderitemid'	=>	$deliveryorderitemid,
+				':deliveryorderid' 	=> $deliveryorderid,
+				'poiid' => $purchaseorderitemid,
 				':poid'				=>	$purchaseorderid,
 				':branchid' 		=> $branchid,
 				':productid'		=>	$productid,

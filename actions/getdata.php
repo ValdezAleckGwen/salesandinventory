@@ -185,6 +185,29 @@ function getPayment(string $doid) {
 
 }
 
+function getQueryOne( string $column, string $tablename,  string $firstparameter, string $secondparameter) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT ".$column." FROM ".$tablename." WHERE ".$firstparameter." = '".$secondparameter."'");
+	$stmt->execute();
+	$deliveryorder = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $deliveryorder;
+
+}
+
+function getQueryTwo(string $columnone, string $columntwo, string $tablename,  string $firstparameter, string $secondparameter) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT ".$columnone." , ".$columntwo." FROM ".$tablename." WHERE ".$firstparameter." = '".$secondparameter."'");
+	$stmt->execute();
+	$deliveryorder = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $deliveryorder;
+
+}
+
+
 
 
 
