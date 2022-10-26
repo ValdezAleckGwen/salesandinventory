@@ -1,11 +1,11 @@
-<?php 
-include 'database_connection.php'
+<?php
+include 'database_connection.php';
+include 'getdata.php'
 
-//validate if there is id
 if (isset($_POST['id'])) {
-	$poid = $_POST['id'];
+	$doid = $_POST['id'];
 	//validate if its still in do 
-	$deliveryorder = getDeliveryOrder($poid);
+	$deliveryorder = getPayment($doid);
 	if ($deliveryorder) {
 
 	//execute the delete 
@@ -14,7 +14,7 @@ if (isset($_POST['id'])) {
 
 	$statement  = $connect->prepare($salesquery);
 	$statement->execute([
-		':id' => $poid
+		':id' => $doid
 	]);
 
 	$result = $statement->fetchAll();
@@ -25,19 +25,31 @@ if (isset($_POST['id'])) {
 		echo "Error Deleting Purchase Order";
 	}
 
-
-
 	} else {
 		// it is already delivered
 		echo "Cannot Delete Delivered Items";
 	}
 
 
-
-
-
 } else {
 	echo "no data found";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>
