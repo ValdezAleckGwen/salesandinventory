@@ -339,7 +339,7 @@ $(document).ready(function(){
 
         var dataType = 1;
         var currentRow = $(this).closest("tr");
-        var inventoryid = $(this).val();
+        var productid = $(this).val();
         var price = currentRow.find(".item_price");
         var name = currentRow.find(".item_name");
         var available = currentRow.find(".available_quantity");
@@ -347,7 +347,7 @@ $(document).ready(function(){
         $.ajax({
             url: "../actions/fetchproductinfo.php",
             method: "POST",
-            data: {inventoryid: inventoryid, dataType, dataType},
+            data: {productid: productid, dataType, dataType},
             dataType: "JSON",
             success: function (data) {
                 actualPrice = data.price.replace(/^/, '₱');

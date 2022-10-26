@@ -3,11 +3,12 @@ include 'database_connection.php'
 
 //validate if there is id
 if (isset($_POST['id'])) {
-
-	//validate if its still in do 
-	if () {
-
 	$poid = $_POST['id'];
+	//validate if its still in do 
+	$deliveryorder = getDeliveryOrder($poid);
+	if ($deliveryorder) {
+
+	//execute the delete 
 
 	$deletequery = "UPDATE tblpurchaseorder SET active = 2 WHERE id = :id";
 
@@ -25,7 +26,8 @@ if (isset($_POST['id'])) {
 
 
 	} else {
-		echo "Cannot Delete Arrived Items";
+		// it is already delivered
+		echo "Cannot Delete Delivered Items";
 	}
 
 

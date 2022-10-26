@@ -1,12 +1,12 @@
 <?php
 require_once 'DbConnect.php';
 
-if (isset($_POST['inventoryid'])) {
+if (isset($_POST['productid'])) {
 	$datatype = $_POST['dataType'];
 	
 	switch ($datatype) {
 		case 1:
-			$inventoryid = $_POST['inventoryid'];
+			$inventoryid = $_POST['productid'];
 			if ($inventoryid != 0) {
 				$db = new DbConnect;
 				$conn = $db->connect();
@@ -41,14 +41,17 @@ if (isset($_POST['inventoryid'])) {
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
 				foreach ($products as $product) {
+					$data['status'] = 'all goods';
 					$data['name'] = $product['name'];
-					$data['price'] = number_format($product['price']);
+					$price = $product['price'];
+					$data['price'] = number_format((float)$price, 2, '.', ',');
 				}
 
 				
 				echo json_encode($data);
 			} else {
-				echo " ";
+				$data['status'] = 'all goods';
+				echo json_encode($data);
 			}	
 
 			break;
