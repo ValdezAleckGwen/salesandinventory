@@ -167,6 +167,25 @@ function getDeliveryOrder(string $poid) {
 }
 
 
+function getPayment(string $doid) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT id from tbldeliveryorderitem WHERE doid = :doid");
+	$stmt->execute([
+	":doid" => $doid
+	]);
+	$deliveryorder = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if (!empty($deliveryorder)) {
+		return true;
+	} else {
+		return false;
+	}
+
+
+}
+
+
 
 
 

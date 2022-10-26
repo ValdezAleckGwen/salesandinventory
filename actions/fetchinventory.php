@@ -55,7 +55,7 @@ INNER JOIN tblcategory
 ON tblproducts.category=tblcategory.id
 INNER JOIN tblinventory
 ON tblinventory.productid = tblproducts.id
-WHERE tblproducts.active = 1 AND tblinventory.branchid AND tblusers.branchid = '".$branchid."'  
+WHERE tblproducts.active = 1 AND tblinventory.branchid = '".$branchid." '  
 ";
 
 }

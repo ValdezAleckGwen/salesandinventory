@@ -2,16 +2,22 @@
 require 'DbConnect.php';
 
 
-if (isset($_POST['id'])) {
+if (isset($_POST['supplier_id'])) {
 	$output = '';
 
 			
-			$supplierid = $_POST['id'];
+			$supplierid = $_POST['supplier_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
-
-			$stmt = $conn->prepare("SELECT tbldeliveryorderitem.id AS doitemid, tbldeliveryorder.id AS doid, tbldeliveryorder.supplierid AS supplierid FROM tbldeliveryorderitem INNER JOIN tbldeliveryorder ON tbldeliveryorderitem.doid=tbldeliveryorder.id INNER JOIN tblsupplier ON tbldeliveryorder.supplierid=tblsupplier.id WHERE supplierid = :supplierid AND paid = 0");
-			$stmt->execute([':supplierid' => $supplierid]);
+			$query = "SELECT tbldeliveryorderitem.id AS doitemid, tbldeliveryorder.id AS doid, tbldeliveryorder.supplierid AS supplierid FROM tbldeliveryorderitem INNER JOIN tbldeliveryorder ON tbldeliveryorderitem.doid=tbldeliveryorder.id INNER JOIN tblsupplier ON tbldeliveryorder.supplierid=tblsupplier.id WHERE supplierid = '".$supplierid."' AND paid = 0";
+			if (isset($_POST["item_id"])) {
+				for($count = 0; $count < count($_POST["item_id"]); $count++) {
+					$itemid = $_POST['item_id'][$count];
+					$query .= " AND tbldeliveryorderitem.id != '".$itemid."'";
+				}
+			} 
+			$stmt = $conn->prepare($query);
+			$stmt->execute();
 			$doitems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				$output = '';
 				$output .= '<tr style="display: block;">';
@@ -26,7 +32,7 @@ if (isset($_POST['id'])) {
 				$output .= '<td width="12.1%"><input type="text" name="item_branch[]" class="col col-sm-5 form-control item_branch" readonly/></td>';	
 				$output .= '<td width="15.2%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
 
-				// $output .= '<td><input type="text" name="item_name[]" class="col col-sm-2 form-control item_name" readonly/></td>';
+				
 
 				$output .= '<td width="15%"><input type="text" name="item_price[]" class="col col-sm-1 form-control item_price" readonly/></td>';
 
