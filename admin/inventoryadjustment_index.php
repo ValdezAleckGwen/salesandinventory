@@ -236,6 +236,7 @@ function displayUser() {
     //Start of DO Modal
     $(document).on('click', '.data', function() {
       var id = $(this).data('id');
+      alert(id);
       
 
       $.ajax({
@@ -244,7 +245,7 @@ function displayUser() {
         data: {id: id},
         success: function(response){ 
             $('.modal-body').html(response); 
-            $('#domodal').modal('show'); 
+            $('#iamodal').modal('show'); 
         }
     });
 

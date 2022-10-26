@@ -25,7 +25,7 @@ function displayUser() {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sales Return</title>
+        <title>Stock Transfer</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
@@ -164,7 +164,7 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>SALES RETURN</h3>
+        <h3>STOCK TRANSFER</h3>
         <div style="display: inline">
             <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
         <div style="float: right;">
@@ -178,7 +178,7 @@ function displayUser() {
         </div>
         
       <!-- modal start -->
-        <div class="modal fade " id="srmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+        <div class="modal fade " id="stmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
               <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -199,6 +199,7 @@ function displayUser() {
               </div>      
         </div>
         <!-- modal end -->
+
   </body>
 </html>
 <script>
@@ -210,7 +211,7 @@ function displayUser() {
     function load_data(page = 1, query = '')
     {
       $.ajax({
-        url:"../actions/fetchsalesreturn.php",
+        url:"../actions/fetchstocktransfer.php",
         method:"POST",
         data:{page:page, query:query},
         success:function(data)
@@ -239,12 +240,12 @@ function displayUser() {
       
 
       $.ajax({
-        url: '../actions/salesreturnmodal.php', //modal structure
+        url: '../actions/stocktransfermodal.php', //modal structure
         type: 'post',
         data: {id: id},
         success: function(response){ 
             $('.modal-body').html(response); 
-            $('#srmodal').modal('show'); 
+            $('#stmodal').modal('show'); 
         }
     });
 
