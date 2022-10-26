@@ -196,27 +196,20 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.add', function(){
 		var form_data = $('#insert_form').serialize();
-		var id = $('#supplier_id').val();
-		
-		
-
-		count++;
-
+		console.log(form_data)
 		$.ajax({
         url: "../actions/addrowpurchaseorder.php",
         method: "POST",
         data: form_data,
         success: function (data) {
             
-        	//$('#item_table').append(data);
+        	
         	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
             }
         });
 
-
-		
 
 	});
 

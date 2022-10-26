@@ -18,7 +18,7 @@ if(isset($_POST["item_id"]))
 
 	// create a delivery order
 	$deliveryorderquery = "
-	INSERT INTO tbldeliveryorder (id, supplierid, branchid,  total, userid, auditid) VALUES (:deliveryorderid, :supplierid, :branchid, :total, :userid,  :audit)
+	INSERT INTO tbldeliveryorder (id, supplierid, branchid,  total, userid) VALUES (:deliveryorderid, :supplierid, :branchid, :total, :userid)
 	";
 
 	$statement  = $connect->prepare($deliveryorderquery);
@@ -28,7 +28,7 @@ if(isset($_POST["item_id"]))
 		':branchid' => $branchid,
 		':total' => $total,
 		':userid' => $userid,
-		':audit' => $audit
+		
 	]);
 
 	

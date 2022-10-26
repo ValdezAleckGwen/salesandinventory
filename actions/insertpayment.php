@@ -16,7 +16,7 @@ if(isset($_POST["item_id"]))
 
 	// create a sale
 	$paymentquery = "
-	INSERT INTO tblpayables (id, total, userid, auditid, active) VALUES (:id, :total, :userid, 1)
+	INSERT INTO tblpayables (id, total, userid, active) VALUES (:id, :total, :userid, :active)
 	";
 
 	$statement  = $connect->prepare($paymentquery);
@@ -24,6 +24,7 @@ if(isset($_POST["item_id"]))
 		':id' => $paymentid,
 		':total' => $total,
 		':userid' => $userid,
+		':active' => 1
 		
 	]);
 
@@ -37,7 +38,7 @@ if(isset($_POST["item_id"]))
 
 		$payablequery = "
 		INSERT INTO tblpayableitem
-        (id, doid, supplierid, branchid, productid, price, quantity, total) 
+        (id, payableid, doid, supplierid, branchid, productid, price, quantity, total) 
         VALUES (:id, :payableid, :doid, :supplierid, :branchid, :productid, :price, :quantity, :total)
 		";
 
