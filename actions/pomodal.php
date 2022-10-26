@@ -1,5 +1,7 @@
 <?php 
 include('database_connection.php');
+include('getdata.php');
+
 if (isset($_POST['id'])) {
     
 $id = $_POST['id'];
@@ -7,13 +9,15 @@ $id = $_POST['id'];
 $query = "SELECT 
 tblpurchaseorder.id AS poid,
 tblsupplier.name AS suppliername,
+tblsupplier.address AS address,
 tblproducts.id AS productid,
 tblproducts.name AS name,
 tblpurchaseorderitem.quantity AS quantity,
 tblpurchaseorderitem.total AS total,
 tblpurchaseorderitem.price AS price,
 tblpurchaseorder.date as purchasedate,
-tblpurchaseorder.total  AS grandtotal
+tblpurchaseorder.total  AS grandtotal,
+tblpurchaseorder.userid AS userid
 
 FROM tblpurchaseorder
 INNER JOIN tblsupplier
@@ -34,6 +38,7 @@ $statement->execute([
 ]);
 
 $purchases = $statement->fetchAll();
+$userid = $purchases[0]['userid'];
 
 }
 
@@ -50,16 +55,17 @@ $purchases = $statement->fetchAll();
                 <div class="row printme">
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
-                            Company Name
+                            <?php echo $purchases[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            Address Here
+                            <?php echo $purchases[0]['address']; ?>
                         </p>
                     </div>
 
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
                             ISSUED BY:
+                            <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
                             PO ID: <?php echo $purchases[0]['poid']; ?>
