@@ -12,13 +12,14 @@ if(isset($_POST["item_id"]))
 	
 	$supplierid = $_POST['supplier_id'];
 	$deliveryoderid = $_POST['do_number'];
-	$total = preg_replace('/[^0-9]/s', "",$_POST["total"]);
+	$total = $_POST["total"];
+	$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$userid = $_SESSION['uid'];
 	$branchid = getBranch($userid);
 
 	// create a delivery order
 	$deliveryorderquery = "
-	INSERT INTO tbldeliveryorder (id, supplierid, branchid,  total, userid, auditid) VALUES (:deliveryorderid, :supplierid, :branchid, :total, :userid,  :audit)
+	INSERT INTO tbldeliveryorder (id, supplierid, branchid,  total, userid) VALUES (:deliveryorderid, :supplierid, :branchid, :total, :userid)
 	";
 
 	$statement  = $connect->prepare($deliveryorderquery);
@@ -28,7 +29,7 @@ if(isset($_POST["item_id"]))
 		':branchid' => $branchid,
 		':total' => $total,
 		':userid' => $userid,
-		':audit' => $audit
+		
 	]);
 
 	
@@ -42,22 +43,26 @@ if(isset($_POST["item_id"]))
 
 		$query = "
 		INSERT INTO tbldeliveryorderitem 
-        (id, doid, poid, branchid, productid, price, quantity, total) 
-        VALUES (:deliveryorderitemid, :deliveryorderid, :poid, :branchid, :productid,  :price, :item_quantity, :totalprice)
+        (id, doid, poiid, poid, branchid, productid, price, quantity, total) 
+        VALUES (:deliveryorderitemid, :deliveryorderid, :poiid, :poid, :branchid, :productid,  :price, :item_quantity, :totalprice)
 		";
 
 		$deliveryorderitemid = createId('tbldeliveryorderitem'); //incrementing delivery order item id
+		$purchaseorderitemid = $_POST['item_id'][$count];
 		$purchaseorderid = $_POST['po_id'][$count];
 		$productid = $_POST["item_code"][$count];
-		$price = preg_replace('/[^0-9]/s', "",$_POST["item_price"][$count]);
+		$price = $_POST["item_price"][$count];
+		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$item_quantity = $_POST["item_quantity"][$count];
-		$totalprice = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$totalprice = $_POST["item_total"][$count];
+		$totalprice = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$statement = $connect->prepare($query);
 		
 		$statement->execute(
 			array(
-				':deliveryorderitemid'	    =>	$deliveryorderitemid,
-				':deliveryorderid' => $deliveryorderid,
+				':deliveryorderitemid'	=>	$deliveryorderitemid,
+				':deliveryorderid' 	=> $deliveryorderid,
+				'poiid' => $purchaseorderitemid,
 				':poid'				=>	$purchaseorderid,
 				':branchid' 		=> $branchid,
 				':productid'		=>	$productid,
@@ -98,7 +103,8 @@ if(isset($_POST["item_id"]))
 	foreach ($pos as $po) {
 		$itemtotal = $po[0];
 	}
-	$doitemtotal = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+	$doitemtotal = $_POST["item_total"][$count];
+	$doitemtotal = filter_var($doitemtotal, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$total = floatval($itemtotal) - floatval($doitemtotal) ;
 
 	$deliveryorderquery = "
@@ -122,7 +128,7 @@ if(isset($_POST["item_id"]))
 
 	} //end of for loop 
 
-	// try to consolidate in one loop 
+	
 
 	//add delivered goods to inventory
 	for($count = 0; $count < count($_POST["item_id"]); $count++)

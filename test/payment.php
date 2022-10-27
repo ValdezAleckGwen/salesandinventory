@@ -137,25 +137,16 @@ function fill_unit_select_box_supplier($connect)
 </html>
 <script>
 
-$(document).ready(function(){
-
-	var count = 0;
-	
 	$(document).on('click', '.add', function(){
-
-		var id = $('#supplier_id').val();
-		
-		var branchid = $('#branch_id').val();
-		
-		count++;
-
+		var form_data = $('#insert_form').serialize();
+		console.log(form_data)
 		$.ajax({
         url: "../actions/addrowpayment.php",
         method: "POST",
-        data: {id: id, branchid, branchid},
+        data: form_data,
         success: function (data) {
             
-        	//$('#item_table').append(data);
+        	
         	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
@@ -163,9 +154,7 @@ $(document).ready(function(){
         });
 
 
-		
-
-	});
+	
 
 
 	$(document).on('change')
@@ -312,7 +301,6 @@ $(document).ready(function(){
                 doid.val(data.doid);
                 itemid.val(data.productid);
                 branch.val(data.branch);
-                // name.val(data.name); 
                 price.val(actualPrice);
                 quantity.val(data.quantity);	
                 total.val(data.total);
@@ -331,41 +319,11 @@ $(document).ready(function(){
 
 
 
-	//
-
-	// $(document).on("change", ".item_id", function() {
-	// 	// total_amount();
-		
-	// 	var currentRow = $(this).closest("tr");
-	// 	var quantity = $(this).val();
-	// 	var price = currentRow.find(".item_price").val();
-	// 	var totalPrice = currentRow.find(".item_total");
-	// 	var tax = $('#tax').val();
-	// 	var number;
-	// 	var vatSale;
-	// 	$.ajax({
-	// 		url: "../actions/fetchtotalprice.php",
-	// 		method: "POST",
-	// 		data: {quantity: quantity, price:price },
-	// 		success	: function (totalprice) {
-	// 			totalprice = totalprice.replace(/^/, '₱ ');
-	// 			totalPrice.val(totalprice);
-
-	// 			// number = totalprice;
-	// 			// number = number.replace(/[^a-zA-Z0-9]/g, '');
-	// 			// vatSale = number * .88;
-	// 			// number = number * .12;
-	// 			// number = parseFloat(number).toFixed(2);
-	// 			// vatSale = parseFloat(vatSale).toFixed(2);
-	// 			// $('#vat').val(number);
-	// 			// $('#vatable-sale').val(vatSale);
+	
 
 
-	// 		}
-	// 	});
 
 
-	// });
 
 
 

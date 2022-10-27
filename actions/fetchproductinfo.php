@@ -19,7 +19,7 @@ if (isset($_POST['productid'])) {
 					$data['name'] = $product['name'];
 					$data['available'] = $product['count'];
 					$price = $product['price'];
-					$data['price'] = number_format((float)$price, 2, '.', ',');
+					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 				}
 
 				
@@ -44,7 +44,8 @@ if (isset($_POST['productid'])) {
 					$data['status'] = 'all goods';
 					$data['name'] = $product['name'];
 					$price = $product['price'];
-					$data['price'] = number_format((float)$price, 2, '.', ',');
+					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+
 				}
 
 				
@@ -70,8 +71,10 @@ if (isset($_POST['productid'])) {
 					
 					$data['productid'] = $po['productid'];
 					$data['poid'] = $po['poid'];
-					$data['total'] = number_format($po['total']);
-					$data['price'] = number_format($po['price']);
+					$totalprice = $po['total'];
+					$price = $po['price'];
+					$data['total'] = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['quantity'] = $po['quantity'];
 					$data['name'] = $po['name'];
 					
@@ -101,8 +104,10 @@ if (isset($_POST['productid'])) {
 					$data['productid'] = $do['productid'];
 					$data['doid'] = $do['doid'];
 					$data['branch'] = $do['branch'];
-					$data['total'] = number_format($do['total']);
-					$data['price'] = number_format($do['price']);
+					$totalprice = $po['total'];
+					$price = $po['price'];
+					$data['total'] = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['quantity'] = $do['quantity'];
 					$data['name'] = $do['productname'];
 					
