@@ -6,11 +6,20 @@ if (isset($_POST['id'])) {
 	$poid = $_POST['id'];
 	//validate if its still in do 
 	$deliveryorder = getDeliveryOrder($poid);
-	if ($deliveryorder) {
+	if (!$deliveryorder) {
 
 	//execute the delete 
 
 	$deletequery = "UPDATE tblpurchaseorder SET active = 2 WHERE id = :id";
+
+	$statement  = $connect->prepare($salesquery);
+	$statement->execute([
+		':id' => $poid
+	]);
+
+	$result = $statement->fetchAll();
+
+	$deletequery = "UPDATE tblpurchaseorderitem SET active = 2 WHERE poid = :id";
 
 	$statement  = $connect->prepare($salesquery);
 	$statement->execute([

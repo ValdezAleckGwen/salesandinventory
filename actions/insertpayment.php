@@ -38,11 +38,12 @@ if(isset($_POST["item_id"]))
 
 		$payablequery = "
 		INSERT INTO tblpayableitem
-        (id, payableid, doid, supplierid, branchid, productid, price, quantity, total) 
-        VALUES (:id, :payableid, :doid, :supplierid, :branchid, :productid, :price, :quantity, :total)
+        (id, payableid, doiid, doid, supplierid, branchid, productid, price, quantity, total) 
+        VALUES (:id, :payableid, :doiid, :doid, :supplierid, :branchid, :productid, :price, :quantity, :total)
 		";
 
 		$payableitemid = createId('tblpayableitem'); 
+		$deliveryorderitemid = $_POST['item_id'][$count];
 		$doid = $_POST['do_id'][$count];
 		$branchid = $_POST['item_branch'][$count];
 		$productid = $_POST['item_code'][$count];
@@ -55,6 +56,7 @@ if(isset($_POST["item_id"]))
 			array(
 				':id'			=>	$payableitemid,
 				':payableid'	=>	$paymentid,
+				':doiid'		=> $deliveryorderitemid,
 				':doid'			=>	$doid,
 				':supplierid'	=>	$supplierid,
 				':branchid'		=>	$branchid,
