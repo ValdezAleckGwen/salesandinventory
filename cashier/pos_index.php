@@ -142,7 +142,8 @@ function fill_unit_select_box($connect, $branchid)
 								</div>	
 								<div class="col col-sm-2" style="float: left;">
 									<label>Tax</label>
-									<select name="tax" id="tax" class="form-control">
+									<select name="tax" id="tax" class="form-control" required>
+										<option value="">Select Tax</option>
 										<option value="1">Regular</option>
 										<option value="2">Senior Discount</option>
 										
@@ -412,6 +413,35 @@ $(document).ready(function(){
 
 
 	$(document).on("change", ".item_quantity", function() {
+		var form_data = $('#insert_form').serialize();
+		console.log(form_data)
+		$.ajax({
+			url: "../actions/fetchtax.php",
+			method: "POST",
+			data: form_data,
+			dataType: "JSON",
+			success	: function (data) {
+			
+			if (data.status = 1) {
+				$('#vattable-sale').val(data.vattablesale);
+				$('#vat').val(data.vat);
+				$('#total').val(data.total);
+
+			} else {
+				$('#vattable-sale').val(0.0);
+				$('#vat').val(0.0);
+				$('#total').val(data.total);
+			}
+			
+
+
+
+			}
+		});
+
+	});
+
+		$(document).on("change", "#tax", function() {
 		var form_data = $('#insert_form').serialize();
 		console.log(form_data)
 		$.ajax({

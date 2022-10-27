@@ -9,7 +9,7 @@ if (isset($_POST['supplier_id'])) {
 			$supplierid = $_POST['supplier_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
-			$query = "SELECT tblpurchaseorder.supplierid as supplierid, tblpurchaseorderitem.id as poitemid, tblpurchaseorderitem.branchid as branch, tblpurchaseorder.id as poid, tblpurchaseorderitem.quantity as quantity FROM tblpurchaseorder INNER JOIN tblpurchaseorderitem ON tblpurchaseorder.id=tblpurchaseorderitem.poid WHERE quantity > 0 AND supplierid = '".$supplierid."' AND tblpurchaseorderitem.branchid = '".$branchid."'";
+			$query = "SELECT tblpurchaseorder.supplierid as supplierid, tblpurchaseorderitem.id as poitemid, tblpurchaseorderitem.branchid as branch, tblpurchaseorder.id as poid, tblpurchaseorderitem.quantity as quantity FROM tblpurchaseorder INNER JOIN tblpurchaseorderitem ON tblpurchaseorder.id=tblpurchaseorderitem.poid WHERE quantity > 0 AND tblpurchaseorderitem.active = 1 AND supplierid = '".$supplierid."' AND tblpurchaseorderitem.branchid = '".$branchid."'";
 			
 			if (isset($_POST["item_id"])) {
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {

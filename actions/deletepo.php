@@ -1,5 +1,6 @@
 <?php 
-include 'database_connection.php'
+include 'database_connection.php';
+include 'getdata.php';
 
 //validate if there is id
 if (isset($_POST['id'])) {
