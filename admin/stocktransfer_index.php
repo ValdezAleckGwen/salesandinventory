@@ -25,7 +25,7 @@ function displayUser() {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sales Return</title>
+        <title>Stock Transfer</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
@@ -53,6 +53,8 @@ function displayUser() {
           <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
             <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addbranch_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Branch</a>
+            <a href="editbranch_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Branch</a>
           </div>
         </div>              
 
@@ -61,7 +63,8 @@ function displayUser() {
           <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
             <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
+            <a href="addproduct_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Products</a>
+            <a href="editproduct_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Products</a>
           </div>
         </div>
 
@@ -70,6 +73,8 @@ function displayUser() {
           <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
             <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addcategory_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Category</a>
+            <a href="editcategory_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Category</a>
           </div>
         </div>
 
@@ -82,20 +87,22 @@ function displayUser() {
           </div>
         </div>
 
-
          <!-- Purchase Order -->
         <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
 
-
         <!-- Delivery Order -->
-        <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+        <div class="item"><a href="delivery_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
 
+        <!-- Orders-->
+        <div class="item"><a href="orders_index.php"><i class="fa-regular fa-cart-shopping"></i>Orders</a></div>
 
         <!-- Suppliers-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addsuppliers_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Suppliers</a>
+            <a href="editsuppliers_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Suppliers</a>
           </div>
         </div>
 
@@ -116,9 +123,14 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-user"></i>Users<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="user_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
+            <a href="adduser_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Users</a>
+            <a href="edituser_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Users</a>
           </div>
         </div>
+
+
+        <!-- Audit Logs -->
+        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>           
 
         <!-- Settings -->
         <div class="item">
@@ -152,7 +164,7 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>SALES RETURN</h3>
+        <h3>STOCK TRANSFER</h3>
         <div style="display: inline">
             <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
         <div style="float: right;">
@@ -166,7 +178,7 @@ function displayUser() {
         </div>
         
       <!-- modal start -->
-        <div class="modal fade " id="srmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+        <div class="modal fade " id="stmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
               <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -187,6 +199,7 @@ function displayUser() {
               </div>      
         </div>
         <!-- modal end -->
+
   </body>
 </html>
 <script>
@@ -198,7 +211,7 @@ function displayUser() {
     function load_data(page = 1, query = '')
     {
       $.ajax({
-        url:"../actions/fetchsalesreturn.php",
+        url:"../actions/fetchstocktransfer.php",
         method:"POST",
         data:{page:page, query:query},
         success:function(data)
@@ -227,12 +240,12 @@ function displayUser() {
       
 
       $.ajax({
-        url: '../actions/salesreturnmodal.php', //modal structure
+        url: '../actions/stocktransfermodal.php', //modal structure
         type: 'post',
         data: {id: id},
         success: function(response){ 
             $('.modal-body').html(response); 
-            $('#srmodal').modal('show'); 
+            $('#stmodal').modal('show'); 
         }
     });
 
