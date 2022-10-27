@@ -8,7 +8,7 @@ if (isset($_POST['id'])) {
 	$deliveryorder = getPayment($doid);
 	if (!$deliveryorder) {
 
-		//execute the delete 
+		//execute the delete the main delivery order
 
 		$deletequery = "UPDATE tbldeliveryorder SET active = 2 WHERE id = :id";
 
@@ -18,6 +18,8 @@ if (isset($_POST['id'])) {
 		]);
 
 		$result = $statement->fetchAll();
+
+		//execute the delete of delivery order items
 
 		$deletequery = "UPDATE tbldeliveryorderitem SET active = 2 WHERE id = :id";
 
