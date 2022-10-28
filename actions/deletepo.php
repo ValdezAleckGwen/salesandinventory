@@ -13,7 +13,7 @@ if (isset($_POST['id'])) {
 
 	$deletequery = "UPDATE tblpurchaseorder SET active = 2 WHERE id = :id";
 
-	$statement  = $connect->prepare($salesquery);
+	$statement  = $connect->prepare($deletequery);
 	$statement->execute([
 		':id' => $poid
 	]);
@@ -22,7 +22,7 @@ if (isset($_POST['id'])) {
 
 	$deletequery = "UPDATE tblpurchaseorderitem SET active = 2 WHERE poid = :id";
 
-	$statement  = $connect->prepare($salesquery);
+	$statement  = $connect->prepare($deletequery);
 	$statement->execute([
 		':id' => $poid
 	]);

@@ -1,19 +1,9 @@
 <?php
 include 'database_connection.php';
 include 'getdata.php';
-$poiid = 'PI-0000001';
-$doid = 'DO-0000011';
-$quantity = 1;
-$price = 5.55;
+
+$paymentid = 'PY-0000004';
+$payments = getQueryOne('doiid', 'tblpayableitem', 'payableid', $paymentid);
 
 
-      $updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity, price = :price WHERE id = :poiid";
-
-      $statement  = $connect->prepare($updatequery);
-      $statement->execute([
-        ':quantity' => $quantity,
-        ':price' => $price,
-        ':poiid' => $poiid
-      ]);
-
-
+echo var_dump($payments);
