@@ -1,29 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<title></title>
-</head>
-<body>
-<div id="hotdog">hotdog</div>
-</body>
-</html>
-<script>
-$(document).ready(function(){
+<?php
+include 'database_connection.php';
+include 'getdata.php';
+$poiid = 'PI-0000001';
+$doid = 'DO-0000011';
+$quantity = 1;
+$price = 5.55;
 
-	var error = '';
-	$.ajax({
-	url: "testing.php",
-	method: "POST",
-	
-	success	: function (data) {
-		error += data;
-		$('#hotdog').html(error);
 
-	}
-	});
+      $updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity, price = :price WHERE id = :poiid";
 
-});
-</script>
+      $statement  = $connect->prepare($updatequery);
+      $statement->execute([
+        ':quantity' => $quantity,
+        ':price' => $price,
+        ':poiid' => $poiid
+      ]);
+
+
