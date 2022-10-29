@@ -1,33 +1,51 @@
 <?php 
-include 'getdata.php';
 include 'database_connection.php';
-setlocale(LC_MONETARY, 'en_IN');
+include 'getdata.php';
 
-$inventoryid = 'P-0000051';
-      if ($inventoryid != 0) {
-        $db = new DbConnect;
-        $conn = $db->connect();
-          
-        $stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.name AS name, tblproducts.price AS price FROM tblinventory INNER JOIN tblproducts ON tblinventory.productId=tblproducts.id WHERE tblproducts.id = :inventoryid");
-        $stmt->execute([':inventoryid' => $inventoryid]);
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        foreach ($products as $product) {
-          $data['name'] = $product['name'];
-          $price = $product['price'];
-          $data['price'] = number_format((float)$price, 2, '.', ',');
-        }
-
-        
-        echo json_encode($data);
-      } else {
-        echo " ";
-      }
-
+//validate if there is id
   
-  
- 
+  $poid = 'PO-0000012';
+  //validate if its still in do 
+  $deliveryorder = getDeliveryOrder($poid);
+  if (!$deliveryorder) {
 
-  
+  //execute the delete 
+
+  $deletequery = "UPDATE tblpurchaseorder SET active = 0 WHERE id = :id";
+
+  $statement  = $connect->prepare($deletequery);
+  $statement->execute([
+    ':id' => $poid
+  ]);
+
+  $result = $statement->fetchAll();
+
+  $deletequery = "UPDATE tblpurchaseorderitem SET active = 0 WHERE poid = :id";
+
+  $statement  = $connect->prepare($deletequery);
+  $statement->execute([
+    ':id' => $poid
+  ]);
+
+  $result = $statement->fetchAll();
+
+  if (isset($result)) {
+    echo "Purchase Order Deleted";
+  } else {
+    echo "Error Deleting Purchase Order";
+  }
+
+
+
+  } else {
+    // it is already delivered
+    echo "Cannot Delete Delivered Items";
+  }
+
+
+
+
+
+
 
 ?>
