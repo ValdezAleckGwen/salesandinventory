@@ -47,11 +47,62 @@ $userid = $purchases[0]['userid'];
 <html lang="en">
     <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+
     <link rel="icon" href="favicon.png" type="image/svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     </head>
+
+    <!-- Delete Function Jquery -->
+        <script>
+            $(document).ready(function () {
+
+                // Delete 
+                $(document).on('click', '.delete', function () {
+                    var el = this;
+
+                    // Delete id
+                    var deleteid = $(this).data('id');
+                    alert(deleteid);
+
+                    // Confirm box
+                    bootbox.confirm("Do you really want to delete record?", function (result) {
+
+                        if (result) {
+                            // AJAX Request
+                            $.ajax({
+                                url: '../actions/deletepo.php',
+                                type: 'POST',
+                                data: {deleteid: deleteid},
+                                success: function (response) {
+                                alert(response);
+
+                                    // Removing row from HTML Table
+                                    if (response == ' ok') {
+                                        bootbox.alert('Record deleted.');
+                                        $(el).closest('tr').css('background', 'tomato');
+                                        $(el).closest('tr').fadeOut(800, function () {
+                                            $(this).remove();
+                                        });
+
+                                    } else {
+                                        bootbox.alert('Record not deleted');
+                                    }
+
+                                }
+                            });
+                        }
+
+                    });
+
+                });
+            });
+        </script>
+
     <body>
 
-            <div class="container" style="pointer-events: none;">
+            <div class="container" >
+                
                 <div class="row printme">
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
@@ -108,30 +159,41 @@ $userid = $purchases[0]['userid'];
                                         <th class="text-center">
                                             TOTAL
                                         </th>
+                                        
                                     </tr>
+
                                     <?php
                                     $output = '';
                                         foreach ($purchases as $purhcase) {
-                                        $output .= '<tr>';
+
+                                        $output .= '<tr class class="data" data-id="'.$purhcase["poid"].'">';
+
                                          $output .=  '<td>
                                                         <p>'.$purhcase['suppliername'].'</p>
-                                                    </td>';
+                                                      </td>';
+
                                         $output .=  '<td>
                                                         <p>'.$purhcase['productid'].'</p>
                                                     </td>';
+
                                         $output .= '<td>
-                                                <p>'.$purhcase['name'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['name'].'</p>
+                                                    </td>';
+
                                         $output .= '<td>
-                                                <p>'.$purhcase['quantity'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['quantity'].'</p>
+                                                    </td>';
+
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$purhcase['price'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['price'].'</p>
+                                                    </td>';
                                         
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$purhcase['total'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['total'].'</p>
+                                                    </td>';
+
+                                                 
+
                                         $output .= '</tr>';
                                         
                                         }
@@ -142,9 +204,7 @@ $userid = $purchases[0]['userid'];
                                 </tbody>
                                 <tfoot>
 
-                                   
-                                
-                                    <tr>
+                                   <tr>
                                         <td></td>
                                         <td></td>
                                         <td colspan="2" class="text-end border_sm_top"></td>
@@ -154,10 +214,18 @@ $userid = $purchases[0]['userid'];
                                         </td>
                                     </tr>
                                 </tfoot>
+
                             </table>
+                            <td class="text-center" style="border: 1px solid;"> 
+                                <button class="delete btn btn-danger btn-sm rounded-0" 
+                                    id="del_<?php echo $purhcase['poid'];?>"  data-id="<?php echo $purhcase['poid'];?>">
+                                    <i class="fa-solidfa-circle-minus"></i>
+                                </button>
+                            </td>
                         </div>
                     </div>
-                   
+                </div>
+            </div>
         <!-- invoice_page -->
 
         
