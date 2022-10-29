@@ -103,7 +103,7 @@ function displayUser() {
         </div>
 
         <!-- Payments -->
-        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <div class="item"><a href="payables_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
         <div class="item">
