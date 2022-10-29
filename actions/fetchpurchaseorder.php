@@ -36,6 +36,7 @@ INNER JOIN tblsupplier
 ON tblpurchaseorder.supplierid=tblsupplier.id
 INNER JOIN tblusers 
 ON tblpurchaseorder.userid=tblusers.id
+WHERE tblpurchaseorder.active = 1
 ";
   
 } else {
