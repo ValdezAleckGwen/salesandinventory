@@ -3,15 +3,15 @@ include 'database_connection.php';
 include 'getdata.php';
 
 //validate if there is id
-if (isset($_POST['id'])) {
-	$poid = $_POST['id'];
+if (isset($_POST['deleteid'])) {
+	$poid = $_POST['deleteid'];
 	//validate if its still in do 
 	$deliveryorder = getDeliveryOrder($poid);
-	if (!$deliveryorder) {
+	if ($deliveryorder) {
 
 	//execute the delete 
 
-	$deletequery = "UPDATE tblpurchaseorder SET active = 2 WHERE id = :id";
+	$deletequery = "UPDATE tblpurchaseorder SET active = 0 WHERE id = :id";
 
 	$statement  = $connect->prepare($deletequery);
 	$statement->execute([
@@ -20,9 +20,10 @@ if (isset($_POST['id'])) {
 
 	$result = $statement->fetchAll();
 
-	$deletequery = "UPDATE tblpurchaseorderitem SET active = 2 WHERE poid = :id";
+	$deletequery = "UPDATE tblpurchaseorderitem SET active = 0 WHERE poid = :id";
 
 	$statement  = $connect->prepare($deletequery);
+
 	$statement->execute([
 		':id' => $poid
 	]);
@@ -30,9 +31,7 @@ if (isset($_POST['id'])) {
 	$result = $statement->fetchAll();
 
 	if (isset($result)) {
-		echo "Purchase Order Deleted";
-	} else {
-		echo "Error Deleting Purchase Order";
+		echo "Successfuly deleted Purchase Oorder";
 	}
 
 
