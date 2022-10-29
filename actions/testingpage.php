@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<title></title>
-</head>
-<body>
-<div id="hotdog">hotdog</div>
-</body>
-</html>
-<script>
-$(document).ready(function(){
+<?php
+include 'database_connection.php';
+include 'getdata.php';
 
-	var error = '';
-	$.ajax({
-	url: "testing.php",
-	method: "POST",
-	
-	success	: function (data) {
-		error += data;
-		$('#hotdog').html(error);
+$paymentid = 'PY-0000004';
+$payments = getQueryOne('doiid', 'tblpayableitem', 'payableid', $paymentid);
 
-	}
-	});
 
-});
-</script>
+echo var_dump($payments);

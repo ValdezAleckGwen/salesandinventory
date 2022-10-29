@@ -1,7 +1,6 @@
 <?php
 include 'DbConnect.php';
 
-
 function getFirstName(string $uid) {
 	$db = new DbConnect;
 	$conn = $db->connect();
@@ -171,7 +170,7 @@ function getPayment(string $doid) {
 	$db = new DbConnect;
 	$conn = $db->connect();
 	$compname = '';
-	$stmt = $conn->prepare("SELECT id from tbldeliveryorderitem WHERE doid = :doid");
+	$stmt = $conn->prepare("SELECT id from tblpayableitem WHERE doid = :doid");
 	$stmt->execute([
 	":doid" => $doid
 	]);
@@ -207,6 +206,35 @@ function getQueryTwo(string $columnone, string $columntwo, string $tablename,  s
 
 }
 
+function getQueryThree(string $columnone, string $columntwo, string $columnthree, string $tablename,  string $firstparameter, string $secondparameter) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT ".$columnone." , ".$columntwo.", ".$columnthree."  FROM ".$tablename." WHERE ".$firstparameter." = '".$secondparameter."'");
+	$stmt->execute();
+	$deliveryorder = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $deliveryorder;
+
+}
+
+function alterTotal(string $poiid) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	$compname = '';
+	$stmt = $conn->prepare("SELECT total FROM tblpurchaseorderitem WHERE id = '".$poiid."'");
+	$stmt->execute();
+	$pototals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$total = 0.00;
+	foreach ($pototals as  $pototal) {
+		$total = $pototal['total'];
+	}
+	if ($total < 0) {
+		$total = 0;
+	}
+	$stmt = $conn->prepare("UPDATE tblpurchaseorderitem SET total = ".$total ." WHERE id = '".$poiid."'");
+	$stmt->execute();
+	$pototals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 

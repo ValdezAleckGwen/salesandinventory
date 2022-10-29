@@ -2,15 +2,12 @@
 include 'database_connection.php';
 include 'getdata.php';
 
-  $paymentid = 'PY-0000004';
-  
-  //validate if its still in do 
-  
-  
-
-    //execute the delete 
-
-    $deletequery = "UPDATE tblpayables SET active = 0 WHERE id = :id";
+//validate if there is id
+if (isset($_POST['id'])) {
+	$paymentid = $_POST['id'];
+	
+	
+	$deletequery = "UPDATE tblpayables SET active = 0 WHERE id = :id";
 
     $statement  = $connect->prepare($deletequery);
     $statement->execute([
@@ -55,9 +52,8 @@ include 'getdata.php';
     }
 
 
-
-
-
-
+} else {
+	echo "no data found";
+}
 
 ?>
