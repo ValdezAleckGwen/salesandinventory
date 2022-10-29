@@ -7,7 +7,7 @@ include '../x-function/redirect_if_notLogin.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NARCI - Suppliers</title>
+    <title>Suppliers</title>
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
