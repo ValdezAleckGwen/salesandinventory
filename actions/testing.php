@@ -2,80 +2,60 @@
 include 'database_connection.php';
 include 'getdata.php';
 
-  $doid = 'DO-0000012';
-  //validate if its paid already
-  $deliveryorder = getPayment($doid);
-  if (!$deliveryorder) {
+  $paymentid = 'PY-0000004';
+  
+  //validate if its still in do 
+  
+  
 
-    //execute the delete the main delivery order
+    //execute the delete 
 
-    $deletequery = "UPDATE tbldeliveryorder SET active = 0 WHERE id = :id";
+    $deletequery = "UPDATE tblpayables SET active = 0 WHERE id = :id";
 
     $statement  = $connect->prepare($deletequery);
     $statement->execute([
-      ':id' => $doid
+      ':id' => $paymentid
     ]);
 
     $result = $statement->fetchAll();
 
-    //execute the delete of delivery order items
+    $payments = getQueryOne('doiid', 'tblpayableitem', 'payableid', $paymentid);
 
-    $deletequery = "UPDATE tbldeliveryorderitem SET active = 0 WHERE id = :id";
+    foreach ($payments as $payment) {
+      $doiid = $payment['doiid'];
+      // for payable item
+      $deletequery = "UPDATE tblpayableitem SET active = 0 WHERE doiid = :id";
 
-    $statement  = $connect->prepare($deletequery);
-    $statement->execute([
-      ':id' => $doid
-    ]);
-
-    $result = $statement->fetchAll();
-
-    //update the purchase order quantity 
-
-
-    $deliveryorders = getQueryThree('poiid', 'quantity', 'total', 'tbldeliveryorderitem', 'doid', $doid);
-
-
-
-
-    foreach($deliveryorders as $deliveryorder) {
-      $poiid = $deliveryorder['poiid'];
-      alterTotal($poiid);
-      $doquantity = 0;
-      $poquantity = 0;
-      $dototal = 0.00;
-      $dototal = $deliveryorder['total'];
-      $doquantity = $deliveryorder['quantity'];
-      $purchaseorders = getQueryTwo('quantity', 'total', 'tblpurchaseorderitem', 'id', $poiid);
-      foreach ($purchaseorders as $purchaseorder) {
-        
-        $poquantity = $purchaseorder['quantity'];
-        $pototal = $purchaseorder['total'];
-      }
-      $total = $pototal + $dototal;
-      $quantity = $poquantity + $doquantity;
-      $updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity, total = :total, active = 0 WHERE id = :poiid";
-
-      $statement  = $connect->prepare($updatequery);
+      $statement  = $connect->prepare($deletequery);
       $statement->execute([
-        ':quantity' => $quantity,
-        ':total' => $total,
-        ':poiid' => $poiid
+        ':id' => $doiid
       ]);
 
       $result = $statement->fetchAll();
 
+
+      // for delivery order
+
+      $deletequery = "UPDATE tbldeliveryorderitem SET paid = 0 WHERE id = :id";
+
+
+
+      $statement  = $connect->prepare($deletequery);
+      $statement->execute([
+        ':id' => $doiid
+      ]);
+
+      $result = $statement->fetchAll();
+
+
     }
+
 
     if (isset($result)) {
-      echo "ok";
+      echo "Payment Deleted";
     } else {
-      echo "Error Deleting Delivery Order";
+      echo "Error Deleting Payment";
     }
-
-  } else {
-    // it is already delivered
-    echo "Cannot Delete Paid Items";
-  }
 
 
 
