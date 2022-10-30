@@ -4,7 +4,7 @@
 
 ?>
 <html>
-<title>NARCI - Log In</title>
+<title>Log In</title>
 <head>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
