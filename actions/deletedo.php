@@ -32,26 +32,32 @@ if (isset($_POST['id'])) {
 
 		//update the purchase order quantity 
 
-		$deliveryorders = getQueryTwo('poiid', 'quantity', 'tbldeliveryorderitem', 'doid', $doid)
+		$deliveryorders = getQueryThree('poiid', 'quantity', 'total', 'tbldeliveryorderitem', 'doid', $doid)
 
 
 
 		foreach($deliveryorders as $deliveryorder) {
 			$poiid = $deliveryorder['poiid'];
+			alterTotal($poiid);
 			$doquantity = 0;
 			$poquantity = 0;
+			$dototal = 0.00;
+			$dototal = $deliveryorder['total'];
 			$doquantity = $deliveryorder['quantity'];
-			$purchaseorders = getQueryOne('quantity', 'tblpurchaseorderitem', 'id', $poiid);
+			$purchaseorders = getQueryTwo('quantity', 'total' 'tblpurchaseorderitem', 'id', $poiid);
 			foreach ($purchaseorders as $purchaseorder) {
 				
 				$poquantity = $purchaseorder['quantity'];
+				$pototal = $purchaseorder['total'];
 			}
+			$total = $pototal + $dototal;
 			$quantity = $poquantity + $doquantity;
-			$updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity WHERE id = :poiid";
+			$updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity, total = :total WHERE id = :poiid";
 
 			$statement  = $connect->prepare($salesquery);
 			$statement->execute([
 				':quantity' => $quantity,
+				':total' => $total,
 				':poiid' => $poiid
 			]);
 

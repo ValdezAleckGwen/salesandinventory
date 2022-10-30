@@ -342,7 +342,13 @@ $(document).ready(function(){
         var price = currentRow.find(".item_price");
         var name = currentRow.find(".item_name");
         var available = currentRow.find(".available_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var totalPrice = currentRow.find(".item_total");
+        totalPrice.val('');
+        $('#total').val('');
+        quantity.val('');
         var actualPrice;
+
         $.ajax({
             url: "../actions/fetchproductinfo.php",
             method: "POST",

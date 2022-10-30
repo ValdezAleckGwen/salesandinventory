@@ -344,6 +344,10 @@ $(document).ready(function(){
         var quantity = currentRow.find(".quantity")
         var total = currentRow.find(".item_total")
         var actualPrice;
+        var totalPrice = currentRow.find(".item_total");
+        totalPrice.val('');
+        $('#total').val('');
+        quantity.val('');
         
         $.ajax({
             url: "../actions/fetchproductinfo.php",

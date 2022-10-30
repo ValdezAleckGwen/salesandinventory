@@ -44,7 +44,8 @@ if (isset($_POST['productid'])) {
 					$data['status'] = 'all goods';
 					$data['name'] = $product['name'];
 					$price = $product['price'];
-					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$data['price'] = number_format($price, 2, '.', ',');
 
 				}
 
@@ -74,7 +75,8 @@ if (isset($_POST['productid'])) {
 					$totalprice = $po['total'];
 					$price = $po['price'];
 					$data['total'] = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$data['price'] = number_format($price, 2, '.', ',');
 					$data['quantity'] = $po['quantity'];
 					$data['name'] = $po['name'];
 					
