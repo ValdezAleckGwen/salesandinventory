@@ -35,7 +35,10 @@ include 'getdata.php';
 
 
       // for delivery order
+
       $deletequery = "UPDATE tbldeliveryorderitem SET paid = 0 WHERE id = :id";
+
+
 
       $statement  = $connect->prepare($deletequery);
       $statement->execute([

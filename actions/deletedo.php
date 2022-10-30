@@ -1,9 +1,9 @@
 <?php
 include 'database_connection.php';
-include 'getdata.php'
+include 'getdata.php';
 
-if (isset($_POST['id'])) {
-	$doid = $_POST['id'];
+if (isset($_POST['deleteid'])) {
+	$doid = $_POST['deleteid'];
 	//validate if its paid already
 	$deliveryorder = getPayment($doid);
 	if (!$deliveryorder) {
@@ -32,7 +32,9 @@ if (isset($_POST['id'])) {
 
 		//update the purchase order quantity 
 
+
 		$deliveryorders = getQueryThree('poiid', 'quantity', 'total', 'tbldeliveryorderitem', 'doid', $doid)
+
 
 
 
@@ -54,7 +56,7 @@ if (isset($_POST['id'])) {
 			$quantity = $poquantity + $doquantity;
 			$updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity, total = :total WHERE id = :poiid";
 
-			$statement  = $connect->prepare($salesquery);
+			$statement  = $connect->prepare($updatequery);
 			$statement->execute([
 				':quantity' => $quantity,
 				':total' => $total,
@@ -66,7 +68,7 @@ if (isset($_POST['id'])) {
 		}
 
 		if (isset($result)) {
-			echo "Delivery Order Deleted";
+			echo "ok";
 		} else {
 			echo "Error Deleting Delivery Order";
 		}

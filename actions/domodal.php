@@ -42,16 +42,67 @@ $userid = $deors[0]['userid'];
 }
 
 ?>
+
 <!DOCTYPE html> 
 <html lang="en">
     <head>
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" href="favicon.png" type="image/svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     </head>
+
+        <!-- Delete Function Jquery -->
+        <script>
+            $(document).ready(function () {
+
+                // Delete 
+                $(document).on('click', '.delete', function () {
+                    var el = this;
+
+                    // Delete id
+                    var deleteid = $(this).data('id');
+                    alert(deleteid);
+
+                    // Confirm box
+                    bootbox.confirm("Do you really want to delete record?", function (result) {
+
+                        if (result) {
+                            // AJAX Request
+                            $.ajax({
+                                url: '../actions/deletedo.php',
+                                type: 'POST',
+                                data: {deleteid: deleteid},
+                                success: function (response) {
+                                alert(response);
+
+                                    // Removing row from HTML Table
+                                    if (response == ' ok') {
+                                        bootbox.alert('Record deleted.');
+                                        $(el).closest('tr').css('background', 'tomato');
+                                        $(el).closest('tr').fadeOut(800, function () {
+                                            $(this).remove();
+                                        });
+
+                                    } else {
+                                        bootbox.alert('Record not deleted');
+                                    }
+
+                                }
+                            });
+                        }
+
+                    });
+
+                });
+            });
+        </script>
+
     <body >
 
 
-            <div class="container" style="pointer-events: none;">
+            <div class="container">
                 <div class="row printme">
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
@@ -111,26 +162,33 @@ $userid = $deors[0]['userid'];
                                     <?php
                                     $output = '';
                                         foreach ($deors as $deor) {
-                                        $output .= '<tr>';
-                                         $output .=  '<td>
+
+                                        $output .= '<tr class class="data" data-id="'.$deor["delivery"].'">';
+
+                                         $output .= '<td>
                                                         <p>'.$deor['suppliername'].'</p>
                                                     </td>';
+
                                         $output .=  '<td>
                                                         <p>'.$deor['productid'].'</p>
                                                     </td>';
+
                                         $output .= '<td>
-                                                <p>'.$deor['name'].'</p>
-                                            </td>';
+                                                        <p>'.$deor['name'].'</p>
+                                                    </td>';
+
                                         $output .= '<td>
-                                                <p>'.$deor['quantity'].'</p>
-                                            </td>';
+                                                        <p>'.$deor['quantity'].'</p>
+                                                    </td>';
+
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$deor['price'].'</p>
-                                            </td>';
+                                                        <p>'.$deor['price'].'</p>
+                                                    </td>';
                                         
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$deor['total'].'</p>
-                                            </td>';
+                                                        <p>'.$deor['total'].'</p>
+                                                    </td>';
+
                                         $output .= '</tr>';
                                         
                                         }
@@ -141,10 +199,7 @@ $userid = $deors[0]['userid'];
                                 </tbody>
                                 <tfoot>
 
-                                   
-                                    <tr>
-
-                                    </tr>
+                                   <tr></tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -156,9 +211,16 @@ $userid = $deors[0]['userid'];
                                     </tr>
                                 </tfoot>
                             </table>
+                            <td class="text-center" style="border: 1px solid;"> 
+                                <button class="delete btn btn-danger btn-sm rounded-0" 
+                                    id="del_<?php echo $deor['delivery'];?>"  data-id="<?php echo $deor['delivery'];?>">
+                                    <i class="fa-solidfa-circle-minus">Delete</i>
+                                </button>
+                            </td>
                         </div>
                     </div>
-                   
+                </div>  
+            </div>     
         <!-- invoice_page -->
 
         

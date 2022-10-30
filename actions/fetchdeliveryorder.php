@@ -35,6 +35,7 @@ if ($permission == 1) {
   ON tbldeliveryorder.branchid=tblbranch.id
   INNER JOIN tblusers
   ON tbldeliveryorder.userid=tblusers.id
+  WHERE tbldeliveryorder.active = 1
   ";
 } else {
     $query = "

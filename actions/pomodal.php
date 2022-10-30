@@ -47,7 +47,6 @@ $userid = $purchases[0]['userid'];
 <html lang="en">
     <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
     <link rel="icon" href="favicon.png" type="image/svg">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
@@ -219,7 +218,7 @@ $userid = $purchases[0]['userid'];
                             <td class="text-center" style="border: 1px solid;"> 
                                 <button class="delete btn btn-danger btn-sm rounded-0" 
                                     id="del_<?php echo $purhcase['poid'];?>"  data-id="<?php echo $purhcase['poid'];?>">
-                                    <i class="fa-solidfa-circle-minus"></i>
+                                    <i class="fa-solidfa-circle-minus">Delete</i>
                                 </button>
                             </td>
                         </div>
