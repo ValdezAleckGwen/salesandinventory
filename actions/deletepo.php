@@ -10,7 +10,7 @@ if (isset($_POST['deleteid'])) {
 
 //execute the delete 
 
-	$deletequery = "UPDATE tblpurchaseorder SET active = 0 WHERE id = :id";
+	$deletequery = "UPDATE tblpurchaseorder SET active = 2 WHERE id = :id";
 
 	$statement  = $connect->prepare($deletequery);
 	$statement->execute([
