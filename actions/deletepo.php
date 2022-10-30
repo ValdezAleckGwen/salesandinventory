@@ -18,17 +18,6 @@ if (isset($_POST['deleteid'])) {
 	]);
 
 	$result = $statement->fetchAll();
-
-
-	$deletequery = "UPDATE tblpurchaseorderitem SET active = 2 WHERE poid = :id";
-
-	$statement  = $connect->prepare($deletequery);
-
-	$deletequery = "UPDATE tblpurchaseorderitem SET active = 0 WHERE poid = :id";
-
-	$statement  = $connect->prepare($deletequery);
-
-
 	$statement->execute([
 		':id' => $poid
 	]);
