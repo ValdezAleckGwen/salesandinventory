@@ -29,15 +29,7 @@ function displayUser() {
     
   </head>
   <body>
-    <script type="text/javascript">
-    $(document).ready(function(){
-      //jquery for toggle sub menus
-      $('.sub-btn').click(function(){
-        $(this).next('.sub-menu').slideToggle();
-        $(this).find('.dropdown').toggleClass('rotate');
-      });
-    });
-
+    <script src="analytics_script.js" defer>
     </script>
 
 <!-- Start of sidebar -->
@@ -111,7 +103,7 @@ function displayUser() {
         </div>
 
         <!-- Payments -->
-        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <div class="item"><a href="payables_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
         <div class="item">
@@ -138,47 +130,88 @@ function displayUser() {
       </div>
     </div>
 
-    <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
+    <div class="usericon"><?php echo displayUser(); ?><i class="fa-regular fa-user"></i></div>  
 
     <div class="titlebar">
-    	<div class="dropdown">
-        <h2 style="font-weight: 700; font-size: 60px;">Analytics Overall</h2>
-        	<div class="dropdown">
-			  <button class="dropbtn">Branches</button>
-			  <div class="dropdown-content">
-			  	<a href="analytics_index.php">Overall</a>
-			    <a href="branch1.php">Branch 1</a>
-			    <a href="branch2.php">Branch 2</a>
-			    <a href="branch3.php">Branch 3</a>
-			  </div>
-			</div>
+      <div class="dropdown">
+        <h2 style="font-weight: 700; font-size: 65px; transform: translateY(25px);">ANALYTICS</h2>
+        
     </div>
     <hr>
-   	</div>
-    
+    </div>
+   </div>
 
 
-    <div class="wrapper">
-            <div class="div1">
-              <div class="center">
-                <div class="box-topic">Total Sales Today</div>
-                <div class="number">896</div>
-              </div>
-            </div>
+<!--Analytics Design-->
+  
+    <div class="container-xl">
+      <div>
+          <ul class="tabs">
+            <li data-tab-target="#sales" class="active tab">SALES</li>
+            <li data-tab-target="#products" class="tab">PRODUCTS</li>
+            <li data-tab-target="#category" class="tab">CATEGORY</li>
+          </ul>
+      </div> 
 
-            <div class="div2">
-              <div class="center">
-                <div class="center"><img class="card_image" src="assets/images/graph.png" style="width: 100%; height: 60%"></div>
-              </div>
-            </div>
+      <div class="tab-content">
+        <div id="sales" data-tab-content class="active">
+          <h1 style="font-weight: 700; font-size: 35px;">TOTAL SALES</h1>
 
+            <div class="radiocontainer">
+                <input type="radio" id="month" name="option" value="month">
+                <label for="custombtn1">Month</label>
+                <input type="radio" id="week" name="option" value="week">
+                <label for="custombtn1">Week</label>
+            </div>       
+               
+          <div class="box">
+            <p>Sample</p>
+          </div>
+          <br>
+          <h1 style="font-weight: 700; font-size: 35px;">SALES PER BRANCH</h1>
+            <div class="radiocontainer">
+                <input type="radio" id="month" name="option" value="month">
+                <label for="custombtn1">Month</label>
+                <input type="radio" id="week" name="option" value="week">
+                <label for="custombtn1">Week</label>
+            </div>   
+          <div class="box">
+            <p>Sample</p>
+          </div>
+        </div>
+                                                                  
+        <div class="products" id="products" data-tab-content> 
 
-            <div class="div3">
-                <div class="center">
-                  <div class="center"><img class="card_image" src="assets/images/productperformance.png" style="width: 100%; height: 100%"></div>
-              <br>
-                </div>
-            </div>
+          <div>
+
+          </div>
+
+          <h1 style="font-weight: 700; font-size: 35px;">TOP PERFORMING PRODUCTS</h1>
+            <div class="radiocontainer">
+                <input type="radio" id="month" name="option" value="month">
+                <label for="custombtn1">Month</label>
+                <input type="radio" id="week" name="option" value="week">
+                <label for="custombtn1">Week</label>
+            </div> 
+          <div class="box2">
+            <p>Sample</p>
+          </div>       
+        </div>
+
+        <div class="category" id="category" data-tab-content>
+          <h1 style="font-weight: 700; font-size: 35px;">TOP PERFORMING CATEGORY</h1>
+            <div class="radiocontainer">
+                <input type="radio" id="month" name="option" value="month">
+                <label for="custombtn1">Month</label>
+                <input type="radio" id="week" name="option" value="week">
+                <label for="custombtn1">Week</label>
+            </div>          <div class="box2">
+            <p>Sample</p>
+          </div>         
+        </div>
+
+      </div>
+
     </div>
 
   </body>

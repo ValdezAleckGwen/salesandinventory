@@ -10,7 +10,7 @@ if (isset($_POST['deleteid'])) {
 
 		//execute the delete the main delivery order
 
-		$deletequery = "UPDATE tbldeliveryorder SET active = 2 WHERE id = :id";
+		$deletequery = "UPDATE tbldeliveryorder SET active = 0 WHERE id = :id";
 
 		$statement  = $connect->prepare($deletequery);
 		$statement->execute([
@@ -21,7 +21,7 @@ if (isset($_POST['deleteid'])) {
 
 		//execute the delete of delivery order items
 
-		$deletequery = "UPDATE tbldeliveryorderitem SET active = 2 WHERE id = :id";
+		$deletequery = "UPDATE tbldeliveryorderitem SET active = 0 WHERE id = :id";
 
 		$statement  = $connect->prepare($deletequery);
 		$statement->execute([
