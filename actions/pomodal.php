@@ -150,13 +150,13 @@ $userid = $purchases[0]['userid'];
                                             NAME
                                         </th>
                                         <th class="text-center">
-                                            QUANTITY
+                                            PO QUANTITY
                                         </th>
                                         <th class="text-center">
                                             PRICE
                                         </th>
                                         <th class="text-center">
-                                            TOTAL
+                                            PO TOTAL
                                         </th>
                                         
                                     </tr>
