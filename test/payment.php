@@ -297,6 +297,7 @@ $(document).ready(function(){
             data: {productid: productid, dataType: dataType},
             dataType: "JSON",
             success: function (data) {
+				data = JSON.parse(data);
                 actualPrice = data.price.replace(/^/, '₱');
                 doid.val(data.doid);
                 itemid.val(data.productid);

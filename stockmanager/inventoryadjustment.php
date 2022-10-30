@@ -313,6 +313,7 @@ $(document).ready(function(){
             data: {productid: productid, dataType: dataType},
             dataType: "JSON",
             success: function (data) {
+				data = JSON.parse(data);
             	itemid.val(data.productid);
             	name.val(data.name);
                 quantity.val(data.quantity);	
