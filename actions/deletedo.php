@@ -33,7 +33,7 @@ if (isset($_POST['deleteid'])) {
 		//update the purchase order quantity 
 
 
-		$deliveryorders = getQueryThree('poiid', 'quantity', 'total', 'tbldeliveryorderitem', 'doid', $doid)
+		$deliveryorders = getQueryThree('poiid', 'quantity', 'total', 'tbldeliveryorderitem', 'doid', $doid);
 
 
 
@@ -46,7 +46,7 @@ if (isset($_POST['deleteid'])) {
 			$dototal = 0.00;
 			$dototal = $deliveryorder['total'];
 			$doquantity = $deliveryorder['quantity'];
-			$purchaseorders = getQueryTwo('quantity', 'total' 'tblpurchaseorderitem', 'id', $poiid);
+			$purchaseorders = getQueryTwo('quantity', 'total', 'tblpurchaseorderitem', 'id', $poiid);
 			foreach ($purchaseorders as $purchaseorder) {
 				
 				$poquantity = $purchaseorder['quantity'];
@@ -54,7 +54,7 @@ if (isset($_POST['deleteid'])) {
 			}
 			$total = $pototal + $dototal;
 			$quantity = $poquantity + $doquantity;
-			$updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity, total = :total WHERE id = :poiid";
+			$updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity, total = :total, active = 0 WHERE id = :poiid";
 
 			$statement  = $connect->prepare($updatequery);
 			$statement->execute([
