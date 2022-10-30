@@ -49,7 +49,7 @@ if (isset($_POST['deleteid'])) {
 			$quantity = $poquantity + $doquantity;
 			$updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity WHERE id = :poiid";
 
-			$statement  = $connect->prepare($deletequery);
+			$statement  = $connect->prepare($updatequery);
 			$statement->execute([
 				':quantity' => $quantity,
 				':poiid' => $poiid
