@@ -1,9 +1,9 @@
 <?php
 include 'database_connection.php';
-include 'getdata.php'
+include 'getdata.php';
 
-if (isset($_POST['id'])) {
-	$doid = $_POST['id'];
+if (isset($_POST['deleteid'])) {
+	$doid = $_POST['deleteid'];
 	//validate if its paid already
 	$deliveryorder = getPayment($doid);
 	if (!$deliveryorder) {
@@ -12,7 +12,7 @@ if (isset($_POST['id'])) {
 
 		$deletequery = "UPDATE tbldeliveryorder SET active = 2 WHERE id = :id";
 
-		$statement  = $connect->prepare($salesquery);
+		$statement  = $connect->prepare($deletequery);
 		$statement->execute([
 			':id' => $doid
 		]);
@@ -23,7 +23,7 @@ if (isset($_POST['id'])) {
 
 		$deletequery = "UPDATE tbldeliveryorderitem SET active = 2 WHERE id = :id";
 
-		$statement  = $connect->prepare($salesquery);
+		$statement  = $connect->prepare($deletequery);
 		$statement->execute([
 			':id' => $doid
 		]);
@@ -32,7 +32,7 @@ if (isset($_POST['id'])) {
 
 		//update the purchase order quantity 
 
-		$deliveryorders = getQueryTwo('poiid', 'quantity', 'tbldeliveryorderitem', 'doid', $doid)
+		$deliveryorders = getQueryTwo('poiid', 'quantity', 'tbldeliveryorderitem', 'doid', $doid);
 
 
 
@@ -49,7 +49,7 @@ if (isset($_POST['id'])) {
 			$quantity = $poquantity + $doquantity;
 			$updatequery = "UPDATE tblpurchaseorderitem SET quantity = :quantity WHERE id = :poiid";
 
-			$statement  = $connect->prepare($salesquery);
+			$statement  = $connect->prepare($deletequery);
 			$statement->execute([
 				':quantity' => $quantity,
 				':poiid' => $poiid
@@ -60,7 +60,7 @@ if (isset($_POST['id'])) {
 		}
 
 		if (isset($result)) {
-			echo "Delivery Order Deleted";
+			echo "ok";
 		} else {
 			echo "Error Deleting Delivery Order";
 		}
