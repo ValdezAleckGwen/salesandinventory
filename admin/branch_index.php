@@ -25,7 +25,7 @@ function displayUser() {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Branch</title>
+    <title>Admin - Branch Dashboard</title>
 
         <link rel="stylesheet" href="assets/style.css">
 
