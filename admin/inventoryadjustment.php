@@ -185,7 +185,7 @@ function displayUser() {
     <div class="main">
 
   
-    <h3>INVENTORY ADJUSTMENT</h3><br>
+    <h3 style="margin-top: 40px;">INVENTORY ADJUSTMENT</h3><br>
 		<div class="container">
 			<br />
 			<div class="card">
