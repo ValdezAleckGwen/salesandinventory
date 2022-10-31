@@ -12,8 +12,8 @@ tblsupplier.name AS suppliername,
 tblsupplier.address AS address,
 tblproducts.id AS productid,
 tblproducts.name AS name,
-tblpurchaseorderitem.poquantity AS poquantity,
-tblpurchaseorderitem.pototal AS pototal,
+tblpurchaseorderitem.quantity AS quantity,
+tblpurchaseorderitem.total AS total,
 tblpurchaseorderitem.price AS price,
 tblpurchaseorder.date as purchasedate,
 tblpurchaseorder.total  AS grandtotal,
@@ -125,7 +125,7 @@ $userid = $purchases[0]['userid'];
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
                         <div>
                             <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Purchase Order
+                                Invoice
                             </h4>
                             <p class="fs18">
                                 Date: <?php echo $purchases[0]['purchasedate']; ?>
@@ -150,13 +150,13 @@ $userid = $purchases[0]['userid'];
                                             NAME
                                         </th>
                                         <th class="text-center">
-                                            PO QUANTITY
+                                            QUANTITY
                                         </th>
                                         <th class="text-center">
                                             PRICE
                                         </th>
                                         <th class="text-center">
-                                            PO TOTAL
+                                            TOTAL
                                         </th>
                                         
                                     </tr>
@@ -180,7 +180,7 @@ $userid = $purchases[0]['userid'];
                                                     </td>';
 
                                         $output .= '<td>
-                                                        <p>'.$purhcase['poquantity'].'</p>
+                                                        <p>'.$purhcase['quantity'].'</p>
                                                     </td>';
 
                                         $output .= '<td style = "border-bottom:5px solid">
@@ -188,7 +188,7 @@ $userid = $purchases[0]['userid'];
                                                     </td>';
                                         
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                        <p>'.$purhcase['pototal'].'</p>
+                                                        <p>'.$purhcase['total'].'</p>
                                                     </td>';
 
                                                  

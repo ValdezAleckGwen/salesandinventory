@@ -48,28 +48,13 @@ function displayUser() {
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
         <!-- Branch -->
         <div class="item">
           <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
             <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
           </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        </div>      
-=======
         </div>              
->>>>>>> parent of fb7d838 (added allen)
-=======
-        </div>              
->>>>>>> parent of fb7d838 (added allen)
 
         <!-- Products -->
         <div class="item">
@@ -92,43 +77,15 @@ function displayUser() {
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-=======
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
             <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
           </div>
         </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-        <!-- Stock Transfer-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
-          </div>
-        </div>
-
-        <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-=======
-=======
->>>>>>> parent of fb7d838 (added allen)
 
 
          <!-- Purchase Order -->
         <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
 
-<<<<<<< HEAD
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
 
         <!-- Delivery Order -->
         <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
@@ -142,13 +99,6 @@ function displayUser() {
           </div>
         </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
         <!-- Sales-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
@@ -169,7 +119,6 @@ function displayUser() {
 
           </div>
         </div>
-      
 
         <!-- Settings -->
         <div class="item">

@@ -48,13 +48,6 @@ function displayUser() {
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
         <!-- Branch -->
         <div class="item">
           <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
@@ -84,32 +77,10 @@ function displayUser() {
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-=======
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
             <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
           </div>
         </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-        <!-- Stock Transfer-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
-          </div>
-        </div>
-=======
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
 
         <!-- Purchase Order -->
         <div class="item"><a href="purchaseorder_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
@@ -126,13 +97,6 @@ function displayUser() {
           </div>
         </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of fb7d838 (added allen)
-=======
->>>>>>> parent of fb7d838 (added allen)
         <!-- Sales-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
@@ -143,7 +107,7 @@ function displayUser() {
         </div>
 
         <!-- Payments -->
-        <div class="item"><a href="payables_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
         <div class="item">

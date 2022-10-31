@@ -105,8 +105,7 @@ function fill_unit_select_box_branch($connect)
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
-      <div class="menu">
-        <!-- Dashboard -->
+      <!-- Dashboard -->
         <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Dashboard</a></div>
 
         <!-- Analytics -->
@@ -141,18 +140,8 @@ function fill_unit_select_box_branch($connect)
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
             <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
-          </div>
-        </div>
-        
-        <!-- Stock Transfer-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
           </div>
         </div>
 
