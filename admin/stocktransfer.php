@@ -64,7 +64,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>STOCK TRANSFER</title>
+		<title>Admin - Stock Transfer</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
