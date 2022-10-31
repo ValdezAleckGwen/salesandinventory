@@ -1,6 +1,6 @@
 <?php
 
-$connect = new PDO("mysql:host=localhost; dbname=itlog", "root", "");
+include 'database_connection.php';
 
 // function get_total_row($connect)
 // {
@@ -38,7 +38,6 @@ INNER JOIN tblsupplier
 ON tblproducts.supplier=tblsupplier.id
 INNER JOIN tblcategory
 ON tblproducts.category=tblcategory.id
-WHERE tblproducts.active = 1
 ";
 
 if($_POST['query'] != '')

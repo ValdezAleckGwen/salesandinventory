@@ -44,29 +44,12 @@ function displayUser() {
 
 <!-- Start of Menu Proper -->
       <div class="menu">
+        <!-- Point of salesv2-->
+        <div class="item"><a href="pos_index.php"><i class="fa-regular fa-calculator"></i>Point of Sales</a></div>
 
         <!-- Inventory-->
         <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
-          </div>
-        </div>
-
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-
-        <!-- Delivery Order -->
-        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
-
-        <!-- Settings -->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
-         </div>
+        <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory</a>
         </div>
 
         <!-- Logout -->

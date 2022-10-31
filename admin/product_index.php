@@ -161,8 +161,18 @@ function fill_unit_select_box_category($connect)
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
             <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
+          </div>
+        </div>
+        
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
           </div>
         </div>
 
@@ -358,6 +368,19 @@ function fill_unit_select_box_category($connect)
                     <input type="text" name="markup" id="emarkup" class="form-control" />
                 </div>
 
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="active" value="1">
+                            <label class="form-check-label" for="flexRadioDefault1">Active</label>
+                        </div>
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="inactive" value="0">
+                            <label class="form-check-label" for="flexRadioDefault1">Inactive</label>                
+                        </div>
+                    </div>
+                </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Update Product</button>
@@ -452,7 +475,7 @@ function fill_unit_select_box_category($connect)
         $(document).on('click', '#edit', function () {
 
            var id = $(this).data('id');
-           alert(id);
+           
            
             
             $.ajax({
@@ -472,7 +495,11 @@ function fill_unit_select_box_category($connect)
                 $('#ecategory').val(category);
                 $('#eprice').val(data.price);
                 $('#emarkup').val(data.markupprice);
-
+                if (data.active == 1) {
+                    $('#active').attr('checked', true);
+                } else {
+                    $('#inactive').attr('checked', true);
+                }
                 $('#userEditModal').modal('show');
                         
                 }
@@ -493,7 +520,7 @@ function fill_unit_select_box_category($connect)
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    alert(response);
+                    
                     var res = jQuery.parseJSON(response);
                     
                     if(res.status == 422) {
@@ -503,7 +530,7 @@ function fill_unit_select_box_category($connect)
                     }else if(res.status == 200){
 
                         $('#errorMessage').addClass('d-none');
-                        $('#userAddModal').modal('hide');
+                        $('#userEditModal').modal('hide');
                         $('#editproduct')[0].reset();
 
                         alertify.set('notifier','position', 'top-right');
@@ -518,8 +545,11 @@ function fill_unit_select_box_category($connect)
                         $('#errorMessage').removeClass('d-none');
                         $('#errorMessage').text(res.message);
                     }
+                    
                 }
+
             });
+            location.reload();
 
         });
 </script>
