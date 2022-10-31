@@ -27,6 +27,67 @@ include '../x-function/redirect_if_notLogin.php';
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
 
+
+        <!-- Branch -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+          </div>
+        </div>      
+
+        <!-- Products -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+          </div>
+        </div>
+
+        <!-- Inventory-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
+            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
+          </div>
+        </div>
+        
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+          </div>
+        </div>
+
+        <!-- Purchase Order -->
+        <div class="item"><a href="purchaseorder_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+
+        <!-- Delivery Order -->
+        <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+
+
+        <!-- Suppliers-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+          </div>
+        </div>
+
+
         <!-- Sales-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
@@ -59,7 +120,7 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="item"><a href="delivery_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
 
         <!-- Payments -->
-        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <div class="item"><a href="payables_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
         <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
