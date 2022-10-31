@@ -7,7 +7,7 @@ include '../x-function/redirect_if_notLogin.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Delivery Order</title>
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -111,13 +111,12 @@ include '../x-function/redirect_if_notLogin.php';
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
-
       </div>
     </div>
 
-    
-    <div class="usericon">Admin <i class="fa-regular fa-user"></i></div>
-    
+
+    <div class="usericon">Admin <i class="fa-regular fa-user"></i></div>      
+
     <script type="text/javascript">
     $(document).ready(function(){
       //jquery for toggle sub menus
@@ -132,22 +131,86 @@ include '../x-function/redirect_if_notLogin.php';
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>USERS</h3>
-          <div style="display: inline;">
-            <a href="adduser_index.php">
-            <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-circle-plus"></i> Add</button></a>  
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
+        <h3>DELIVERY ORDER</h3>
+          <div style="display: inline-block;">
+            <a href="adddeliveryorder.php"><button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-circle-plus"></i> Add</button></a>            
+            <button onclick="window.location.href='#'" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><a href="deliveryorderreport.php"></a><i class="fa-solid fa-print"></i>Print</button>
+            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>            
           </div>
           <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" class="input-field" name="field3" value=""/></label>
           </div>
         </div>
-        
-        <div class="table-responsive" id="dynamic_content">
-          
+        <table class="table-fill">
+        <thead>
+        <tr>
+        <th class="text-center">Delivery Order I.D.</th>
+        <th class="text-center">Purchase Order I.D.</th>
+        <th class="text-center">Supplier Name</th>
+        <th class="text-center">Total</th>
+        <th class="text-left">Action</th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
 
-        </div>
+        <tr>
+        <td class="text-center">DO001</td>
+        <td class="text-center">PO001</td>
+        <td class="text-left">Jon Geoffrey</td>
+        <td class="text-center">0</td>
+        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
 
+        <tr>
+        <td class="text-center">DO002</td>
+        <td class="text-center">PO002</td>
+        <td class="text-left">Lesley Katelyn</td>
+        <td class="text-center">22</td>
+        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">DO003</td>
+        <td class="text-center">PO003</td>
+        <td class="text-left">Sofia Tranquilla</td>
+        <td class="text-center">19</td>
+        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">DO004</td>
+        <td class="text-center">PO004</td>
+        <td class="text-left">Shop Thrifty</td>
+        <td class="text-center">13</td>
+        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">DO005</td>
+        <td class="text-center">PO005</td>
+        <td class="text-left">Kirsten Clothing</td>
+        <td class="text-center">31</td>
+        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">DO006</td>
+        <td class="text-center">PO006</td>
+        <td class="text-left">AMARAH</td>
+        <td class="text-center">27</td>
+        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">DO007</td>
+        <td class="text-center">PO007</td>
+        <td class="text-left">Kira Monica</td>
+        <td class="text-center">0</td>
+        <td class="text-center"> <i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>      
+
+        </tbody>
+        </table>
      </div>
   </div>
 </div>    
@@ -155,33 +218,3 @@ include '../x-function/redirect_if_notLogin.php';
 
   </body>
 </html>
-<script>
-  $(document).ready(function(){
-    load_data(1);
-
-    function load_data(page, query = '')
-    {
-      $.ajax({
-        url:"../actions/fetchuser.php",
-        method:"POST",
-        data:{page:page, query:query},
-        success:function(data)
-        {
-          $('#dynamic_content').html(data);
-        }
-      });
-    }
-
-    $(document).on('click', '.page-link', function(){
-      var page = $(this).data('page_number');
-      var query = $('#search_box').val();
-      load_data(page, query);
-    });
-
-    $('#search_box').keyup(function(){
-      var query = $('#search_box').val();
-      load_data(1, query);
-    });
-
-  });
-</script>

@@ -1,43 +1,22 @@
-<?php
+<?php 
 session_start();
-include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
-include '../actions/adddata.php';
-include '../actions/database_connection.php';
-
-$id = $_SESSION['uid'];
-$branchid = getBranch($id);
-
-function displayUser() {
-  $output = '';
-  if (isset($_SESSION['uid'])) {
-    $id = $_SESSION['uid'];
-    $userid = getId($id);
-    $firstname = getFirstname($id);
-    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
-  }
-  return $output;
-} 
-
 ?>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sales Return</title>
-        <link rel="stylesheet" href="../admin/assets/style.css">
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
-        <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script> 
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
-
-    </head>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NARCI - Sales Return</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     
-    </style>
-    <body>
-    <!-- Start of sidebar -->
+  </head>
+  <body>
+
+<!-- Start of sidebar -->
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
@@ -48,57 +27,6 @@ function displayUser() {
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
 
-        <!-- Branch -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>              
-
-        <!-- Products -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
-          </div>
-        </div>
-
-        <!-- Category -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
-
-        <!-- Inventory-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
-          </div>
-        </div>
-
-
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-
-
-        <!-- Delivery Order -->
-        <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
-
-
-        <!-- Suppliers-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
-
         <!-- Sales-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
@@ -108,26 +36,90 @@ function displayUser() {
          </div>
         </div>
 
+        <!-- Products -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addproduct_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Products</a>
+            <a href="editproduct_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Products</a>
+          </div>
+        </div> 
+
+        <!-- Inventory-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
+          </div>
+        </div>
+
+        <!-- Orders-->
+        <div class="item"><a href="orders_index.php"><i class="fa-regular fa-cart-shopping"></i>Orders</a></div>
+
+        <!-- Purchase Order -->
+        <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+
+        <!-- Delivery Order -->
+        <div class="item"><a href="delivery_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+
         <!-- Payments -->
-        <div class="item"><a href="payables_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-user"></i>Users<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="user_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="adduser_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Users</a>
+            <a href="edituser_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Users</a>
+          </div>
+        </div>
 
+        <!-- Branch -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addbranch_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Branch</a>
+            <a href="editbranch_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Branch</a>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="item">
+          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addcategory_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Category</a>
+            <a href="editcategory_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Category</a>
+          </div>
+        </div>
+
+        <!-- Suppliers-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="addsuppliers_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Suppliers</a>
+            <a href="editsuppliers_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Suppliers</a>
           </div>
         </div>
 
         <!-- Settings -->
         <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="tax_index.php" class="sub-item"><i class="fa-solid fa-percent"></i>TAX</a>
-         </div>
+        <a href="settings_index.php"><i class="fa-regular fa-gears"></i>Settings</i></a>
         </div>
+
+        <!-- Tax Settings -->
+        <div class="item">
+        <a href="tax_index.php"><i class="fa-regular fa-percent"></i>Tax Settings</i></a>
+        </div>
+
+        <!-- Audit Logs -->
+        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>        
+
 
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
@@ -135,8 +127,6 @@ function displayUser() {
       </div>
     </div>
 
-
-<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -148,100 +138,84 @@ function displayUser() {
     });
 
     </script>
-<div class="main">
+<div class="main" style="margin-top: 0;">
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
         <h3>SALES RETURN</h3>
-        <div style="display: inline">
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
-        <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
-        </div>
+          <div style="display: inline;">
+            <a href="addsalesreturn.php"><button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-circle-plus"></i> Add</button></a>            
+          </div>
+          <div style="float: right">
+            <label><span>Search: </span><input type="text" class="input-field" name="field3" value=""/></label>
           </div>
         </div>
-       
-        <div border='1' class='table-responsive' id="dynamic_content">
-        <!--product content-->
-        </div>
-        
-      <!-- modal start -->
-        <div class="modal fade " id="srmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
-              <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                  </div>
-                    <style>
-                        #model-body-container > .container{
-                            width: 100% !important;}
-                        #model-body-container .col-sm-6
-                        {
-                            width: 25% !important;
-                        }
-                    </style>
-                  <div class="modal-body" id='model-body-container'>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-              </div>      
-        </div>
-        <!-- modal end -->
+        <table class="table-fill">
+        <thead>
+        <tr>
+        <th class="text-center">Sales Return ID</th>
+        <th class="text-center">Order ID</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Total Price (₱)</th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+
+        <tr>
+        <td class="text-center">1</td>
+        <td class="text-center">1</td>
+        <td class="text-center">1</td>
+        <td class="text-right">298.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">2</td>
+        <td class="text-center">3</td>
+        <td class="text-center">22</td>
+        <td class="text-right">6,358.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">3</td>
+        <td class="text-center">5</td>
+        <td class="text-center">19</td>
+        <td class="text-right">5,491.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">4</td>
+        <td class="text-center">6</td>
+        <td class="text-center">13</td>
+        <td class="text-right">2,925.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">5</td>
+        <td class="text-center">7</td>
+        <td class="text-center">31</td>
+        <td class="text-right">11,429.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">6</td>
+        <td class="text-center">8</td>
+        <td class="text-center">27</td>
+        <td class="text-right">4,050.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">7</td>
+        <td class="text-center">9</td>
+        <td class="text-center">1</td>
+        <td class="text-right">150.00</td>
+        </tr>
+
+        </tbody>
+        </table><br>
+     </div>
+  </div>
+</div>
+
+
   </body>
 </html>
-<script>
-
-   // Start of Pagination Query // 
-  $(document).ready(function(){
-        load_data(1);
-
-    function load_data(page = 1, query = '')
-    {
-      $.ajax({
-        url:"../actions/fetchsalesreturn.php",
-        method:"POST",
-        data:{page:page, query:query},
-        success:function(data)
-        {
-          $('#dynamic_content').html(data);
-        }
-      });
-    }
-
-    $(document).on('click', '.page-link', function(){
-      var page = $(this).data('page_number');
-      var query = $('#search_box').val();
-      load_data(page, query);
-    });
-
-    $('#search_box').keyup(function(){
-      var query = $('#search_box').val();
-      load_data(2, query);
-    });
-
-  });
-
-    //Start of DO Modal
-    $(document).on('click', '.data', function() {
-      var id = $(this).data('id');
-      
-
-      $.ajax({
-        url: '../actions/salesreturnmodal.php', //modal structure
-        type: 'post',
-        data: {id: id},
-        success: function(response){ 
-            $('.modal-body').html(response); 
-            $('#srmodal').modal('show'); 
-        }
-    });
-
-    });
-    //modal end
-
-
-
-   
- 
-
-</script>

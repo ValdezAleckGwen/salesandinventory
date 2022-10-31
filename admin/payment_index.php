@@ -7,7 +7,7 @@ include '../x-function/redirect_if_notLogin.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Payments</title>
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -115,9 +115,9 @@ include '../x-function/redirect_if_notLogin.php';
       </div>
     </div>
 
-    
-    <div class="usericon">Admin <i class="fa-regular fa-user"></i></div>
-    
+
+<div class="usericon">Admin <i class="fa-regular fa-user"></i></div>  
+
     <script type="text/javascript">
     $(document).ready(function(){
       //jquery for toggle sub menus
@@ -126,62 +126,88 @@ include '../x-function/redirect_if_notLogin.php';
         $(this).find('.dropdown').toggleClass('rotate');
       });
     });
-
+  
     </script>
 <div class="main">
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>USERS</h3>
-          <div style="display: inline;">
-            <a href="adduser_index.php">
-            <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-circle-plus"></i> Add</button></a>  
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
-          </div>
+        <h3>Payments</h3>
+        <div style="display: inline;">
+          <a href="paymentreport.php"><button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button></a>
+        </div>
           <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" class="input-field" name="field3" value=""/></label>
           </div>
         </div>
-        
-        <div class="table-responsive" id="dynamic_content">
-          
+        <table class="table-fill">
+        <thead>
 
-        </div>
+        <tr>
+        <th class="text-center">Payment I.D.</th>
+        <th class="text-center">Supplier</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-left">Total Price (₱)</th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
 
+        <tr>
+        <td class="text-center">1</td>
+        <td class="text-left">Jeremy Langcay</td>
+        <td class="text-center">1</td>
+        <td class="text-right">298.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">2</td>
+        <td class="text-left">Aleck Valdez</td>
+        <td class="text-center">22</td>
+        <td class="text-right">6,358.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">3</td>
+        <td class="text-left">Kim Quiambao</td>
+        <td class="text-center">19</td>
+        <td class="text-right">5,491.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">4</td>
+        <td class="text-left">Arne Bana</td>
+        <td class="text-center">13</td>
+        <td class="text-right">2,925.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">5</td>
+        <td class="text-left">John Vincent Peduche</td>
+        <td class="text-center">31</td>
+        <td class="text-right">11,439.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">6</td>
+        <td class="text-left">Ray Santos</td>
+        <td class="text-center">27</td>
+        <td class="text-right">8,050</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">7</td>
+        <td class="text-left">Richmonde Toledo</td>
+        <td class="text-center">1</td>
+        <td class="text-right">368.00</td>
+        </tr>
+
+
+        </tbody>
+        </table><br>
      </div>
   </div>
-</div>    
+</div>      
 
 
   </body>
 </html>
-<script>
-  $(document).ready(function(){
-    load_data(1);
-
-    function load_data(page, query = '')
-    {
-      $.ajax({
-        url:"../actions/fetchuser.php",
-        method:"POST",
-        data:{page:page, query:query},
-        success:function(data)
-        {
-          $('#dynamic_content').html(data);
-        }
-      });
-    }
-
-    $(document).on('click', '.page-link', function(){
-      var page = $(this).data('page_number');
-      var query = $('#search_box').val();
-      load_data(page, query);
-    });
-
-    $('#search_box').keyup(function(){
-      var query = $('#search_box').val();
-      load_data(1, query);
-    });
-
-  });
-</script>
