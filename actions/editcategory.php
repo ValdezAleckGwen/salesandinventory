@@ -5,7 +5,7 @@ include 'database_connection.php';
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
-    $query = "SELECT id, name
+    $query = "SELECT id, name, active
     FROM tblcategory 
     WHERE id = :id";
 
@@ -19,6 +19,7 @@ if(isset($_GET['id']))
     foreach($users as $user) {
         $data['id'] = $user['id'];
         $data['name'] = $user['name'];
+        $data['active'] = $user['active'];
 
     }
 
