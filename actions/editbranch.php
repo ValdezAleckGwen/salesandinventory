@@ -5,7 +5,7 @@ include 'database_connection.php';
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
-    $query = "SELECT id, name, branchaddress, contactnumber
+    $query = "SELECT id, name, branchaddress, contactnumber, active
     FROM tblbranch 
     WHERE id = :id";
 
@@ -21,6 +21,7 @@ if(isset($_GET['id']))
         $data['name'] = $branch['name'];
         $data['branchaddress'] = $branch['branchaddress'];
         $data['contactnumber'] = $branch['contactnumber'];
+        $data['active'] = $branch['active'];
 
     }
 

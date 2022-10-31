@@ -260,6 +260,7 @@ function displayUser() {
                     </div>
                 </div>
 
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Branch</button>
@@ -303,7 +304,18 @@ function displayUser() {
                     <label for="">CONTACT</label>
                     <input type="text" name="contact" class="form-control name" id="econtact" />
                 </div>
-
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="active" value="1">
+                            <label class="form-check-label" for="flexRadioDefault1">Active</label>
+                        </div>
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="inactive" value="0">
+                            <label class="form-check-label" for="flexRadioDefault1">Inactive</label>                
+                        </div>
+                    </div>
+                </div>
 
 
             <div class="modal-footer">
@@ -413,6 +425,11 @@ function displayUser() {
                 $('#ename').val(data.name);
                 $('#eaddress').val(data.branchaddress);
                 $('#econtact').val(data.contactnumber);
+                if (data.active == 1) {
+                    $('#active').attr('checked', true);
+                } else {
+                    $('#inactive').attr('checked', true);
+                }
                 $('#userEditModal').modal('show');
                         
                         
@@ -437,7 +454,7 @@ function displayUser() {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    alert(response);
+                    
                     var res = jQuery.parseJSON(response);
                     
                     if(res.status == 422) {
@@ -447,7 +464,7 @@ function displayUser() {
                     }else if(res.status == 200){
 
                         $('#errorMessage').addClass('d-none');
-                        $('#userAddModal').modal('hide');
+                        $('#userEditModal').modal('hide');
                         $('#editbranch')[0].reset();
 
                         alertify.set('notifier','position', 'top-right');
@@ -464,6 +481,7 @@ function displayUser() {
                     }
                 }
             });
+            location.reload();
 
         });
 </script>
