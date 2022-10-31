@@ -198,7 +198,7 @@ function displayUser() {
     <div class="main">
 
   
-    <h3>STOCK TRANSFER</h3><br>
+    <h3 style="margin-top: 40px;">STOCK TRANSFER</h3>
 		<div class="container">
 			<br />
 			<div class="card">
@@ -209,16 +209,12 @@ function displayUser() {
 						<div class="table-repsonsive">
 
 							<span id="error"></span>
-							<table class="table table-bordered" id="item_table">
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
 								<label for="po_number">ST #:</label>
 								<input type="text" name="stocktransfer_number" class="input-field" value="<?php echo createId('tblstocktransfer');  ?>" readonly>
 							</div>
 							<div class="row">
-
-								<div class="col-sm-7">
-									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-								</div>
 							<div class="container m-1">
 								<h5>Source Branch</label>
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch" id="source_branch"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
@@ -227,7 +223,7 @@ function displayUser() {
 								<h5>Destination Branch</label>
 								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option>Select Branch</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
-							
+							<thead style=" display: block; ">
 								<tr>
 									<th width="15%">Inventory Code</th>
 									<th width="15%">Product Code</th>
@@ -238,10 +234,18 @@ function displayUser() {
 
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
-								
+							</thead>
+							<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
+							<tr></tr></tbody>
+							<footer>
+							<div class="row">
+
+							</footer>
 							</div>
 							</table>
-							</div>
+							<div class="col-sm-6" style="float: left">
+									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
+								</div>
 						</div>
 					</form>
 					
@@ -271,8 +275,8 @@ $(document).ready(function(){
         data: form_data,
         success: function (data) {
             
-        	$('#item_table').append(data);
-
+        	//$('#item_table').append(data);
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
             }
