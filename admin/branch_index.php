@@ -314,6 +314,7 @@ function displayUser() {
                     <label for="">CONTACT</label>
                     <input type="text" name="contact" class="form-control name" id="econtact" />
                 </div>
+                
                 <div class="mb-3">
                     <div class="row">
                         <div class="col-sm">
