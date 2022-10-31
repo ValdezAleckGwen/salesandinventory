@@ -7,8 +7,8 @@ include '../x-function/redirect_if_notLogin.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <link rel="stylesheet" href="assets/styleaddedit.css">
+    <title>Payments</title>
+    <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -26,67 +26,6 @@ include '../x-function/redirect_if_notLogin.php';
 
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
-
-
-        <!-- Branch -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>      
-
-        <!-- Products -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
-          </div>
-        </div>
-
-        <!-- Category -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
-
-        <!-- Inventory-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
-          </div>
-        </div>
-        
-        <!-- Stock Transfer-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
-          </div>
-        </div>
-
-        <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-
-        <!-- Delivery Order -->
-        <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
-
-
-        <!-- Suppliers-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
-
 
         <!-- Sales-->
         <div class="item">
@@ -120,7 +59,7 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="item"><a href="delivery_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
 
         <!-- Payments -->
-        <div class="item"><a href="payables_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
         <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
@@ -172,11 +111,12 @@ include '../x-function/redirect_if_notLogin.php';
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
+
       </div>
     </div>
 
 
-<div class="usericon">Admin <i class="fa-regular fa-user"></i></div>      
+<div class="usericon">Admin <i class="fa-regular fa-user"></i></div>  
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -186,28 +126,87 @@ include '../x-function/redirect_if_notLogin.php';
         $(this).find('.dropdown').toggleClass('rotate');
       });
     });
+  
     </script>
-<div class="main"> 
+<div class="main">
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <div class="form-style-2">
-        <div class="form-style-2-heading">SETTINGS</div>
-
-        <form action="" method="post">
-        <label for="field1"><span>Name:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="Jeremy Langcay" /></label>
-        <label for="field1"><span>Email:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="jeremylangcay@gmail.com" /></label>
-        <label for="field1"><span>Password<span class="required">*</span></span><input type="password" class="input-field" name="field1" value="123123213123123" /></label>
-
-        <div align="center">
-          <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
-          <button type="button" class="btn btn-danger" style="font-size: 16px; font-weight: 700;"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+        <h3>Payments</h3>
+        <div style="display: inline;">
+          <a href="paymentreport.php"><button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button></a>
         </div>
-        </form>
+          <div style="float: right;">
+            <label><span>Search: </span><input type="text" class="input-field" name="field3" value=""/></label>
+          </div>
         </div>
+        <table class="table-fill">
+        <thead>
+
+        <tr>
+        <th class="text-center">Payment I.D.</th>
+        <th class="text-center">Supplier</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-left">Total Price (₱)</th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+
+        <tr>
+        <td class="text-center">1</td>
+        <td class="text-left">Jeremy Langcay</td>
+        <td class="text-center">1</td>
+        <td class="text-right">298.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">2</td>
+        <td class="text-left">Aleck Valdez</td>
+        <td class="text-center">22</td>
+        <td class="text-right">6,358.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">3</td>
+        <td class="text-left">Kim Quiambao</td>
+        <td class="text-center">19</td>
+        <td class="text-right">5,491.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">4</td>
+        <td class="text-left">Arne Bana</td>
+        <td class="text-center">13</td>
+        <td class="text-right">2,925.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">5</td>
+        <td class="text-left">John Vincent Peduche</td>
+        <td class="text-center">31</td>
+        <td class="text-right">11,439.00</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">6</td>
+        <td class="text-left">Ray Santos</td>
+        <td class="text-center">27</td>
+        <td class="text-right">8,050</td>
+        </tr>
+
+        <tr>
+        <td class="text-center">7</td>
+        <td class="text-left">Richmonde Toledo</td>
+        <td class="text-center">1</td>
+        <td class="text-right">368.00</td>
+        </tr>
+
+
+        </tbody>
+        </table><br>
      </div>
   </div>
-</div>   
+</div>      
 
 
   </body>

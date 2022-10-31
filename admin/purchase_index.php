@@ -7,8 +7,8 @@ include '../x-function/redirect_if_notLogin.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <link rel="stylesheet" href="assets/styleaddedit.css">
+    <title>Purchase Order</title>
+    <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -26,67 +26,6 @@ include '../x-function/redirect_if_notLogin.php';
 
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
-
-
-        <!-- Branch -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>      
-
-        <!-- Products -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
-          </div>
-        </div>
-
-        <!-- Category -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
-
-        <!-- Inventory-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
-          </div>
-        </div>
-        
-        <!-- Stock Transfer-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
-          </div>
-        </div>
-
-        <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-
-        <!-- Delivery Order -->
-        <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
-
-
-        <!-- Suppliers-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
-
 
         <!-- Sales-->
         <div class="item">
@@ -120,7 +59,7 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="item"><a href="delivery_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
 
         <!-- Payments -->
-        <div class="item"><a href="payables_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
 
         <!-- Users -->
         <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
@@ -176,7 +115,8 @@ include '../x-function/redirect_if_notLogin.php';
     </div>
 
 
-<div class="usericon">Admin <i class="fa-regular fa-user"></i></div>      
+    <div class="usericon">Admin <i class="fa-regular fa-user"></i></div> 
+
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -186,28 +126,95 @@ include '../x-function/redirect_if_notLogin.php';
         $(this).find('.dropdown').toggleClass('rotate');
       });
     });
+
     </script>
-<div class="main"> 
+<div class="main">
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <div class="form-style-2">
-        <div class="form-style-2-heading">SETTINGS</div>
-
-        <form action="" method="post">
-        <label for="field1"><span>Name:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="Jeremy Langcay" /></label>
-        <label for="field1"><span>Email:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="jeremylangcay@gmail.com" /></label>
-        <label for="field1"><span>Password<span class="required">*</span></span><input type="password" class="input-field" name="field1" value="123123213123123" /></label>
-
-        <div align="center">
-          <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
-          <button type="button" class="btn btn-danger" style="font-size: 16px; font-weight: 700;"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+        <h3>PURCHASE ORDER</h3>
+          <div style="display: inline;">
+            <a href="addpurchaseorder.php"><button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-circle-plus"></i> Add</button></a>
+          <a href="purchaseorderreport.php"><button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button></a>
+            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>            
+          </div>
+          <div style="float: right;">
+            <label><span>Search: </span><input type="text" class="input-field" name="field3" value=""/></label>
+          </div>
         </div>
-        </form>
-        </div>
+        <table class="table-fill">
+        <thead>
+        <tr>
+        <th class="text-center">Date</th>
+        <th class="text-center">Purchase Order I.D.</th>
+        <th class="text-center">Supplier Name</th>
+        <th class="text-center">Total</th>
+        <th class="text-left">Action</th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+
+        <tr>
+        <td class="text-center">10/28/2021</td>
+        <td class="text-center">PO001</td>
+        <td class="text-left">John Geoffrey</td>
+        <td class="text-center">0</td>
+        <td class="text-center"> <i class="fa fa-bell" aria-hidden="true">&nbsp;</i><i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">10/21/2021</td>
+        <td class="text-center">PO002</td>
+        <td class="text-left">Lesley Katelyn</td>
+        <td class="text-center">22</td>
+        <td class="text-center"> <i class="fa fa-bell" aria-hidden="true">&nbsp;</i><i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">10/18/2021</td>
+        <td class="text-center">PO003</td>
+        <td class="text-left">Sofia Tranquilla</td>
+        <td class="text-center">19</td>
+        <td class="text-center"> <i class="fa fa-bell" aria-hidden="true">&nbsp;</i><i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">10/12/2021</td>
+        <td class="text-center">PO004</td>
+        <td class="text-left">Shop Thrifty</td>
+        <td class="text-center">13</td>
+        <td class="text-center"> <i class="fa fa-bell" aria-hidden="true">&nbsp;</i><i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">10/09/2021</td>
+        <td class="text-center">PO005</td>
+        <td class="text-left">Kirsten Clothing</td>
+        <td class="text-center">31</td>
+        <td class="text-center"> <i class="fa fa-bell" aria-hidden="true">&nbsp;</i><i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">10/05/2021</td>
+        <td class="text-center">PO006</td>
+        <td class="text-left">AMARAH</td>
+        <td class="text-center">27</td>
+        <td class="text-center"> <i class="fa fa-bell" aria-hidden="true">&nbsp;</i><i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        <tr>
+        <td class="text-center">10/04/2021</td>
+        <td class="text-center">PO007</td>
+        <td class="text-left">Kira Monica</td>
+        <td class="text-center">0</td>
+        <td class="text-center"> <i class="fa fa-bell" aria-hidden="true">&nbsp;</i><i class="fa-solid fa-circle-minus"></i> <i class="fa-solid fa-pen-to-square"></i></td> 
+        </tr>
+
+        </tbody>
+        </table>
      </div>
   </div>
-</div>   
+</div>
 
 
   </body>
