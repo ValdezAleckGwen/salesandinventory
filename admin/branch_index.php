@@ -25,7 +25,7 @@ function displayUser() {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Branch</title>
+    <title>Admin - Branch</title>
 
         <link rel="stylesheet" href="assets/style.css">
 
@@ -218,6 +218,7 @@ function displayUser() {
 
           <div style="display: inline;">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-solid fa-ballot"></i> Add Branch</button>
+            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
           </div>
 
           <div style="float: right;">
