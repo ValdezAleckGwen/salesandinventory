@@ -42,7 +42,7 @@ function fill_unit_select_box_branch($connect)
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin - Users Dashboard</title>
+    <title>Users</title>
         <link rel="stylesheet" href="assets/style.css">
 
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
@@ -227,10 +227,12 @@ function fill_unit_select_box_branch($connect)
        <div class="table-title">
         <h3>USERS</h3>
           <div style="display: inline;">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-regular fa-user"></i> Add Users</button>
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
-          </div>
+                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userAddModal">
+                            Add User
+                        </button> 
 
+            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
+          </div>
           <div style="float: right;">
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
           </div>
