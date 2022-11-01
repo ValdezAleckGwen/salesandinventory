@@ -23,19 +23,19 @@ if (isset($_POST['supplier_id'])) {
 				$output = '';
 				$output .= '<tr style="display: block;">';
 
-				$output .= '<td width="14.55%"><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Unit</option>';;
+				$output .= '<td width="14.5%"><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Unit</option>';;
 				foreach ($poitems as $poitem) {
 				$output .= '<option value="'. $poitem['poitemid'] .'">'. $poitem['poitemid'] .'</option>';
 				}
 				$output .= '</select></td>';
-				$output .= '<td width="15.08%"><input type="text" name="po_id[]" class="col col-sm-5 form-control po_id" readonly/></td>';
-				$output .= '<td width="15.3%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
+				$output .= '<td width="15%"><input type="text" name="po_id[]" class="col col-sm-5 form-control po_id" readonly/></td>';
+				$output .= '<td width="15.1%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
 
-				$output .= '<td width="18.3%"><input type="text" name="item_name[]" class="col col-sm-2 form-control item_name" readonly/></td>';
+				$output .= '<td width="18.1%"><input type="text" name="item_name[]" class="col col-sm-2 form-control item_name" readonly/></td>';
 
-				$output .= '<td width="10.13%"><input type="text" name="item_price[]" class="col col-sm-1 form-control item_price" readonly/></td>';
+				$output .= '<td width="10.1%"><input type="text" name="item_price[]" class="col col-sm-1 form-control item_price" readonly/></td>';
 
-				$output .= '<td width="14.98%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity"/><p>quantity: </p><input type="number" name="po_quantity[]" class="quantity" readonly></td>';
+				$output .= '<td width="15.6%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity"/><p>quantity: </p><input type="number" name="po_quantity[]" class="quantity" readonly></td>';
 
 				$output .= '<td width="14%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" readonly/></td>';
 			
