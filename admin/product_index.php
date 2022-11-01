@@ -59,7 +59,7 @@ function fill_unit_select_box_category($connect)
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Products</title>
+        <title>Admin - Products</title>
 
         <link rel="stylesheet" href="assets/style.css">
 
@@ -249,10 +249,7 @@ function fill_unit_select_box_category($connect)
        <div class="table-title">
         <h3>PRODUCT</h3>
           <div style="display: inline;">
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userAddModal">
-                            Add Product
-                        </button>
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-regular fa-bag-shopping"></i> Add Product</button>
           </div>
           <div style="float: right;">
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
