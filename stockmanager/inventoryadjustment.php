@@ -119,7 +119,7 @@ function fill_unit_select_box_branch($connect, $branchid)
 
 							<!--remove this if cookie is configured-->
 							<div class="container m-1">
-                                <label for="branch_id">For Branch</label>
+								<label for="branch_id">For Branch</h5>
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id" disabled><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 								<thead style=" display: block; ">

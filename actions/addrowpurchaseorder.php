@@ -24,7 +24,7 @@ if (isset($_POST['branch_id'])) {
 				$output = '';
 				$output .= '<tr style="display: block;">';
 
-				$output .= '<td width="19.3%"><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Unit</option>';;
+				$output .= '<td width="19.36%"><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Unit</option>';;
 				foreach ($products as $product) {
 				$output .= '<option value="'. $product['productid'] .'">'. $product['productid'] .'</option>';
 				}
