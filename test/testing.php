@@ -3,10 +3,8 @@ session_start();
 include '../actions/database_connection.php';
 include '../actions/getdata.php';
 
-$id = $_SESSION['uid'];
-$branchid = getBranch($id);
-$permission = getPermission($id);
 
+$branchid = 'B-0000003';
 
 
 
@@ -16,22 +14,26 @@ tblproducts.name AS productname,
 tblproducts.markupprice AS markupprice, 
 tblcategory.name as categoryname,
 tblinventory.id as inventoryid,
-tblinventory.quantity as quantity
+tblinventory.quantity as quantity,
+tblinventory.branchid as branch
 FROM tblproducts 
 INNER JOIN tblsupplier 
 ON tblproducts.supplier=tblsupplier.id
 INNER JOIN tblcategory
 ON tblproducts.category=tblcategory.id
 INNER JOIN tblinventory
-ON tblinventory.productid = tblproducts.id
-
-";
+ON tblinventory.productid = tblproducts.id ";
 
 
 
 
 
-$query .= 'ORDER BY quantity ASC ';
+if($_POST['branch'] != '1')
+{
+  $branchid = $_POST['branch'];
+  $query .= 'WHERE tblinventory.branchid = "'.$branchid.'" ';
+}
+$query .= 'ORDER BY productid ASC ';
 
 
 
@@ -43,7 +45,7 @@ $total_data = $statement->rowCount();
 
 $output = '
 
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered report" style="background: #CDCDCD; border-collapse: collapse;">
   <tr class="inventoryrow">
         <th class="text-center" style="border: 1px solid;">Product ID</th>
         <th class="text-center" style="border: 1px solid;">Inventory ID</th>
@@ -51,6 +53,7 @@ $output = '
         <th class="text-center" style="border: 1px solid;">Category</th>
         <th class="text-left" style="border: 1px solid;">Quantity</th>
         <th class="text-left" style="border: 1px solid;">Markup Price (₱)</th>
+        <th class="text-left" style="border: 1px solid;">Branch </th>
         <th class="text-left" style="border: 1px solid;">Status </th>
         
   </tr>
@@ -78,7 +81,7 @@ $output = '
         // code...
         break;
     }
-
+    $branchname = branchName($row['branch']);
     $output .= '
     <tr>
       <td style="border: 1px solid;">'.$row["productid"].'</td>
@@ -87,6 +90,7 @@ $output = '
       <td style="border: 1px solid;">'.$row["categoryname"].'</td>
       <td style="border: 1px solid;" class="quantity">'.$row["quantity"].'</td>
       <td style="border: 1px solid;">'.$row["markupprice"].'</td>
+      <td style="border: 1px solid;">'.$branchname.'</td>
       <td style="border: 1px solid;"><p style="color: '.$color.' ; margin: 0px; font-weight: bold">'.$status.'</p></td>
     </tr>
     ';

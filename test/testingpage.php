@@ -34,29 +34,45 @@ function fill_unit_select_box_branch($connect)
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SALES</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
-        
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script> 
-        
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
+        <script src="/path/to/cdn/jquery.min.js"></script>
+        <script src="/path/to/jQuery.print.js"></script>
+
 
     </head>
     <style>
     	@media print {
-    		.side-bar * {
-    			visibility: hidden !important;
+    		.menu * {
+    			display: none !important; 
     		}
+        #usericon * {
+          display: none !important;
+        }
     		#print * {
-    			visibility: hidden !important;
+    			display: none !important; 
     		}
-    		#dynamic_content, #dynamic_content * {
-    			display: visible !important;
-    		}
+        .branch * {
+          display: none !important; 
+        }
+        .type * {
+          display: none !important; 
+        }
+        #dynamic_content * {
+          visibility: visible; !important;  
+
+        }
+        
+
+        
+
+    		
 
     	}
+
     </style>
     
     <body>
@@ -171,7 +187,7 @@ function fill_unit_select_box_branch($connect)
     </div>
 
 
-<div class="usericon">Admin <i class="fa-regular fa-user"></i></div>     
+    <div class="usericon" id="usericon">Admin <i class="fa-regular fa-user"></i></div>     
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -187,19 +203,28 @@ function fill_unit_select_box_branch($connect)
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
+        <div class="type">
        	<label for="type">Type</label>
-        <select name="type" id="type" class="form-select m-3">
-        	<option>Select a Report</option>
-        	<option>Inventory</option>
-        	<option>Sales</option>
-        	<option>Payments</option>
-        </select>
+          <select name="type" id="type" class="form-select m-3">
+          	<option value="0">Select a Report</option>
+          	<option value="1">Inventory</option>
+          	<option value="2">Sales</option>
+          	<option value="3">Payments</option>
+          </select>
+        </div>
         <div class="branch">
         	<label for="branch">Branch</label>
-        	<select class="form-select m-3" id=branch>
+        	<select class="form-select m-3 branch" id=branch>
         		<option value="1">All</option>
         		<?php echo fill_unit_select_box_branch($connect); ?>
         	</select>
+        </div>
+        <div class="branch">
+          <label for="starting">FROM</label>
+          <input type="date" name="starting" id="starting">
+          <label for="ending">TO</label>
+          <input type="date" name="ending" id="ending">
+          </select>
         </div>
         <div style="display: inline" id="print">
             <button type="button" class="btn btn-dark print"  style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
@@ -209,6 +234,7 @@ function fill_unit_select_box_branch($connect)
        
         <div border='1' class="table-repsonsive" id="dynamic_content">
         <!--product content-->
+       
 	        
 	        
 	  		
@@ -218,26 +244,110 @@ function fill_unit_select_box_branch($connect)
 </html>
 <script>
   $(document).ready(function(){
-
+    start();
    $(document).on('click', '.print', function() {
    	window.print();
    	
    });
 
-    load_data(1);
 
-    function load_data(page, query = '')
+    
+
+    function start() {
+      var type = $('#type').val();
+      if (type == '0') {
+        $('#branch').prop('disabled', true);
+      }
+    }
+    
+    function load_data_inventory(branch = '')
     {
+      
+      
       $.ajax({
         url:"testing.php",
         method:"POST",
-        data:{page:page, query:query},
+        data:{branch:branch},
         success:function(data)
         {
           $('#dynamic_content').html(data);
         }
       });
     }
+
+    function load_data_sales(branch = '')
+    {
+      var branch = $('#branch').val();
+      
+      $.ajax({
+        url:"testingsales.php",
+        method:"POST",
+        data:{branch:branch},
+        success:function(data)
+        {
+          $('#dynamic_content').html(data);
+        }
+      });
+    }
+
+    function load_data_payment()
+    {
+      
+      
+      $.ajax({
+        url:"testingpayment.php",
+        method:"POST",
+        
+        success:function(data)
+        {
+          $('#dynamic_content').html(data);
+        }
+      });
+    }
+
+    
+
+
+
+    $(document).on('change', '#type', function (){
+      var type = $(this).val();
+      var branch = $('#branch').val();
+      
+      if (type != 0 ) {
+        $('#branch').prop('disabled', false);
+      }
+
+      if (type == 1 ) {
+        load_data_inventory(branch);
+        
+      } else if (type == 2) {
+        load_data_sales();
+      } else if (type == 3) {
+        load_data_payment();
+      }
+      
+
+
+
+
+
+    });
+    //end
+    $(document).on('change', '#branch', function() {
+      var type = $('#type').val()
+      var branch = $(this).val();
+      
+      if (type == 1) {
+        load_data_inventory(branch);
+      } else if (type == 2) {
+        load_data_sales(branch);
+      } 
+
+      
+      
+    });
+
+
 
 
   });

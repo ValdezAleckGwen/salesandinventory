@@ -78,6 +78,22 @@ function displayBranch(string $uid) {
 	return $name;
 }
 
+function branchName(string $branchid) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	
+	$stmt = $conn->prepare("SELECT tblbranch.name AS branchname FROM tblbranch WHERE id = :id");
+	$stmt->execute([
+		':id' => $branchid
+	]);
+	$branches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($branches as $branch) {
+		$name = $branch['branchname'];
+	}
+	return $name;
+}
+
+
 function getPermission(string $uid) {
 	$db = new DbConnect;
 	$conn = $db->connect();
