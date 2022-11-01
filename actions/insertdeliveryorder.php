@@ -19,7 +19,8 @@ if(isset($_POST["item_id"]))
 
 	// create a delivery order
 	$deliveryorderquery = "
-	INSERT INTO tbldeliveryorder (id, supplierid, branchid,  total, userid, active) VALUES (:deliveryorderid, :supplierid, :branchid, :total, :userid, 1)
+	INSERT INTO tbldeliveryorder (id, supplierid, branchid,  total, userid, active) 
+	VALUES (:deliveryorderid, :supplierid, :branchid, :total, :userid, 1)
 	";
 
 	$statement  = $connect->prepare($deliveryorderquery);
@@ -82,7 +83,9 @@ if(isset($_POST["item_id"]))
 	{
 
 	$deliveryorderquery = "
-	SELECT total FROM tblpurchaseorderitem WHERE id = :purchaseorderitemid;
+	SELECT total 
+	FROM tblpurchaseorderitem 
+	WHERE id = :purchaseorderitemid;
 	";
 
 
@@ -108,7 +111,10 @@ if(isset($_POST["item_id"]))
 	$total = floatval($itemtotal) - floatval($doitemtotal) ;
 
 	$deliveryorderquery = "
-	UPDATE tblpurchaseorderitem SET quantity = :quantity, total = :total WHERE id = :purchaseorderitemid
+	UPDATE tblpurchaseorderitem 
+	SET quantity = :quantity, 
+	total = :total 
+	WHERE id = :purchaseorderitemid
 	";
 
 	$statement  = $connect->prepare($deliveryorderquery);
@@ -134,11 +140,14 @@ if(isset($_POST["item_id"]))
 	for($count = 0; $count < count($_POST["item_id"]); $count++)
 	{
 
-
-
-
 	$deliveryorderquery = "
-	SELECT * FROM tblinventory WHERE tblinventory.supplierid = :supplierid AND tblinventory.branchid = :branchid AND tblinventory.productid = :productid
+	SELECT * 
+	FROM tblinventory 
+	WHERE tblinventory.supplierid = :supplierid 
+	AND 
+	tblinventory.branchid = :branchid 
+	AND 
+	tblinventory.productid = :productid
 	";
 
 	$statement  = $connect->prepare($deliveryorderquery);
@@ -165,7 +174,8 @@ if(isset($_POST["item_id"]))
 	if (empty($result)) {
 	//create new inventory
 	$query = "
-	INSERT INTO tblinventory (id, productid, supplierid, branchid, quantity) VALUES (:id, :productid, :supplierid, :branchid, :quantity)
+	INSERT INTO tblinventory (id, productid, supplierid, branchid, quantity) 
+	VALUES (:id, :productid, :supplierid, :branchid, :quantity)
 	";
 
 	$statement  = $connect->prepare($query);
@@ -173,6 +183,7 @@ if(isset($_POST["item_id"]))
 	$inventoryid = createId('tblinventory');
 	$quantity = $_POST['item_quantity'][$count];
 	$statement->execute([
+
 		':id' => $inventoryid,
 		':productid' => $productid,
 		':supplierid' => $supplierid,
@@ -181,10 +192,18 @@ if(isset($_POST["item_id"]))
 	]);
 
 
-	} else {
+	} 
+
+	else 
+	{
 	//update values of quantity
 	$query = "
-	UPDATE tblinventory SET tblinventory.quantity = :quantity WHERE tblinventory.supplierid = :supplierid AND tblinventory.branchid = :branchid AND tblinventory.productid = :productid
+	UPDATE tblinventory 
+	SET tblinventory.quantity = :quantity 
+	WHERE tblinventory.supplierid = :supplierid 
+	AND 
+	tblinventory.branchid = :branchid 
+	AND tblinventory.productid = :productid
 	";
 
 	$statement  = $connect->prepare($query);
@@ -201,30 +220,18 @@ if(isset($_POST["item_id"]))
 
 	$result = $statement->fetchAll();
 
-
-
-
-
-
-
-
-
 	} //end of for loop 
-
-
-
-
-
-
-
-
 
 	if(isset($result))
 	{
 		echo 'wow';
 	}
 
-} else {
+
+}
+
+else 
+{
 	echo 'nyawit';
 }
 

@@ -215,12 +215,14 @@ $userid = $purchases[0]['userid'];
                                 </tfoot>
 
                             </table>
+
                             <td class="text-center" style="border: 1px solid;"> 
                                 <button class="delete btn btn-danger btn-sm rounded-0" 
                                     id="del_<?php echo $purhcase['poid'];?>"  data-id="<?php echo $purhcase['poid'];?>">
                                     <i class="fa-solidfa-circle-minus">Delete</i>
                                 </button>
                             </td>
+                            
                         </div>
                     </div>
                 </div>

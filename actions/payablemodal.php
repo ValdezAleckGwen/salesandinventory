@@ -43,11 +43,63 @@ $payables = $statement->fetchAll();
     <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" href="favicon.png" type="image/svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     </head>
+
+        <!-- Delete Function Jquery -->
+        <script>
+            $(document).ready(function () {
+
+                // Delete 
+                $(document).on('click', '.delete', function () {
+                    var el = this;
+
+                    // Delete id
+                    var deleteid = $(this).data('id');
+                    alert(deleteid);
+
+                    // Confirm box
+                    bootbox.confirm("Do you really want to delete record?", function (result) {
+
+                        if (result) {
+                            // AJAX Request
+                            $.ajax({
+                                url: '../actions/deletepayment.php',
+                                type: 'POST',
+                                data: {deleteid: deleteid},
+                                success: function (response) {
+                                alert(response);
+
+                                    // Removing row from HTML Table
+                                    if (response == ' Payment Deleted') {
+                                        bootbox.alert('Record deleted.');
+                                        $(el).closest('tr').css('background', 'tomato');
+                                        $(el).closest('tr').fadeOut(800, function () {
+                                            $(this).remove();
+                                        });
+
+                                    } else {
+                                        bootbox.alert('Record not deleted');
+                                    }
+
+                                }
+                            });
+                        }
+
+                    });
+
+                });
+            });
+        </script>
+
+
+
     <body>
 
             <div class="container">
                 <div class="row printme">
+
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                             Company Name
@@ -56,6 +108,7 @@ $payables = $statement->fetchAll();
                             Address Here
                         </p>
                     </div>
+
                     <div class="col-sm-6 text-muted mt-sm-0 mt-4 d-none d-sm-flex justify-content-sm-end">
                         <div>
                             <h4 class="fs35 gorditaB text-uppercase mb-1">
@@ -69,6 +122,7 @@ $payables = $statement->fetchAll();
                             </p>
                         </div>
                     </div>
+
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
                             ISSUED BY:
@@ -77,6 +131,7 @@ $payables = $statement->fetchAll();
                             PAYABLES ID: <?php echo $payables[0]['payid']; ?>
                         </h4>
                     </div>
+
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
                         <div>
                             <h4 class="fs35 gorditaB text-uppercase mb-1">
@@ -87,6 +142,7 @@ $payables = $statement->fetchAll();
                             </p>
                         </div>
                     </div>
+
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
                             <table class="table">
@@ -115,27 +171,33 @@ $payables = $statement->fetchAll();
                                     <?php
                                     $output = '';
                                         foreach ($payables as $payable) {
-                                        $output .= '<tr>';
-                                         $output .=  '<td>
-                                                        <p>'.$payable['deliveryid'].'</p>
+
+                                        $output .= '<tr class class="data" data-id="'.$payable["payid"].'">';
+
+                                        $output .=  '<td>
+                                                        <p>'.$payable['delivery'].'</p>
                                                     </td>';
                                    
                                         $output .=  '<td>
                                                         <p>'.$payable['productid'].'</p>
                                                     </td>';
+
                                         $output .= '<td>
-                                                <p>'.$payable['name'].'</p>
-                                            </td>';
+                                                        <p>'.$payable['name'].'</p>
+                                                    </td>';
+
                                         $output .= '<td>
-                                                <p>'.$payable['quantity'].'</p>
-                                            </td>';
-                                        $output .= '<td>
-                                                <p>'.$payable['price'].'</p>
-                                            </td>';
+                                                        <p>'.$payable['quantity'].'</p>
+                                                    </td>';
+
+                                        $output .= '<td style = "border-bottom:5px solid">
+                                                        <p>'.$payable['price'].'</p>
+                                                    </td>';
                                         
-                                        $output .= '<td>
-                                                <p>'.$payable['total'].'</p>
-                                            </td>';
+                                        $output .= '<td style = "border-bottom:5px solid">
+                                                        <p>'.$payable['total'].'</p>
+                                                    </td>';
+
                                         $output .= '</tr>';
                                         
                                         }
@@ -151,6 +213,8 @@ $payables = $statement->fetchAll();
 
                                     </tr>
                                     <tr>
+                                        <td></td>
+                                        <td></td>
                                         <td colspan="2" class="text-end border_sm_top"></td>
                                         <td class="text-end border-top">TOTAL AMOUNT</td>
                                         <td class="border">
@@ -159,9 +223,19 @@ $payables = $statement->fetchAll();
                                     </tr>
                                 </tfoot>
                             </table>
+
+                             <td class="text-center" style="border: 1px solid;"> 
+                                <button class="delete btn btn-danger btn-sm rounded-0" 
+                                    id="del_<?php echo $payable['payid'];?>"  
+                                    data-id="<?php echo $payable['payid'];?>">
+                                    <i class="fa-solidfa-circle-minus">Delete</i>
+                                </button>
+                            </td>
+
                         </div>
                     </div>
-                   
+                </div>
+            </div>       
         <!-- invoice_page -->
 
         
