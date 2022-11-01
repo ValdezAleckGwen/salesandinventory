@@ -209,7 +209,7 @@ function displayUser() {
         </div>
 
         <div class="category" id="category" data-tab-content>
-          <h1 style="font-weight: 700; font-size: 35px;">TOP PERFORMING CATEGORY</h1>
+          <h1 style="font-weight: 700; font-size: 35px;">TOP SUPPLIERS</h1>
             <div class="radiocontainer">
                 <input type="radio" id="month" name="option" value="month">
                 <label for="custombtn1">Month</label>

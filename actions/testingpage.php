@@ -6,6 +6,6 @@
 	<title></title>
 </head>
 <body>
-<h1>PRINT SUCCESSFUL</h1>
+
 </body>
 </html>

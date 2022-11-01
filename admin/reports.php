@@ -1,32 +1,3 @@
-<?php
-session_start();
-include '../actions/getdata.php';
-include '../x-function/redirect_if_notLogin.php';
-include '../actions/adddata.php';
-include '../actions/database_connection.php';
-function fill_unit_select_box_branch($connect)
-{
-	
-
-	$output = '';
-
-	$query = "SELECT id AS branchid, name AS branchname from tblbranch";
-
-	$result = $connect->query($query);
-
-	foreach($result as $row)
-	{
-		
-		
-			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
-				
-	}
-
-	return $output;
-}
-
-
- ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,11 +7,10 @@ function fill_unit_select_box_branch($connect)
         <link rel="stylesheet" href="../admin/assets/style.css">
         
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script> 
-        
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     </head>
@@ -187,20 +157,6 @@ function fill_unit_select_box_branch($connect)
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-       	<label for="type">Type</label>
-        <select name="type" id="type" class="form-select m-3">
-        	<option>Select a Report</option>
-        	<option>Inventory</option>
-        	<option>Sales</option>
-        	<option>Payments</option>
-        </select>
-        <div class="branch">
-        	<label for="branch">Branch</label>
-        	<select class="form-select m-3" id=branch>
-        		<option value="1">All</option>
-        		<?php echo fill_unit_select_box_branch($connect); ?>
-        	</select>
-        </div>
         <div style="display: inline" id="print">
             <button type="button" class="btn btn-dark print"  style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
 
@@ -209,9 +165,8 @@ function fill_unit_select_box_branch($connect)
        
         <div border='1' class="table-repsonsive" id="dynamic_content">
         <!--product content-->
-	        
-	        
-	  		
+	        <table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+
         </div>
         
     </body>
