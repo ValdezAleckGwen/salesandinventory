@@ -21,7 +21,7 @@ else
 }
 
 $query = "
-SELECT id AS categoryid, name AS categoryname FROM tblcategory WHERE active = 1
+SELECT id AS categoryid, name AS categoryname, active AS active FROM tblcategory 
 ";
 
 if($_POST['query'] != '')
@@ -50,6 +50,7 @@ $output = '
   <tr>
     <th class="text-center" style="border: 1px solid;">ID</th>
     <th class="text-center" style="border: 1px solid;">Category Name</th>
+    <th class="text-center" style="border: 1px solid;">Status</th>
     <th class="text-center" style="border: 1px solid;">Actions</th>
   </tr>
 ';
@@ -57,11 +58,20 @@ if($total_data > 0)
 {
   foreach($result as $row)
   {
+
+    $active = $row['active'];
+    if ($active == 1) {
+      $status = 'ACTIVE';
+    } else {
+      $status = 'INACTIVE';
+    }
+
     $output .= '
     <tr data-id="'.$row["categoryid"].'">
       <td style="border: 1px solid;">'.$row["categoryid"].'</td>
       <td style="border: 1px solid;">'.$row["categoryname"].'</td>
-
+      <td style="border: 1px solid;">'.$status.'</td>
+      
       <td class="text-center" style="border: 1px solid;">
       <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["categoryid"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 
       <button class="delete btn btn-danger" id="del_'.$row["categoryid"].'" data-id="'.$row["categoryid"].'"><i class="fa-solid
