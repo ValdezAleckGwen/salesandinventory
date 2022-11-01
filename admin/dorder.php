@@ -213,11 +213,11 @@ function displayUser() {
 								<input type="text" name="do_number" class="input-field" value="<?php echo createId('tblpurchaseorder'); ?>" id="do_number" readonly>
 							</div>
 							<div class="container m-1">
-								<label for="branch_id">For Branch: <?php echo displayBranch($id); ?></h5>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+								<label for="branch_id">For Branch: <?php echo displayBranch($id); ?></label>
+                <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</h5>
+								<label for="supplier_id">Supplier</label>
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							<!--remove this if cookie is configured-->
@@ -279,9 +279,9 @@ $(document).ready(function(){
         url: "../actions/addrowdeliveryorder.php",
         method: "POST",
         data: form_data,
-        success: function (data) {            
-			$(data).insertAfter($("#add-row > tr").eq(0));
-			$('.selectpicker').selectpicker('refresh');
+        success: function (data) {
+				$(data).insertAfter($("#add-row > tr").eq(0));
+				$('.selectpicker').selectpicker('refresh');
             }
         });
 

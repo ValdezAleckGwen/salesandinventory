@@ -202,17 +202,17 @@ function displayUser() {
 
 							<!--remove this if cookie is configured-->
 							<div class="container m-1">
-								<label for="branch_id">For Branch</h5>
+								<label for="branch_id">For Branch</label>
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option>Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<thead style=" display: block; ">
 								<tr>
-									<th width="20%">Inventory ID</th>
-									<th width="20%">Product Code</th>
-									<th width="40%">Product Name</th>
+									<th width="13.9%">Inventory ID</th>
+									<th width="15.9%">Product Code</th>
+									<th width="22.6%">Product Name</th>
 									<th width="10%">Available Quantity</th>
-									<th width="20%">Adjustment Quantity -</th>
-									<th width="20%">Adjustment Quantity +</th>
+									<th width="16%">Adjustment Quantity -</th>
+									<th width="16%">Adjustment Quantity +</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
 							</thead>
