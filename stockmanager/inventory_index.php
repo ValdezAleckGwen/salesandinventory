@@ -24,7 +24,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
     <head>
-      <title>INVENTORY</title>
+      <title>Stock Manager - Inventory Index</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SALES</title>
@@ -49,24 +49,36 @@ function displayUser() {
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
             <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
           </div>
         </div>
 
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
 
-        <!-- Delivery Order -->
-        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
 
-        <!-- Settings -->
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
