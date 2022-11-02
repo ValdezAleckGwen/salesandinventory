@@ -15,7 +15,7 @@ if(isset($_POST["item_id"]))
 	$total = $_POST["total"];
 	$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$userid = $_SESSION['uid'];
-	$branchid = getBranch($userid);
+	
 
 	// create a sale
 	$salesquery = "

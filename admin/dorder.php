@@ -455,31 +455,24 @@ $(document).ready(function(){
 	});
 
 
-	var	total_amount = function () {
+	$(document).on("change", ".item_quantity", function() {
+		var form_data = $('#insert_form').serialize();
+		
+		console.log(form_data)
+		$.ajax({
+			url: "../actions/fetchtotal.php",
+			method: "POST",
+			data: form_data,
+			dataType: "JSON",
+			success	: function (data) {
+				
+				
+				$('#total').val(data.total);
 
-		var sum = 0;
-		var currency = "₱"
-		$('.item_total').each(function () {
-			var num = $(this).val().replace(/[^a-zA-Z0-9]/g, '');
-			
-			// var num = $(this).val();
-			console.log(num);
-			if(num != 0) {
-				
-				sum += parseFloat(num);
-				
 			}
-
 		});
 
-		sum = sum.toLocaleString("en-US");
-		sum = sum.replace(/^/, '₱');
-		$("#total").val(sum);
-	}
-
-	$(document).on("change", ".item_quantity", function() {
-		total_amount();
-	})
+	});
 
 	
 	

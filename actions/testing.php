@@ -3,15 +3,25 @@ include 'database_connection.php';
 include 'getdata.php';
 
 
-$money = 1234;
+		$checkquery = "
+		SELECT * FROM tblinventory WHERE tblinventory.supplierid = 'S-0000001' AND tblinventory.branchid = 'B-0000001' AND tblinventory.productid = 'P-0000001'
+		";
 
-$money = filter_var($money, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$statement  = $connect->prepare($checkquery);
+		$statement->execute();
 
-$money = number_format($money, 2);
+		
 
-echo $money;
+		$result = $statement->fetchAll();
 
 
+
+
+			foreach ($result as $item) {
+			$inventoryquantity = $item['quantity'];
+				}
+
+echo $inventoryquantity;
 
 
 
