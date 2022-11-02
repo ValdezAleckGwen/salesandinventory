@@ -61,7 +61,7 @@ img{
 
 .side-bar{
   background: #38739a;
-  width: 310px;
+  width: 320px;
   height: 100%;
   position: fixed;
   top: 0;
@@ -98,6 +98,7 @@ img{
   background: #2d6184;
   transition: 500 0.3s ease;
   font-weight: 900;
+  color: #ffffff;
 }
 
 .side-bar .menu .item i{

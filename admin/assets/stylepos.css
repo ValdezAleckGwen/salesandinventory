@@ -44,7 +44,7 @@ input{
 
 .side-bar{
   background: #262d32;
-  width: 310px;
+  width: 320px;
   height: 100%;
   position: fixed;
   top: 0;
@@ -81,6 +81,7 @@ input{
   background: #7c8085;
   transition: 500 0.3s ease;
   font-weight: 900;
+  color: #ffffff;
 }
 
 .side-bar .menu .item i{
