@@ -7,12 +7,12 @@ include('database_connection.php');
 if(isset($_POST["item_id"]))
 {
 
-	//create transfer
+	
 	$salesreturnid = $_POST['salesreturnid'];
 	$salesid = $_POST['salesid'];
 	$userid = $_SESSION['uid'];
 
-	// create a sale
+	// create a salesreturn
 	$salesquery = "
 	INSERT INTO tblsalesreturn (id, salesid, userid) VALUES (:id, :salesid, :userid)
 	";
@@ -75,7 +75,8 @@ if(isset($_POST["item_id"]))
 		
 		$id = $_POST["item_id"][$count];
 		$quantity = $_POST["item_quantity"][$count];
-		$total = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$total = ["item_total"][$count];
+		$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
 		$statement->execute(
 			array(
@@ -141,9 +142,7 @@ if(isset($_POST["item_id"]))
 		case '2':
 			// code...
 			break;
-		case '2':
-			// code...
-			break;
+		
 		
 		default:
 			// code...
