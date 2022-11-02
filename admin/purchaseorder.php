@@ -317,20 +317,7 @@ $(document).ready(function(){
 
 		//validation no duplicate product allowed
 
-		$('.item_id').each(function(){
-			var	itemid1 = $(this).val();
 
-			$('.item_id').each(function(){
-			var itemid2 = $(this).val();
-
-				if (itemid1 == itemid2) {
-					error = "<li>Duplicate products not allowed</li>";
-					return false;
-				}
-
-			});
-
-		});
 
 		//end of validation
 
