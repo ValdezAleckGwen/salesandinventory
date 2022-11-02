@@ -40,6 +40,9 @@ $statement->execute([
 $purchases = $statement->fetchAll();
 $userid = $purchases[0]['userid'];
 
+
+
+
 }
 
 ?>
@@ -108,7 +111,8 @@ $userid = $purchases[0]['userid'];
                             <?php echo $purchases[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            <?php echo $purchases[0]['address']; ?>
+                            <?php echo substr($purchases[0]['address'], 0, 39); ?>
+
                         </p>
                     </div>
 
@@ -118,7 +122,7 @@ $userid = $purchases[0]['userid'];
                             <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            PO ID: <?php echo $purchases[0]['poid']; ?>
+                            PO ID: <?php echo $date?>
                         </h4>
                     </div>
 
@@ -129,6 +133,7 @@ $userid = $purchases[0]['userid'];
                             </h4>
                             <p class="fs18">
                                 Date: <?php echo $purchases[0]['purchasedate']; ?>
+
                             </p>
                         </div>
                     </div>

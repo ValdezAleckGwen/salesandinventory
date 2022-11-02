@@ -1,5 +1,7 @@
 <?php 
 include('database_connection.php');
+include('getdata.php');
+
 if (isset($_POST['id'])) {
     
 $id = $_POST['id'];
@@ -9,22 +11,27 @@ tblpayables.id AS payid,
 tbldeliveryorder.id as delivery,
 tblproducts.id AS productid,
 tblproducts.name AS name,
+tblsupplier.name AS suppliername,
+tblsupplier.address AS address,
 tblpayableitem.quantity AS quantity,
 tblpayableitem.total AS total,
 tblpayableitem.price AS price,
 tblpayables.date as datepaid,
-tblpayables.total  AS grandtotal
+tblpayables.total  AS grandtotal,
+tblpayables.userid AS userid
+
 FROM tblpayables
+
 INNER JOIN tblpayableitem
 ON tblpayableitem.payableid=tblpayables.id
 INNER JOIN tblproducts
 ON tblpayableitem.productid=tblproducts.id
 INNER JOIN tbldeliveryorder
 ON tblpayableitem.doid=tbldeliveryorder.id
-
+INNER JOIN tblsupplier
+ON tblpayableitem.supplierid=tblsupplier.id
 
 WHERE tblpayables.id = :id";
-
 
 
 $statement  = $connect->prepare($query);
@@ -34,6 +41,7 @@ $statement->execute([
 ]);
 
 $payables = $statement->fetchAll();
+$userid = $payables[0]['userid'];
 
 }
 
@@ -102,30 +110,22 @@ $payables = $statement->fetchAll();
 
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
-                            Company Name
+                           <?php echo $payables[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            Address Here
+                            <?php echo substr($payables[0]['address'], 0, 39); ?>
                         </p>
                     </div>
 
                     <div class="col-sm-6 text-muted mt-sm-0 mt-4 d-none d-sm-flex justify-content-sm-end">
                         <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Invoice
-                            </h4>
-                            <p class="fs18">
-                                Date: 10/28/2021
-                            </p>
-                            <p class="fs18">
-                                Invoice # 001
-                            </p>
+
                         </div>
                     </div>
 
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
-                            ISSUED BY:
+                            ISSUED BY: <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
                             PAYABLES ID: <?php echo $payables[0]['payid']; ?>
