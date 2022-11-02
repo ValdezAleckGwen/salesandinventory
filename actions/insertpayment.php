@@ -16,12 +16,13 @@ if(isset($_POST["item_id"]))
 
 	// create a sale
 	$paymentquery = "
-	INSERT INTO tblpayables (id, total, userid, active) VALUES (:id, :total, :userid, :active)
+	INSERT INTO tblpayables (id, supplierid, total, userid, active) VALUES (:id, :supplierid, :total, :userid, :active)
 	";
 
 	$statement  = $connect->prepare($paymentquery);
 	$statement->execute([
 		':id' => $paymentid,
+		':supplierid' => $supplierid,
 		':total' => $total,
 		':userid' => $userid,
 		':active' => 1
@@ -47,8 +48,11 @@ if(isset($_POST["item_id"]))
 		$doid = $_POST['do_id'][$count];
 		$branchid = $_POST['item_branch'][$count];
 		$productid = $_POST['item_code'][$count];
-		$price = preg_replace('/[^0-9]/s', "",$_POST["item_price"][$count]);
-		$totalprice = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$price = $_POST["item_price"][$count];
+		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$totalprice = $_POST["item_total"][$count];
+		$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+
 		$item_quantity = $_POST["item_quantity"][$count];
 		$statement = $connect->prepare($payablequery);
 		
@@ -76,14 +80,15 @@ if(isset($_POST["item_id"]))
 	{
 
 		$query = "
-		UPDATE tbldeliveryorderitem SET paid = 1 WHERE tbldeliveryorderitem.id = :id
+		UPDATE tbldeliveryorderitem SET paymentid = :paymentid, paid = 1 WHERE tbldeliveryorderitem.id = :id
 		";
 		$statement = $connect->prepare($query);
 		$doid = $_POST['item_id'][$count];
 
 		
 		$statement->execute([
-		':id'	=>	$doid	
+		':id'	=>	$doid,	
+		':paymentid' => $paymentid
 		]);
 
 
