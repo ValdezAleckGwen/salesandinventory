@@ -83,6 +83,9 @@
 			case 'tblsalesreturnitem':
 				$index = "SRI-";
 				break;
+			case 'tblsupplier':
+				$index = "S-";
+				break;	
 			default:
 				$index = "";
 				break;

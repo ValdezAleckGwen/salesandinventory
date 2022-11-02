@@ -24,15 +24,21 @@ if (isset($_POST['deleteid'])) {
 
 	$result = $statement->fetchAll();
 
-	if (isset($result)) {
+	if (isset($result)) 
+	{
 		echo "ok";
-	} else {
+
+	} 
+
+	else 
+	{
 		echo "Error Deleting Purchase Order";
 	}
 
 
 
-	} else {
+	} else 
+	{
 		// it is already delivered
 		echo "Cannot Delete Delivered Items";
 	}
@@ -41,7 +47,10 @@ if (isset($_POST['deleteid'])) {
 
 
 
-} else {
+} 
+
+else 
+{
 	echo "no data found";
 }
 
