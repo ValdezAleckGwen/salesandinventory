@@ -30,7 +30,6 @@ ON tbldeliveryorderitem.productid=tblproducts.id
 WHERE tbldeliveryorder.id = :id";
 
 
-
 $statement  = $connect->prepare($query);
 $statement->execute([
     ':id' => $id,

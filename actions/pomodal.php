@@ -29,8 +29,6 @@ ON tblpurchaseorderitem.productid=tblproducts.id
 
 WHERE tblpurchaseorder.id = :id";
 
-
-
 $statement  = $connect->prepare($query);
 $statement->execute([
     ':id' => $id,
