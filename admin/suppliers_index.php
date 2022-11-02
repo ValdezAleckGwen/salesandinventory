@@ -92,8 +92,11 @@ function displayUser() {
 
 <!-- Start of Menu Proper -->
       <div class="menu">
+
         <!-- Dashboard -->
         <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
+
+
 
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
@@ -257,6 +260,7 @@ function displayUser() {
             </form>
         </div>
     </div>
+
 </div>
 
 <!-- Edit supplier Modal -->
@@ -322,6 +326,8 @@ function displayUser() {
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>

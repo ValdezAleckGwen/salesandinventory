@@ -3,8 +3,8 @@ include 'database_connection.php';
 include 'getdata.php';
 
 //validate if there is id
-if (isset($_POST['id'])) {
-	$paymentid = $_POST['id'];
+if (isset($_POST['deleteid'])) {
+	$paymentid = $_POST['deleteid'];
 	
 	
 	$deletequery = "UPDATE tblpayables SET active = 0 WHERE id = :id";
@@ -32,7 +32,7 @@ if (isset($_POST['id'])) {
 
 
       // for delivery order
-      $deletequery = "UPDATE tbldeliveryorderitem SET paid = 0 WHERE id23w = :id";
+      $deletequery = "UPDATE tbldeliveryorderitem SET paid = 0 WHERE id = :id";
 
       $statement  = $connect->prepare($deletequery);
       $statement->execute([

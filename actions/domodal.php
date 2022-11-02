@@ -20,6 +20,7 @@ tbldeliveryorder.total  AS grandtotal,
 tbldeliveryorder.userid AS userid
 
 FROM tbldeliveryorder
+
 INNER JOIN tblsupplier
 ON tbldeliveryorder.supplierid=tblsupplier.id
 INNER JOIN tbldeliveryorderitem
@@ -27,7 +28,6 @@ ON tbldeliveryorderitem.doid=tbldeliveryorder.id
 INNER JOIN tblproducts
 ON tbldeliveryorderitem.productid=tblproducts.id
 WHERE tbldeliveryorder.id = :id";
-
 
 
 $statement  = $connect->prepare($query);
@@ -109,7 +109,7 @@ $userid = $deors[0]['userid'];
                            <?php echo $deors[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            <?php echo $deors[0]['address']; ?>
+                            <?php echo substr($deors[0]['address'], 0, 39); ?>
                         </p>
                     </div>
 

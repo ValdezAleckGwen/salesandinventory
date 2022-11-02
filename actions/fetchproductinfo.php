@@ -73,10 +73,11 @@ if (isset($_POST['productid'])) {
 					$data['productid'] = $po['productid'];
 					$data['poid'] = $po['poid'];
 					$totalprice = $po['total'];
+					$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$price = $po['price'];
-					$data['total'] = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['price'] = number_format($price, 2, '.', ',');
+					$data['total'] = number_format($totalprice, 2, '.', ',');
 					$data['quantity'] = $po['quantity'];
 					$data['name'] = $po['name'];
 					
