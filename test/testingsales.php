@@ -16,7 +16,7 @@ SELECT
 tblsales.id AS salesid,
 tblbranch.name AS branchname,
 tblusers.lastname as username,
-tblsales.date as calendar,
+tblsales.salesdate as calendar,
 tblsales.total AS total
 FROM tblsales 
 INNER JOIN tblbranch 
@@ -32,7 +32,16 @@ if($_POST['branch'] != '1')
   $query .= ' AND tblsales.branchid = "'.$branchid.'" ';
 }
 
-$query .= 'ORDER BY salesid ASC ';
+if($_POST['date1'] != '' && $_POST['date2'] != '')
+{
+  $datestart = $_POST['date1'];
+  $dateend = $_POST['date2'];
+  
+  $query .= " AND tblsales.salesdate BETWEEN '".date('Y-m-d', strtotime($datestart))."' AND '".date('Y-m-d', strtotime($dateend))."' ";
+
+}
+
+$query .= ' ORDER BY salesid DESC ';
 
 $statement = $connect->prepare($query);
 $statement->execute();
@@ -46,20 +55,22 @@ $output = '
     <th class="text-center" style="border: 1px solid;">Sales ID</th>
     <th class="text-center" style="border: 1px solid;">Branch</th>
     <th class="text-center" style="border: 1px solid;">Creator</th>
-    <th class="text-center" style="border: 1px solid;">Date</th>
     <th class="text-center" style="border: 1px solid;">Total (₱)</th>
+    <th class="text-center" style="border: 1px solid;">Date</th>
   </tr>
 ';
 
   foreach($result as $row)
   {
+    $total = filter_var($row["total"], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $total = number_format($total, 2);
     $output .= '
     <tr class="data" data-id="'.$row["salesid"].'">
       <td style="border: 1px solid;">'.$row["salesid"].'</td>
       <td style="border: 1px solid;">'.$row["branchname"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$total.'</td>
       <td style="border: 1px solid;">'.$row["calendar"].'</td>
-      <td class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
       
 
     ';

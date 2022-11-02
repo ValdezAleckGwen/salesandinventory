@@ -106,8 +106,8 @@ if (isset($_POST['productid'])) {
 					$data['productid'] = $do['productid'];
 					$data['doid'] = $do['doid'];
 					$data['branch'] = $do['branch'];
-					$totalprice = $po['total'];
-					$price = $po['price'];
+					$totalprice = $do['total'];
+					$price = $do['price'];
 					$data['total'] = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['quantity'] = $do['quantity'];

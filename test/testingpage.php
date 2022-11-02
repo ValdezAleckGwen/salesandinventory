@@ -32,7 +32,7 @@ function fill_unit_select_box_branch($connect)
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SALES</title>
+        <title>REPORTS</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
@@ -221,9 +221,9 @@ function fill_unit_select_box_branch($connect)
         </div>
         <div class="branch">
           <label for="starting">FROM</label>
-          <input type="date" name="starting" id="starting">
+          <input type="date" name="starting" id="starting" class="date">
           <label for="ending">TO</label>
-          <input type="date" name="ending" id="ending">
+          <input type="date" name="ending" id="ending" class="date">
           </select>
         </div>
         <div style="display: inline" id="print">
@@ -258,6 +258,7 @@ function fill_unit_select_box_branch($connect)
       if (type == '0') {
         $('#branch').prop('disabled', true);
       }
+      $('.date').prop('disabled', true);
     }
     
     function load_data_inventory(branch = '')
@@ -270,19 +271,21 @@ function fill_unit_select_box_branch($connect)
         data:{branch:branch},
         success:function(data)
         {
+
           $('#dynamic_content').html(data);
+
         }
       });
     }
 
-    function load_data_sales(branch = '')
+    function load_data_sales(branch = '', date1 = '', date2 = '')
     {
       var branch = $('#branch').val();
       
       $.ajax({
         url:"testingsales.php",
         method:"POST",
-        data:{branch:branch},
+        data:{branch:branch, date1:date1, date2:date2},
         success:function(data)
         {
           $('#dynamic_content').html(data);
@@ -290,16 +293,18 @@ function fill_unit_select_box_branch($connect)
       });
     }
 
-    function load_data_payment()
+    
+    function load_data_payment(date1 = '', date2 = '')
     {
       
       
       $.ajax({
         url:"testingpayment.php",
         method:"POST",
-        
+        data:{date1:date1, date2:date2},
         success:function(data)
         {
+
           $('#dynamic_content').html(data);
         }
       });
@@ -319,11 +324,15 @@ function fill_unit_select_box_branch($connect)
 
       if (type == 1 ) {
         load_data_inventory(branch);
-        
+
+        $('.date').prop('disabled', true);
       } else if (type == 2) {
-        load_data_sales();
+        load_data_sales(branch);
+        $('.date').prop('disabled', false);
       } else if (type == 3) {
         load_data_payment();
+        $('.date').prop('disabled', false);
+        $('#branch').prop('disabled', true);
       }
       
 
@@ -334,7 +343,7 @@ function fill_unit_select_box_branch($connect)
     });
     //end
     $(document).on('change', '#branch', function() {
-      var type = $('#type').val()
+      var type = $('#type').val();
       var branch = $(this).val();
       
       if (type == 1) {
@@ -345,6 +354,22 @@ function fill_unit_select_box_branch($connect)
 
       
       
+    });
+    //end
+
+    $(document).on('change', '.date', function() {
+      var date1 = $('#starting').val();
+      var date2 = $('#ending').val();
+      var branch = $('#branch').val();
+      var type = $('#type').val();
+      if (type == 2) {
+        load_data_sales(branch, date1, date2);
+      } else if (type == 3) {
+
+        load_data_payment(date1, date2);
+      }
+      
+
     });
 
 

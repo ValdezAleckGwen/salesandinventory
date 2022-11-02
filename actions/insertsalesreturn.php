@@ -41,9 +41,11 @@ if(isset($_POST["item_id"]))
 		$statement  = $connect->prepare($query);
 		$id = createId('tblsalesreturnitem'); //incrementing sales item id
 		$salesitemid = $_POST["item_id"][$count];
-		$price = preg_replace('/[^0-9]/s', "",$_POST["item_price"][$count]);
+		$price =  $_POST["item_price"][$count];
+		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$quantity = $_POST["item_quantity"][$count];
-		$totalprice = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$totalprice = $_POST["item_total"][$count];
+		$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
 		
 		$statement->execute(
