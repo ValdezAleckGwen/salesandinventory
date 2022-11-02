@@ -10,7 +10,8 @@ if(isset($_POST["item_id"]))
 
 	$salesid = createId('tblsales');
 	
-	$total = preg_replace('/[^0-9]/s', "",$_POST["total"]);
+	$total = $_POST["total"];
+	$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$vattableSale = $_POST['vattable-sale'];
 	$vat = $_POST['vat'];
 	$taxid = $_POST['tax'];
@@ -52,8 +53,10 @@ if(isset($_POST["item_id"]))
 		";
 
 		$salesitemid = createId('tblsalesitem'); //incrementing sales item id
-		$price = preg_replace('/[^0-9]/s', "",$_POST["item_price"][$count]);
-		$totalprice = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$price = $_POST["item_price"][$count];
+		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$totalprice = $_POST["item_total"][$count];
+		$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$item_id = $_POST["item_id"][$count];
 		$item_quantity = $_POST["item_quantity"][$count];
 		$statement = $connect->prepare($query);
