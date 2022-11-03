@@ -189,11 +189,11 @@ function displayUser() {
 							</div>
 							<div class="row">
 							<div class="container m-1">
-								<label>Source Branch</label>
+								<label>Source Branch:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch" id="source_branch"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<div class="container m-1">
-								<label>Destination Branch</label>
+								<label>Destination Branch:</label>
 								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option>Select Branch</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
 							<thead style=" display: block; ">
