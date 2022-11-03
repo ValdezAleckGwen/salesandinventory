@@ -67,7 +67,11 @@ $userid = $stocks[0]['userid'];
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center d-inline">
                             Stock Transfer ID: <?php echo $stocks[0]['stockid']; ?>
-                        </h4>                        
+                        </h4>   
+
+                        <h4 class="fs35 gorditaB text-uppercase mb-1">
+                                Date: <?php echo $stocks[0]['stockdate']; ?>
+                        </h4>                     
                     </div>
 
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">

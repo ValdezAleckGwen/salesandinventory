@@ -11,7 +11,22 @@ if (isset($_POST['productid'])) {
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
-				$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.name AS name, tblproducts.markupPrice AS price FROM tblinventory INNER JOIN tblproducts ON tblinventory.productId=tblproducts.id WHERE tblinventory.id = :inventoryid");
+				$stmt = $conn->prepare("
+					SELECT tblinventory.id AS inventory, 
+					tblinventory.quantity AS count, 
+					tblproducts.id AS product, 
+					tblproducts.name AS name, 
+					tblproducts.markupPrice AS price 
+
+					FROM tblinventory 
+
+					INNER JOIN tblproducts 
+					ON tblinventory.productId=tblproducts.id 
+
+					WHERE tblinventory.id = :inventoryid
+
+					");
+
 				$stmt->execute([':inventoryid' => $inventoryid]);
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
@@ -36,7 +51,21 @@ if (isset($_POST['productid'])) {
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
-				$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.name AS name, tblproducts.price AS price FROM tblinventory INNER JOIN tblproducts ON tblinventory.productId=tblproducts.id WHERE tblproducts.id = :inventoryid");
+				$stmt = $conn->prepare("
+					SELECT tblinventory.id AS inventory, 
+					tblinventory.quantity AS count, 
+					tblproducts.id AS product, 
+					tblproducts.name AS name, 
+					tblproducts.price AS price 
+
+					FROM tblinventory 
+
+					INNER JOIN tblproducts 
+					ON tblinventory.productId=tblproducts.id 
+
+					WHERE tblproducts.id = :inventoryid
+					");
+
 				$stmt->execute([':inventoryid' => $inventoryid]);
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
@@ -64,7 +93,24 @@ if (isset($_POST['productid'])) {
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
-				$stmt = $conn->prepare("SELECT tblpurchaseorderitem.id as poitemid, tblpurchaseorderitem.productid as productid, tblpurchaseorderitem.poid as poid, tblpurchaseorderitem.total AS total, tblpurchaseorderitem.price AS price,tblpurchaseorderitem.quantity as quantity, tblproducts.name AS name FROM tblpurchaseorderitem INNER JOIN tblproducts ON tblpurchaseorderitem.productid=tblproducts.id where tblpurchaseorderitem.id = :poitemid;");
+				$stmt = $conn->prepare("
+					SELECT tblpurchaseorderitem.id as poitemid, 
+					tblpurchaseorderitem.productid as productid, 
+					tblpurchaseorderitem.poid as poid, 
+					tblpurchaseorderitem.total AS total, 
+					tblpurchaseorderitem.price AS price,
+					tblpurchaseorderitem.quantity as quantity, 
+					tblproducts.name AS name 
+
+					FROM tblpurchaseorderitem 
+
+					INNER JOIN tblproducts 
+					ON tblpurchaseorderitem.productid=tblproducts.id 
+
+					WHERE tblpurchaseorderitem.id = :poitemid;
+					");
+
+
 				$stmt->execute([':poitemid' => $poitemid]);
 				$pos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
@@ -98,7 +144,31 @@ if (isset($_POST['productid'])) {
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
-				$stmt = $conn->prepare("SELECT tbldeliveryorderitem.id AS doitemid, tbldeliveryorderitem.branchid AS branch, tbldeliveryorderitem.productid AS productid, tblproducts.name AS productname, tbldeliveryorderitem.quantity as quantity, tbldeliveryorderitem.price as price, tbldeliveryorderitem.total AS total, tbldeliveryorder.id AS doid, tbldeliveryorder.supplierid AS supplierid FROM tbldeliveryorderitem INNER JOIN tbldeliveryorder ON tbldeliveryorderitem.doid=tbldeliveryorder.id INNER JOIN tblsupplier ON tbldeliveryorder.supplierid=tblsupplier.id INNER JOIN tblproducts ON tbldeliveryorderitem.productid=tblproducts.id WHERE paid = 0 AND tbldeliveryorderitem.id = :id;");
+				$stmt = $conn->prepare("
+					SELECT tbldeliveryorderitem.id AS doitemid, 
+					tbldeliveryorderitem.branchid AS branch, 
+					tbldeliveryorderitem.productid AS productid, 
+					tblproducts.name AS productname, 
+					tbldeliveryorderitem.quantity as quantity, 
+					tbldeliveryorderitem.price as price, 
+					tbldeliveryorderitem.total AS total, 
+					tbldeliveryorder.id AS doid, 
+					tbldeliveryorder.supplierid AS supplierid 
+
+					FROM tbldeliveryorderitem 
+					INNER JOIN tbldeliveryorder 
+					ON tbldeliveryorderitem.doid=tbldeliveryorder.id 
+
+					INNER JOIN tblsupplier 
+					ON tbldeliveryorder.supplierid=tblsupplier.id 
+
+					INNER JOIN tblproducts 
+					ON tbldeliveryorderitem.productid=tblproducts.id 
+
+					WHERE paid = 0 AND tbldeliveryorderitem.id = :id;
+					");
+
+				
 				$stmt->execute([':id' => $id]);
 				$dos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
@@ -131,7 +201,20 @@ if (isset($_POST['productid'])) {
 					$db = new DbConnect;
 					$conn = $db->connect();
 						
-					$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.name AS name, tblinventory.quantity AS quantity FROM tblinventory INNER JOIN tblproducts ON tblinventory.productid=tblproducts.id WHERE tblinventory.id = :inventoryid");
+					$stmt = $conn->prepare("
+						SELECT tblinventory.id AS inventory, 
+						tblinventory.quantity AS count, 
+						tblproducts.id AS product, 
+						tblproducts.name AS name, 
+						tblinventory.quantity AS quantity 
+
+						FROM tblinventory 
+
+						INNER JOIN tblproducts 
+						ON tblinventory.productid=tblproducts.id 
+
+						WHERE tblinventory.id = :inventoryid");
+
 					$stmt->execute([':inventoryid' => $inventoryid]);
 					$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 					
@@ -156,7 +239,22 @@ if (isset($_POST['productid'])) {
 					$db = new DbConnect;
 					$conn = $db->connect();
 					
-					$query = "SELECT tblsalesitem.id AS salesitemid, tblsalesitem.productid AS productid, tblsalesitem.price AS price, tblsalesitem.quantity AS quantity, tblsalesitem.total AS total, tblproducts.name AS productname FROM tblsalesitem INNER JOIN tblproducts ON tblproducts.id=tblsalesitem.productid WHERE tblsalesitem.id = :salesitemid";
+					$query = "
+					SELECT tblsalesitem.id AS salesitemid, 
+					tblsalesitem.productid AS productid, 
+					tblsalesitem.price AS price, 
+					tblsalesitem.quantity AS quantity, 
+					tblsalesitem.total AS total, 
+					tblproducts.name AS productname 
+
+					FROM tblsalesitem 
+
+					INNER JOIN tblproducts 
+					ON tblproducts.id=tblsalesitem.productid 
+
+					WHERE tblsalesitem.id = :salesitemid
+
+					";
 
 					$stmt = $conn->prepare($query);
 					$stmt->execute([':salesitemid' => $salesitemid]);
