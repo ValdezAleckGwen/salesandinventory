@@ -2,7 +2,7 @@
 session_start();
 require_once('adddata.php') ;
 require_once('database_connection.php');
-require_once('getdata.php');
+
 
 if(isset($_POST["item_id"]))
 {
@@ -130,8 +130,15 @@ if(isset($_POST["item_id"]))
 		$taxid = $result['taxid'];
 	}
 
+	$statement = $connect->prepare("SELECT * from tbltax");
+	$statement->execute();
+	$taxes = $statement->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($taxes as $tax) {
+		$tax = $tax['tax'];
+	}
 	
-	$tax = getTax();
+
+	
 
 	$vattablesale = 0.00;
 	$vat = 0.00;
@@ -145,7 +152,8 @@ if(isset($_POST["item_id"]))
 			$grandtotal *= .8;
 			break;
 		default:
-			// code...
+			$vattablesale = $grandtotal * 0.88;
+			$vat = $grandtotal - $vattablesale;
 			break;
 	}
 
@@ -167,9 +175,6 @@ if(isset($_POST["item_id"]))
 	
 
 	$results = $statement->fetchAll();
-
-
-
 
 
 	if(isset($result))

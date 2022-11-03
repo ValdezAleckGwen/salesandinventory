@@ -27,7 +27,7 @@ SELECT id AS categoryid, name AS categoryname, active AS active FROM tblcategory
 if($_POST['query'] != '')
 {
   $query .= '
-  AND name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
