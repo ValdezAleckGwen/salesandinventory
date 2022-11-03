@@ -256,4 +256,6 @@ function alterTotal(string $poiid) {
 
 
 
+
+
  ?>
