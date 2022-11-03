@@ -30,7 +30,7 @@ FROM tblusers
 if($_POST['query'] != '')
 {
   $query .= '
-  AND tblusers.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE lastname LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
