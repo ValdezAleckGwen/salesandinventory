@@ -23,8 +23,6 @@ $query = "
 SELECT *
 
 FROM tblusers
-
-
 ";
 
 if($_POST['query'] != '')
@@ -35,6 +33,7 @@ if($_POST['query'] != '')
 }
 
 $query .= 'ORDER BY id ASC ';
+
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
