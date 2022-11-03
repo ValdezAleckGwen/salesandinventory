@@ -43,20 +43,23 @@ if(isset($_POST["item_id"]))
 	{
 
 		$query = "
-		INSERT INTO tblstocktransferitem (id, inventoryid, quantity) 
-        VALUES (:id, :inventoryid, :quantity)
+		INSERT INTO tblstocktransferitem (id, stocktransferid, inventoryid, productid, quantity) 
+        VALUES (:id, :stocktransferid, :inventoryid, :productid, :quantity)
 		";
 
 		$statement  = $connect->prepare($query);
 		$id = createId('tblstocktransferitem'); //incrementing sales item id
 		$inventoryid = $_POST["item_id"][$count];
+		$productid = $_POST["item_code"][$count];
 		$quantity = $_POST["item_quantity"][$count];
 
 		
 		$statement->execute(
 			array(
 				':id'				=>	$id,
+				':stocktransferid'	=>  $stocktransferid,
 				':inventoryid'		=>	$inventoryid,
+				':productid'        =>  $productid,
 				':quantity'			=>	$quantity,
 			)
 		);
@@ -67,35 +70,35 @@ if(isset($_POST["item_id"]))
 	
 	//either add to inventory or create new inventory
 
-		for($count = 0; $count < count($_POST["item_id"]); $count++)
-	{
+	// 	for($count = 0; $count < count($_POST["item_id"]); $count++)
+	// {
 
-		$query = "
-		UPDATE tblinventory SET quantity = :quantity WHERE tblinventory.id = :id
-		";
+	// 	$query = "
+	// 	UPDATE tblinventory SET quantity = :quantity WHERE tblinventory.id = :id
+	// 	";
 
-		$statement  = $connect->prepare($query);
-		$itemquantity = 0;
-		$itemavailable = 0;
-		$inventoryid = $_POST["item_id"][$count];
-		$itemquantity = $_POST["item_quantity"][$count];
-		$itemavailable  = $_POST["item_available"][$count];
+	// 	$statement  = $connect->prepare($query);
+	// 	$itemquantity = 0;
+	// 	$itemavailable = 0;
+	// 	$inventoryid = $_POST["item_id"][$count];
+	// 	$itemquantity = $_POST["item_quantity"][$count];
+	// 	$itemavailable  = $_POST["item_available"][$count];
 
-		$quantity = 0;
-		$quantity = $itemavailable - $itemquantity;
-		if ($quantity < 0) {
-			$quantity = 0;
-		}
+	// 	$quantity = 0;
+	// 	$quantity = $itemavailable - $itemquantity;
+	// 	if ($quantity < 0) {
+	// 		$quantity = 0;
+	// 	}
 
 		
-		$statement->execute(
-			array(
-				':id'	=>	$inventoryid,
-				':quantity'		=>	$quantity,
-			)
-		);
+	// 	$statement->execute(
+	// 		array(
+	// 			':id'	=>	$inventoryid,
+	// 			':quantity'		=>	$quantity,
+	// 		)
+	// 	);
 
-	}
+	// }
 
 	$result = $statement->fetchAll();
 

@@ -208,7 +208,6 @@ function fill_unit_select_box_branch($connect)
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-
       var branch = $('#branch_id').val();
       load_data(1, query, branch);
     });
@@ -217,9 +216,7 @@ function fill_unit_select_box_branch($connect)
       var page = $(this).data('page_number');
       var query = $('#search_box').val();
       var branch = $('#branch_id').val();
-      load_data(1, query, branch);
-
-      
+      load_data(page, query, branch);
     });
 
   });

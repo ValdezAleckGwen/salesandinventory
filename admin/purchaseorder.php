@@ -26,7 +26,7 @@ function fill_unit_select_box_supplier($connect)
 	return $output;
 }		
 
-//remove this if cookie is configured
+
 
 function fill_unit_select_box_branch($connect)
 {
