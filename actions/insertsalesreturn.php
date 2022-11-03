@@ -3,6 +3,7 @@
 session_start();
 include 'adddata.php';
 include('database_connection.php');
+include 'getdata.php';
 
 if(isset($_POST["item_id"]))
 {
@@ -105,7 +106,7 @@ if(isset($_POST["item_id"]))
 
 	$results = $statement->fetchAll();
 
-	$grandtotal = 0;
+	$grandtotal = 0.00;
 
 	foreach ($results as $result) {
 		$grandtotal = $result['grandtotal'];
@@ -132,18 +133,18 @@ if(isset($_POST["item_id"]))
 	}
 
 
-	$vattablesale = 0;
-	$vat = 0;
+	$vattablesale = 0.00;
+	$vat = 0.00;
 	switch ($taxid) {
 		case '1':
 			$vattablesale = $grandtotal * 0.88;
 			$vat = $grandtotal - $vattablesale;
 			break;
 		case '2':
-			// code...
+			$sum *= (1 - $tax);
+			$sum *= .8;
+			$status = 2;
 			break;
-		
-		
 		default:
 			// code...
 			break;

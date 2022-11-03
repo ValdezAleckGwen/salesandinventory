@@ -36,6 +36,8 @@ if (isset($branchid)) {
 				}
 				$output .= '</select></td>';
 
+				
+
 				$output .= '<td width="40%"><input type="text" name="item_name[]" class="col col-sm-5 form-control item_name" readonly/></td>';
 
 				$output .= '<td width="12%"><input type="text" name="item_price[]" class="col col-sm-2 form-control item_price" readonly/></td>';

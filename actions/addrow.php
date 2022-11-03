@@ -30,8 +30,7 @@ if (isset($_POST['source_branch'])) {
 				}
 				$output .= '</select></td>';
 
-				$output .= '<td width="14.9%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
-
+				
 				$output .= '<td width="39.8%"><input type="text" name="item_name[]" class="col col-sm-5 form-control item_name" readonly/></td>';
 
 				$output .= '<td width="15%"><input type="text" name="item_available[]" class="col col-sm-1 form-control item_available" readonly/></td>';

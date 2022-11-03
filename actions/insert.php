@@ -49,7 +49,7 @@ if(isset($_POST["item_id"]))
 		$query = "
 		INSERT INTO tblsalesitem 
         (id, salesid, productid, price, quantity, total) 
-        VALUES (:salesitemid, :salesid, :item_id, :item_price, :item_quantity, :item_total)
+        VALUES (:salesitemid, :salesid, :productid, :item_price, :item_quantity, :item_total)
 		";
 
 		$salesitemid = createId('tblsalesitem'); //incrementing sales item id
@@ -57,7 +57,9 @@ if(isset($_POST["item_id"]))
 		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$totalprice = $_POST["item_total"][$count];
 		$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-		$item_id = $_POST["item_id"][$count];
+		$inventoryid = $_POST["item_id"][$count];
+		$productidquery = getQueryOne('productid', 'tblinventory', 'id' , $inventoryid);
+		$productid = $productidquery[0]['productid'];
 		$item_quantity = $_POST["item_quantity"][$count];
 		$statement = $connect->prepare($query);
 		
@@ -65,7 +67,7 @@ if(isset($_POST["item_id"]))
 			array(
 				':salesitemid'	=>	$salesitemid,
 				':salesid'		=>	$salesid,
-				':item_id'		=>	$item_id,
+				':productid'	=>	$productid,
 				':item_price'	=>	$price,
 				':item_quantity'=>	$item_quantity,
 				':item_total'	=>	$totalprice
