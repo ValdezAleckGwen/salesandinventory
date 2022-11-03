@@ -120,7 +120,7 @@ $userid = $purchases[0]['userid'];
                             <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            PO ID: <?php echo $date?>
+                            PO ID:  Date: <?php echo $purchases[0]['poid']; ?>
                         </h4>
                     </div>
 

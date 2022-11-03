@@ -98,24 +98,32 @@ if($total_data > 0)
 {
   foreach($result as $row)
   {
+
     $quantity = $row['quantity'];
+    
     $status = '';
     $color = '';
+
     switch ($quantity) {
+
       case ($quantity == null):
         $status = 'OUT OF STOCK';
         $color = 'red';
         break;
-      case ($quantity < 10):
+
+      case ($quantity <= 10): 
         $status = 'NEED TO ORDER';
         $color = 'orange';
         break;
+
       case ($quantity > 10):
         $status = 'IN STOCK';
         $color = 'green';
         break;
+
       default:
-        // code...
+        $status = 'IN STOCK';
+        $color = 'green';
         break;
     }
 

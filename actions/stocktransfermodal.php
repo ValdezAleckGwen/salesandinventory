@@ -1,27 +1,30 @@
 <?php 
 include('database_connection.php');
 include 'getdata.php';
+
 if (isset($_POST['id'])) {
     
 $id = $_POST['id'];
 
 $query = "SELECT 
-tblsalesreturn.id AS salesid,
-tblsalesreturn.date AS salesdate,
-tblproducts.id AS productid,
-tblproducts.name AS name,
-tblsalesitem.quantity AS quantity,
-tblsalesitem.price AS price,
-tblsalesitem.total AS total,
+tblstocktransfer.id  AS stockid,
+tblstocktransferitem.id  AS stockitemid,
+tblproducts.id as productid,
+tblproducts.name as productname,
+tblproducts.price as price,
+tblstocktransfer.userid as userid,
+tblstocktransfer.date AS stockdate,
+tblstocktransferitem.quantity as quantity
 
-FROM tblsalesreturn 
+FROM tblstocktransfer 
 
-INNER JOIN tblsalesitem
-ON tblsalesitem.salesid=tblsales.id
+INNER JOIN tblstocktransferitem
+ON tblstocktransferitem.stocktransferid = tblstocktransfer.id
 INNER JOIN tblproducts
-ON tblsalesitem.productid=tblproducts.id
+ON tblstocktransferitem.productid=tblproducts.id
 
-WHERE tblsalesreturn.id = :id";
+
+WHERE tblstocktransfer.id = :id";
 
 
 
@@ -31,7 +34,8 @@ $statement->execute([
 
 ]);
 
-$sales = $statement->fetchAll();
+$stocks = $statement->fetchAll();
+$userid = $stocks[0]['userid'];
 
 }
 
@@ -55,31 +59,33 @@ $sales = $statement->fetchAll();
                             <?php echo getCompanyAddress(); ?>
                         </p>
                     </div>
+                    
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
-                            ISSUED BY:
+                            ISSUED BY: <?php echo getFullName($userid); ?>
+
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center d-inline">
-                            Sales ID: 
-                        </h4>
-                        <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center" id="salesid" data-id="<?php echo $sales[0]['salesid']; ?>">
-                            <?php echo $sales[0]['salesid']; ?>
-                        </h4>
+                            Stock Transfer ID: <?php echo $stocks[0]['stockid']; ?>
+                        </h4>                        
                     </div>
+
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
                         <div>
                             <h4 class="fs35 gorditaB text-uppercase mb-1">
                                 Invoice
                             </h4>
                             <p class="fs18">
-                                Date: <?php echo $sales[0]['salesdate']; ?>
+                                Date: <?php echo $stocks[0]['stockdate']; ?>
                             </p>
                         </div>
                     </div>
+
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
                             <table class="table">
                                 <tbody>
+
                                     <tr>
                                         <th class="text-center">
                                             ITEM ID
@@ -93,84 +99,49 @@ $sales = $statement->fetchAll();
                                         <th class="text-center">
                                             PRICE
                                         </th>
-                                        <th class="text-center">
-                                            TOTAL
-                                        </th>
+                                        
                                     </tr>
+
                                     <?php
+
                                     $output = '';
-                                        foreach ($sales as $sale) {
+
+                                        foreach ($stocks as $stock) {
                                         $output .= '<tr>';
+
                                         $output .=  '<td>
-                                                        <p>'.$sale['productid'].'</p>
+                                                        <p>'.$stock['productid'].'</p>
                                                     </td>';
+
                                         $output .= '<td>
-                                                <p>'.$sale['name'].'</p>
-                                            </td>';
+                                                        <p>'.$stock['productname'].'</p>
+                                                    </td>';
+
                                         $output .= '<td>
-                                                <p>'.$sale['quantity'].'</p>
-                                            </td>';
+                                                        <p>'.$stock['quantity'].'</p>
+                                                    </td>';
+
                                         $output .= '<td>
-                                                <p>'.$sale['price'].'</p>
-                                            </td>';
-                                        
-                                        $output .= '<td>
-                                                <p>'.$sale['total'].'</p>
-                                            </td>';
-                                        $output .= '</tr>';
-                                        
+                                                        <p>'.$stock['price'].'</p>
+                                                    </td>';   
+
+                                        $output .= '</tr>';                                                                                                      
                                         }
+
                                     echo $output;
 
-                                    ?>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-end ps-4">
-                                        VATABLE AMOUNT
-                                    </td>
-                                    <td class="bg-light border">
-                                        <p><?php echo $sales[0]['vattablesale']; ?></p>
-                                    </td>
-
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-end ps-4" style = "border-bottom:4px solid">
-                                            VAT
-                                        </td>
-                                        <td class="border" style = "border-bottom:4px solid">
-                                            <p><?php echo $sales[0]['vat']; ?></p>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td></td>
-                                        <td colspan="2" class="text-end border_sm_top"></td>
-                                        <td class="text-end border-top">TOTAL AMOUNT</td>
-                                        <td class="border">
-                                            <p><?php echo $sales[0]['grandtotal']; ?> </p>
-                                        </td>
-                                    </tr>
-
-                                </tbody >
-                                <tfoot>
-
-
-
-
-
+                                    ?>                            
                                 </tfoot>
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
                    
         <!-- invoice_page -->
 
         
-	
+    
     </body>
 
 </html>
