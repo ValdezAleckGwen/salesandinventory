@@ -194,7 +194,6 @@ function displayUser() {
 
           <div style="display: inline;">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-solid fa-ballot"></i> Add Branch</button>
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
           </div>
 
           <div style="float: right;">
