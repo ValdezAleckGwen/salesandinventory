@@ -63,7 +63,7 @@ WHERE tblproducts.active = 1 AND tblinventory.branchid = '".$branchid." '
 if($_POST['query'] != '')
 {
   $query .= '
-  AND tblproducts.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  AND tblproducts.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 

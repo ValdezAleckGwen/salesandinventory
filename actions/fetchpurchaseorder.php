@@ -64,7 +64,7 @@ WHERE tblusers.branchid = '".$branchid."'
 if($_POST['query'] != '')
 {
   $query .= '
-  AND tblpurchaseorder.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  AND tblpurchaseorder.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
