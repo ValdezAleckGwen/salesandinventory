@@ -26,7 +26,7 @@ SELECT
 tblsales.id AS salesid,
 tblbranch.name AS branchname,
 tblusers.lastname as username,
-tblsales.date as calendar,
+tblsales.salesdate as calendar,
 tblsales.total AS total
 FROM tblsales 
 INNER JOIN tblbranch 

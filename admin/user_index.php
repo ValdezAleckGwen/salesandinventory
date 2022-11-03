@@ -42,7 +42,7 @@ function fill_unit_select_box_branch($connect)
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Users</title>
+    <title>Admin - Users</title>
         <link rel="stylesheet" href="assets/style.css">
 
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
@@ -349,6 +349,19 @@ function fill_unit_select_box_branch($connect)
                 <select name="branch" class="form-control branch" id="ebranch"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
                 </div>
 
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="active" value="1">
+                            <label class="form-check-label" for="flexRadioDefault1">Active</label>
+                        </div>
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="inactive" value="0">
+                            <label class="form-check-label" for="flexRadioDefault1">Inactive</label>                
+                        </div>
+                    </div>
+                </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Update Student</button>
@@ -390,7 +403,7 @@ function fill_unit_select_box_branch($connect)
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+      load_data(1, query);
     });
 
   });
@@ -459,6 +472,14 @@ function fill_unit_select_box_branch($connect)
                 $('#eemail').val(data.email);
                 $('#epermission').val(data.permission);
                 $('#ebranch').val(branchid);
+
+                if (data.active == 1) {
+                    $('#active').attr('checked', true);
+                } else {
+                    $('#inactive').attr('checked', true);
+
+                }
+               
 
                 $('#userEditModal').modal('show');
                         

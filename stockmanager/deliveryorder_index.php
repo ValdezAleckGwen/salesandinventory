@@ -169,7 +169,7 @@ function displayUser() {
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+      load_data(1, query);
     });
 
   });

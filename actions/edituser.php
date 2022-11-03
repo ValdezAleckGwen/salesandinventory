@@ -5,7 +5,9 @@ include 'database_connection.php';
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
-    $query = "SELECT id, firstname, lastname, email, permission, branchid FROM tblusers WHERE id = :id";
+    $query = "SELECT id, firstname, lastname, email, permission, branchid, active
+    FROM tblusers 
+    WHERE id = :id";
 
     $statement  = $connect->prepare($query);
     $statement->execute([
@@ -21,6 +23,7 @@ if(isset($_GET['id']))
         $data['email'] = $user['email'];
         $data['permission'] = $user['permission'];
         $data['branchid'] = $user['branchid'];
+        $data['active'] = $user['active'];
     }
 
     echo json_encode($data);
