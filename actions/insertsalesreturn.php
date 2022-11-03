@@ -1,9 +1,8 @@
 <?php
-// minus from inventory 
 session_start();
-include 'adddata.php';
-include('database_connection.php');
-include 'getdata.php';
+require_once('adddata.php') ;
+require_once('database_connection.php');
+require_once('getdata.php');
 
 if(isset($_POST["item_id"]))
 {
@@ -27,7 +26,6 @@ if(isset($_POST["item_id"]))
 	]);
 
 	
-
 	$result = $statement->fetchAll();
 
 	//create salesreturn items
@@ -132,6 +130,8 @@ if(isset($_POST["item_id"]))
 		$taxid = $result['taxid'];
 	}
 
+	
+	$tax = getTax();
 
 	$vattablesale = 0.00;
 	$vat = 0.00;
@@ -141,9 +141,8 @@ if(isset($_POST["item_id"]))
 			$vat = $grandtotal - $vattablesale;
 			break;
 		case '2':
-			$sum *= (1 - $tax);
-			$sum *= .8;
-			$status = 2;
+			$grandtotal *= (1 - $tax);
+			$grandtotal *= .8;
 			break;
 		default:
 			// code...
@@ -172,11 +171,6 @@ if(isset($_POST["item_id"]))
 
 
 
-
-
-
-
-	
 
 	if(isset($result))
 	{
