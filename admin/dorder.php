@@ -174,11 +174,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">DELIVERY ORDER</h3><br>
 		<div class="container">
-			<br />
+		<div class="table-title">
+    		<h3>DELIVERY ORDER</h3>
+		</div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -190,11 +189,11 @@ function displayUser() {
 								<input type="text" name="do_number" class="input-field" value="<?php echo createId('tblpurchaseorder'); ?>" id="do_number" readonly>
 							</div>
 							<div class="container m-1">
-								<label for="branch_id">For Branch: </h5>
+								<label for="branch_id">For Branch: </label>
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</h5>
+								<label for="supplier_id">Supplier:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							<!--remove this if cookie is configured-->
