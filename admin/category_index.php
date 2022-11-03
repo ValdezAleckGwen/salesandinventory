@@ -195,7 +195,6 @@ function displayUser() {
         <h3>CATEGORY</h3>
       <div style="display: inline;">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-regular fa-table-cells-large"></i> Add Category</button>
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
           </div>
 
           <div style="float: right;">

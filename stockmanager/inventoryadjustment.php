@@ -36,6 +36,18 @@ function fill_unit_select_box_branch($connect, $branchid)
 	return $output;
 }
 
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+}	
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,6 +114,7 @@ function fill_unit_select_box_branch($connect, $branchid)
       </div>
     </div>
 		
+		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -112,11 +125,10 @@ function fill_unit_select_box_branch($connect, $branchid)
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">INVENTORY ADJUSTMENT</h3><br>
 		<div class="container">
-			<br />
+	  	<div class="table-title">
+	    	<h3>INVENTORY ADJUSTMENT</h3>
+	    </div>		
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">

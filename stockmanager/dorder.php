@@ -139,11 +139,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">DELIVERY ORDER</h3><br>
 		<div class="container">
-			<br />
+		<div class="table-title">
+    		<h3>DELIVERY ORDER</h3>
+		</div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">

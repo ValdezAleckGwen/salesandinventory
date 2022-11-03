@@ -170,11 +170,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">STOCK TRANSFER</h3>
 		<div class="container">
-			<br />
+		  	<div class="table-title">
+		    	<h3>STOCK TRANSFER</h3>
+		    </div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">

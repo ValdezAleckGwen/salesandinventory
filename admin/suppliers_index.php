@@ -193,11 +193,8 @@ function displayUser() {
         
         <h3>SUPPLIER</h3>
 
-          <div style="display: inline;">
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userAddModal">
-                            Add Supplier
-                        </button>
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
+      <div style="display: inline;">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-regular fa-tag"></i> Add Supplier</button>
           </div>
 
           <div style="float: right;">
