@@ -39,7 +39,7 @@ if (isset($_POST['source_branch'])) {
 				$output .= '<td width="15%"><input type="text" name="item_quantity[]" class="col col-sm-1 form-control item_quantity" /></td>';
 
 				
-				$output .= '<td ><button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="fas fa-minus"></i></button></td>';
+				$output .= '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="fas fa-minus"></i></button></td>';
 
 
 } else {
