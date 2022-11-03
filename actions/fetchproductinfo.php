@@ -165,7 +165,10 @@ if (isset($_POST['productid'])) {
 					foreach ($products as $product) {
 						$data['productid'] = $product['productid'];
 						$data['name'] = $product['productname'];
-						$data['price'] = $product['price'];
+						$price = $product['price'];
+						$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+						$price = number_format($price, 2);
+						$data['price'] = $price;
 						$data['quantity'] = $product['quantity'];
 						$data['total'] = $product['total'];
 					}
