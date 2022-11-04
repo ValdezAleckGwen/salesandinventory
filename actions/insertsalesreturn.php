@@ -50,6 +50,7 @@ if(isset($_POST["item_id"]))
 		$statement->execute(
 			array(
 				':id'				=>	$id,
+				':salesreturnid'    =>	$salesreturnid,
 				':salesitemid'		=>	$salesitemid,
 				':price'            => $price,
 				':quantity'			=>	$quantity,
