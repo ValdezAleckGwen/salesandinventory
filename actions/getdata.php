@@ -1,5 +1,5 @@
 <?php
-include 'DbConnect.php';
+include_once 'DbConnect.php';
 
 function getFirstName(string $uid) {
 	$db = new DbConnect;
