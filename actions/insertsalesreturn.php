@@ -144,7 +144,7 @@ if(isset($_POST["item_id"]))
 			$vat = $grandtotal - $vattablesale;
 			break;
 		case '2':
-			$grandtotal *= (1 - $tax);
+			$grandtotal *= (1 - ($tax/100));
 			$grandtotal *= .8;
 			break;
 		default:
