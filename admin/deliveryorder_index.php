@@ -25,7 +25,9 @@ function displayUser() {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>Admin - Delivery Order Dashboard</title>
+
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
@@ -147,10 +149,7 @@ function displayUser() {
        <div class="table-title">
         <h3>DELIVERY ORDER</h3>
         <div style="display: inline">
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
-        <div style="float: right;">
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
-        </div>
           </div>
         </div>
        
@@ -209,7 +208,7 @@ function displayUser() {
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+      load_data(1, query);
     });
 
   });

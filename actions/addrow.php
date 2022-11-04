@@ -10,7 +10,7 @@ if (isset($_POST['source_branch'])) {
 			$db = new DbConnect;
 			$conn = $db->connect();
 
-			$query = "SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = '".$branchid."' AND tblinventory.quantity != 0";
+			$query = "SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = '".$branchid."' AND tblinventory.quantity >= 1";
 			if (isset($_POST["item_id"])) {
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {
 					$itemid = $_POST['item_id'][$count];
@@ -30,8 +30,7 @@ if (isset($_POST['source_branch'])) {
 				}
 				$output .= '</select></td>';
 
-				$output .= '<td width="14.9%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
-
+				
 				$output .= '<td width="39.8%"><input type="text" name="item_name[]" class="col col-sm-5 form-control item_name" readonly/></td>';
 
 				$output .= '<td width="15%"><input type="text" name="item_available[]" class="col col-sm-1 form-control item_available" readonly/></td>';
@@ -39,7 +38,7 @@ if (isset($_POST['source_branch'])) {
 				$output .= '<td width="15%"><input type="text" name="item_quantity[]" class="col col-sm-1 form-control item_quantity" /></td>';
 
 				
-				$output .= '<td ><button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="fas fa-minus"></i></button></td>';
+				$output .= '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="fas fa-minus"></i></button></td>';
 
 
 } else {

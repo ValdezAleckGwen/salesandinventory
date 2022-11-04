@@ -280,3 +280,23 @@ td.text-center {
 td.text-right {
   text-align: right;
 }
+
+.dropdown.bootstrap-select.destination_branch ,
+.dropdown.bootstrap-select.source_branch ,
+.dropdown.bootstrap-select.supplier_id ,
+.dropdown.bootstrap-select.branch_id{
+  width: 250px;
+}
+
+.dropdown.bootstrap-select.destination_branch button,
+.dropdown.bootstrap-select.source_branch button,
+.dropdown.bootstrap-select.supplier_id button,
+.dropdown.bootstrap-select.branch_id button{
+  max-width: 250px;
+}
+.dropdown.bootstrap-select.destination_branch .dropdown-menu.show,
+.dropdown.bootstrap-select.source_branch .dropdown-menu.show,
+.dropdown.bootstrap-select.supplier_id .dropdown-menu.show,
+.dropdown.bootstrap-select.branch_id .dropdown-menu.show{
+  min-width:232px;
+}

@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'database_connection.php';
-include 'getdata.php';
+include('database_connection.php');
+include('getdata.php');
 
 $id = $_SESSION['uid'];
 $branchid = getBranch($id);
@@ -9,6 +9,7 @@ $permission = getPermission($id);
 
 $limit = '10';
 $page = 1;
+
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);
@@ -27,8 +28,11 @@ else
   tblbranch.name as name,
   tblstocktransfer.destination as destination,
   tblbranch.name as name,
-  tblusers.lastname as user
+  tblstocktransfer.date AS stockdate,
+  tblusers.id as userid
+
   FROM tblstocktransfer
+
   INNER JOIN tblbranch 
   ON tblstocktransfer.source = tblbranch.id 
   INNER JOIN tblusers
@@ -65,6 +69,7 @@ $output = '
         <th class="text-center" style="border: 1px solid;">Source</th>
         <th class="text-center" style="border: 1px solid;">Destination</th>
         <th class="text-center" style="border: 1px solid;">Created By</th>
+        <th class="text-center" style="border: 1px solid;">Date</th>
   </tr>
 ';
 if($total_data > 0)
@@ -76,7 +81,8 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["stid"].'</td>
       <td style="border: 1px solid;">'.$row["source"].'</td>
       <td style="border: 1px solid;">'.$row["destination"].'</td>
-      <td style="border: 1px solid;">'.$row["user"].'</td>
+      <td style="border: 1px solid;">'.$row["userid"].'</td>
+      <td style="border: 1px solid;">'.$row["stockdate"].'</td>
     </tr>
     ';
   }

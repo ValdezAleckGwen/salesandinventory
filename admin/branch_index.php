@@ -203,12 +203,12 @@ function displayUser() {
 
           <div style="display: inline;">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-solid fa-ballot"></i> Add Branch</button>
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
           </div>
-
+           
           <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Branch Name" /></label>
           </div>
+           
         </div>
         
 
@@ -297,6 +297,7 @@ function displayUser() {
                     <label for="">CONTACT</label>
                     <input type="text" name="contact" class="form-control name" id="econtact" />
                 </div>
+                
                 <div class="mb-3">
                     <div class="row">
                         <div class="col-sm">
@@ -325,7 +326,7 @@ function displayUser() {
 
 <script>
 
-  // Pagination//
+  
   $(document).ready(function(){
     load_data(1);
 
@@ -348,11 +349,12 @@ function displayUser() {
       load_data(page, query);
     });
 
+    
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+      load_data(1, query);
     });
-
+     
   });
 
     // Add Function//

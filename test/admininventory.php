@@ -8,6 +8,7 @@ include '../actions/database_connection.php';
 $id = $_SESSION['uid'];
 $branchid = getBranch($id);
 
+
 function displayUser() {
   $output = '';
   if (isset($_SESSION['uid'])) {
@@ -17,25 +18,45 @@ function displayUser() {
     $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
   }
   return $output;
-} 
+}
+
+function fill_unit_select_box_branch($connect)
+{
+  
+
+  $output = '';
+
+  $query = "SELECT id AS branchid, name AS branchname from tblbranch";
+
+  $result = $connect->query($query);
+
+  foreach($result as $row)
+  {
+    
+      $output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+    
+  }
+
+  return $output;
+}
+
+
 
 ?>
 <!DOCTYPE html>
 <html>
     <head>
+      <title>Admin - Inventory Dashboard</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>Admin - Purchase Order Dashboard</title>
-
+        <title>SALES</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script> 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js'></script>
-
 
     </head>
     
@@ -61,8 +82,6 @@ function displayUser() {
         <!-- Products -->
         <div class="item"><a href="product_index.php"><i class="fa-regular fa-bag-shopping"></i>Products</a></div>
 
-        <!-- Users -->
-        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
 
         <!-- Inventory-->
         <div class="item">
@@ -71,15 +90,7 @@ function displayUser() {
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
             <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
-          </div>
-        </div>
-
-        <!-- Stock Transfer-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
           </div>
         </div>
         
@@ -149,9 +160,17 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>PURCHASE ORDER</h3>
-        <div style="display: inline">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        <h3>INVENTORY</h3>
+        <div class="container m-1">
+          <label for="supplier_id">Branch</label>
+          <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_Branch($connect); ?></select>
+        </div>
+        <div style="display: inline;">
+            
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>   
+        <div style="float: right;">
+                
+        </div>
           </div>
         </div>
        
@@ -159,43 +178,20 @@ function displayUser() {
         <!--product content-->
         </div>
         
-      <!-- modal start -->
-        <div class="modal fade " id="pomodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
-              <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                  </div>
-                    <style>
-                        #model-body-container > .container{
-                            width: 100% !important;}
-                        #model-body-container .col-sm-6
-                        {
-                            width: 25% !important;
-                        }
-                    </style>
-                  <div class="modal-body" id='model-body-container'>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-              </div>      
-        </div>
-        <!-- modal end -->
-        
     </body>
 </html>
 <script>
 
- // Start of Pagination Query // 
+// Start of Pagination Query // 
   $(document).ready(function(){
         load_data(1);
 
-    function load_data(page = 1, query = '')
+    function load_data(page = 1, query = '', branch = '')
     {
       $.ajax({
-        url:"../actions/fetchpurchaseorder.php",
+        url:"../actions/fetchinventoryadmin.php",
         method:"POST",
-        data:{page:page, query:query},
+        data:{page:page, query:query, branch: branch},
         success:function(data)
         {
           $('#dynamic_content').html(data);
@@ -206,37 +202,22 @@ function displayUser() {
     $(document).on('click', '.page-link', function(){
       var page = $(this).data('page_number');
       var query = $('#search_box').val();
-      load_data(page, query);
+      var branch = $('#branch_id').val();
+      load_data(page, query, branch);
     });
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(1, query);
+      var branch = $('#branch_id').val();
+      load_data(1, query, branch);
+    });
+
+    $(document).on('change', '#branch_id', function(){
+      var page = $(this).data('page_number');
+      var query = $('#search_box').val();
+      var branch = $('#branch_id').val();
+      load_data(page, query, branch);
     });
 
   });
-
-    //Start of DO Modal
-    $(document).on('click', '.data', function() {
-      var id = $(this).data('id');
-      
-
-      $.ajax({
-        url: '../actions/pomodal.php', //modal structure
-        type: 'post',
-        data: {id: id},
-        success: function(response){ 
-            $('.modal-body').html(response); 
-            $('#pomodal').modal('show'); 
-        }
-    });
-
-    });
-    //modal end
-
-
-
-   
- 
-
 </script>

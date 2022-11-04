@@ -1,18 +1,18 @@
 <?php
-// minus from inventory 
 session_start();
-include 'adddata.php';
-include('database_connection.php');
+require_once('adddata.php') ;
+require_once('database_connection.php');
+
 
 if(isset($_POST["item_id"]))
 {
 
-	//create transfer
+	
 	$salesreturnid = $_POST['salesreturnid'];
 	$salesid = $_POST['salesid'];
 	$userid = $_SESSION['uid'];
 
-	// create a sale
+	// create a salesreturn
 	$salesquery = "
 	INSERT INTO tblsalesreturn (id, salesid, userid) VALUES (:id, :salesid, :userid)
 	";
@@ -26,7 +26,6 @@ if(isset($_POST["item_id"]))
 	]);
 
 	
-
 	$result = $statement->fetchAll();
 
 	//create salesreturn items
@@ -51,6 +50,7 @@ if(isset($_POST["item_id"]))
 		$statement->execute(
 			array(
 				':id'				=>	$id,
+				':salesreturnid'    =>	$salesreturnid,
 				':salesitemid'		=>	$salesitemid,
 				':price'            => $price,
 				':quantity'			=>	$quantity,
@@ -75,7 +75,8 @@ if(isset($_POST["item_id"]))
 		
 		$id = $_POST["item_id"][$count];
 		$quantity = $_POST["item_quantity"][$count];
-		$total = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
+		$total = $_POST["item_total"][$count];
+		$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
 		$statement->execute(
 			array(
@@ -104,7 +105,7 @@ if(isset($_POST["item_id"]))
 
 	$results = $statement->fetchAll();
 
-	$grandtotal = 0;
+	$grandtotal = 0.00;
 
 	foreach ($results as $result) {
 		$grandtotal = $result['grandtotal'];
@@ -114,14 +115,10 @@ if(isset($_POST["item_id"]))
 	$query = "SELECT tblsales.taxid AS taxid from tblsales WHERE tblsales.id = :salesid
 		";
 
-		$statement  = $connect->prepare($query);
-		
-
+	$statement  = $connect->prepare($query);
 	$statement->execute([
 		':salesid' => $salesid
 	]);
-
-	
 
 	$results = $statement->fetchAll();
 
@@ -130,23 +127,30 @@ if(isset($_POST["item_id"]))
 		$taxid = $result['taxid'];
 	}
 
+	$statement = $connect->prepare("SELECT * from tbltax");
+	$statement->execute();
+	$taxes = $statement->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($taxes as $tax) {
+		$tax = $tax['tax'];
+	}
+	
 
-	$vattablesale = 0;
-	$vat = 0;
+	
+
+	$vattablesale = 0.00;
+	$vat = 0.00;
 	switch ($taxid) {
 		case '1':
 			$vattablesale = $grandtotal * 0.88;
 			$vat = $grandtotal - $vattablesale;
 			break;
 		case '2':
-			// code...
+			$grandtotal *= (1 - ($tax/100));
+			$grandtotal *= .8;
 			break;
-		case '2':
-			// code...
-			break;
-		
 		default:
-			// code...
+			$vattablesale = $grandtotal * 0.88;
+			$vat = $grandtotal - $vattablesale;
 			break;
 	}
 
@@ -169,14 +173,6 @@ if(isset($_POST["item_id"]))
 
 	$results = $statement->fetchAll();
 
-
-
-
-
-
-
-
-	
 
 	if(isset($result))
 	{

@@ -26,7 +26,7 @@ function fill_unit_select_box_supplier($connect)
 	return $output;
 }		
 
-//remove this if cookie is configured
+
 
 function fill_unit_select_box_branch($connect)
 {
@@ -179,11 +179,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">PURCHASE ORDER</h3><br>
 		<div class="container">
-			<br />
+	  	<div class="table-title">
+	    	<h3>PURCHASE ORDER</h3>
+	    </div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -200,7 +199,7 @@ function displayUser() {
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</label>
+								<label for="supplier_id">Supplier:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							
@@ -327,20 +326,7 @@ $(document).ready(function(){
 
 		//validation no duplicate product allowed
 
-		$('.item_id').each(function(){
-			var	itemid1 = $(this).val();
 
-			$('.item_id').each(function(){
-			var itemid2 = $(this).val();
-
-				if (itemid1 == itemid2) {
-					error = "<li>Duplicate products not allowed</li>";
-					return false;
-				}
-
-			});
-
-		});
 
 		//end of validation
 

@@ -20,6 +20,28 @@ function displayUser() {
   return $output;
 }
 
+function fill_unit_select_box_branch($connect)
+{
+  
+
+  $output = '';
+
+  $query = "SELECT id AS branchid, name AS branchname from tblbranch";
+
+  $result = $connect->query($query);
+
+  foreach($result as $row)
+  {
+    
+      $output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+    
+  }
+
+  return $output;
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -149,10 +171,15 @@ function displayUser() {
      <div class="flex-items">
        <div class="table-title">
         <h3>INVENTORY</h3>
-        <div style="display: inline">
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+        <div class="container m-1">
+          <label for="supplier_id">Branch</label>
+          <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_Branch($connect); ?></select>
+        </div>
+        <div style="display: inline;">
+            
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>   
         <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+                
         </div>
           </div>
         </div>
@@ -169,12 +196,12 @@ function displayUser() {
   $(document).ready(function(){
         load_data(1);
 
-    function load_data(page = 1, query = '')
+    function load_data(page = 1, query = '', branch = '')
     {
       $.ajax({
-        url:"../actions/fetchinventory.php",
+        url:"../actions/fetchinventoryadmin.php",
         method:"POST",
-        data:{page:page, query:query},
+        data:{page:page, query:query, branch: branch},
         success:function(data)
         {
           $('#dynamic_content').html(data);
@@ -185,12 +212,24 @@ function displayUser() {
     $(document).on('click', '.page-link', function(){
       var page = $(this).data('page_number');
       var query = $('#search_box').val();
-      load_data(page, query);
+      var branch = $('#branch_id').val();
+      load_data(page, query, branch);
     });
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+
+      var branch = $('#branch_id').val();
+      load_data(1, query, branch);
+    });
+
+    $(document).on('change', '#branch_id', function(){
+      var page = $(this).data('page_number');
+      var query = $('#search_box').val();
+      var branch = $('#branch_id').val();
+      load_data(1, query, branch);
+
+      
     });
 
   });

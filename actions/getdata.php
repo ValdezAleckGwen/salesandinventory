@@ -1,5 +1,5 @@
 <?php
-include 'DbConnect.php';
+include_once 'DbConnect.php';
 
 function getFirstName(string $uid) {
 	$db = new DbConnect;
@@ -251,6 +251,8 @@ function alterTotal(string $poiid) {
 	$stmt->execute();
 	$pototals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 
 
 

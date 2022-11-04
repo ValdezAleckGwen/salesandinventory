@@ -184,11 +184,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">DELIVERY ORDER</h3><br>
 		<div class="container">
-			<br />
+		<div class="table-title">
+    		<h3>DELIVERY ORDER</h3>
+		</div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -200,11 +199,11 @@ function displayUser() {
 								<input type="text" name="do_number" class="input-field" value="<?php echo createId('tblpurchaseorder'); ?>" id="do_number" readonly>
 							</div>
 							<div class="container m-1">
-								<label for="branch_id">For Branch: <?php echo displayBranch($id); ?></h5>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+								<label for="branch_id">For Branch: </label>
+								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</h5>
+								<label for="supplier_id">Supplier:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							<!--remove this if cookie is configured-->
@@ -238,7 +237,7 @@ function displayUser() {
 								<div class="col-sm-5" style="float: right">
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Total</span>
-									  <input type="text" name="total" id="total" class="form-control total" readonly/>
+									  <input type="text" name="total" id="total" class="form-control total" readonly required />
 									</div>
 								</div>					
 							</div>
@@ -465,31 +464,24 @@ $(document).ready(function(){
 	});
 
 
-	var	total_amount = function () {
+	$(document).on("change", ".item_quantity", function() {
+		var form_data = $('#insert_form').serialize();
+		
+		console.log(form_data)
+		$.ajax({
+			url: "../actions/fetchtotal.php",
+			method: "POST",
+			data: form_data,
+			dataType: "JSON",
+			success	: function (data) {
+				
+				
+				$('#total').val(data.total);
 
-		var sum = 0;
-		var currency = "₱"
-		$('.item_total').each(function () {
-			var num = $(this).val().replace(/[^a-zA-Z0-9]/g, '');
-			
-			// var num = $(this).val();
-			console.log(num);
-			if(num != 0) {
-				
-				sum += parseFloat(num);
-				
 			}
-
 		});
 
-		sum = sum.toLocaleString("en-US");
-		sum = sum.replace(/^/, '₱');
-		$("#total").val(sum);
-	}
-
-	$(document).on("change", ".item_quantity", function() {
-		total_amount();
-	})
+	});
 
 	
 	

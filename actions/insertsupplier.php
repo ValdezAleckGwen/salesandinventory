@@ -1,18 +1,16 @@
 <?php
 include 'database_connection.php';
 
-if(isset($_POST['save_user']))
+if(isset($_POST['save_supplier']))
 {
     $id = $_POST['id'];
-    $firstname =  $_POST['firstname'];
-    $lastname =  $_POST['lastname'];
+    $name =  $_POST['name'];
+    $contact =  $_POST['contact'];
     $email =  $_POST['email'];
-    $password = 'ABC123';
-    $permission =  $_POST['permission'];
-    $branch =  $_POST['branch'];
+    $address =  $_POST['address'];
 
 
-    if($id == NULL || $firstname == NULL || $lastname == NULL || $email == NULL || $permission == NULL || $branch == NULL ) {
+    if($id == NULL || $name == NULL || $contact == NULL || $email == NULL || $address == NULL) {
         $res = [
             'status' => 422,
             'message' => 'All fields are mandatory'
@@ -22,18 +20,18 @@ if(isset($_POST['save_user']))
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
     $query = "
-    INSERT INTO tblusers (id, firstName, lastName,  email, password, permission, branchid, active) VALUES (:id, :firstname, :lastname, :email, :password,  :permission, :branchid, 1)
+    INSERT INTO tblsupplier (id, name, contact,  email, address, active) 
+    VALUES (:id, :name, :contact, :email, :address, 1)
     ";
 
     $statement  = $connect->prepare($query);
     $statement->execute([
         ':id' => $id,
-        ':firstname' => $firstname,
-        ':lastname' => $lastname,
+        ':name' => $name,
+        ':contact' => $contact,
         ':email' => $email,
-        ':password' => $password,
-        ':permission' => $permission,
-        ':branchid' => $branch
+        ':address' => $address
+        
     ]);
 
     
@@ -43,7 +41,7 @@ if(isset($_POST['save_user']))
     if (isset($result)) {
         $res = [
             'status' => 200,
-            'message' => 'User Account Created Successfully'
+            'message' => 'Supplier Created Successfully'
         ];
 
     }
@@ -61,17 +59,16 @@ if(isset($_POST['save_user']))
 
 
 
-} else if (isset($_POST['edit_user'])) {
+} else if (isset($_POST['edit_supplier'])) {
     $id = $_POST['id'];
-    $firstname =  $_POST['firstname'];
-    $lastname =  $_POST['lastname'];
+    $name =  $_POST['name'];
+    $contact =  $_POST['contact'];
     $email =  $_POST['email'];
-    $permission =  $_POST['permission'];
-    $branch =  $_POST['branch'];
+    $address =  $_POST['address'];
     $active = $_POST['active'];
 
 
-    if($firstname == NULL || $lastname == NULL || $email == NULL || $permission == NULL || $branch == NULL ) {
+    if($id == NULL || $name == NULL || $contact == NULL || $email == NULL || $address == NULL) {
         $res = [
             'status' => 422,
             'message' => 'All fields are mandatory'
@@ -81,19 +78,18 @@ if(isset($_POST['save_user']))
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
     $query = "
-    UPDATE tblusers 
-    SET firstname = :firstname, lastname = :lastname, email = :email, permission = :permission, branchid = :branchid, active = :active 
+    UPDATE tblsupplier 
+    SET name = :name, contact = :contact, email = :email, address = :address, active = :active 
     WHERE id = :id
     ";
 
     $statement  = $connect->prepare($query);
     $statement->execute([
         ':id' => $id,
-        ':firstname' => $firstname,
-        ':lastname' => $lastname,
+        ':name' => $name,
+        ':contact' => $contact,
         ':email' => $email,
-        ':permission' => $permission,
-        ':branchid' => $branch,
+        ':address' => $address,
         ':active' => $active
     ]);
 
@@ -104,7 +100,7 @@ if(isset($_POST['save_user']))
     if (isset($result)) {
         $res = [
             'status' => 200,
-            'message' => 'User Account Edited Successfully'
+            'message' => 'Supplier Edited Successfully'
         ];
 
     }

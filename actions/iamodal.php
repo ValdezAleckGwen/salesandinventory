@@ -46,10 +46,10 @@ $invents = $statement->fetchAll();
                 <div class="row printme">
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
-                           
+                           <?php echo getCompanyName(); ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            
+                            <?php echo getCompanyAddress(); ?>
                         </p>
                     </div>
 

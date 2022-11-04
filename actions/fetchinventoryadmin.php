@@ -7,8 +7,10 @@ $id = $_SESSION['uid'];
 $branchid = getBranch($id);
 $permission = getPermission($id);
 
+
 $limit = '10';
 $page = 1;
+
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);
@@ -20,29 +22,42 @@ else
 }
 
 
-  $query = "
-  SELECT 
-  tblsalesreturn.id AS srid,
-  tblsales.id as salesid,
-  tblusers.lastname as username,
-  tblsalesreturn.date as ddate
-  FROM tblsalesreturn
-  INNER JOIN tblsales
-  ON tblsalesreturn.salesid=tblsales.id
-  INNER JOIN tblusers
-  ON tblsalesreturn.userid=tblusers.id
-  ";
 
+$query = "
+SELECT tblproducts.id AS productid, 
+tblproducts.name AS productname, 
+tblproducts.markupprice AS markupprice, 
+tblcategory.name as categoryname,
+tblinventory.branchid as branch,
+tblinventory.id as inventoryid,
+tblinventory.quantity as quantity
+FROM tblproducts 
+INNER JOIN tblsupplier 
+ON tblproducts.supplier=tblsupplier.id
+INNER JOIN tblcategory
+ON tblproducts.category=tblcategory.id
+INNER JOIN tblinventory
+ON tblinventory.productid = tblproducts.id
+WHERE tblproducts.active = 1
+";
+
+
+if($_POST['branch'] != '')
+{
+  $query .= '
+   AND tblinventory.branchid = "'.$_POST['branch'].'" 
+  ';
+}
 
 
 if($_POST['query'] != '')
 {
   $query .= '
-  WHERE tblsalesreturn.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  AND tblproducts.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
-$query .= 'ORDER BY tblsalesreturn.id ASC ';
+$query .= 'ORDER BY quantity ASC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -58,23 +73,55 @@ $total_filter_data = $statement->rowCount();
 $output = '
 <label>Total Records - '.$total_data.'</label>
 <table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
-  <tr>
-        <th class="text-center" style="border: 1px solid;">Sales Return ID</th>
-        <th class="text-center" style="border: 1px solid;">Sales ID</th>
-        <th class="text-center" style="border: 1px solid;">Creator</th>
-        <th class="text-center" style="border: 1px solid;">Date</th>
+  <tr class="inventoryrow">
+        <th class="text-center" style="border: 1px solid;">Product ID</th>
+        <th class="text-center" style="border: 1px solid;">Inventory ID</th>
+        <th class="text-center" style="border: 1px solid;">Product Name</th>
+        <th class="text-center" style="border: 1px solid;">Category</th>
+        <th class="text-left" style="border: 1px solid;">Quantity</th>
+        <th class="text-left" style="border: 1px solid;">Markup Price (₱)</th>
+        <th class="text-left" style="border: 1px solid;">Branch</th>
+        <th class="text-left" style="border: 1px solid;">Status </th>
+        
   </tr>
 ';
 if($total_data > 0)
 {
   foreach($result as $row)
   {
+    $quantity = $row['quantity'];
+    $status = '';
+    $color = '';
+    switch ($quantity) {
+      case ($quantity == null):
+        $status = 'OUT OF STOCK';
+        $color = 'red';
+        break;
+      case ($quantity < 10):
+        $status = 'NEED TO ORDER';
+        $color = 'orange';
+        break;
+      case ($quantity > 10):
+        $status = 'IN STOCK';
+        $color = 'green';
+        break;
+      default:
+        // code...
+        break;
+    }
+    $branchname = branchName($row['branch']);
+    $branchname = trim($branchname, 'Branch');
+    $branchname = trim($branchname, 'branch');
     $output .= '
-    <tr class="data" data-id="'.$row["srid"].'">
-      <td style="border: 1px solid;">'.$row["srid"].'</td>
-      <td style="border: 1px solid;">'.$row["salesid"].'</td>
-      <td style="border: 1px solid;">'.$row["username"].'</td>
-      <td style="border: 1px solid;">'.$row["ddate"].'</td>
+    <tr>
+      <td style="border: 1px solid;">'.$row["productid"].'</td>
+      <td style="border: 1px solid;">'.$row["inventoryid"].'</td>
+      <td style="border: 1px solid;">'.$row["productname"].'</td>
+      <td style="border: 1px solid;">'.$row["categoryname"].'</td>
+      <td style="border: 1px solid;" class="quantity">'.$row["quantity"].'</td>
+      <td style="border: 1px solid;">'.$row["markupprice"].'</td>
+      <td style="border: 1px solid;">'.$branchname.'</td>
+      <td style="border: 1px solid;"><p style="color: '.$color.' ; margin: 0px; font-weight: bold">'.$status.'</p></td>
     </tr>
     ';
   }

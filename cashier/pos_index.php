@@ -62,6 +62,11 @@ function fill_unit_select_box($connect, $branchid)
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
+	<style type="text/css">
+		.productidrow {
+			visibility: hidden;
+		}
+	</style>
 	<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
@@ -176,12 +181,12 @@ $(document).ready(function(){
 
 	var count = 0;
 	
-
+	$('#tax').val('');
 
 
 	$(document).on('click', '.add', function(){
 		var form_data = $('#insert_form').serialize();
-		console.log(form_data)
+
 		$.ajax({
         url: "../actions/addrowpos.php",
         method: "POST",
@@ -344,6 +349,7 @@ $(document).ready(function(){
         var price = currentRow.find(".item_price");
         var name = currentRow.find(".item_name");
         var available = currentRow.find(".available_quantity");
+         
         var actualPrice;
         $.ajax({
             url: "../actions/fetchproductinfo.php",
@@ -355,6 +361,7 @@ $(document).ready(function(){
                 available.val(data.available);
                 price.val(actualPrice);
                 name.val(data.name); 
+
             }
         });
         return false;

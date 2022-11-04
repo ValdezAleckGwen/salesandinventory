@@ -92,8 +92,11 @@ function displayUser() {
 
 <!-- Start of Menu Proper -->
       <div class="menu">
+
         <!-- Dashboard -->
         <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
+
+
 
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
@@ -200,11 +203,8 @@ function displayUser() {
         
         <h3>SUPPLIER</h3>
 
-          <div style="display: inline;">
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userAddModal">
-                            Add Supplier
-                        </button>
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
+      <div style="display: inline;">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-regular fa-tag"></i> Add Supplier</button>
           </div>
 
           <div style="float: right;">
@@ -267,6 +267,7 @@ function displayUser() {
             </form>
         </div>
     </div>
+
 </div>
 
 <!-- Edit supplier Modal -->
@@ -333,6 +334,8 @@ function displayUser() {
     </div>
 </div>
 
+
+
 </body>
 </html>
 
@@ -363,7 +366,7 @@ function displayUser() {
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+      load_data(1, query);
     });
 
   });
@@ -441,6 +444,7 @@ function displayUser() {
                 } else {
                     $('#inactive').attr('checked', true);
                 }
+
                 $('#userEditModal').modal('show');
                         
                         

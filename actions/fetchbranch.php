@@ -21,17 +21,19 @@ else
 }
 
 $query = "
-SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact, active as active FROM tblbranch
+SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact, active as active FROM tblbranch 
 ";
+
 
 if($_POST['query'] != '')
 {
+
   $query .= '
-  AND tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+   WHERE tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
-$query .= 'ORDER BY tblbranch.id ASC ';
+$query .= ' ORDER BY tblbranch.name ASC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -73,6 +75,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["address"].'</td>
       <td style="border: 1px solid;">'.$row["contact"].'</td>
       <td style="border: 1px solid;">'.$status.'</td>
+      
       <td class="text-center" style="border: 1px solid;"> 
         <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["branchid"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 
         <button class="delete btn btn-danger" id="del_'.$row["branchid"].'" data-id="'.$row["branchid"].'"><i class="fa-solid fa-circle-minus" ></i></button>

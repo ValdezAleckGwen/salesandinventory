@@ -1,13 +1,14 @@
 <?php 
 include('database_connection.php');
-include 'getdata.php';
+include('getdata.php');
+
 if (isset($_POST['id'])) {
     
 $id = $_POST['id'];
 
 $query = "SELECT 
 tblsales.id AS salesid,
-tblsales.date AS salesdate,
+tblsales.salesdate AS salesdate,
 tblproducts.id AS productid,
 tblproducts.name AS name,
 tblsalesitem.quantity AS quantity,
@@ -15,8 +16,12 @@ tblsalesitem.price AS price,
 tblsalesitem.total AS total,
 tblsales.vat AS vat,
 tblsales.vattablesale AS vattablesale,
-tblsales.total  AS grandtotal
+tblsales.total  AS grandtotal,
+tblsales.userid AS userid
+
+
 FROM tblsales 
+
 INNER JOIN tblsalesitem
 ON tblsalesitem.salesid=tblsales.id
 INNER JOIN tblproducts
@@ -32,6 +37,7 @@ $statement->execute([
 ]);
 
 $sales = $statement->fetchAll();
+$userid = $sales[0]['userid'];
 
 }
 
@@ -56,13 +62,11 @@ $sales = $statement->fetchAll();
                     </div>
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4">
                         <h4 class="fs18 text-uppercase mb-2">
-                            ISSUED BY:
+                            ISSUED BY: <?php echo getFullName($userid); ?>
+
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center d-inline">
-                            Sales ID: 
-                        </h4>
-                        <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center" id="salesid" data-id="<?php echo $sales[0]['salesid']; ?>">
-                            <?php echo $sales[0]['salesid']; ?>
+                            Sales ID: <?php echo $sales[0]['salesid']; ?>
                         </h4>
                     </div>
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
