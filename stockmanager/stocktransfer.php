@@ -161,7 +161,7 @@ function displayUser() {
 							</div>
 							<div class="container m-1">
 								<h5>Destination Branch</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
 							<thead style=" display: block; ">
 								<tr>
@@ -201,9 +201,17 @@ $(document).ready(function(){
 	 $('#source_branch').unbind();
 
 	var count = 0;
-	
-
-	
+	//disable add first
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#destination_branch', function() {
+		destinationbranch = $(this).val();
+		if (destinationbranch == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+	//end of validation
 
 	$(document).on('click', '.add', function(){
 

@@ -13,7 +13,9 @@ if(isset($_POST["item_id"]))
 	$total = $_POST["total"];
 	$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$vattableSale = $_POST['vattable-sale'];
+	$vattableSale = filter_var($vattableSale, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$vat = $_POST['vat'];
+	$vat = filter_var($vat, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$taxid = $_POST['tax'];
 	$pending = 1;
 	$userid = $_SESSION['uid'];

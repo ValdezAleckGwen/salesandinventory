@@ -181,12 +181,12 @@ $(document).ready(function(){
 
 	var count = 0;
 	
-
+	$('#tax').val('');
 
 
 	$(document).on('click', '.add', function(){
 		var form_data = $('#insert_form').serialize();
-		console.log(form_data)
+
 		$.ajax({
         url: "../actions/addrowpos.php",
         method: "POST",

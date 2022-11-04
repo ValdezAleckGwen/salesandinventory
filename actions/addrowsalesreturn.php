@@ -2,16 +2,22 @@
 require 'DbConnect.php';
 
  
-if (isset($_POST['id'])) {
+if (isset($_POST['salesid'])) {
 	$output = '';
 
-			$salesid = $_POST['id'];
+			$salesid = $_POST['salesid'];
 			
 			$db = new DbConnect;
 			$conn = $db->connect();
-
-			$stmt = $conn->prepare("SELECT tblsalesitem.id AS salesitemid FROM tblsalesitem WHERE tblsalesitem.salesid = :salesid");
-			$stmt->execute([':salesid' => $salesid]);
+			$salesreturnquery = "SELECT tblsalesitem.id AS salesitemid FROM tblsalesitem WHERE tblsalesitem.salesid = '".$salesid."' ";
+			if (isset($_POST["item_id"])) {
+				for($count = 0; $count < count($_POST["item_id"]); $count++) {
+					$itemid = $_POST['item_id'][$count];
+					$salesreturnquery .= " AND tblsalesitem.id != '".$itemid."'";
+				}
+			} 
+			$stmt = $conn->prepare($salesreturnquery);
+			$stmt->execute();
 			$sale = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				$output = '';
 				$output .= '<tr style="display: block;">';
