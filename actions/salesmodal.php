@@ -8,7 +8,7 @@ $id = $_POST['id'];
 
 $query = "SELECT 
 tblsales.id AS salesid,
-tblsales.date AS salesdate,
+tblsales.salesdate AS salesdate,
 tblproducts.id AS productid,
 tblproducts.name AS name,
 tblsalesitem.quantity AS quantity,

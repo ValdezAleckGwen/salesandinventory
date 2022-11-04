@@ -24,8 +24,10 @@ $query = "
 SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact, active as active FROM tblbranch 
 ";
 
+
 if($_POST['query'] != '')
 {
+
   $query .= '
    WHERE tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';

@@ -26,7 +26,7 @@ else
 $query = "
 SELECT tblpayables.id AS pyid, 
 tblusers.lastname as username,
-tblpayables.date as calendar,
+tblpayables.payabledate as calendar,
 tblpayables.total as total
 FROM tblpayables 
 INNER JOIN tblusers
