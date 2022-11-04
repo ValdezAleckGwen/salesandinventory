@@ -201,8 +201,16 @@ $(document).ready(function(){
 	 $('#source_branch').unbind();
 
 	var count = 0;
-	
-
+	//disable add first
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#destination_branch', function() {
+		destinationbranch = $(this).val();
+		if (destinationbranch == '') {
+			$('.add').prop('disabled', true);
+		} else {
+			$('.add').prop('disabled', false);
+		}
+	});
 	
 
 	$(document).on('click', '.add', function(){
