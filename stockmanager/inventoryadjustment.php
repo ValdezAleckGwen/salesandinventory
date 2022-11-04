@@ -143,8 +143,8 @@ function displayUser() {
 
 							<!--remove this if cookie is configured-->
 							<div class="container m-1">
-                                <label for="branch_id">For Branch</label>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id" disabled><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+                                <label>For Branch: <?php echo displayBranch($id); ?></label>
+								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id" readonly><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 								<thead style=" display: block; ">
 								<tr>
@@ -186,16 +186,13 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.add', function(){
 
-		var id = $('#supplier_id').val();
 		
-		var branchid = $('#branch_id').val();
-		
-		count++;
-
+		var form_data = $('#insert_form').serialize();
+		console.log(form_data)
 		$.ajax({
         url: "../actions/addrowinventoryadjustment.php",
         method: "POST",
-        data: {id: id, branchid, branchid},
+        data: form_data,
         success: function (data) {
             
         	//$('#item_table').append(data);

@@ -2,10 +2,10 @@
 include 'database_connection.php';
 include 'getdata.php';
 
-$salesid = 'S-0000055';
+$branchid = 'B-0000001';
 
 
-$salesreturnquery = "SELECT tblsalesitem.id AS salesitemid FROM tblsalesitem WHERE tblsalesitem.salesid = '".$salesid."' ";
+$salesreturnquery = "SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = '".$branchid."' ";
 			// if (isset($_POST["item_id"])) {
 			// 	for($count = 0; $count < count($_POST["item_id"]); $count++) {
 			// 		$itemid = $_POST['item_id'][$count];

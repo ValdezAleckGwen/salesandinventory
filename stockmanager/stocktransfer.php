@@ -156,7 +156,7 @@ function displayUser() {
 							</div>
 							<div class="row">
 							<div class="container m-1">
-								<h5>Source Branch: <?php echo displayBranch($id); ?></label>
+								<label>Source Branch: <?php echo displayBranch($id); ?></label>
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch d-none" id="source_branch" ><option value="default">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">

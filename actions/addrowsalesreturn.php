@@ -42,7 +42,7 @@ if (isset($_POST['salesid'])) {
 
 
 } else {
-	$output = 'alert("no data available")';
+	$output = '<script>alert("no data available")</script>';
 }
 
 echo $output;
