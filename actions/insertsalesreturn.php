@@ -74,7 +74,7 @@ if(isset($_POST["item_id"]))
 		
 		$id = $_POST["item_id"][$count];
 		$quantity = $_POST["item_quantity"][$count];
-		$total = ["item_total"][$count];
+		$total = $_POST["item_total"][$count];
 		$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
 		$statement->execute(
@@ -114,14 +114,10 @@ if(isset($_POST["item_id"]))
 	$query = "SELECT tblsales.taxid AS taxid from tblsales WHERE tblsales.id = :salesid
 		";
 
-		$statement  = $connect->prepare($query);
-		
-
+	$statement  = $connect->prepare($query);
 	$statement->execute([
 		':salesid' => $salesid
 	]);
-
-	
 
 	$results = $statement->fetchAll();
 
