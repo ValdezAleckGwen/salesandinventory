@@ -251,7 +251,7 @@ $(document).ready(function(){
 
 		
 		var form_data = $('#insert_form').serialize();
-		console.log(form_data);
+		
 		$.ajax({
         url: "../actions/addrow.php",
         method: "POST",

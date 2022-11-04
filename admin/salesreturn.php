@@ -144,18 +144,19 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.add', function(){
 
-		var id = $('#salesid').val();
 		
-		count++;
-
+		var form_data = $('#insert_form').serialize();
+		
 		$.ajax({
         url: "../actions/addrowsalesreturn.php",
         method: "POST",
-        data: {id: id},
-        success: function (data) {            
+        data: form_data,
+        success: function (data) {
+            
         	//$('#item_table').append(data);
-			$(data).insertAfter($("#add-row > tr").eq(0));
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
+
             }
         });
 
