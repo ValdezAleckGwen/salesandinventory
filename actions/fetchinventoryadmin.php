@@ -97,7 +97,7 @@ if($total_data > 0)
         $status = 'OUT OF STOCK';
         $color = 'red';
         break;
-      case ($quantity < 10):
+      case ($quantity <= 10):
         $status = 'NEED TO ORDER';
         $color = 'orange';
         break;
