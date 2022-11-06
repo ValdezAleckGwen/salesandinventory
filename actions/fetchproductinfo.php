@@ -46,27 +46,14 @@ if (isset($_POST['productid'])) {
 			break;
 		
 		case 2:
-			$inventoryid = $_POST['productid'];
-			if ($inventoryid != 0) {
+			$productid = $_POST['productid'];
+			if ($productid != 0) {
 				$db = new DbConnect;
 				$conn = $db->connect();
-					
-				$stmt = $conn->prepare("
-					SELECT tblinventory.id AS inventory, 
-					tblinventory.quantity AS count, 
-					tblproducts.id AS product, 
-					tblproducts.name AS name, 
-					tblproducts.price AS price 
+				$purchaseorderquery = "SELECT tblproducts.id AS productid, tblproducts.name AS name, tblproducts.price AS price FROM tblproducts WHERE tblproducts.id = :productid";
+				$stmt = $conn->prepare($purchaseorderquery);
 
-					FROM tblinventory 
-
-					INNER JOIN tblproducts 
-					ON tblinventory.productId=tblproducts.id 
-
-					WHERE tblproducts.id = :inventoryid
-					");
-
-				$stmt->execute([':inventoryid' => $inventoryid]);
+				$stmt->execute([':productid' => $productid]);
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
 				foreach ($products as $product) {

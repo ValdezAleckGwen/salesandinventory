@@ -38,7 +38,7 @@ INNER JOIN tblcategory
 ON tblproducts.category=tblcategory.id
 INNER JOIN tblinventory
 ON tblinventory.productid = tblproducts.id
-WHERE tblproducts.active = 1
+WHERE tblproducts.active = 1 AND tblinventory.quantity >= 0 
 ";
 
 
@@ -97,7 +97,7 @@ if($total_data > 0)
         $status = 'OUT OF STOCK';
         $color = 'red';
         break;
-      case ($quantity < 10):
+      case ($quantity <= 10):
         $status = 'NEED TO ORDER';
         $color = 'orange';
         break;

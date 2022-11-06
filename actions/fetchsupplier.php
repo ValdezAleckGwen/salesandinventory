@@ -27,7 +27,7 @@ SELECT id AS supplierid, name AS suppliername, contact AS suppliercontact, email
 if($_POST['query'] != '')
 {
   $query .= '
-  AND name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 

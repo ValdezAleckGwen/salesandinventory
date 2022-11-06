@@ -425,16 +425,21 @@ $(document).ready(function(){
         var name = currentRow.find(".item_name");
         var available = currentRow.find(".available_quantity");
         var actualPrice;
+        
         $.ajax({
+
+        	
             url: "../actions/fetchproductinfo.php",
             method: "POST",
             data: {productid: productid, dataType, dataType},
             dataType: "JSON",
             success: function (data) {
+            	console.log('egg')
                 actualPrice = data.price.replace(/^/, '₱');
                 available.val(data.available);
                 price.val(actualPrice);
                 name.val(data.name); 
+
             }
         });
         return false;

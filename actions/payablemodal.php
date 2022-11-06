@@ -16,7 +16,7 @@ tblsupplier.address AS address,
 tblpayableitem.quantity AS quantity,
 tblpayableitem.total AS total,
 tblpayableitem.price AS price,
-tblpayables.date as datepaid,
+tblpayables.payabledate as datepaid,
 tblpayables.total  AS grandtotal,
 tblpayables.userid AS userid
 

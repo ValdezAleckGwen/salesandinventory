@@ -3,14 +3,14 @@ include 'database_connection.php';
 
 
 if (isset($_POST['branch'])) {
-	
+	$branchid = $_POST['branch'];
 	$output = '';
 
 	$query = "SELECT id AS branchid, name AS branchname from tblbranch WHERE id != :branchid";
 
 	$statement  = $connect->prepare($query);
 	$statement->execute([
-		':branchid' => $branchid,
+		':branchid' => $branchid
 	]);
 
 	$result = $statement->fetchAll();

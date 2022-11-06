@@ -51,7 +51,8 @@ if(isset($_POST["item_id"]))
 		$statement  = $connect->prepare($query);
 		$id = createId('tblstocktransferitem'); //incrementing sales item id
 		$inventoryid = $_POST["item_id"][$count];
-		$productid = $_POST["item_code"][$count];
+		$productidquery = getQueryOne('productid', 'tblinventory', 'id' , $inventoryid);
+		$productid = $productidquery[0]['productid'];
 		$quantity = $_POST["item_quantity"][$count];
 
 		
@@ -167,7 +168,9 @@ if(isset($_POST["item_id"]))
 		";
 
 		$statement  = $connect->prepare($checkquery);
-		$productid = $_POST["item_code"][$count]; 
+		$inventoryid = $_POST['item_id'][$count];
+		$productidquery = getQueryOne('productid', 'tblinventory', 'id' , $inventoryid);
+		$productid = $productidquery[0]['productid'];
 
 		
 		$statement->execute(
@@ -208,7 +211,9 @@ if(isset($_POST["item_id"]))
 
 		$statement  = $connect->prepare($query);
 		$newinventoryid = createId('tblinventory');
-		$productid = $_POST['item_code'][$count];
+		$inventoryid = $_POST["item_id"][$count];
+		$productidquery = getQueryOne('productid', 'tblinventory', 'id' , $inventoryid);
+		$productid = $productidquery[0]['productid'];
 
 
 		$statement->execute(
@@ -227,7 +232,9 @@ if(isset($_POST["item_id"]))
 		// get quantity first
 		
 		//get the productid of the list of items
-		$productid = $_POST['item_code'][$count];
+		$inventoryid = $_POST["item_id"][$count];
+		$productidquery = getQueryOne('productid', 'tblinventory', 'id' , $inventoryid);
+		$productid = $productidquery[0]['productid'];
 
 		$query = "
 		SELECT tblinventory.quantity AS quantity FROM tblinventory WHERE tblinventory.branchid = :branchid AND tblinventory.productid = :productid AND tblinventory.supplierid = :supplierid

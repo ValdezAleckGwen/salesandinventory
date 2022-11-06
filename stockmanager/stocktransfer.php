@@ -156,12 +156,12 @@ function displayUser() {
 							</div>
 							<div class="row">
 							<div class="container m-1">
-								<h5>Source Branch: <?php echo displayBranch($id); ?></label>
+								<label>Source Branch: <?php echo displayBranch($id); ?></label>
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch d-none" id="source_branch" ><option value="default">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
 								<h5>Destination Branch</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
 							<thead style=" display: block; ">
 								<tr>
@@ -200,10 +200,41 @@ function displayUser() {
 $(document).ready(function(){
 	 $('#source_branch').unbind();
 
-	var count = 0;
-	
+    $(document).on("change", ".item_quantity", function  () {
+        
 
-	
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".item_available");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Number of stocks to transfer insufficient');
+        	quantity.val('');
+        	
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
+
+	var count = 0;
+	//disable add first
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#destination_branch', function() {
+		destinationbranch = $(this).val();
+		if (destinationbranch == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+	//end of validation
 
 	$(document).on('click', '.add', function(){
 

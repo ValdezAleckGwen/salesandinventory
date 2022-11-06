@@ -31,6 +31,8 @@ else
   ON tblsalesreturn.salesid=tblsales.id
   INNER JOIN tblusers
   ON tblsalesreturn.userid=tblusers.id
+
+  
   ";
 
 
@@ -38,7 +40,7 @@ else
 if($_POST['query'] != '')
 {
   $query .= '
-  AND tblsalesreturn.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE tblsalesreturn.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 

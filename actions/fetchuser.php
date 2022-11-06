@@ -23,18 +23,17 @@ $query = "
 SELECT *
 
 FROM tblusers
-
-
 ";
 
 if($_POST['query'] != '')
 {
   $query .= '
-   AND tblusers.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE lastname LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
 $query .= 'ORDER BY id ASC ';
+
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 

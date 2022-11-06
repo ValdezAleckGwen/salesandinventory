@@ -192,13 +192,7 @@ function fill_unit_select_box_sales($connect)
 							</table>
 								<div class="col-sm-6" style="float: left">
 									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-								</div>
-								<div class="col-sm-5" style="float: right">
-									<div class="input-group mb-3">
-									  <span class="input-group-text" id="basic-addon3">Total</span>
-									  <input type="text" name="total" id="total" class="form-control total" readonly/>
-									</div>
-								</div>					
+								</div>				
 							</div>
 						</div>
 					</form>
@@ -219,18 +213,19 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.add', function(){
 
-		var id = $('#salesid').val();
 		
-		count++;
-
+		var form_data = $('#insert_form').serialize();
+		
 		$.ajax({
         url: "../actions/addrowsalesreturn.php",
         method: "POST",
-        data: {id: id},
-        success: function (data) {            
+        data: form_data,
+        success: function (data) {
+            
         	//$('#item_table').append(data);
-			$(data).insertAfter($("#add-row > tr").eq(0));
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
+
             }
         });
 

@@ -2,16 +2,22 @@
 require 'DbConnect.php';
 
 
-if (isset($_POST['branchid'])) {
+if (isset($_POST['branch_id'])) {
 	
 	$output = '';
 	 
-			$branchid = $_POST['branchid'];
+			$branchid = $_POST['branch_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
-
-			$stmt = $conn->prepare("SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = :branchid");
-			$stmt->execute(['branchid' => $branchid]);
+			$inventoryadjustmentquery = "SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = '".$branchid."' AND tblinventory.quantity >= 1 ";
+			if (isset($_POST["item_id"])) {
+				for($count = 0; $count < count($_POST["item_id"]); $count++) {
+					$itemid = $_POST['item_id'][$count];
+					$inventoryadjustmentquery .= " AND tblinventory.id != '".$itemid."'";
+				}
+			} 	
+			$stmt = $conn->prepare($inventoryadjustmentquery);
+			$stmt->execute();
 			$inventories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				$output = '';
 				$output .= '<tr style="display: block;">';
@@ -39,7 +45,7 @@ if (isset($_POST['branchid'])) {
 
 
 } else {
-	$output = 'alert("no data available")';
+	$output = '<script>alert("no data available")</script>';
 }
 
 echo $output;

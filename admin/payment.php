@@ -2,57 +2,31 @@
 	
 //index.php	
 session_start();
-include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
 
-
-$id = $_SESSION['uid'];
-$branchid = getBranch($id);
-
-//remove this if cookie is configured
-
-function fill_unit_select_box_branch($connect, $branchid)
+function fill_unit_select_box_supplier($connect)
 {
-	
-
 	$output = '';
 
-	$query = "SELECT id AS branchid, name AS branchname from tblbranch";
+	$query = "SELECT id AS supplierid, name AS suppliername from tblsupplier WHERE active = 1";
 
 	$result = $connect->query($query);
 
 	foreach($result as $row)
 	{
-		if ($branchid == $row["branchid"]) {
-			$output .= '<option value="'.$row["branchid"].'" selected>'.$row["branchname"] . '</option>';
-		} else {
-			$output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
-		}
-		
+		$output .= '<option value="'.$row["supplierid"].'">'.$row["suppliername"] . '</option>';
 	}
 
 	return $output;
-}
-
-function displayUser() {
-  $output = '';
-  if (isset($_SESSION['uid'])) {
-    $id = $_SESSION['uid'];
-    $userid = getId($id);
-    $firstname = getFirstname($id);
-    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
-  }
-  return $output;
-}	
-
-
+}		
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Stock Manager - Invetory Adjustment</title>
+		<title>PAYMENT</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -72,49 +46,26 @@ function displayUser() {
 <!-- Start of Menu Proper -->
       <div class="menu">
 
-        <!-- Inventory-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
-          </div>
-        </div>
+    <!-- Inventory-->
+        <div class="item"><a href="inventory_index.php"><i class="fa-regular fa-warehouse"></i>Inventory</a></div>
+       
 
-        <!-- Delivery Order-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
-          </div>
-        </div>
+        <!-- Orders-->
+        <div class="item"><a href="orders_index.php"><i class="fa-regular fa-cart-shopping"></i>Orders</a></div>
 
-        <!--Purchase Order-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
-          </div>
-        </div>
 
-        <!-- Settings-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
-          </div>
-        </div>
+        <!-- Point of salesv2-->
+        <div class="item"><a href="posv2_index.php"><i class="fa-regular fa-calculator"></i>Point of Salesv2</a></div>
 
         <!-- Logout -->
-        <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
+        <div class="item"><a href="../admin/login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
-      </div>
+        <div class="clearfix"></div>
+    <br/>
+
+        </div>
     </div>
-		
-		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>
+		<div class="usericon">Cashier <i class="fa-regular fa-user"></i></div>
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -125,49 +76,59 @@ function displayUser() {
     });
     </script>
     <div class="main">
+
+  
+    <h3 style="margin-top: 40px;">PAYMENT</h3><br>
 		<div class="container">
-	  	<div class="table-title">
-	    	<h3>INVENTORY ADJUSTMENT</h3>
-	    </div>		
+			<br />
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
 							<span id="error"></span>
-							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
-								<label for="po_number">INVENTORY ADJUSTMENT #:</label>
-								<input type="text" name="ia_number" class="input-field" value="<?php echo createId('tblinventoryadjustment'); ?>" id="ia_number" readonly>
+								<label for="po_number">PAYMENT #:</label>
+								<input type="text" name="payment_number" class="input-field" value="<?php echo createId('tblpayables'); ?>" id="payment_number" readonly>
 							</div>
-
-							<!--remove this if cookie is configured-->
 							<div class="container m-1">
-                                <label>For Branch: <?php echo displayBranch($id); ?></label>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id" readonly><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+								<label for="supplier_id">Supplier</h5>
+								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
+							<!--remove this if cookie is configured-->
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 								<thead style=" display: block; ">
 								<tr>
-									<th width="13.9%">Inventory ID</th>
-									<th width="15.9%">Product Code</th>
-									<th width="22.6%">Product Name</th>
-									<th width="10%">Available Quantity</th>
-									<th width="16%">Adjustment Quantity -</th>
-									<th width="16%">Adjustment Quantity +</th>
+									<th width="15%">Item ID</th>
+									<th width="15%">DO ID</th>
+									<th width="12%">Branch</th>
+									<th width="15%">Product Code</th>
+									<!-- <th width="30%">Product Name</th> -->
+									<th width="15%">Price</th>
+									<th width="15%">Quantity</th>
+									<th width="14%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
-							</thead>
+								</thead>
 								<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
-								<tr>
-									
+							<tr>
+								
 								</tr>
 							</tbody>
-							<footer>
+							<footer>						
 							</footer>
 							</table>
 								<div class="col-sm-6" style="float: left">
 									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
 								</div>
+								<div class="col-sm-5" style="float: right">
+									<div class="input-group mb-3">
+									  <span class="input-group-text" id="basic-addon3">Total</span>
+									  <input type="text" name="total" id="total" class="form-control total" readonly/>
+									</div>
+								</div>					
+							</div>
+
 						</div>
 					</form>
 					
@@ -178,24 +139,16 @@ function displayUser() {
 </html>
 <script>
 
-$(document).ready(function(){
-
-	
-
-	var count = 0;
-	
 	$(document).on('click', '.add', function(){
-
-		
 		var form_data = $('#insert_form').serialize();
 		console.log(form_data)
 		$.ajax({
-        url: "../actions/addrowinventoryadjustment.php",
+        url: "../actions/addrowpayment.php",
         method: "POST",
         data: form_data,
         success: function (data) {
             
-        	//$('#item_table').append(data);
+        	
         	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
@@ -203,9 +156,7 @@ $(document).ready(function(){
         });
 
 
-		
-
-	});
+	
 
 
 	$(document).on('change')
@@ -240,7 +191,6 @@ $(document).ready(function(){
 
 		});
 
-
 		count = 1;
 
 		$("select[name='item_id[]']").each(function(){
@@ -267,7 +217,8 @@ $(document).ready(function(){
 
 			$.ajax({
 
-				url:"../actions/insertinvenadjustment.php",
+				url:"../actions/insertpayment.php",
+				// url:"../actions/testing.php",
 
 				type:"POST",
 
@@ -318,26 +269,51 @@ $(document).ready(function(){
 		}
 
 	});
-
+	 
+});
+</script>
+<script>
+	
+	
+$(document).ready(function(){
+  	var grandtotal = 0;
 	$(document).on("change", ".item_id", function  () {
 		
         
-        var dataType = 5;
+        var dataType = 4;
         var currentRow = $(this).closest("tr");
         var productid = $(this).val();
+        var doid = currentRow.find(".do_id");
         var itemid = currentRow.find(".item_code");
+        var branch = currentRow.find(".item_branch");
         var name = currentRow.find(".item_name");
+        var price = currentRow.find(".item_price");
         var quantity = currentRow.find(".item_quantity")
+        var total = currentRow.find(".item_total");
+        var digit = 0;
+        var actualPrice;
+        
         $.ajax({
             url: "../actions/fetchproductinfo.php",
             method: "POST",
             data: {productid: productid, dataType: dataType},
             dataType: "JSON",
             success: function (data) {
-            	itemid.val(data.productid);
-            	name.val(data.name);
+            	
+                actualPrice = data.price.replace(/^/, '₱');
+                doid.val(data.doid);
+                itemid.val(data.productid);
+                branch.val(data.branch);
+                price.val(actualPrice);
                 quantity.val(data.quantity);	
-                
+                total.val(data.total);
+                digit = data.total;
+                digit = digit.replace(/,/g,'');
+                digit = parseFloat(digit);
+                grandtotal = grandtotal + digit;
+                console.log($.type(grandtotal));
+                console.log(grandtotal);
+                $('#total').val(grandtotal);
                 
             }
         });
@@ -346,8 +322,31 @@ $(document).ready(function(){
 
 
 
+	
 
-	 
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+		
+
+	
+
+
+
+
 });
+
+
 
 </script>

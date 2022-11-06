@@ -259,6 +259,8 @@ $(document).ready(function(){
 	var count = 0;
 	
 	$(document).on('click', '.add', function(){
+		var branch = $('#branch_id').val();
+
 
 		var form_data = $('#insert_form').serialize();
 		console.log(form_data)

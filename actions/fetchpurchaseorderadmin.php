@@ -10,6 +10,7 @@ $permission = getPermission($id);
 
 $limit = '10';
 $page = 1;
+
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);
@@ -20,20 +21,42 @@ else
   $start = 0;
 }
 
+
 $query = "
-SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact, active as active FROM tblbranch 
+SELECT tblpurchaseorder.id AS poid, 
+tblpurchaseorder.branchid as branchid,
+tblbranch.name AS branchname, 
+tblsupplier.name AS suppliername,
+tblusers.lastname AS username,
+tblpurchaseorder.date AS det,
+tblpurchaseorder.total as total
+FROM tblpurchaseorder 
+INNER JOIN tblbranch
+ON tblpurchaseorder.branchid=tblbranch.id
+INNER JOIN tblsupplier 
+ON tblpurchaseorder.supplierid=tblsupplier.id
+INNER JOIN tblusers 
+ON tblpurchaseorder.userid=tblusers.id
+WHERE tblpurchaseorder.active = 1
 ";
+  
+if($_POST['branch'] != '')
+{
+  $query .= '
+   AND tblpurchaseorder.branchid = "'.$_POST['branch'].'" 
+  ';
+}
+
 
 
 if($_POST['query'] != '')
 {
-
   $query .= '
-   WHERE tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  AND tblpurchaseorder.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
-$query .= ' ORDER BY tblbranch.name ASC ';
+$query .= 'ORDER BY tblpurchaseorder.id DESC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -46,42 +69,67 @@ $statement->execute();
 $result = $statement->fetchAll();
 $total_filter_data = $statement->rowCount();
 
-$output = '
+
+
+if ($permission == 1) {
+  $output = '
 <label>Total Records - '.$total_data.'</label>
 <table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
   <tr>
-        <th class="text-center" style="border: 1px solid;">Branch ID</th>
-        <th class="text-center" style="border: 1px solid;">Branch Name</th>
-        <th class="text-center" style="border: 1px solid;">Branch Address</th>
-        <th class="text-center" style="border: 1px solid;">Contact Number</th>
-        <th class="text-center" style="border: 1px solid;">Status</th>
-        <th class="text-center" style="border: 1px solid;">Action</th>
+        <th class="text-center" style="border: 1px solid;">Purchase Order ID</th>
+        <th class="text-center" style="border: 1px solid;">Branch</th>
+        <th class="text-center" style="border: 1px solid;">Supplier</th>
+        <th class="text-center" style="border: 1px solid;">Creator</th>
+        <th class="text-left" style="border: 1px solid;">Date</th>
+        <th class="text-left" style="border: 1px solid;">Total(₱)</th>
+        
   </tr>
 ';
+} else {
+  $output = '
+<label>Total Records - '.$total_data.'</label>
+<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+  <tr>
+        <th class="text-center" style="border: 1px solid;">Purchase Order ID</th>
+        <th class="text-center" style="border: 1px solid;">Branch</th>
+        <th class="text-center" style="border: 1px solid;">Supplier</th>
+        <th class="text-center" style="border: 1px solid;">Creator</th>
+        <th class="text-left" style="border: 1px solid;">Date</th>
+        <th class="text-left" style="border: 1px solid;">Total(₱)</th>
+  </tr>
+';
+}
+
 if($total_data > 0)
 {
   foreach($result as $row)
   {
-    $active = $row['active'];
-    if ($active == 1) {
-      $status = 'ACTIVE';
-    } else {
-      $status = 'INACTIVE';
-    }
-    $output .= '
-    <tr data-id="'.$row["branchid"].'">
-      <td style="border: 1px solid;">'.$row["branchid"].'</td>
+    if ($permission == 1) {
+      $output .= '
+    <tr class="data" data-id="'.$row["poid"].'">
+      <td style="border: 1px solid;">'.$row["poid"].'</td>
       <td style="border: 1px solid;">'.$row["branchname"].'</td>
-      <td style="border: 1px solid;">'.$row["address"].'</td>
-      <td style="border: 1px solid;">'.$row["contact"].'</td>
-      <td style="border: 1px solid;">'.$status.'</td>
+      <td style="border: 1px solid;">'.$row["suppliername"].'</td>
+      <td style="border: 1px solid;">'.$row["username"].'</td>
+      <td style="border: 1px solid;">'.$row["det"].'</td>
+      <td style="border: 1px solid;">'.$row["total"].'</td>
       
-      <td class="text-center" style="border: 1px solid;"> 
-        <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["branchid"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 
-        <button class="delete btn btn-danger" id="del_'.$row["branchid"].'" data-id="'.$row["branchid"].'"><i class="fa-solid fa-circle-minus" ></i></button>
-      </td>
+    </tr>';
+
+    } else {
+    $output .= '
+    <tr class="data" data-id="'.$row["poid"].'">
+      <td style="border: 1px solid;">'.$row["poid"].'</td>
+      <td style="border: 1px solid;">'.$row["branchname"].'</td>
+      <td style="border: 1px solid;">'.$row["suppliername"].'</td>
+      <td style="border: 1px solid;">'.$row["username"].'</td>
+      <td style="border: 1px solid;">'.$row["det"].'</td>
+      <td style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
+    }
+
+
   }
 }
 else

@@ -10,7 +10,7 @@ if (isset($_POST['source_branch'])) {
 			$db = new DbConnect;
 			$conn = $db->connect();
 
-			$query = "SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblbranch.id = '".$branchid."' AND tblinventory.quantity != 0";
+			$query = "SELECT tblinventory.id AS inventory, tblbranch.id AS branch FROM tblinventory INNER JOIN tblbranch ON tblbranch.id=tblinventory.branchid WHERE tblinventory.quantity >= 1 AND tblbranch.id = '".$branchid."' ";
 			if (isset($_POST["item_id"])) {
 				
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {
