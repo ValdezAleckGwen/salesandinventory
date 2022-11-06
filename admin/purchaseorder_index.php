@@ -46,10 +46,10 @@ function fill_unit_select_box_branch($connect)
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Admin - Inventory Dashboard</title>
+      <title>Admin - Purchase Order Dashboard</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SALES</title>
+        <title>Purchase Order</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
@@ -85,7 +85,7 @@ function fill_unit_select_box_branch($connect)
 
         <!-- Inventory-->
         <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
