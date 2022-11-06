@@ -195,6 +195,7 @@ th {
   border-right: 1px solid #000000;
   font-size: 15px;
   padding:15px;
+  background-color: #f9f9f8;
   text-align:left;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   vertical-align:middle;
@@ -212,7 +213,8 @@ th:last-child {
 tr {
   border-top: 1px solid #000000;
   border-bottom: 1px solid #000000;
-  color:#000000;
+  background: #f9f9f8;
+  color: #3e3d43;
   font-size:36px;
   font-weight:normal;
   text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
@@ -230,6 +232,10 @@ tr:first-child {
 tr:last-child {
   border-bottom:none;
 }
+
+tr:nth-child(odd) td {
+  background: #f9f9f8;
+}
  
 tr:nth-child(odd):hover td {
   background: #b9b9b9;
@@ -244,7 +250,7 @@ tr:last-child td:last-child {
 }
  
 td {
-  background:#FFFFFF;
+  background: #FFFFFF;
   padding:10px;
   text-align:left;
   vertical-align:middle;

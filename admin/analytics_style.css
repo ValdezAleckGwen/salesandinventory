@@ -137,7 +137,7 @@ input{
   background: #ffffff;
   transition: 500 0.3s ease;
   font-weight: 900;
-  color: #458fb8;
+  color: #3e3d43;
 }
 
 .side-bar .menu .item i{
@@ -165,9 +165,17 @@ input{
 }
 
 .titlebar{
-  margin-left: 330px;
+  margin-left: 340px;
   margin-top: -60px;
   width: 90%;
+}
+
+.dropdown h2{
+  font-weight: 600;
+  font-size: 70px;
+  font-style: normal;
+  transform: translateY(25px);
+
 }
 
 .usericon{
@@ -179,6 +187,8 @@ input{
 }
 
 
+
+
 ::-webkit-scrollbar {
 display: none;
 }
@@ -188,8 +198,8 @@ display: none;
 .container-xl{
   height: 800px;
   width: 81.5%;
-  margin-left: 330px;
-  background-color: #DFDFDF;
+  margin-left: 340px;
+  background-color: #dfdfdf;
   box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
   -webkit-box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
   -moz-box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
@@ -199,14 +209,18 @@ display: none;
 
 .box{
   background-color: #f6f6f6;
-  border: 5px solid #999999;
+  border-style: none solid none none;;
+  border-width: 1px;
+  border-color: #e3e2e2;
   width: 100%;
   height: 255px;
 }
 
 .box2{
   background-color: #f6f6f6;
-  border: 5px solid #999999;
+  border-style: none solid none none;;
+  border-width: 1px;
+  border-color: #e3e2e2;
   width: 100%;
   height: 616px;
 }
@@ -242,7 +256,7 @@ li{
   list-style-type: none;
   padding: 0;
   background-color: #3e3d43;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid;
 }
 
 .tab {
@@ -259,7 +273,7 @@ li{
 .tab.active {
   background-color: #ffffff;
   color: #3e3d43;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .tab:hover {
