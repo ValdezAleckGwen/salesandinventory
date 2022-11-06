@@ -218,20 +218,17 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.add', function(){
 
-		var id = $('#supplier_id').val();
 		
-		var branchid = $('#branch_id').val();
-		
-		count++;
-
+		var form_data = $('#insert_form').serialize();
+		console.log(form_data)
 		$.ajax({
         url: "../actions/addrowinventoryadjustment.php",
         method: "POST",
-        data: {id: id, branchid, branchid},
+        data: form_data,
         success: function (data) {
             
-      //$('#item_table').append(data);
-      $(data).insertAfter($("#add-row > tr").eq(0));
+        	//$('#item_table').append(data);
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
             }

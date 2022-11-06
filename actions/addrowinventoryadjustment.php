@@ -45,7 +45,7 @@ if (isset($_POST['branch_id'])) {
 
 
 } else {
-	$output = 'alert("no data available")';
+	$output = '<script>alert("no data available")</script>';
 }
 
 echo $output;

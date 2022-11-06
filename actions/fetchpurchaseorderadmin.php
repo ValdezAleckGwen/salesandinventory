@@ -22,42 +22,41 @@ else
 }
 
 
-
 $query = "
-SELECT tblproducts.id AS productid, 
-tblproducts.name AS productname, 
-tblproducts.markupprice AS markupprice, 
-tblcategory.name as categoryname,
-tblinventory.branchid as branch,
-tblinventory.id as inventoryid,
-tblinventory.quantity as quantity
-FROM tblproducts 
+SELECT tblpurchaseorder.id AS poid, 
+tblpurchaseorder.branchid as branchid,
+tblbranch.name AS branchname, 
+tblsupplier.name AS suppliername,
+tblusers.lastname AS username,
+tblpurchaseorder.date AS det,
+tblpurchaseorder.total as total
+FROM tblpurchaseorder 
+INNER JOIN tblbranch
+ON tblpurchaseorder.branchid=tblbranch.id
 INNER JOIN tblsupplier 
-ON tblproducts.supplier=tblsupplier.id
-INNER JOIN tblcategory
-ON tblproducts.category=tblcategory.id
-INNER JOIN tblinventory
-ON tblinventory.productid = tblproducts.id
-WHERE tblproducts.active = 1 AND tblinventory.quantity >= 0 
+ON tblpurchaseorder.supplierid=tblsupplier.id
+INNER JOIN tblusers 
+ON tblpurchaseorder.userid=tblusers.id
+WHERE tblpurchaseorder.active = 1
 ";
-
-
+  
 if($_POST['branch'] != '')
 {
   $query .= '
-   AND tblinventory.branchid = "'.$_POST['branch'].'" 
+   AND tblpurchaseorder.branchid = "'.$_POST['branch'].'" 
   ';
 }
+
 
 
 if($_POST['query'] != '')
 {
   $query .= '
-  AND tblproducts.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  AND tblpurchaseorder.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
-$query .= 'ORDER BY quantity ASC ';
+$query .= 'ORDER BY tblpurchaseorder.id DESC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -70,60 +69,67 @@ $statement->execute();
 $result = $statement->fetchAll();
 $total_filter_data = $statement->rowCount();
 
-$output = '
+
+
+if ($permission == 1) {
+  $output = '
 <label>Total Records - '.$total_data.'</label>
 <table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
-  <tr class="inventoryrow">
-        <th class="text-center" style="border: 1px solid;">Product ID</th>
-        <th class="text-center" style="border: 1px solid;">Inventory ID</th>
-        <th class="text-center" style="border: 1px solid;">Product Name</th>
-        <th class="text-center" style="border: 1px solid;">Category</th>
-        <th class="text-left" style="border: 1px solid;">Quantity</th>
-        <th class="text-left" style="border: 1px solid;">Markup Price (₱)</th>
-        <th class="text-left" style="border: 1px solid;">Branch</th>
-        <th class="text-left" style="border: 1px solid;">Status </th>
+  <tr>
+        <th class="text-center" style="border: 1px solid;">Purchase Order ID</th>
+        <th class="text-center" style="border: 1px solid;">Branch</th>
+        <th class="text-center" style="border: 1px solid;">Supplier</th>
+        <th class="text-center" style="border: 1px solid;">Creator</th>
+        <th class="text-left" style="border: 1px solid;">Date</th>
+        <th class="text-left" style="border: 1px solid;">Total(₱)</th>
         
   </tr>
 ';
+} else {
+  $output = '
+<label>Total Records - '.$total_data.'</label>
+<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+  <tr>
+        <th class="text-center" style="border: 1px solid;">Purchase Order ID</th>
+        <th class="text-center" style="border: 1px solid;">Branch</th>
+        <th class="text-center" style="border: 1px solid;">Supplier</th>
+        <th class="text-center" style="border: 1px solid;">Creator</th>
+        <th class="text-left" style="border: 1px solid;">Date</th>
+        <th class="text-left" style="border: 1px solid;">Total(₱)</th>
+  </tr>
+';
+}
+
 if($total_data > 0)
 {
   foreach($result as $row)
   {
-    $quantity = $row['quantity'];
-    $status = '';
-    $color = '';
-    switch ($quantity) {
-      case ($quantity == null):
-        $status = 'OUT OF STOCK';
-        $color = 'red';
-        break;
-      case ($quantity <= 10):
-        $status = 'NEED TO ORDER';
-        $color = 'orange';
-        break;
-      case ($quantity > 10):
-        $status = 'IN STOCK';
-        $color = 'green';
-        break;
-      default:
-        // code...
-        break;
-    }
-    $branchname = branchName($row['branch']);
-    $branchname = trim($branchname, 'Branch');
-    $branchname = trim($branchname, 'branch');
+    if ($permission == 1) {
+      $output .= '
+    <tr class="data" data-id="'.$row["poid"].'">
+      <td style="border: 1px solid;">'.$row["poid"].'</td>
+      <td style="border: 1px solid;">'.$row["branchname"].'</td>
+      <td style="border: 1px solid;">'.$row["suppliername"].'</td>
+      <td style="border: 1px solid;">'.$row["username"].'</td>
+      <td style="border: 1px solid;">'.$row["det"].'</td>
+      <td style="border: 1px solid;">'.$row["total"].'</td>
+      
+    </tr>';
+
+    } else {
     $output .= '
-    <tr>
-      <td style="border: 1px solid;">'.$row["productid"].'</td>
-      <td style="border: 1px solid;">'.$row["inventoryid"].'</td>
-      <td style="border: 1px solid;">'.$row["productname"].'</td>
-      <td style="border: 1px solid;">'.$row["categoryname"].'</td>
-      <td style="border: 1px solid;" class="quantity">'.$row["quantity"].'</td>
-      <td style="border: 1px solid;">'.$row["markupprice"].'</td>
-      <td style="border: 1px solid;">'.$branchname.'</td>
-      <td style="border: 1px solid;"><p style="color: '.$color.' ; margin: 0px; font-weight: bold">'.$status.'</p></td>
+    <tr class="data" data-id="'.$row["poid"].'">
+      <td style="border: 1px solid;">'.$row["poid"].'</td>
+      <td style="border: 1px solid;">'.$row["branchname"].'</td>
+      <td style="border: 1px solid;">'.$row["suppliername"].'</td>
+      <td style="border: 1px solid;">'.$row["username"].'</td>
+      <td style="border: 1px solid;">'.$row["det"].'</td>
+      <td style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
+    }
+
+
   }
 }
 else
