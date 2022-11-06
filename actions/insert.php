@@ -17,14 +17,14 @@ if(isset($_POST["item_id"]))
 	$vat = $_POST['vat'];
 	$vat = filter_var($vat, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$taxid = $_POST['tax'];
-	$pending = 1;
+	
 	$userid = $_SESSION['uid'];
 	$branchid = getBranch($userid);
 	
 
 	// create a sale
 	$salesquery = "
-	INSERT INTO tblsales (id, total, taxid, vat, vattablesale, pending, userid, branchid, active) VALUES (:salesid, :total, :taxid, :vat, :vattablesale, :pending, :userid, :branchid, 1)
+	INSERT INTO tblsales (id, total, taxid, vat, vattablesale, userid, branchid, active) VALUES (:salesid, :total, :taxid, :vat, :vattablesale, :userid, :branchid, 1)
 	";
 
 	$statement  = $connect->prepare($salesquery);
@@ -34,7 +34,7 @@ if(isset($_POST["item_id"]))
 		':taxid' => $taxid,
 		':vat' => $vat,
 		':vattablesale' => $vattableSale,
-		':pending' => $pending,
+		
 		':userid' => $userid,
 		':branchid' => $branchid,
 		

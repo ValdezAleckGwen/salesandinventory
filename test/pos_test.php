@@ -62,11 +62,45 @@ function fill_unit_select_box($connect, $branchid)
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<style type="text/css">
-		.productidrow {
-			visibility: hidden;
-		}
-	</style>
+	    <style>
+	    
+    	@media print {
+    		.side-bar * {
+    			visibility: hidden !important;
+    		}
+    		.card, .card {
+    			visibility: hidden !important;
+    		}
+    		
+    		#postitle, #postitle * {
+    			visibility: hidden; !important;
+    		}
+    		.usericon, .usericon {
+    			visibility: hidden !important;
+    		}
+    		#submit_button, #submit_button {
+    			visibility: hidden !important;
+    		}
+    		.tax-container, .tax-container {
+    			visibility: hidden !important;
+    		}
+    		#available, #available {
+    			visibility: hidden !important;
+    		}
+    		.item_available, .item_available {
+    			visibility: hidden !important;
+    		}
+    		
+
+    		button, button * {
+    			visibility: hidden !important;
+    		}
+
+
+    		
+
+    	}
+    </style>
 	<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
@@ -101,12 +135,12 @@ function fill_unit_select_box($connect, $branchid)
     <div class="main">
 
   
-    <h3 style="margin-top: 40px; font-weight: 600;">POINT OF SALES - <?php echo displayBranch($id); ?></h3><br>
+    <h3 style="margin-top: 40px; font-weight: 600;" id="postitle">POINT OF SALES - <?php echo displayBranch($id); ?></h3><br>
 		<div class="container" style="margin-top: -39px;">
 			<br />
 			<div class="card">
 				<div class="card-header">
-					<div class="float-start"><p >Enter Item Details</p></div>
+					<div class="float-start d-none"><p id="company-name">Company Name</p></div>
 					<div class="float-end">
 					<label for="salesid">Sales ID#</label>
 					<input type="text" name="salesid" class="input-field float-end" value="<?php echo createId('tblsales'); ?>" id="salesid" readonly>
@@ -125,7 +159,7 @@ function fill_unit_select_box($connect, $branchid)
 									<th width="11.45%">Product Code</th>
 									<th width="40%">Product Name</th>
 									<th width="12%">Price</th>
-									<th width="10%">Available Quantity</th>
+									<th width="10%" id="available">Available Quantity</th>
 									<th width="10%">Enter Quantity</th>
 									<th>Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
@@ -145,7 +179,7 @@ function fill_unit_select_box($connect, $branchid)
 								<div class="col-sm-6" style="float: left;">
 									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
 								</div>	
-								<div class="col col-sm-2" style="float: left;">
+								<div class="col col-sm-2 tax-container" style="float: left;">
 									<label>Tax</label>
 									<select name="tax" id="tax" class="form-control" required>
 										<option value="">Select Tax</option>
@@ -169,6 +203,26 @@ function fill_unit_select_box($connect, $branchid)
 									</div>
 						</div>
 					</form>
+			        <div class="modal fade d-none" id="salesmodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+			              <div class="modal-content">
+			                  <div class="modal-header">
+			                    <button type="button" class="close" data-dismiss="modal">×</button>
+			                  </div>
+			                    <style>
+			                        #model-body-container > .container{
+			                            width: 100% !important;}
+			                        #model-body-container .col-sm-6
+			                        {
+			                            width: 25% !important;
+			                        }
+			                    </style>
+			                  <div class="modal-body" id='model-body-container'>
+			                  </div>
+			                  <div class="modal-footer">
+			                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			                  </div>
+			              </div>      
+			        </div>
 					
 				</div>
 			</div>
@@ -181,6 +235,12 @@ $(document).ready(function(){
 	
 	var count = 0;
 	
+	
+
+	
+	
+
+
 	$('#tax').val('');
 
 
@@ -265,8 +325,8 @@ $(document).ready(function(){
 		});
 
 
-
-
+		//print this shit
+		window.print();
         
 
 		if(error == '')
@@ -380,6 +440,9 @@ $(document).ready(function(){
 
         if (quantityval > availval) {
         	quantity.addClass("border border-2 border-danger");
+        	alert('Insufficient available quantity');
+        	quantity.val('');
+        	
         } else {
         	quantity.removeClass("border border-2 border-danger");
         }

@@ -200,6 +200,29 @@ function displayUser() {
 $(document).ready(function(){
 	 $('#source_branch').unbind();
 
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".item_available");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Number of stocks to transfer insufficient');
+        	quantity.val('');
+        	
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
+
 	var count = 0;
 	//disable add first
 	$('.add').prop('disabled', true);
