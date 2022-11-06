@@ -54,7 +54,9 @@ include '../x-function/redirect_if_notLogin.php';
          <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i>Stock Transfer</a>
+
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+
           </div>
         </div>
         
