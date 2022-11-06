@@ -231,10 +231,6 @@ tr:last-child {
   border-bottom:none;
 }
  
-tr:nth-child(odd) td {
-  background:#EBEBEB;
-}
- 
 tr:nth-child(odd):hover td {
   background: #b9b9b9;
 }

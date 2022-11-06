@@ -241,7 +241,7 @@ li{
   justify-content: space-around;
   list-style-type: none;
   padding: 0;
-  background-color: #38739a;
+  background-color: #3e3d43;
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
@@ -249,7 +249,7 @@ li{
   cursor: pointer;
   padding: 1px;
   display:flex;
-  color: white;
+  color: #3e3d43;
   justify-content: center;
   width: 100%;
   background-color: #f9f9f8;
@@ -263,7 +263,7 @@ li{
 }
 
 .tab:hover {
-  background-color: #2d6184;
+  background-color: #f9f9f8;
 }
 
 .tab-content {
