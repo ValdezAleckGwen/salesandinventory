@@ -214,11 +214,8 @@ function fill_unit_select_box_branch($connect)
        <div class="table-title">
         <h3>USERS</h3>
           <div style="display: inline;">
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userAddModal">
-                            Add User
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-user"></i> Add User
                         </button> 
-
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
           </div>
           <div style="float: right;">
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
