@@ -39,7 +39,7 @@ function displayUser() {
     </head>
     
     </style>
-          <style>
+      <style>
       @media print{@page {size: landscape}}
       @media print {
         .side-bar * {
@@ -82,13 +82,17 @@ function displayUser() {
         .modal-body, .modal-body {
           visibility: visible;
           position: absolute;
+          font-size: 10px;
           left:0;
           top:0;
-          width:1%;
-          height:1%;
+          width:50%;
+          height:100%;
+          margin:auto;
         }
         
-
+        body, body {
+          visibility: none !important;
+        }
         button, button * {
           visibility: hidden !important;
         }
