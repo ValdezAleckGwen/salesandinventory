@@ -50,8 +50,12 @@ $userid = $sales[0]['userid'];
     </head>
     <body>
 
+
             <div class="container" style="pointer-events: none;">
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+                    </div>
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                             <?php echo getCompanyName(); ?>
