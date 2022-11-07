@@ -38,7 +38,7 @@ function displayUser() {
     
     </style>
     <body>
-    <!-- Start of sidebar -->
+<!-- Start of sidebar -->
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
@@ -85,6 +85,8 @@ function displayUser() {
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item"><a href="payables_index.php"><i class="fa-regular fa-basket-shopping"></i>Payables</a></div>
 
         <!-- Delivery Order-->
         <div class="item">
@@ -151,9 +153,8 @@ function displayUser() {
        <div class="table-title">
         <h3>STOCK TRANSFER</h3>
         <div style="display: inline">
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
-        <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        <div align = right>
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Stock Trasnfer Name"/></label>       
         </div>
           </div>
         </div>

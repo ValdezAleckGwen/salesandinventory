@@ -154,7 +154,9 @@ function displayUser() {
        <div class="table-title">
         <h3>DELIVERY ORDER</h3>
         <div style="display: inline">
+        <div align = right>
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        </div>
           </div>
         </div>
        

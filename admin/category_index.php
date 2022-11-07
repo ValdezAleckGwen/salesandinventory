@@ -213,7 +213,7 @@ function displayUser() {
           </div>
 
           <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Category Name"/></label>
           </div>
         </div>
         

@@ -148,6 +148,8 @@ function fill_unit_select_box_branch($connect)
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item"><a href="payables_index.php"><i class="fa-regular fa-basket-shopping"></i>Payables</a></div>
 
         <!-- Delivery Order-->
         <div class="item">
@@ -218,7 +220,7 @@ function fill_unit_select_box_branch($connect)
                         </button> 
           </div>
           <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search User"/></label>
           </div>
         </div>
         
