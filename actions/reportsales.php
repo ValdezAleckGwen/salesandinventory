@@ -17,7 +17,8 @@ tblsales.id AS salesid,
 tblbranch.name AS branchname,
 tblusers.lastname as username,
 tblsales.salesdate as calendar,
-tblsales.total AS total
+tblsales.total AS total,
+SUM(tblsales.total) as grandtotal
 FROM tblsales 
 INNER JOIN tblbranch 
 ON tblsales.branchid=tblbranch.id

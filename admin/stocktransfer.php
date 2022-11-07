@@ -407,7 +407,7 @@ $(document).ready(function(){
 
 	});
 
-	$(document).on("change", ".inventory_id", function  () {
+	$(document).on("change", ".item_id", function  () {
 
         var currentRow = $(this).closest("tr");
         var inventoryid = $(this).val();

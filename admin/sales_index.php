@@ -213,7 +213,7 @@ function displayUser() {
      <div class="flex-items">
        <div class="table-title">
         <h3 class="title">SALES</h3>
-        <div  class="search" style="display: inline">
+        <div  align = right>
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
           </div>
         </div>

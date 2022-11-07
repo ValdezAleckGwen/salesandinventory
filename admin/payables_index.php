@@ -152,9 +152,9 @@ function displayUser() {
      <div class="flex-items">
        <div class="table-title">
         <h3>PAYABLES</h3>
-        <div style="display: inline">
 
         <div align = right>
+
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
         </div>
           </div>
