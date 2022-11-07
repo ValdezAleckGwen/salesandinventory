@@ -1,8 +1,14 @@
 <?php
 	
-//index.php	
+session_start();
+include '../actions/getdata.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
+
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
 
 function fill_unit_select_box_sales($connect)
 {
@@ -20,7 +26,16 @@ function fill_unit_select_box_sales($connect)
 	return $output;
 }		
 
-//remove this if cookie is configured
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+}
 
 	
 ?>
@@ -135,7 +150,7 @@ function fill_unit_select_box_sales($connect)
       </div>
     </div>
     
-		<div class="usericon">Cashier <i class="fa-regular fa-user"></i></div>
+	<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -146,48 +161,44 @@ function fill_unit_select_box_sales($connect)
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">SALES ADJUSTMENT</h3><br>
 		<div class="container">
-			<br />
+		  	<div class="table-title">
+		    	<h3>SALES ADJUSTMENT</h3>
+		    </div>			
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
 							<span id="error"></span>
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
 								<label for="salesreturnid">Sales #:</label>
 								<input type="text" name="salesreturnid" class="input-field" value="<?php echo createId('tblsalesreturn'); ?>" id="salesreturnid" readonly>
 							</div>
+
 							<div class="container m-1">
 								<label for="salesid">Sales ID</h5>
 								<select name="salesid" class="p-2 col col-sm-2 form-control selectpicker salesid" id="salesid" data-live-search="true"><option value="">Select Sales</option><?php echo fill_unit_select_box_sales($connect); ?></select>
 							</div>
-							<!--remove this if cookie is configured-->
-
-							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 								<thead style=" display: block; ">
 								<tr>
-									<th width="23%">Sales ID</th>
-									<th width="16.3%">Product ID</th>
-									<th width="19.5%">Product Name</th>
-									<th width="10.8%">Price</th>
-									<th width="10%">Quantity</th>
-									<th width="15%">Total Price</th>
+									<th width="13.9%">Sales ID</th>
+									<th width="15.9%">Product ID</th>
+									<th width="23.6%">Product Name</th>
+									<th width="11%">Price</th>
+									<th width="16%">Quantity</th>
+									<th width="16%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
-								</thead>
+							</thead>
 								<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
-							<tr>
-									
-								</tr>
-							</tbody>
+								<tr></tr></tbody>
 							<footer>
 							<div class="row">
-							
+
 							</footer>
+							</table>
 							
 							</table>
 								<div class="col-sm-6" style="float: left">
