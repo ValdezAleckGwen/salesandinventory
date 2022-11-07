@@ -159,7 +159,7 @@ function displayUser() {
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</label>
+								<label for="supplier_id">Supplier:</label>
                                 <select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							
