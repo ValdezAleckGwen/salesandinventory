@@ -48,7 +48,7 @@ $total_filter_data = $statement->rowCount();
 
 $output = '
 <label>Total Records - '.$total_data.'</label>
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
         <th class="text-center" style="border: 1px solid;">Branch ID</th>
         <th class="text-center" style="border: 1px solid;">Branch Name</th>

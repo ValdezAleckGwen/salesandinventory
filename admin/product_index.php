@@ -241,7 +241,7 @@ function fill_unit_select_box_category($connect)
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-regular fa-bag-shopping"></i> Add Product</button>
           </div>
           <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Product Name"/></label>
           </div>
         </div>
         

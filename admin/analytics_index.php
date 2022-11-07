@@ -133,7 +133,7 @@ function displayUser() {
 
     <div class="titlebar">
       <div class="dropdown">
-        <h2 style="font-weight: 700; font-size: 65px; transform: translateY(25px);">ANALYTICS</h2>
+        <h2>ANALYTICS</h2>
         
     </div>
     <hr>
@@ -146,15 +146,15 @@ function displayUser() {
     <div class="container-xl">
       <div>
           <ul class="tabs">
-            <li data-tab-target="#sales" class="active tab">SALES</li>
-            <li data-tab-target="#products" class="tab">PRODUCTS</li>
-            <li data-tab-target="#category" class="tab">CATEGORY</li>
+            <li data-tab-target="#sales" class="active tab">Sales</li>
+            <li data-tab-target="#products" class="tab">Products</li>
+            <li data-tab-target="#category" class="tab">Category</li>
           </ul>
       </div> 
 
       <div class="tab-content">
         <div id="sales" data-tab-content class="active">
-          <h1 style="font-weight: 700; font-size: 35px;">TOTAL SALES</h1>
+          <h1 style="font-weight: 700; font-size: 35px;">Total Sales</h1>
 
             <div class="radiocontainer">
                 <input type="radio" id="month" name="option" value="month">
@@ -167,7 +167,7 @@ function displayUser() {
             <p>Sample</p>
           </div>
           <br>
-          <h1 style="font-weight: 700; font-size: 35px;">SALES PER BRANCH</h1>
+          <h1 style="font-weight: 700; font-size: 35px;">Sales per Branch</h1>
             <div class="radiocontainer">
                 <input type="radio" id="month" name="option" value="month">
                 <label for="custombtn1">Month</label>
@@ -185,7 +185,7 @@ function displayUser() {
 
           </div>
 
-          <h1 style="font-weight: 700; font-size: 35px;">TOP PERFORMING PRODUCTS</h1>
+          <h1 style="font-weight: 700; font-size: 35px;">Top Performing Products</h1>
             <div class="radiocontainer">
                 <input type="radio" id="month" name="option" value="month">
                 <label for="custombtn1">Month</label>
@@ -198,7 +198,7 @@ function displayUser() {
         </div>
 
         <div class="category" id="category" data-tab-content>
-          <h1 style="font-weight: 700; font-size: 35px;">TOP SUPPLIERS</h1>
+          <h1 style="font-weight: 700; font-size: 35px;">Top Suppliers</h1>
             <div class="radiocontainer">
                 <input type="radio" id="month" name="option" value="month">
                 <label for="custombtn1">Month</label>
