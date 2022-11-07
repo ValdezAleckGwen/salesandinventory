@@ -21,26 +21,9 @@ else
   $start = 0;
 }
 
-if ($permission == 1) {
 
-$query = "
-SELECT tblproducts.id AS productid, 
-tblproducts.name AS productname, 
-tblproducts.markupprice AS markupprice, 
-tblcategory.name as categoryname,
-tblinventory.id as inventoryid,
-tblinventory.quantity as quantity
-FROM tblproducts 
-INNER JOIN tblsupplier 
-ON tblproducts.supplier=tblsupplier.id
-INNER JOIN tblcategory
-ON tblproducts.category=tblcategory.id
-INNER JOIN tblinventory
-ON tblinventory.productid = tblproducts.id
-WHERE tblproducts.active = 1 AND tblinventory.branchid = '".$branchid."'
-";
 
-} else {
+
 $query = "
 SELECT tblproducts.id AS productid, 
 tblproducts.name AS productname, 
