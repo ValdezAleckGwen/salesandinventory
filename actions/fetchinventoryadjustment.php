@@ -31,6 +31,7 @@ else
   ON tblinventoryadjustment.branchid=tblbranch.id
   INNER JOIN tblusers
   ON tblinventoryadjustment.auditid=tblusers.id
+  WHERE tblusers.branchid = '".$branchid."'
   ";
 
 

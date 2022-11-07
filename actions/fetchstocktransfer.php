@@ -37,6 +37,8 @@ else
   ON tblstocktransfer.source = tblbranch.id 
   INNER JOIN tblusers
   ON tblstocktransfer.userid=tblusers.id
+  WHERE tblusers.branchid = '".$branchid."'
+  
   ";
 
 
