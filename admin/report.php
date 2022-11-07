@@ -4,6 +4,22 @@ include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
+
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+}
+
 function fill_unit_select_box_branch($connect)
 {
 	
@@ -187,7 +203,7 @@ function fill_unit_select_box_branch($connect)
     </div>
 
 
-    <div class="usericon" id="usericon">Admin <i class="fa-regular fa-user"></i></div>     
+    <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div> 
 
     <script type="text/javascript">
     $(document).ready(function(){
