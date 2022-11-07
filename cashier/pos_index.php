@@ -100,10 +100,9 @@ function fill_unit_select_box($connect, $branchid)
     </script>
     <div class="main">
 
-  
-    <h3 style="margin-top: 40px; font-weight: 600;">POINT OF SALES - <?php echo displayBranch($id); ?></h3><br>
-		<div class="container" style="margin-top: -39px;">
-			<br />
+  	<div class="table-title">
+    		<h3>POINT OF SALES - <?php echo displayBranch($id); ?></h3></h3>
+	</div>
 			<div class="card">
 				<div class="card-header">
 					<div class="float-start"><p >Enter Item Details</p></div>
@@ -122,12 +121,12 @@ function fill_unit_select_box($connect, $branchid)
 							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 								<thead style=" display: block; ">
 								<tr>
-									<th width="11.45%">Product Code</th>
-									<th width="40%">Product Name</th>
-									<th width="12%">Price</th>
-									<th width="10%">Available Quantity</th>
-									<th width="10%">Enter Quantity</th>
-									<th>Total Price</th>
+									<th width="13.9%">Product Code</th>
+									<th width="25%">Product Name</th>
+									<th width="14%">Price</th>
+									<th width="17%">Available Quantity</th>
+									<th width="14%">Enter Quantity</th>
+									<th width="13%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
 								</thead>
