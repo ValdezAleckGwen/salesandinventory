@@ -259,6 +259,7 @@ function displayUser() {
 $(document).ready(function(){
 
 	var count = 0;
+
 	
 	$(document).on('click', '.add', function(){
 		var branch = $('#branch_id').val();
@@ -360,7 +361,7 @@ $(document).ready(function(){
 
 				success:function(data)
 				{
-					alert(data)
+					
 
 					if(!data)
 					{
@@ -412,9 +413,14 @@ $(document).ready(function(){
         var itemid = currentRow.find(".item_code");
         var name = currentRow.find(".item_name");
         var price = currentRow.find(".item_price");
-        var quantity = currentRow.find(".quantity")
+        var quantity = currentRow.find(".po_quantity")
+
         var total = currentRow.find(".item_total")
         var actualPrice;
+        var totalPrice = currentRow.find(".item_total");
+        totalPrice.val('');
+        $('#total').val('');
+        quantity.val('');
         
         $.ajax({
             url: "../actions/fetchproductinfo.php",
@@ -428,12 +434,13 @@ $(document).ready(function(){
                 name.val(data.name); 
                 price.val(actualPrice);
                 quantity.val(data.quantity);	
-                total.val(data.total);
+                
                 
             }
         });
         return false;
     });
+
 	//
 
 	$(document).on("keyup", ".item_quantity", function() {

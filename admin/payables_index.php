@@ -152,9 +152,7 @@ function displayUser() {
      <div class="flex-items">
        <div class="table-title">
         <h3>PAYABLES</h3>
-        <div style="display: inline">
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
-        <div style="float: right;">
+
             <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
         </div>
           </div>
