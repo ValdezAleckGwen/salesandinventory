@@ -1,5 +1,6 @@
 <?php
 require_once 'DbConnect.php';
+include_once 'getdata.php';
 
 if (isset($_POST['productid'])) {
 	$datatype = $_POST['dataType'];
@@ -163,9 +164,12 @@ if (isset($_POST['productid'])) {
 					
 					$data['productid'] = $do['productid'];
 					$data['doid'] = $do['doid'];
-					$data['branch'] = $do['branch'];
+					$branch = branchName($do['branch']);
+					$data['branch'] = substr($branch, 0,10);
 					$totalprice = $do['total'];
+					$totalprice = number_format($totalprice, 2);
 					$price = $do['price'];
+					$price = number_format($price, 2);
 					$data['total'] = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['quantity'] = $do['quantity'];

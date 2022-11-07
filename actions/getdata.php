@@ -93,6 +93,21 @@ function branchName(string $branchid) {
 	return $name;
 }
 
+function productName(string $productid) {
+		$db = new DbConnect;
+	$conn = $db->connect();
+	
+	$stmt = $conn->prepare("SELECT tblproducts.name AS productname FROM tblproducts WHERE id = :id");
+	$stmt->execute([
+		':id' => $productid
+	]);
+	$branches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($branches as $branch) {
+		$name = $branch['branchname'];
+	}
+	return $name;
+}
+
 
 function getPermission(string $uid) {
 	$db = new DbConnect;

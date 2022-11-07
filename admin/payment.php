@@ -372,7 +372,7 @@ $(document).ready(function(){
             	
                 actualPrice = data.price.replace(/^/, '₱');
                 doid.val(data.doid);
-                itemid.val(data.productid);
+                itemid.val(data.name);
                 branch.val(data.branch);
                 price.val(actualPrice);
                 quantity.val(data.quantity);	
