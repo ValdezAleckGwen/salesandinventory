@@ -76,7 +76,7 @@ if(isset($_POST["item_id"]))
 
 	$result = $statement->fetchAll();
 	
-	// try to consolidate in one loop 
+	
 	//remove delivered goods from purchase order
 	for($count = 0; $count < count($_POST["item_id"]); $count++)
 	{
