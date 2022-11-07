@@ -226,7 +226,7 @@ function displayUser() {
       
 
       $.ajax({
-        url: '../actions/domodal.php', //modal structure
+        url: '../actions/domodaladmin.php', //modal structure
         type: 'post',
         data: {id: id},
         success: function(response){ 
