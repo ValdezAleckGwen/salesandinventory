@@ -190,7 +190,7 @@ function displayUser() {
 							<!--remove this if cookie is configured-->
 							<div class="container m-1">
 								<label for="branch_id">For Branch</label>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option>Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
+								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<thead style=" display: block; ">
 								<tr>
@@ -226,7 +226,15 @@ function displayUser() {
 
 $(document).ready(function(){
 
-	
+	$('.add').prop('disabled', true);	
+	$(document).on('change', '#branch_id', function () {
+		var branch = $(this).val(); 
+		if (branch == '') {
+			$('.add').prop('disabled', true);
+		} else {
+			$('.add').prop('disabled', false);
+		}
+	});
 
 	var count = 0;
 	
