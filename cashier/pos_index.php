@@ -157,7 +157,7 @@ function fill_unit_select_box($connect, $branchid)
 								<div class="col col-sm-3" style="float: right;">
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Vattable Sale</span>
-									  <input type="text" class="form-control"name="vattable-sale" id="vattable-sale" aria-describedby="basic-addon3" readonly>
+									  <input type="text" class="form-control"name="vattable-sale" id="vattable-sale" aria-describedby="basic-addon3" style="text-align: right;" readonly>
 									</div>
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Vat</span>

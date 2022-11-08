@@ -72,9 +72,9 @@ $output = '
         <th class="text-center" style="border: 1px solid;">Inventory ID</th>
         <th class="text-center" style="border: 1px solid;">Product Name</th>
         <th class="text-center" style="border: 1px solid;">Category</th>
-        <th class="text-left" style="border: 1px solid;">Quantity</th>
-        <th class="text-left" style="border: 1px solid;">Markup Price (₱)</th>
-        <th class="text-left" style="border: 1px solid;">Status </th>
+        <th class="text-center" style="border: 1px solid;">Quantity</th>
+        <th class="text-center" style="border: 1px solid;">Markup Price (₱)</th>
+        <th class="text-center" style="border: 1px solid;">Status </th>
         
   </tr>
 ';
@@ -128,7 +128,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["productname"].'</td>
       <td style="border: 1px solid;">'.$row["categoryname"].'</td>
       <td style="border: 1px solid;" class="quantity">'.$row["quantity"].'</td>
-      <td style="border: 1px solid;">'.$row["markupprice"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["markupprice"].'</td>
       <td style="border: 1px solid;"><p style="color: '.$color.' ; margin: 0px; font-weight: bold">'.$status.'</p></td>
     </tr>
     ';

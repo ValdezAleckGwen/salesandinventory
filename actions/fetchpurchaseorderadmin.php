@@ -112,7 +112,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["det"].'</td>
-      <td style="border: 1px solid;">'.$row["total"].'</td>
+      <td  class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
       
     </tr>';
 
@@ -124,7 +124,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["det"].'</td>
-      <td style="border: 1px solid;">'.$row["total"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
     }

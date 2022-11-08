@@ -84,7 +84,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["branchname"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["ddate"].'</td>
-      <td style="border: 1px solid;">'.$row["total"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
   }
