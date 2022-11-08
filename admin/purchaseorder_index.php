@@ -100,9 +100,7 @@ function fill_unit_select_box_branch($connect)
          <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
             <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
-
           </div>
         </div>
         
@@ -110,7 +108,13 @@ function fill_unit_select_box_branch($connect)
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
         <!-- Payables-->
-        <div class="item"><a href="payables_index.php"><i class="fa-regular fa-basket-shopping"></i>Payables</a></div>
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
 
         <!-- Delivery Order-->
         <div class="item">

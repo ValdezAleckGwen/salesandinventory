@@ -42,7 +42,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Admin - Payment</title>
+		<title>Admin - Payables</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -60,7 +60,7 @@ function displayUser() {
     <div class="side-bar">
 
     <!-- Start of Menu Proper -->
-      <div class="menu">
+       <div class="menu">
         <!-- Dashboard -->
         <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
 
@@ -94,9 +94,7 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
             <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
-
           </div>
         </div>
         
@@ -104,7 +102,13 @@ function displayUser() {
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
         <!-- Payables-->
-        <div class="item"><a href="payables_index.php"><i class="fa-regular fa-basket-shopping"></i>Payables</a></div>
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
 
         <!-- Delivery Order-->
         <div class="item">
@@ -129,12 +133,12 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -151,6 +155,7 @@ function displayUser() {
         </div>
       </div>
     </div>
+
 		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
