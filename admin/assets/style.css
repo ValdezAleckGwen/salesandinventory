@@ -315,3 +315,10 @@ td.text-right {
 .dropdown.bootstrap-select.branch_id .dropdown-menu.show{
   min-width:232px;
 }
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }

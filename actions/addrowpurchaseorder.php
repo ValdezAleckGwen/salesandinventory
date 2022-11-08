@@ -33,7 +33,7 @@ if (isset($_POST['branch_id'])) {
 
 				$output .= '<td width="14.52%"><input type="text" name="item_price[]" class="col col-sm-2 form-control item_price" readonly/></td>';
 
-				$output .= '<td width="14.52%"	><input type="text" name="item_quantity[]" class="col col-sm-1 form-control item_quantity" /></td>';
+				$output .= '<td width="14.52%"	><input type="number" name="item_quantity[]" class="col col-sm-1 form-control item_quantity" /></td>';
 
 				$output .= '<td><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" style="text-align: right;" readonly/></td>';
 			

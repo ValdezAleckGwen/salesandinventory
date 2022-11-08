@@ -66,6 +66,7 @@ function fill_unit_select_box($connect, $branchid)
 		.productidrow {
 			visibility: hidden;
 		}
+		
 	</style>
 	<body>
 		<!-- Start of sidebar -->
@@ -177,6 +178,11 @@ function fill_unit_select_box($connect, $branchid)
 <script>
 
 $(document).ready(function(){
+
+	//input validation
+
+
+
 
 	var count = 0;
 	
@@ -290,7 +296,7 @@ $(document).ready(function(){
 
 				success:function(data)
 				{
-					alert(data)
+					
 
 					if(!data)
 					{
