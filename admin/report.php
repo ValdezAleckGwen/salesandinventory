@@ -230,7 +230,7 @@ function fill_unit_select_box_branch($connect)
           </select>
         </div>
         <div style="display: inline" id="print">
-            <button type="button" class="btn btn-dark print"  style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+            <button type="button" class="btn btn-info print"  style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
 
           </div>
         </div>

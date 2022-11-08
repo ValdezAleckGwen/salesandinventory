@@ -2,9 +2,13 @@
 	
 //index.php	
 session_start();
+include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
 
 function fill_unit_select_box_supplier($connect)
 {
@@ -20,13 +24,25 @@ function fill_unit_select_box_supplier($connect)
 	}
 
 	return $output;
-}		
+}	
+
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+}	
+
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>PAYMENT</title>
+		<title>Admin - Payment</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -135,7 +151,7 @@ function fill_unit_select_box_supplier($connect)
         </div>
       </div>
     </div>
-		<div class="usericon">Cashier <i class="fa-regular fa-user"></i></div>
+		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -148,9 +164,9 @@ function fill_unit_select_box_supplier($connect)
     <div class="main">
 
   
-    <h3 style="margin-top: 40px;">PAYMENT</h3><br>
-		<div class="container">
-			<br />
+		<div class="table-title">
+    		<h3>Payment</h3>
+		</div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
