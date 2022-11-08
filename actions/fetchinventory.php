@@ -41,7 +41,7 @@ ON tblinventory.productid = tblproducts.id
 WHERE tblproducts.active = 1 AND tblinventory.branchid = '".$branchid." '  
 ";
 
-}
+
 
 if($_POST['query'] != '')
 {

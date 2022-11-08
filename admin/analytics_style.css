@@ -92,7 +92,7 @@ input{
 }
 
 .side-bar{
-  background: #f9f9f8;
+  background: #015a8a;
   width: 330px;
   height: 100%;
   position: fixed;
@@ -122,7 +122,7 @@ input{
 }
 
 .side-bar .menu .item a{
-  color: #3e3d43;
+  color: #ffffff;
   font-size: 18.5px;
   text-decoration: none;
   display: block;
@@ -168,6 +168,7 @@ input{
   margin-left: 340px;
   margin-top: -60px;
   width: 90%;
+  color: #015a8a;
 }
 
 .dropdown h2{
@@ -256,7 +257,7 @@ li{
   list-style-type: none;
   padding: 0;
   background-color: #3e3d43;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #ddd;
 }
 
 .tab {
@@ -267,17 +268,19 @@ li{
   justify-content: center;
   width: 100%;
   background-color: #f9f9f8;
-  font-size: 35px;
+  font-size: 30px;
+  border-right: solid 1px #ddd;
 }
 
 .tab.active {
-  background-color: #ffffff;
-  color: #3e3d43;
+  background-color: #015a8a;
+  color: white;
   font-weight: 600;
 }
 
 .tab:hover {
-  background-color: #f9f9f8;
+  background-color: #015a8a;
+  color: white;
 }
 
 .tab-content {

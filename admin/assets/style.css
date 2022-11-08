@@ -55,7 +55,7 @@ input{
   padding-left: 40px;
 }
 .side-bar{
-  background: #f9f9f8;
+  background: #015a8a;
   width: 330px;
   height: 100%;
   position: fixed;
@@ -68,6 +68,8 @@ input{
   border-width: 1px;
   border-color: #e3e2e2;
 }
+
+
 
 .side-bar.active{
   left: 0;
@@ -84,7 +86,7 @@ input{
 }
 
 .side-bar .menu .item a{
-  color: #3e3d43;
+  color: #ffffff;
   font-size: 18.5px;
   text-decoration: none;
   display: block;
@@ -99,7 +101,7 @@ input{
   background: #ffffff;
   transition: 500 0.3s ease;
   font-weight: 900;
-  color: #3e3d43;
+  color: #015a8a;
 }
 
 .side-bar .menu .item i{
@@ -174,6 +176,7 @@ div.table-title {
    border-bottom: 2px solid #ddd;
    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
    text-transform:uppercase;
+   color: #015a8a;
 }
 
 .table-fill {
@@ -286,6 +289,10 @@ td.text-center {
 
 td.text-right {
   text-align: right;
+}
+
+.form-control.total{
+	text-align: right;
 }
 
 .dropdown.bootstrap-select.destination_branch ,

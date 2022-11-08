@@ -60,7 +60,7 @@ img{
 }
 
 .side-bar{
-  background: #f9f9f8;
+  background: #015a8a;
   width: 330px;
   height: 100%;
   position: fixed;
@@ -89,7 +89,7 @@ img{
 }
 
 .side-bar .menu .item a{
-  color: #3e3d43;
+  color: #ffffff;
   font-size: 18.5px;
   text-decoration: none;
   display: block;
@@ -104,7 +104,7 @@ img{
   background: #ffffff;
   transition: 500 0.3s ease;
   font-weight: 900;
-  color: #3e3d43;
+  color: #015a8a;
 }
 
 .side-bar .menu .item i{
@@ -168,6 +168,7 @@ img{
   margin-bottom: 20px;
   font-size: 30px;
   padding-bottom: 3px;
+  color: #015a8a;
 }
 .form-style-2 label{
   display: block;

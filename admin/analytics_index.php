@@ -146,9 +146,9 @@ function displayUser() {
     <div class="container-xl">
       <div>
           <ul class="tabs">
-            <li data-tab-target="#sales" class="active tab">Sales</li>
-            <li data-tab-target="#products" class="tab">Products</li>
-            <li data-tab-target="#category" class="tab">Category</li>
+            <li data-tab-target="#sales" class="active tab">SALES</li>
+            <li data-tab-target="#products" class="tab">PRODUCTS</li>
+            <li data-tab-target="#category" class="tab">CATEGORY</li>
           </ul>
       </div> 
 

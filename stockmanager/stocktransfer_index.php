@@ -51,7 +51,15 @@ function displayUser() {
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+          </div>
+        </div>
+
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
           </div>
         </div>
 
@@ -88,6 +96,7 @@ function displayUser() {
     </div>
 
 
+
 <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
@@ -107,7 +116,7 @@ function displayUser() {
         <h3>STOCK TRANSFER</h3>
         <div style="display: inline">
         <div align = right>
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Stock Trasnfer Name"/></label>       
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Stock Transfer Name"/></label>       
         </div>
           </div>
         </div>

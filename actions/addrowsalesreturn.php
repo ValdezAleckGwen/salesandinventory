@@ -36,7 +36,7 @@ if (isset($_POST['salesid'])) {
 
 				$output .= '<td width="16%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity"/>';
 
-				$output .= '<td width="16%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" readonly/></td>';
+				$output .= '<td width="16%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" style="text-align: right;" readonly/></td>';
 			
 				$output .= '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove" style="background-color: #BB2D3B; padding: .25rem .5rem;"><i class="fas fa-minus"></i></button></td>';
 
