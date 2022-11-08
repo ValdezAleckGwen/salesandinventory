@@ -92,8 +92,9 @@ function fill_unit_select_box_branch($connect)
     </style>
     
     <body>
-    <!-- Start of sidebar -->
+   <!-- Start of sidebar -->
     <div class="side-bar">
+    
 
 <!-- Start of Menu Proper -->
       <div class="menu">
@@ -185,25 +186,6 @@ function fill_unit_select_box_branch($connect)
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
         </div>
-      </div>
-    </div>
-
-
-        <!-- Audit Logs -->
-        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>           
-
-        <!-- Settings -->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="tax_index.php" class="sub-item"><i class="fa-solid fa-percent"></i>TAX</a>
-         </div>
-        </div>
-
-        <!-- Logout -->
-        <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
-
       </div>
     </div>
 

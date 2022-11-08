@@ -27,6 +27,7 @@ $query = "
 SELECT tblproducts.id AS productid, 
 tblproducts.name AS productname, 
 tblproducts.markupprice AS markupprice, 
+tblproducts.active AS active,
 tblcategory.name as categoryname,
 tblinventory.branchid as branch,
 tblinventory.id as inventoryid,
@@ -38,7 +39,7 @@ INNER JOIN tblcategory
 ON tblproducts.category=tblcategory.id
 INNER JOIN tblinventory
 ON tblinventory.productid = tblproducts.id
-WHERE tblproducts.active = 1 AND tblinventory.quantity >= 0 
+WHERE tblinventory.quantity >= 0 
 ";
 
 
@@ -89,25 +90,40 @@ if($total_data > 0)
 {
   foreach($result as $row)
   {
-    $quantity = $row['quantity'];
-    $status = '';
-    $color = '';
-    switch ($quantity) {
-      case ($quantity == null):
-        $status = 'OUT OF STOCK';
-        $color = 'red';
-        break;
-      case ($quantity <= 10):
-        $status = 'NEED TO ORDER';
-        $color = 'orange';
-        break;
-      case ($quantity > 10):
-        $status = 'IN STOCK';
-        $color = 'green';
-        break;
-      default:
-        // code...
-        break;
+    $active = $row['active'];
+    //check if active
+    if ($active == 1) {
+      $quantity = $row['quantity'];
+      
+      $status = '';
+      $color = '';
+      //check if instock or what
+      switch ($quantity) {
+
+        case ($quantity == null):
+          $status = 'OUT OF STOCK';
+          $color = 'red';
+          break;
+
+        case ($quantity <= 10): 
+          $status = 'NEED TO ORDER';
+          $color = 'orange';
+          break;
+
+        case ($quantity > 10):
+          $status = 'IN STOCK';
+          $color = 'green';
+          break;
+
+        default:
+          $status = 'IN STOCK';
+          $color = 'green';
+          break;
+    }
+
+    } else {
+        $status = 'INACTIVE';
+        $color = 'red'; 
     }
     $branchname = branchName($row['branch']);
     $branchname = trim($branchname, 'Branch');
