@@ -34,7 +34,9 @@ if (isset($_POST['salesid'])) {
 
 				$output .= '<td width="11%"><input type="text" name="item_price[]" class="col col-sm-1 form-control item_price" readonly/></td>';
 
-				$output .= '<td width="16%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity"/>';
+				$output .= '<td width="8%"><input type="number" name="available_quantity[]" class="col col-sm-2 form-control available_quantity"/>';
+
+				$output .= '<td width="8%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity"/>';
 
 				$output .= '<td width="16%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" style="text-align: right;" readonly/></td>';
 			

@@ -33,8 +33,8 @@ if(isset($_POST["item_id"]))
 	{
 
 		$query = "
-		INSERT INTO tblsalesreturnitem (id, salesitemid, price, quantity, totalprice) 
-        VALUES (:id, :salesitemid, :price, :quantity, :totalprice)
+		INSERT INTO tblsalesreturnitem (id, salesreturnid, salesitemid, price, quantity, totalprice) 
+        VALUES (:id, :salesreturnid, :salesitemid, :price, :quantity, :totalprice)
 		";
 
 		$statement  = $connect->prepare($query);

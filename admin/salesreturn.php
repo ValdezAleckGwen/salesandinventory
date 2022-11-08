@@ -181,7 +181,7 @@ function displayUser() {
 
 							<div class="container m-1">
 								<label for="salesid">Sales ID</h5>
-								<select name="salesid" class="p-2 col col-sm-2 form-control selectpicker salesid" id="salesid" data-live-search="true"><option value="">Select Sales</option><?php echo fill_unit_select_box_sales($connect); ?></select>
+								<select name="salesid" class="p-2 col col-sm-2 form-control selectpicker salesid" id="salesid" data-live-search="true" required><option value="">Select Sales</option><?php echo fill_unit_select_box_sales($connect); ?></select>
 							</div>
 								<thead style=" display: block; ">
 								<tr>
@@ -189,7 +189,8 @@ function displayUser() {
 									<th width="15.9%">Product ID</th>
 									<th width="23.6%">Product Name</th>
 									<th width="11%">Price</th>
-									<th width="16%">Quantity</th>
+									<th width="8%">QTY</th>
+									<th width="8%">Quantity Adj.</th>
 									<th width="16%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
@@ -218,8 +219,39 @@ function displayUser() {
 <script>
 
 $(document).ready(function(){
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#salesid', function () {
+		salesid = $(this).val();
+		if (salesid == '') {
+			$('.add').prop('disabled', true);
+		} else {
+			$('.add').prop('disabled', false);
+		}
+	});
 
 
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".available_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval || quantityval <= 0 || quantityval == availval) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Invalid Quantity input');
+        	quantity.val('');
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
 
 
 	var count = 0;
@@ -375,7 +407,7 @@ $(document).ready(function(){
         var productcode = currentRow.find(".item_code");
         var name = currentRow.find(".item_name");
         var price = currentRow.find(".item_price");
-        var quantity = currentRow.find(".item_quantity");
+        var quantity = currentRow.find(".available_quantity");
         var total = currentRow.find(".item_total");
         var actualPrice;
 

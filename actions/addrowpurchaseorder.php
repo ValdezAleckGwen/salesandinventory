@@ -9,7 +9,7 @@ if (isset($_POST['branch_id'])) {
 			$supplierid = $_POST['supplier_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
-			$query = "SELECT tblproducts.id AS productid, tblsupplier.name as suppliername FROM tblproducts INNER JOIN tblsupplier ON tblproducts.supplier=tblsupplier.id WHERE tblsupplier.id = '".$supplierid."'";
+			$query = "SELECT tblproducts.id AS productid, tblsupplier.name as suppliername FROM tblproducts INNER JOIN tblsupplier ON tblproducts.supplier=tblsupplier.id WHERE tblproducts.active = 1 AND tblsupplier.id = '".$supplierid."'";
 			if (isset($_POST["item_id"])) {
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {
 					$itemid = $_POST['item_id'][$count];

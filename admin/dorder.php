@@ -402,6 +402,34 @@ $(document).ready(function(){
 	
 	
 $(document).ready(function(){
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".po_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var itemtotal = currentRow.find(".item_total");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval || quantityval < 0) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Invalid Quantity input');
+        	itemtotal.val('');
+        	quantity.val('');
+        	
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
+
+
+
   
 	$(document).on("change", ".item_id", function  () {
 		

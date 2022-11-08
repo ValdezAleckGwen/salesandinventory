@@ -223,14 +223,16 @@ $(document).ready(function(){
         var currentRow = $(this).closest("tr");
         var available = currentRow.find(".po_quantity");
         var quantity = currentRow.find(".item_quantity");
+        var itemtotal = currentRow.find(".item_total");
         var quantityval = $(this).val();
         quantityval = parseInt(quantityval);
         var availval = available.val();
         availval = parseInt(availval);
 
-        if (quantityval > availval) {
+        if (quantityval > availval || quantityval < 0) {
         	quantity.addClass("border border-2 border-danger");
-        	alert('Delivered Quantity is more than Ordered Quantity');
+        	alert('Invalid Quantity input');
+        	itemtotal.val('');
         	quantity.val('');
         	
         } else {
