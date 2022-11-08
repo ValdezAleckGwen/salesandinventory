@@ -208,6 +208,17 @@ function fill_unit_select_box_supplier($connect)
 	</body>
 </html>
 <script>
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#supplier_id', function () {
+		var supplier = $(this).val();
+		if (supplier == '') {
+			$('.add').prop('disabled', true);
+		} else {
+			$('.add').prop('disabled', false);
+		}
+	});
+
+
 
 	$(document).on('click', '.add', function(){
 		var form_data = $('#insert_form').serialize();

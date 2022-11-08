@@ -175,7 +175,7 @@ function displayUser() {
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch d-none" id="source_branch" ><option value="default">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<h5>Destination Branch</label>
+								<label>Destination Branch</label>
 								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
 							<thead style=" display: block; ">

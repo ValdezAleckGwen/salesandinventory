@@ -209,7 +209,7 @@ function displayUser() {
 							</div>
 							<div class="container m-1">
 								<label>Destination Branch:</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option>Select Branch</option></select>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Branch</option></select>
 							</div>
 							<thead style=" display: block; ">
 								<tr>
@@ -250,10 +250,27 @@ $(document).ready(function(){
 	var count = 0;
 	//disable add first
 	$('.add').prop('disabled', true);
-	$(document).on('change', '#source_branch', function() {
+	
+
+	$(document).on('change', '#destination_branch', function() {
 		destinationbranch = $(this).val();
-		if (destinationbranch == '') {
+		sourcebranch = $('#source_branch').val();
+
+		if (destinationbranch == '' || sourcebranch == '') {
 			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+	$(document).on('change', '#source_branch', function() {
+		sourcebranch = $(this).val();
+		destinationbranch = $('#destination_branch').val();
+		
+		if (destinationbranch == '' || sourcebranch == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
 		} else {
 			$('.add').prop('disabled', false); //enabled if there is value
 		}

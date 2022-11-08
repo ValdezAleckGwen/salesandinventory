@@ -258,6 +258,36 @@ function displayUser() {
 
 $(document).ready(function(){
 
+
+	$('.add').prop('disabled', true);
+	
+
+	$(document).on('change', '#branch_id', function() {
+		branch = $(this).val();
+		supplier = $('#supplier_id').val();
+
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+	$(document).on('change', '#supplier_id', function() {
+		supplier = $(this).val();
+		branch = $('#branch_id').val();
+		
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+
+
 	var count = 0;
 
 	

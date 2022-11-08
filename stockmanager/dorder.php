@@ -216,6 +216,20 @@ function displayUser() {
 <script>
 
 $(document).ready(function(){
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#supplier_id', function() {
+		supplier = $(this).val();
+		branch = $('#branch_id').val();
+		
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+
 
     $(document).on("change", ".item_quantity", function  () {
         
