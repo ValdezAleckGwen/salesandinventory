@@ -14,7 +14,7 @@ if (isset($branchid)) {
 			$db = new DbConnect;
 			$conn = $db->connect();
 
-			$query = "SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.markupPrice AS price FROM tblinventory INNER JOIN tblproducts ON tblinventory.productId=tblproducts.id WHERE tblinventory.quantity > 0 AND tblinventory.branchid = '".$branchid."'" ;
+			$query = "SELECT tblinventory.id AS inventory, tblinventory.quantity AS count, tblproducts.id AS product, tblproducts.markupPrice AS price FROM tblinventory INNER JOIN tblproducts ON tblinventory.productId=tblproducts.id WHERE tblinventory.quantity > 0 AND tblproducts.active = 1 AND tblinventory.branchid = '".$branchid."'" ;
 			if (isset($_POST["item_id"])) {
 				
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {
