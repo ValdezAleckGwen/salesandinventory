@@ -136,7 +136,7 @@ else
 {
   $output .= '
   <tr>
-    <td colspan="2" align="center">No Data Found</td>
+    <td colspan="6" align="center">No Data Found</td>
   </tr>
   ';
 }

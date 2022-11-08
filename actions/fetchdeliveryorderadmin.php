@@ -7,8 +7,10 @@ $id = $_SESSION['uid'];
 $branchid = getBranch($id);
 $permission = getPermission($id);
 
+
 $limit = '10';
 $page = 1;
+
 if($_POST['page'] > 1)
 {
   $start = (($_POST['page'] - 1) * $limit);
@@ -20,24 +22,30 @@ else
 }
 
 
-    $query = "
-  SELECT tbldeliveryorder.id AS doid, 
-  tblsupplier.name as suppliername,
-  tblbranch.name as branchname,
-  tblusers.lastname as username,
-  tbldeliveryorder.total as total,
-  tbldeliveryorder.date as ddate,
-  tbldeliveryorder.time as  ttime
-  FROM tbldeliveryorder 
-  INNER JOIN tblsupplier 
-  ON tbldeliveryorder.supplierid=tblsupplier.id
-  INNER JOIN tblbranch
-  ON tbldeliveryorder.branchid=tblbranch.id
-  INNER JOIN tblusers
-  ON tbldeliveryorder.userid=tblusers.id
-  WHERE tblusers.branchid = '".$branchid."'
-
-  ";
+$query = "
+SELECT tbldeliveryorder.id AS doid, 
+tblsupplier.name as suppliername,
+tblbranch.name as branchname,
+tblusers.lastname as username,
+tbldeliveryorder.total as total,
+tbldeliveryorder.date as ddate,
+tbldeliveryorder.time as  ttime
+FROM tbldeliveryorder 
+INNER JOIN tblsupplier 
+ON tbldeliveryorder.supplierid=tblsupplier.id
+INNER JOIN tblbranch
+ON tbldeliveryorder.branchid=tblbranch.id
+INNER JOIN tblusers
+ON tbldeliveryorder.userid=tblusers.id
+WHERE tbldeliveryorder.active = 1
+";
+  
+if($_POST['branch'] != '')
+{
+  $query .= '
+   AND tbldeliveryorder.branchid = "'.$_POST['branch'].'" 
+  ';
+}
 
 
 
@@ -48,7 +56,7 @@ if($_POST['query'] != '')
   ';
 }
 
-$query .= 'ORDER BY tbldeliveryorder.id ASC ';
+$query .= 'ORDER BY tbldeliveryorder.id DESC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -61,7 +69,10 @@ $statement->execute();
 $result = $statement->fetchAll();
 $total_filter_data = $statement->rowCount();
 
-$output = '
+
+
+
+  $output = '
 <label>Total Records - '.$total_data.'</label>
 <table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
@@ -73,11 +84,14 @@ $output = '
         <th class="text-left" style="border: 1px solid;">Total (₱)</th>
   </tr>
 ';
+
+
 if($total_data > 0)
 {
   foreach($result as $row)
   {
-    $output .= '
+    
+        $output .= '
     <tr class="data" data-id="'.$row["doid"].'">
       <td style="border: 1px solid;">'.$row["doid"].'</td>
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>
@@ -87,13 +101,14 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
+
   }
 }
 else
 {
   $output .= '
   <tr>
-    <td colspan="2" align="center">No Data Found</td>
+    <td colspan="6" align="center">No Data Found</td>
   </tr>
   ';
 }

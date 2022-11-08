@@ -8,6 +8,7 @@ include '../actions/database_connection.php';
 $id = $_SESSION['uid'];
 $branchid = getBranch($id);
 
+
 function displayUser() {
   $output = '';
   if (isset($_SESSION['uid'])) {
@@ -17,18 +18,40 @@ function displayUser() {
     $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
   }
   return $output;
-} 
+}
+
+function fill_unit_select_box_branch($connect)
+{
+  
+
+  $output = '';
+
+  $query = "SELECT id AS branchid, name AS branchname from tblbranch";
+
+  $result = $connect->query($query);
+
+  foreach($result as $row)
+  {
+    
+      $output .= '<option value="'.$row["branchid"].'">'.$row["branchname"] . '</option>';
+    
+  }
+
+  return $output;
+}
+
+
 
 ?>
 <!DOCTYPE html>
 <html>
     <head>
+      <title>Admin - Purchase Order Dashboard</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>Admin - Delivery Order Dashboard</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Purchase Order</title>
         <link rel="stylesheet" href="../admin/assets/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -153,19 +176,27 @@ function displayUser() {
      <div class="flex-items">
        <div class="table-title">
         <h3>DELIVERY ORDER</h3>
-        <div style="display: inline">
-        <div align = right>
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        <div class="d-flex justify-content-between">
+          <div style="max-width: 250px" class="d-flex align-items-center">
+              <label for="supplier_id"><span>Branch:&nbsp;</span></label>
+              <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_Branch($connect); ?></select>
+          </div>
+            <div class="d-flex align-items-center">
+
+                <label for="search_box"><span>Search:&nbsp;</label></span><input class="" type="text" name="search_box" id="search_box" value=""/>
+
+            </div>
         </div>
+
+
           </div>
         </div>
        
         <div border='1' class='table-responsive' id="dynamic_content">
         <!--product content-->
         </div>
-        
       <!-- modal start -->
-        <div class="modal fade " id="domodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+        <div class="modal fade " id="pomodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
               <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -186,20 +217,21 @@ function displayUser() {
               </div>      
         </div>
         <!-- modal end -->
-  </body>
+        
+    </body>
 </html>
 <script>
 
-   // Start of Pagination Query // 
+// Start of Pagination Query // 
   $(document).ready(function(){
         load_data(1);
 
-    function load_data(page = 1, query = '')
+    function load_data(page = 1, query = '', branch = '')
     {
       $.ajax({
-        url:"../actions/fetchdeliveryorder.php",
+        url:"../actions/fetchdeliveryorderadmin.php",
         method:"POST",
-        data:{page:page, query:query},
+        data:{page:page, query:query, branch: branch},
         success:function(data)
         {
           $('#dynamic_content').html(data);
@@ -210,37 +242,41 @@ function displayUser() {
     $(document).on('click', '.page-link', function(){
       var page = $(this).data('page_number');
       var query = $('#search_box').val();
-      load_data(page, query);
+      var branch = $('#branch_id').val();
+      load_data(page, query, branch);
     });
 
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(1, query);
+
+      var branch = $('#branch_id').val();
+      load_data(1, query, branch);
     });
 
-  });
+    $(document).on('change', '#branch_id', function(){
+      var page = $(this).data('page_number');
+      var query = $('#search_box').val();
+      var branch = $('#branch_id').val();
+      load_data(1, query, branch);
 
-    //Start of DO Modal
+      
+    });
+
     $(document).on('click', '.data', function() {
       var id = $(this).data('id');
       
 
       $.ajax({
-        url: '../actions/domodaladmin.php', //modal structure
+        url: '../actions/domodal.php', //modal structure
         type: 'post',
         data: {id: id},
         success: function(response){ 
             $('.modal-body').html(response); 
-            $('#domodal').modal('show'); 
+            $('#pomodal').modal('show'); 
         }
     });
 
     });
-    //modal end
 
-
-
-   
- 
-
+  });
 </script>
