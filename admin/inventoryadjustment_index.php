@@ -45,7 +45,7 @@ function displayUser() {
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
-       <div class="menu">
+      <div class="menu">
         <!-- Dashboard -->
         <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
 
@@ -114,12 +114,12 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
