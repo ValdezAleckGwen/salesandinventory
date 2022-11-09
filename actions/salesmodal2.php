@@ -2,9 +2,9 @@
 include('database_connection.php');
 include('getdata.php');
 
-if (isset($_GET['id'])) {
+if (isset($_POST['id'])) {
     
-$id = ltrim($_GET['id'],' ');
+$id = $_POST['id'];
 
 $query = "SELECT 
 tblsales.id AS salesid,
@@ -50,11 +50,11 @@ $userid = $sales[0]['userid'];
     </head>
     <body>
 
-        <button href="../cashier/pos_index.php">BACK</button>
+
             <div class="container">
                 <div class="row printme">
                     <div style="display: inline;">
-                        <button onClick="window.print();" type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
                     </div>
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
@@ -85,22 +85,22 @@ $userid = $sales[0]['userid'];
                     </div>
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
-                            <table class="table" style="width: 100%;">
+                            <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th style="text-align:left;">
+                                        <th class="text-center">
                                             ITEM ID
                                         </th>
-                                        <th style="text-align:left;">
+                                        <th class="text-center">
                                             NAME
                                         </th>
-                                        <th style="text-align:left;">
+                                        <th class="text-center">
                                             QUANTITY
                                         </th>
-                                        <th style="text-align:left;">
+                                        <th class="text-center">
                                             PRICE
                                         </th>
-                                        <th style="text-align:left;">
+                                        <th class="text-center">
                                             TOTAL
                                         </th>
                                     </tr>

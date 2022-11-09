@@ -112,7 +112,7 @@ if(isset($_POST["item_id"]))
 
 	if(isset($result))
 	{
-		echo 'ok';
+		echo $salesid;
 	}
 
 } else {

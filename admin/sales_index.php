@@ -296,7 +296,7 @@ function displayUser() {
       
 
       $.ajax({
-        url: '../actions/salesmodal.php', //modal structure
+        url: '../actions/salesmodal2.php', //modal structure
         type: 'post',
         data: {id: id},
         success: function(response){ 

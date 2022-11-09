@@ -303,6 +303,7 @@ $(document).ready(function(){
 						alert("ERROR");
 
 					} else {
+						window.location = '../actions/salesmodal.php?id='+data;
 						$('#item_table').find('tr:gt(0)').remove();
 
 						$('#error').html('<div class="alert alert-success">Item Details Saved</div>');
