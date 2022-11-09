@@ -7,7 +7,7 @@ if(isset($_POST['save_user']))
     $firstname =  $_POST['firstname'];
     $lastname =  $_POST['lastname'];
     $email =  $_POST['email'];
-    $password = $firstname . $lastname;
+    $password = 'ABC123';
     $permission =  $_POST['permission'];
     $branch =  $_POST['branch'];
 
@@ -68,6 +68,7 @@ if(isset($_POST['save_user']))
     $email =  $_POST['email'];
     $permission =  $_POST['permission'];
     $branch =  $_POST['branch'];
+    $active = $_POST['active'];
 
 
     if($firstname == NULL || $lastname == NULL || $email == NULL || $permission == NULL || $branch == NULL ) {
@@ -81,7 +82,7 @@ if(isset($_POST['save_user']))
 
     $query = "
     UPDATE tblusers 
-    SET firstname = :firstname, lastname = :lastname, email = :email, permission = :permission, branchid = :branchid 
+    SET firstname = :firstname, lastname = :lastname, email = :email, permission = :permission, branchid = :branchid, active = :active 
     WHERE id = :id
     ";
 
@@ -92,7 +93,8 @@ if(isset($_POST['save_user']))
         ':lastname' => $lastname,
         ':email' => $email,
         ':permission' => $permission,
-        ':branchid' => $branch
+        ':branchid' => $branch,
+        ':active' => $active
     ]);
 
     

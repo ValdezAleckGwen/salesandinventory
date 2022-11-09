@@ -21,17 +21,19 @@ else
 }
 
 $query = "
-SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact, active as active FROM tblbranch
+SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact, active as active FROM tblbranch 
 ";
+
 
 if($_POST['query'] != '')
 {
+
   $query .= '
-  AND tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+   WHERE tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
-$query .= 'ORDER BY tblbranch.id ASC ';
+$query .= ' ORDER BY tblbranch.name ASC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -46,7 +48,7 @@ $total_filter_data = $statement->rowCount();
 
 $output = '
 <label>Total Records - '.$total_data.'</label>
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
         <th class="text-center" style="border: 1px solid;">Branch ID</th>
         <th class="text-center" style="border: 1px solid;">Branch Name</th>

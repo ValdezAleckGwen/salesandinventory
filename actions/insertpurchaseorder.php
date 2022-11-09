@@ -15,7 +15,7 @@ if(isset($_POST["item_id"]))
 	$total = $_POST["total"];
 	$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$userid = $_SESSION['uid'];
-	$branchid = getBranch($userid);
+	
 
 	// create a sale
 	$salesquery = "
@@ -44,7 +44,7 @@ if(isset($_POST["item_id"]))
         (id, poid, productid, branchid, price, quantity, poquantity, total, pototal, active) 
         VALUES (:purchaseorderitemid, :poid, :productid, :branchid, :price, :item_quantity, :poquantity, :totalprice, :pototal, 1)
 		";
-
+		
 		$purchaseorderitemid = createId('tblpurchaseorderitem'); //incrementing sales item id
 		$price = $_POST["item_price"][$count];
 		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);

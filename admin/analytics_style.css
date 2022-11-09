@@ -92,8 +92,8 @@ input{
 }
 
 .side-bar{
-  background: #38739a;
-  width: 310px;
+  background: #015a8a;
+  width: 330px;
   height: 100%;
   position: fixed;
   top: 0;
@@ -101,7 +101,11 @@ input{
   transition: 0.6s ease;
   transition-property: left;
   overflow-y: auto;
+  border-style: none solid none none;;
+  border-width: 1px;
+  border-color: #e3e2e2;
 }
+
 
 .side-bar.active{
   left: 0;
@@ -119,17 +123,21 @@ input{
 
 .side-bar .menu .item a{
   color: #ffffff;
-  font-size: 17px;
+  font-size: 18.5px;
   text-decoration: none;
   display: block;
   padding: 5px 30px;
   line-height: 45px;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: #e3e2e2;
 }
 
 .side-bar .menu .item a:hover{
-  background: #2d6184;
+  background: #ffffff;
   transition: 500 0.3s ease;
   font-weight: 900;
+  color: #3e3d43;
 }
 
 .side-bar .menu .item i{
@@ -157,9 +165,18 @@ input{
 }
 
 .titlebar{
-  margin-left: 330px;
+  margin-left: 340px;
   margin-top: -60px;
   width: 90%;
+  color: #015a8a;
+}
+
+.dropdown h2{
+  font-weight: 600;
+  font-size: 70px;
+  font-style: normal;
+  transform: translateY(25px);
+
 }
 
 .usericon{
@@ -171,6 +188,8 @@ input{
 }
 
 
+
+
 ::-webkit-scrollbar {
 display: none;
 }
@@ -180,8 +199,8 @@ display: none;
 .container-xl{
   height: 800px;
   width: 81.5%;
-  margin-left: 330px;
-  background-color: #DFDFDF;
+  margin-left: 340px;
+  background-color: #dfdfdf;
   box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
   -webkit-box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
   -moz-box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
@@ -191,14 +210,18 @@ display: none;
 
 .box{
   background-color: #f6f6f6;
-  border: 5px solid #999999;
+  border-style: none solid none none;;
+  border-width: 1px;
+  border-color: #e3e2e2;
   width: 100%;
   height: 255px;
 }
 
 .box2{
   background-color: #f6f6f6;
-  border: 5px solid #999999;
+  border-style: none solid none none;;
+  border-width: 1px;
+  border-color: #e3e2e2;
   width: 100%;
   height: 616px;
 }
@@ -233,29 +256,31 @@ li{
   justify-content: space-around;
   list-style-type: none;
   padding: 0;
-  background-color: #38739a;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  background-color: #3e3d43;
+  border-bottom: 1px solid #ddd;
 }
 
 .tab {
   cursor: pointer;
   padding: 1px;
   display:flex;
-  color: white;
+  color: #3e3d43;
   justify-content: center;
   width: 100%;
-  background-color: #38739a;
-  font-size: 35px;
+  background-color: #f9f9f8;
+  font-size: 30px;
+  border-right: solid 1px #ddd;
 }
 
 .tab.active {
-  background-color: #38739a;
+  background-color: #015a8a;
   color: white;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .tab:hover {
-  background-color: #2d6184;
+  background-color: #015a8a;
+  color: white;
 }
 
 .tab-content {

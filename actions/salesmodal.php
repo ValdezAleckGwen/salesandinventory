@@ -8,7 +8,7 @@ $id = $_POST['id'];
 
 $query = "SELECT 
 tblsales.id AS salesid,
-tblsales.date AS salesdate,
+tblsales.salesdate AS salesdate,
 tblproducts.id AS productid,
 tblproducts.name AS name,
 tblsalesitem.quantity AS quantity,
@@ -50,8 +50,12 @@ $userid = $sales[0]['userid'];
     </head>
     <body>
 
-            <div class="container" style="pointer-events: none;">
+
+            <div class="container">
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+                    </div>
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                             <?php echo getCompanyName(); ?>

@@ -10,18 +10,21 @@ if(isset($_POST["item_id"]))
 
 	$salesid = createId('tblsales');
 	
-	$total = preg_replace('/[^0-9]/s', "",$_POST["total"]);
+	$total = $_POST["total"];
+	$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$vattableSale = $_POST['vattable-sale'];
+	$vattableSale = filter_var($vattableSale, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$vat = $_POST['vat'];
+	$vat = filter_var($vat, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$taxid = $_POST['tax'];
-	$pending = 1;
+	
 	$userid = $_SESSION['uid'];
 	$branchid = getBranch($userid);
 	
 
 	// create a sale
 	$salesquery = "
-	INSERT INTO tblsales (id, total, taxid, vat, vattablesale, pending, userid, branchid, active) VALUES (:salesid, :total, :taxid, :vat, :vattablesale, :pending, :userid, :branchid, 1)
+	INSERT INTO tblsales (id, total, taxid, vat, vattablesale, userid, branchid, active) VALUES (:salesid, :total, :taxid, :vat, :vattablesale, :userid, :branchid, 1)
 	";
 
 	$statement  = $connect->prepare($salesquery);
@@ -31,7 +34,7 @@ if(isset($_POST["item_id"]))
 		':taxid' => $taxid,
 		':vat' => $vat,
 		':vattablesale' => $vattableSale,
-		':pending' => $pending,
+		
 		':userid' => $userid,
 		':branchid' => $branchid,
 		
@@ -48,13 +51,17 @@ if(isset($_POST["item_id"]))
 		$query = "
 		INSERT INTO tblsalesitem 
         (id, salesid, productid, price, quantity, total) 
-        VALUES (:salesitemid, :salesid, :item_id, :item_price, :item_quantity, :item_total)
+        VALUES (:salesitemid, :salesid, :productid, :item_price, :item_quantity, :item_total)
 		";
 
 		$salesitemid = createId('tblsalesitem'); //incrementing sales item id
-		$price = preg_replace('/[^0-9]/s', "",$_POST["item_price"][$count]);
-		$totalprice = preg_replace('/[^0-9]/s', "",$_POST["item_total"][$count]);
-		$item_id = $_POST["item_id"][$count];
+		$price = $_POST["item_price"][$count];
+		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$totalprice = $_POST["item_total"][$count];
+		$totalprice = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$inventoryid = $_POST["item_id"][$count];
+		$productidquery = getQueryOne('productid', 'tblinventory', 'id' , $inventoryid);
+		$productid = $productidquery[0]['productid'];
 		$item_quantity = $_POST["item_quantity"][$count];
 		$statement = $connect->prepare($query);
 		
@@ -62,7 +69,7 @@ if(isset($_POST["item_id"]))
 			array(
 				':salesitemid'	=>	$salesitemid,
 				':salesid'		=>	$salesid,
-				':item_id'		=>	$item_id,
+				':productid'	=>	$productid,
 				':item_price'	=>	$price,
 				':item_quantity'=>	$item_quantity,
 				':item_total'	=>	$totalprice

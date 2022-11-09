@@ -1,5 +1,5 @@
 <?php
-include 'DbConnect.php';
+include_once 'DbConnect.php';
 
 function getFirstName(string $uid) {
 	$db = new DbConnect;
@@ -77,6 +77,37 @@ function displayBranch(string $uid) {
 	}
 	return $name;
 }
+
+function branchName(string $branchid) {
+	$db = new DbConnect;
+	$conn = $db->connect();
+	
+	$stmt = $conn->prepare("SELECT tblbranch.name AS branchname FROM tblbranch WHERE id = :id");
+	$stmt->execute([
+		':id' => $branchid
+	]);
+	$branches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($branches as $branch) {
+		$name = $branch['branchname'];
+	}
+	return $name;
+}
+
+function productName(string $productid) {
+		$db = new DbConnect;
+	$conn = $db->connect();
+	
+	$stmt = $conn->prepare("SELECT tblproducts.name AS productname FROM tblproducts WHERE id = :id");
+	$stmt->execute([
+		':id' => $productid
+	]);
+	$branches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($branches as $branch) {
+		$name = $branch['branchname'];
+	}
+	return $name;
+}
+
 
 function getPermission(string $uid) {
 	$db = new DbConnect;
@@ -235,6 +266,8 @@ function alterTotal(string $poiid) {
 	$stmt->execute();
 	$pototals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 
 
 

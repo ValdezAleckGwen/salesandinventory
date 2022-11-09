@@ -64,7 +64,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>STOCK TRANSFER</title>
+		<title>Stock Manager - Stock Transfer</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -88,24 +88,44 @@ function displayUser() {
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
           </div>
         </div>
 
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
 
-        <!-- Delivery Order -->
-        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
 
-        <!-- Settings -->
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
+
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
@@ -113,6 +133,14 @@ function displayUser() {
 
       </div>
     </div>
+
+
+        <!-- Logout -->
+        <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
+
+      </div>
+    </div>
+
 <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
@@ -124,11 +152,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3>STOCK TRANSFER</h3><br>
 		<div class="container">
-			<br />
+		  	<div class="table-title">
+		    	<h3>STOCK TRANSFER</h3>
+		    </div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -137,38 +164,43 @@ function displayUser() {
 						<div class="table-repsonsive">
 
 							<span id="error"></span>
-							<table class="table table-bordered" id="item_table">
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
 								<label for="po_number">ST #:</label>
 								<input type="text" name="stocktransfer_number" class="input-field" value="<?php echo createId('tblstocktransfer');  ?>" readonly>
 							</div>
 							<div class="row">
-
-								<div class="col-sm-7">
-									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-								</div>
 							<div class="container m-1">
-								<h5>Source Branch: <?php echo displayBranch($id); ?></label>
+								<label>Source Branch: <?php echo displayBranch($id); ?></label>
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch d-none" id="source_branch" ><option value="default">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<h5>Destination Branch</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
+								<label>Destination Branch</label>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
-							
+							<thead style=" display: block; ">
 								<tr>
 									<th width="15%">Inventory Code</th>
 									<th width="15%">Product Code</th>
-									<th width="50%">Product Name</th>
+									<th width="40%">Product Name</th>
 									<th width="15%">Avaible Item</th>
 									<th width="15%">Item Transfer</th>
 									
 
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
-								
+							</thead>
+							<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
+							<tr></tr></tbody>
+							<footer>
+							<div class="row">
+
+							</footer>	
 							</div>
 							</table>
+								<div class="col-sm-6" style="float: left">
+									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
+								</div>
 							</div>
 						</div>
 					</form>
@@ -183,10 +215,41 @@ function displayUser() {
 $(document).ready(function(){
 	 $('#source_branch').unbind();
 
-	var count = 0;
-	
+    $(document).on("change", ".item_quantity", function  () {
+        
 
-	
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".item_available");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Number of stocks to transfer insufficient');
+        	quantity.val('');
+        	
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
+
+	var count = 0;
+	//disable add first
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#destination_branch', function() {
+		destinationbranch = $(this).val();
+		if (destinationbranch == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+	//end of validation
 
 	$(document).on('click', '.add', function(){
 
@@ -202,8 +265,8 @@ $(document).ready(function(){
         data: form_data,
         success: function (data) {
             console.log(data)
-        	$('#item_table').append(data);
-
+        	//$('#item_table').append(data);
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
             }

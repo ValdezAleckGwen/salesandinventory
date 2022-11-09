@@ -20,17 +20,20 @@ else
 }
 
 $query = "
-SELECT * FROM tblusers WHERE active = 1
+SELECT *
+
+FROM tblusers
 ";
 
 if($_POST['query'] != '')
 {
   $query .= '
-  AND id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE lastname LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
 $query .= 'ORDER BY id ASC ';
+
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -51,6 +54,7 @@ $output = '
     <th class="text-center" style="border: 1px solid;">First Name</th>
     <th class="text-center" style="border: 1px solid;">Last Name</th>
     <th class="text-center" style="border: 1px solid;">Permision</th>
+    <th class="text-center" style="border: 1px solid;">Status</th>
     <th class="text-center" style="border: 1px solid;">Action</th>
 
   </tr>
@@ -59,6 +63,14 @@ if($total_data > 0)
 {
   foreach($result as $row)
   {
+
+    $active = $row['active'];
+    if ($active == 1) {
+      $status = 'ACTIVE';
+    } else {
+      $status = 'INACTIVE';
+    }
+
     $permission = $row["permission"];
     $pvalue = '';
     switch ($permission) {
@@ -82,6 +94,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["firstname"].'</td>
       <td style="border: 1px solid;">'.$row["lastname"].'</td>
       <td style="border: 1px solid;">'.$pvalue.'</td>
+      <td style="border: 1px solid;">'.$status.'</td>
 
       <td class="text-center" style="border: 1px solid;">
       <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["id"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 

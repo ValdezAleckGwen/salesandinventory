@@ -15,7 +15,6 @@
 <body>
 
     <div class="wrapper">
-        <img src="assets/images/narci_login_logo.png" alt="NARCI Logo">
         <h2>Login to your account</h2>
 
         <div class="login">

@@ -13,11 +13,12 @@ form {
 
 h2, h6 {
     position: absolute;
-    left: 43%;
+    left: 38%;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    text-align: center;
-    margin-top: 50px;
+    font-weight: 600;
+    font-size: 40px;
+    margin-top: 250px;
+    color: #015a8a;
 
 
 }
@@ -33,6 +34,7 @@ img {
   top: 48%;
   left: 42%;
   transform: translate(-50%,-50%);
+  text-align: center;
   color: white;
 }
 
@@ -49,7 +51,7 @@ img {
   padding: 2px 0;
   margin-right: 10px 0;
   margin-bottom: 50px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #015a8a;
 }
 
 .textbox i{
@@ -78,7 +80,7 @@ img {
   outline: none;
   height:36px;
   width: 230%;
-  background-color:black;
+  background-color:#015a8a;
   color: white;
   margin-top: 30px;
   margin-bottom: 10px;
@@ -87,10 +89,12 @@ img {
 
 .btn1:hover{
   background: white;
-  border: 1px solid;
-  color: black;
+  border: 1px solid #015a8a;
+  font-weight: 600;
+  color: #015a8a;
   cursor: pointer;
 }
+
 .btn2{
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
@@ -113,7 +117,7 @@ img {
 .pass a{
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
-  color: black;
+  color: #015a8a;
   position: relative;
     left: 65%;
     margin-top: 20%;

@@ -1,9 +1,11 @@
-<?php
-include 'database_connection.php';
-include 'getdata.php';
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
 
-$paymentid = 'PY-0000004';
-$payments = getQueryOne('doiid', 'tblpayableitem', 'payableid', $paymentid);
-
-
-echo var_dump($payments);
+</body>
+</html>
