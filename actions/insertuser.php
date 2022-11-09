@@ -7,7 +7,7 @@ if(isset($_POST['save_user']))
     $firstname =  $_POST['firstname'];
     $lastname =  $_POST['lastname'];
     $email =  $_POST['email'];
-    $password = 'ABC123';
+    $password = preg_replace('/\s+/', '', $firstname) . preg_replace('/\s+/', '', $lastname);
     $permission =  $_POST['permission'];
     $branch =  $_POST['branch'];
 
