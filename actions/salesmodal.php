@@ -48,20 +48,33 @@ $userid = $sales[0]['userid'];
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" href="favicon.png" type="image/svg">
     </head>
+    <style type="text/css" media="print">
+        @page 
+        {
+            size:  auto;   /* auto is the initial value */
+            margin: 0mm;  /* this affects the margin in the printer settings */
+        }
+        @media print{
+            .hide-in-print{
+                display: none;
+            }
+        }
+        
+    </style>
     <body>
 
 
             <div class="container">
                 <div class="row printme">
                     <div style="display: inline;">
-                        <a href="../cashier/pos_index.php" style="text-decoration: none; padding:10px; border-radius:10px;background:black;color:white;">Go Back to POS</a>
-                        <button onClick="window.print();" type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+                        <a href="../cashier/pos_index.php" class="hide-in-print" style="text-decoration: none; padding:5px; margin-right:5px; border-radius:10px;background:black;color:white;">Go Back to POS</a>
+                        <button onClick="window.print();" class="hide-in-print" type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
                     <!-- the windo.print() is used to print html page -->
                     </div>
                     <div class="col-sm-6 text-muted">
-                        <h4 class="fs35 gorditaB text-uppercase mb-1">
+                        <h1 class="fs35 gorditaB text-uppercase mb-1">
                             <?php echo getCompanyName(); ?>
-                        </h4>
+                        </h1>
                         <p class="fs18 text-uppercase">
                             <?php echo getCompanyAddress(); ?>
                         </p>
@@ -87,7 +100,7 @@ $userid = $sales[0]['userid'];
                     </div>
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
-                            <table class="table" style="width: 100%;">
+                            <table class="table table-bordered" style="width: 100%;">
                             <!-- made width of table to 100% -->
                                 <tbody>
                                     <tr>
