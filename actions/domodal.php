@@ -140,11 +140,11 @@ $userid = $deors[0]['userid'];
                                                         <p>'.$deor['quantity'].'</p>
                                                     </td>';
 
-                                        $output .= '<td style = "border-bottom:5px solid">
+                                        $output .= '<td style = "border-bottom:4px solid">
                                                         <p>'.$deor['price'].'</p>
                                                     </td>';
                                         
-                                        $output .= '<td style = "border-bottom:5px solid">
+                                        $output .= '<td style = "border-bottom:4px solid">
                                                         <p>'.$deor['total'].'</p>
                                                     </td>';
 

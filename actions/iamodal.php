@@ -129,13 +129,7 @@ $invents = $statement->fetchAll();
 
                                    
                                 
-                                    <tr>
-                                        
-                                        
-                                        <td colspan="2" class="text-end border_sm_top"></td>
-                                        
-                                        
-                                    </tr>
+                                  
 
                                 </tfoot>
                             </table>

@@ -43,7 +43,7 @@ function displayUser() {
         <style>
       @media print{@page {size: landscape}}
       @media print {
-        .side-bar * {
+        .side-bar, .side-bar {
           visibility: hidden !important;
         }
         .card, .card {
@@ -75,10 +75,14 @@ function displayUser() {
         .search, .search {
           visibility: hidden !important;
         }
+
+        .label, .label {
+          visibility: hidden !important;
+        }
         .title, .title {
           visibility: hidden !important;
         }
-        #salesmodal, #salesmodal {
+        #iamodal, #iamodal {
           visibility: hidden !important;
         }
         .search, .search {
@@ -224,12 +228,12 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>INVENTORY ADJUSTMENT</h3>
+        <h3 class = "title">INVENTORY ADJUSTMENT</h3>
         <div style="display: inline">
 
         <div align = right>
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Inventory Adjustment"/></label> 
-        </div>      
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Inventory Adjustment ID"/></label>       
+        </div>     
           </div>
         </div>
        
