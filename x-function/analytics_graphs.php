@@ -48,14 +48,20 @@
 
          if($_POST['display_graph_r'] == 2){
 
-            $graphs_data = $conn->prepare("select COUNT(*) total,date_add(salesdate, interval  -WEEKDAY(salesdate)-1 day) FirstDayOfWeek,date_add(date_add(salesdate, interval  -WEEKDAY(salesdate)-1 day), interval 6 day) LastDayOfWeek, week(DATE_SUB(salesdate, INTERVAL 1 DAY)) my_week,productid from  tblsalesitem INNER JOIN tblsales on tblsales.id = tblsalesitem.salesid group by week(DATE_SUB(salesdate, INTERVAL 1 DAY)),YEAR(salesdate),productid order by my_week,productid ASC");
+            $graphs_data = $conn->prepare("select COUNT(*) total,tblproducts.name as product_name,date_add(salesdate, interval  -WEEKDAY(salesdate)-1 day) FirstDayOfWeek,date_add(date_add(salesdate, interval  -WEEKDAY(salesdate)-1 day), interval 6 day) LastDayOfWeek, week(DATE_SUB(salesdate, INTERVAL 1 DAY)) my_week,productid from  tblsalesitem 
+               INNER JOIN tblsales on tblsales.id = tblsalesitem.salesid 
+               INNER JOIN tblproducts on tblproducts.id = tblsalesitem.productid 
+               group by week(DATE_SUB(salesdate, INTERVAL 1 DAY)),YEAR(salesdate),productid order by COUNT(*) DESC");
             $graphs_data->execute();
             $graphs_data = $graphs_data->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($graphs_data);
 
          }else{
            
-            $graphs_data = $conn->prepare("SELECT productid,MONTHNAME(salesdate) as month,COUNT(*) total,MONTH(salesdate) as month_num,year(salesdate) as year FROM `tblsalesitem` INNER JOIN tblsales on tblsales.id = tblsalesitem.salesid GROUP by YEAR(salesdate),Month(salesdate),productid ORDER by month_num,productid;");
+            $graphs_data = $conn->prepare("SELECT productid,tblproducts.name as product_name,MONTHNAME(salesdate) as month,COUNT(*) total,MONTH(salesdate) as month_num,year(salesdate) as year FROM `tblsalesitem` 
+               INNER JOIN tblsales on tblsales.id = tblsalesitem.salesid 
+               INNER JOIN tblproducts on tblproducts.id = tblsalesitem.productid 
+               GROUP by YEAR(salesdate),Month(salesdate),productid ORDER by COUNT(*) DESC;");
             $graphs_data->execute();
             $graphs_data = $graphs_data->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($graphs_data);

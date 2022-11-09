@@ -373,17 +373,19 @@ function displayUser() {
 
         if(display_graphs == 2){
           $.each(data_result, function(index, result_get) {
-            labels.push(result_get['FirstDayOfWeek']+' - '+ result_get['LastDayOfWeek'] +' ('+ result_get['productid'] +')');
+          var product_name= result_get['product_name'].substring(0,10);
+            labels.push(result_get['FirstDayOfWeek']+' - '+ result_get['LastDayOfWeek'] +' ('+ product_name +')');
             data_values.push(result_get['total']);
-            product_id.push(result_get['productid']);
+            product_id.push(product_name);
             label_text  = 'Weekly Sales';
           });
 
         }else{
           $.each(data_result, function(index, result_get) {
-            labels.push(result_get['month']+' - '+ result_get['year'] +' ('+ result_get['productid'] +')');
+            var product_name= result_get['product_name'].substring(0,10);
+            labels.push(result_get['month']+' - '+ result_get['year'] +' ('+ product_name +')');
             data_values.push(result_get['total']);
-            product_id.push(result_get['productid']);
+            product_id.push(product_name);
             label_text  = 'Monthly Sales';
           });
         }
