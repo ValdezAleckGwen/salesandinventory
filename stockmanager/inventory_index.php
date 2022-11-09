@@ -119,7 +119,7 @@ function displayUser() {
         <h3>INVENTORY</h3>
         <div style="display: inline">
         <div align = right>
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" placeholder="Search Product Name"value=""/></label>
         </div>
           </div>
         </div>

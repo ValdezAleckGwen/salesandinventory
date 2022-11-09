@@ -40,6 +40,76 @@ function displayUser() {
     </head>
     
     </style>
+
+    <style>
+      @media print{@page {size: landscape}}
+      @media print {
+        .side-bar, .side-bar {
+          visibility: hidden !important;
+        }
+        .card, .card {
+          visibility: hidden !important;
+        }
+        
+        #postitle, #postitle * {
+          visibility: hidden; !important;
+        }
+        .usericon, .usericon {
+          visibility: hidden !important;
+        }
+        #submit_button, #submit_button {
+          visibility: hidden !important;
+        }
+        .tax-container, .tax-container {
+          visibility: hidden !important;
+        }
+
+        #available, #available {
+          visibility: hidden !important;
+        }
+        .item_available, .item_available {
+          visibility: hidden !important;
+        }
+        #dynamic_content, #dynamic_content {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+
+        .label, .label {
+          visibility: hidden !important;
+        }
+        .title, .title {
+          visibility: hidden !important;
+        }
+        #iamodal, #iamodal {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .modal-body, .modal-body {
+          visibility: visible;
+          position: absolute;
+          left:0;
+          top:0;
+          width:1%;
+          height:1%;
+          font-size: 10px;
+        }
+        
+
+        button, button * {
+          visibility: hidden !important;
+        }
+
+
+        
+
+      }
+    </style>
+
 <!-- Start of sidebar -->
     <div class="side-bar">
 
@@ -106,11 +176,11 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>INVENTORY ADJUSTMENT</h3>
+        <h3 class="title">INVENTORY ADJUSTMENT</h3>
         <div style="display: inline">
 
         <div align = right>
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Inventory Adjustment"/></label> 
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Inventory Adjustment ID"/></label>       
         </div>      
           </div>
         </div>
@@ -174,6 +244,10 @@ function displayUser() {
     });
 
   });
+
+    $(document).on('click', '.print', function() {
+      window.print();
+    });
 
     //Start of DO Modal
     $(document).on('click', '.data', function() {

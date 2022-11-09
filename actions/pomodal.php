@@ -105,7 +105,7 @@ $userid = $purchases[0]['userid'];
                 
                 <div class="row printme">
                     <div style="display: inline;">
-                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i>Print</button>
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
                     </div>
 
                     <div class="col-sm-6 text-muted">
@@ -130,9 +130,7 @@ $userid = $purchases[0]['userid'];
 
                     <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
                         <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Purchase Order
-                            </h4>
+                            
                             <p class="fs18">
                                 Date: <?php echo $purchases[0]['purchasedate']; ?>
 
