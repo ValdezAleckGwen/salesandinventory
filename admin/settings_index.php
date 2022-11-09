@@ -136,9 +136,9 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="form-style-2-heading">SETTINGS</div>
 
         <form action="" method="post">
-        <label for="field1"><span>Name:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="Jeremy Langcay" /></label>
-        <label for="field1"><span>Email:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="jeremylangcay@gmail.com" /></label>
-        <label for="field1"><span>Password<span class="required">*</span></span><input type="password" class="input-field" name="field1" value="123123213123123" /></label>
+        <label for="oldpassword"><span>Input Old Password:<span class="required">*</span></span><input type="password" class="oldpassword" name="oldpassword" id="oldpassword" value="" /></label>
+        <label for="newpassword" class="d-none newpw"><span>New Password:<span class="required">*</span></span><input type="password" class="newpassword" name="newpassword" id="newpassword" value="" /></label>
+        <label for="confirmpassword" class="d-none confirmnewpw"><span>Confirm New Password:<span class="required">*</span></span><input type="password" class="confirmpassword" name="confirmpassword" id="confirmpassword" name="field1" value="" /></label>
 
         <div align="center">
           <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
@@ -153,3 +153,37 @@ include '../x-function/redirect_if_notLogin.php';
 
   </body>
 </html>
+<script>
+   $(document).ready(function(){
+
+    
+
+    $(document).on('keyup', '#oldpassword', function () {
+        oldpassword = $(this).val();
+
+        $.ajax({
+            url: "../actions/checkpassword.php",
+            method: "POST",
+            data: {oldpassword : oldpassword},
+            
+            success: function (data) {
+                var data = data.trim();    
+                
+                if (data = 1) {
+                    $('.newpw').removeClass('d-none');
+                    $('.confirmnewpw').removeClass('d-none');
+                } else {
+                    $('.newpw').addClass('d-none');
+                    $('.confirmnewpw').addClass('d-none');
+                }
+
+            }
+        });
+
+
+    });
+    
+}); 
+
+
+</script>
