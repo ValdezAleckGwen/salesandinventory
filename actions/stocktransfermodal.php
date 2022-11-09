@@ -13,7 +13,7 @@ tblproducts.id as productid,
 tblproducts.name as productname,
 tblproducts.price as price,
 tblstocktransfer.userid as userid,
-tblstocktransfer.date AS stockdate,
+tblstocktransfer.stdate AS stockdate,
 tblstocktransferitem.quantity as quantity
 
 FROM tblstocktransfer 

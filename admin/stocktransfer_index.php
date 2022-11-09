@@ -41,14 +41,17 @@ function displayUser() {
     <style>
       @media print{@page {size: landscape}}
       @media print {
-        .side-bar * {
+        .side-bar, .side-bar {
+          visibility: hidden !important;
+        }
+        title, title {
           visibility: hidden !important;
         }
         .card, .card {
           visibility: hidden !important;
         }
         
-        #postitle, #postitle * {
+        .title, .title * {
           visibility: hidden; !important;
         }
         .usericon, .usericon {
@@ -80,6 +83,9 @@ function displayUser() {
           visibility: hidden !important;
         }
         .search, .search {
+          visibility: hidden !important;
+        }
+        #stmodal, #stmodal {
           visibility: hidden !important;
         }
         .modal-body, .modal-body {
@@ -221,10 +227,10 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>STOCK TRANSFER</h3>
+        <h3 class="title">STOCK TRANSFER</h3>
         <div style="display: inline">
         <div align = right>
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Stock Trasnfer Name"/></label>       
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Stock Trasnfer Name"/></label>       
         </div>
           </div>
         </div>

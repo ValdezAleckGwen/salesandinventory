@@ -28,7 +28,7 @@ else
   tblbranch.name as name,
   tblstocktransfer.destination as destination,
   tblbranch.name as name,
-  tblstocktransfer.date AS stockdate,
+  tblstocktransfer.stdate AS stockdate,
   tblusers.id as userid
 
   FROM tblstocktransfer
