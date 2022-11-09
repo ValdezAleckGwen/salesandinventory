@@ -50,7 +50,7 @@ if($_POST['query'] != '')
   ';
 }
 
-$query .= 'ORDER BY tblstocktransfer.id ASC ';
+$query .= 'ORDER BY tblstocktransfer.id DESC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 

@@ -42,7 +42,7 @@ if($_POST['query'] != '')
   ';
 }
 
-$query .= 'ORDER BY tblpayables.id ASC ';
+$query .= 'ORDER BY tblpayables.id DESC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 

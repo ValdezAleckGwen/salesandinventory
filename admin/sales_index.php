@@ -39,7 +39,7 @@ function displayUser() {
     </head>
     
     </style>
-          <style>
+    <style>
       @media print{@page {size: landscape}}
       @media print {
         .side-bar * {

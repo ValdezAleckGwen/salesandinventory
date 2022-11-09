@@ -37,6 +37,72 @@ function displayUser() {
     </head>
     
     </style>
+
+    <style>
+      @media print{@page {size: landscape}}
+      @media print {
+        .side-bar * {
+          visibility: hidden !important;
+        }
+        .card, .card {
+          visibility: hidden !important;
+        }
+        
+        #postitle, #postitle * {
+          visibility: hidden; !important;
+        }
+        .usericon, .usericon {
+          visibility: hidden !important;
+        }
+        #submit_button, #submit_button {
+          visibility: hidden !important;
+        }
+        .tax-container, .tax-container {
+          visibility: hidden !important;
+        }
+        
+        #available, #available {
+          visibility: hidden !important;
+        }
+        .item_available, .item_available {
+          visibility: hidden !important;
+        }
+        #dynamic_content, #dynamic_content {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .title, .title {
+          visibility: hidden !important;
+        }
+        #salesmodal, #salesmodal {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .modal-body, .modal-body {
+          visibility: visible;
+          position: absolute;
+          left:0;
+          top:0;
+          width:1%;
+          height:1%;
+          font-size: 10px;
+        }
+        
+
+        button, button * {
+          visibility: hidden !important;
+        }
+
+
+        
+
+      }
+    </style>
+
     <body>
 <!-- Start of sidebar -->
     <div class="side-bar">
@@ -223,6 +289,11 @@ function displayUser() {
     });
 
   });
+
+  //Print 
+  $(document).on('click', '.print', function() {
+      window.print();
+    });
 
     //Start of DO Modal
     $(document).on('click', '.data', function() {
