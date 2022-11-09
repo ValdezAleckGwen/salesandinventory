@@ -43,7 +43,7 @@ function displayUser() {
      <style>
       @media print{@page {size: landscape}}
       @media print {
-        .side-bar * {
+        .side-bar , .side-bar {
           visibility: hidden !important;
         }
         .card, .card {
@@ -78,7 +78,7 @@ function displayUser() {
         .title, .title {
           visibility: hidden !important;
         }
-        #salesmodal, #salesmodal {
+        #payablesmodal, #payablesmodal {
           visibility: hidden !important;
         }
         .search, .search {
@@ -224,12 +224,11 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>PAYABLES</h3>
+        <h3 class="title">PAYABLES</h3>
 
-        <div align = right>
-
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
-        </div>
+         <div  align = right>
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Payable ID" /></label>       
+          </div>
           </div>
         </div>
        

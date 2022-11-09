@@ -46,7 +46,7 @@ function fill_unit_select_box_branch($connect)
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Admin - Delivery Order Dashboard</title>
+      <title id ="title">Admin - Delivery Order Dashboard</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Purchase Order</title>
@@ -66,7 +66,7 @@ function fill_unit_select_box_branch($connect)
     <style>
       @media print{@page {size: landscape}}
       @media print {
-        .side-bar * {
+        .side-bar, .side-bar {
           visibility: hidden !important;
         }
         .card, .card {
@@ -101,7 +101,16 @@ function fill_unit_select_box_branch($connect)
         .title, .title {
           visibility: hidden !important;
         }
+        .titlebar, .titlebar {
+          visibility: hidden !important;
+        }
         #salesmodal, #salesmodal {
+          visibility: hidden !important;
+        }
+        #dropdown, #dropdown {
+          visibility: hidden !important;
+        }
+        #domodal, #domodal {
           visibility: hidden !important;
         }
         .search, .search {
@@ -246,17 +255,19 @@ function fill_unit_select_box_branch($connect)
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>DELIVERY ORDER</h3>
+        <h3 class ="titlebar">DELIVERY ORDER</h3>
         <div class="d-flex justify-content-between">
-          <div style="max-width: 250px" class="d-flex align-items-center">
+          <div style="max-width: 250px" class="d-flex align-items-center" id="dropdown">
               <label for="supplier_id"><span>Branch:&nbsp;</span></label>
               <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_Branch($connect); ?></select>
           </div>
-            <div class="d-flex align-items-center">
+            
 
-                <label for="search_box"><span>Search:&nbsp;</label></span><input class="" type="text" name="search_box" id="search_box" value=""/>
-
+            <div  align = right>
+              <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Delivery Order ID"/></label>       
             </div>
+
+            
         </div>
 
 
@@ -267,7 +278,7 @@ function fill_unit_select_box_branch($connect)
         <!--product content-->
         </div>
       <!-- modal start -->
-        <div class="modal fade " id="pomodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
+        <div class="modal fade " id="domodal" role="dialog" style="width:80%; overflow-x: auto; white-space: nowrap; margin:auto; margin-top:10%">
               <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -348,7 +359,7 @@ function fill_unit_select_box_branch($connect)
         data: {id: id},
         success: function(response){ 
             $('.modal-body').html(response); 
-            $('#pomodal').modal('show'); 
+            $('#domodal').modal('show'); 
         }
     });
 

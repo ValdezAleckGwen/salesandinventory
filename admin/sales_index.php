@@ -42,7 +42,7 @@ function displayUser() {
     <style>
       @media print{@page {size: landscape}}
       @media print {
-        .side-bar * {
+        .side-bar, .side-bar{
           visibility: hidden !important;
         }
         .card, .card {
@@ -70,6 +70,9 @@ function displayUser() {
         #dynamic_content, #dynamic_content {
           visibility: hidden !important;
         }
+        .salesmodal, .salesmodal {
+          visibility: hidden !important;
+        }
         .search, .search {
           visibility: hidden !important;
         }
@@ -77,6 +80,9 @@ function displayUser() {
           visibility: hidden !important;
         }
         #salesmodal, #salesmodal {
+          visibility: hidden !important;
+        }
+        .modalfade, .modalfade {
           visibility: hidden !important;
         }
         .search, .search {
@@ -222,7 +228,7 @@ function displayUser() {
        <div class="table-title">
         <h3 class="title">SALES</h3>
         <div  align = right>
-            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Sales" /></label>       
           </div>
         </div>
        

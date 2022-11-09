@@ -65,7 +65,7 @@ function fill_unit_select_box_branch($connect)
     <style>
       @media print{@page {size: landscape}}
       @media print {
-        .side-bar * {
+        .side-bar, .side-bar {
           visibility: hidden !important;
         }
         .card, .card {
@@ -88,6 +88,9 @@ function fill_unit_select_box_branch($connect)
         #available, #available {
           visibility: hidden !important;
         }
+         #dropdown, #dropdown {
+          visibility: hidden !important;
+        }
         .item_available, .item_available {
           visibility: hidden !important;
         }
@@ -100,7 +103,7 @@ function fill_unit_select_box_branch($connect)
         .title, .title {
           visibility: hidden !important;
         }
-        #salesmodal, #salesmodal {
+        #pomodal, #pomodal {
           visibility: hidden !important;
         }
         .search, .search {
@@ -245,17 +248,15 @@ function fill_unit_select_box_branch($connect)
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>PURCHASE ORDER</h3>
+        <h3 class="title">PURCHASE ORDER</h3>
         <div class="d-flex justify-content-between">
-          <div style="max-width: 250px" class="d-flex align-items-center">
+          <div style="max-width: 250px" class="d-flex align-items-center" id="dropdown">
               <label for="supplier_id"><span>Branch:&nbsp;</span></label>
               <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_Branch($connect); ?></select>
           </div>
-            <div class="d-flex align-items-center">
-
-                <label for="search_box"><span>Search:&nbsp;</label></span><input class="" type="text" name="search_box" id="search_box" value=""/>
-
-            </div>
+            <div  align = right>
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Purchase Order" /></label>       
+          </div>
         </div>
 
 
