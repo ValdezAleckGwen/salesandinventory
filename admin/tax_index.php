@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include '../x-function/redirect_if_notLogin.php';
+include '../actions/getdata.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -135,14 +136,15 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="form-style-2">
         <div class="form-style-2-heading">TAX</div>
 
-        <form action="" method="post">
-        <label for="field1"><span>VAT<span class="required">*</span></span><input type="text"class="input-field" name="field1" value="12%" /></label>   
+        <form action="" method="post" id="tax-form">
+        <label for="field1"><span>VAT %<span class="required">*</span></span></label> 
         
-        <div align="left">
-          <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
-          <button type="button" class="btn btn-danger" style="font-size: 16px; font-weight: 700;"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
-        </div>
+            <input type="text" class="tax" name="tax" value=""/>
+        
+          <input type="submit" class="btn btn-primary" style="font-size: 16px; font-weight: 700;" id="submit">
         </form>
+       
+        
         </div>
      </div>
   </div>
@@ -150,3 +152,29 @@ include '../x-function/redirect_if_notLogin.php';
 
   </body>
 </html>
+
+<script>
+   $(document).ready(function(){
+
+    $('.tax').val(<?php echo getTax(); ?>);
+
+    $('#tax-form').on('submit', function(event){    
+        event.preventDefault();
+        form_data = $(this).serialize();
+        console.log(form_data);
+
+        $.ajax({
+            url: "../actions/updatetax.php",
+            method: "POST",
+            data: form_data,
+            success: function (data) {
+                alert(data)
+
+            }
+        });
+        
+     }); 
+}); 
+
+
+</script>
