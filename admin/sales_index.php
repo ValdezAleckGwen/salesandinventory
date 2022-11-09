@@ -76,7 +76,10 @@ function displayUser() {
         .title, .title {
           visibility: hidden !important;
         }
-        #salesmoda, #salesmodal {
+        #salesmodal, #salesmodal {
+          visibility: hidden !important;
+        }
+        .search, .search {
           visibility: hidden !important;
         }
         .modal-body, .modal-body {
@@ -86,6 +89,7 @@ function displayUser() {
           top:0;
           width:1%;
           height:1%;
+          font-size: 10px;
         }
         
 
@@ -218,7 +222,7 @@ function displayUser() {
        <div class="table-title">
         <h3 class="title">SALES</h3>
         <div  align = right>
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
           </div>
         </div>
        
