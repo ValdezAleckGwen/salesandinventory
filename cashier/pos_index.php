@@ -68,7 +68,7 @@ function fill_unit_select_box($connect, $branchid)
 		}
 		
 	</style>
-	<body>
+	<body style="overflow-y: hidden">
 		<!-- Start of sidebar -->
     <div class="side-bar">
       

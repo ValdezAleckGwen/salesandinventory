@@ -109,7 +109,7 @@ function displayUser() {
       }
     </style>
 
-    <body>
+    <body style="overflow-y: hidden">
 
 <!-- Start of sidebar -->
     <div class="side-bar">
