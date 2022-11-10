@@ -208,7 +208,7 @@ display: none;
   height: 800px;
   width: 81.5%;
   margin-left: 340px;
-  background-color: #dfdfdf;
+  background-color: #fafafa;
   box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
   -webkit-box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
   -moz-box-shadow: 5px 9px 17px 1px rgba(0,0,0,0.29);
@@ -275,7 +275,7 @@ li{
   color: #3e3d43;
   justify-content: center;
   width: 100%;
-  background-color: #f9f9f8;
+  background-color: #eeeeee;
   font-size: 30px;
   border-right: solid 1px #ddd;
 }

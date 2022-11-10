@@ -123,7 +123,8 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 

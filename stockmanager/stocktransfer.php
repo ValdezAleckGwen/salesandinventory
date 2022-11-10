@@ -77,7 +77,7 @@ function displayUser() {
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<body style="overflow-y: hidden">
+	<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
@@ -89,7 +89,8 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
@@ -127,13 +128,6 @@ function displayUser() {
             <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
           </div>
         </div>
-
-        <!-- Logout -->
-        <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
-
-      </div>
-    </div>
-
 
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>

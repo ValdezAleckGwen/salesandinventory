@@ -242,7 +242,6 @@ function displayUser() {
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
                   </div>
-                  
                     <style>
                         #model-body-container > .container{
                             width: 100% !important;}
