@@ -119,7 +119,7 @@ function fill_unit_select_box_category($connect)
     </head>
     
     </style>
-    <body>
+<body style="overflow-y: hidden">
 
     <!-- Start of sidebar -->
     <div class="side-bar">
