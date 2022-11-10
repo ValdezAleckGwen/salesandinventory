@@ -135,14 +135,22 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="form-style-2">
         <div class="form-style-2-heading">SETTINGS</div>
 
-        <form action="" method="post">
-        <label for="oldpassword"><span>Input Old Password:<span class="required">*</span></span><input type="password" class="oldpassword" name="oldpassword" id="oldpassword" value="" /></label>
-        <label for="newpassword" class="d-none newpw"><span>New Password:<span class="required">*</span></span><input type="password" class="newpassword" name="newpassword" id="newpassword" value="" /></label>
-        <label for="confirmpassword" class="d-none confirmnewpw"><span>Confirm New Password:<span class="required">*</span></span><input type="password" class="confirmpassword" name="confirmpassword" id="confirmpassword" name="field1" value="" /></label>
+        <form action="" method="post" id="insert_form">
+        <div>
+            <label for="oldpassword"><span>Input Old Password:<span class="required">*</span></span><input type="password" class="oldpassword" name="oldpassword" id="oldpassword" value="" /></label>
+            <label for="newpassword" class="d-none newpw"><span>New Password:<span class="required">*</span></span><input type="password" class="newpassword" name="newpassword" id="newpassword" value="" required /></label>
 
+
+            
+            
+
+        </div>
+        <p style="font-size: 15px" id="info"></p>
         <div align="center">
-          <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
-          <button type="button" class="btn btn-danger" style="font-size: 16px; font-weight: 700;"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+          <button type="submit" class="btn btn-primary update" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
+          <button type="button" class="btn btn-primary showold" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show Old Password</button>
+          <button type="button" class="btn btn-primary shownew d-none" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show New Password</button>
+          
         </div>
         </form>
         </div>
@@ -156,25 +164,26 @@ include '../x-function/redirect_if_notLogin.php';
 <script>
    $(document).ready(function(){
 
-    
+    $('.update').prop('disabled', true);
 
     $(document).on('keyup', '#oldpassword', function () {
-        oldpassword = $(this).val();
-
+        var oldpassword = $(this).val();
+        var datatype = 1;
         $.ajax({
             url: "../actions/checkpassword.php",
             method: "POST",
-            data: {oldpassword : oldpassword},
+            data: {oldpassword : oldpassword, datatype: datatype},
             
             success: function (data) {
-                var data = data.trim();    
+                    
                 
-                if (data = 1) {
+                if (data == 1) {
                     $('.newpw').removeClass('d-none');
-                    $('.confirmnewpw').removeClass('d-none');
+                    $('.shownew').removeClass('d-none');
+                    $('.update').prop('disabled', false);
                 } else {
                     $('.newpw').addClass('d-none');
-                    $('.confirmnewpw').addClass('d-none');
+                    
                 }
 
             }
@@ -182,6 +191,56 @@ include '../x-function/redirect_if_notLogin.php';
 
 
     });
+
+
+        $(document).on('mousedown', '.shownew', function () {
+            
+            $('.newpassword').prop('type', 'text');
+        }).on('mouseup mouseleave', function() {
+            $('.newpassword').prop('type', 'password');
+        });
+
+        $(document).on('mousedown', '.showold', function () {
+            
+            $('.oldpassword').prop('type', 'text');
+        }).on('mouseup mouseleave', function() {
+            $('.oldpassword').prop('type', 'password');
+        });
+
+
+    $('#insert_form').on('submit', function(event){
+
+        var form_data = $(this).serialize();
+        event.preventDefault();
+
+        var error = '';
+
+        count = 1;
+
+        
+
+        $.ajax({
+            url: "../actions/updatepassword.php",
+            method: "POST",
+            data: form_data,
+            
+            success: function (data) {
+                alert(data);
+
+            }
+        });
+
+        
+    });
+
+       
+
+
+
+
+
+
+
     
 }); 
 
