@@ -30,6 +30,11 @@ function displayUser() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     
   </head>
+  <style type="text/css">
+      .headers {
+        text-align: center;
+      }
+  </style>
   <body style="overflow-y: hidden">
 
 
@@ -137,15 +142,23 @@ function displayUser() {
 
     <div class="content" style="margin-left: 350px;">
         <div class="home-content">
-            <div class="box1">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis deleniti dignissimos eveniet exercitationem laudantium natus, nisi placeat quidem sequi totam. Aliquid eius facere ipsa, itaque quod recusandae sunt totam voluptate. Adipisci aliquam aut dolore eveniet explicabo, in incidunt laudantium, neque odit porro quaerat, veniam! Deserunt dolor eum laborum placeat sequi.
+            <div class="row">
+                <div class="col-sm m-3 h-50 p-5 bg-primary">
+                    <h1 id="salestoday" class="headers">SALES FOR TODAY</h1>
+                    <h1 id="salescount" class="headers">0</h1>
+                </div>
+                <div class="col-sm m-3 h-50 p-5 bg-success">
+                    <h1 id="totalsalestoday" class="headers">TOTAL SALES FOR TODAY </h1>
+                    <h1 id="salestotal" class="headers">0</h1>
+                </div>
             </div>
-            <div class="box2">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aspernatur corporis cumque delectus ea esse exercitationem incidunt iste itaque, libero minus natus numquam odit quod! Asperiores aspernatur eos optio quas veritatis. Adipisci eligendi id labore odit quam quasi suscipit voluptates. Amet asperiores commodi facere ipsam quasi quo ullam unde.
+            <div class="row">
+                <div class="container-fluid h-100 ">
+                    <h3>LATEST SALES</h3>
+                    <div border="1" class="table-repsonsive" id="dynamic_content"><?php include '../actions/fetchdasboardsales.php' ?></div>
+                </div>
             </div>
-            <div class="box3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam amet aperiam aut culpa cum deleniti dolore eaque et exercitationem id, ipsam iusto, magnam sequi sint sit ut veniam? Cum ipsam minima non quaerat sit! Ab dolorem illo ipsa quisquam similique. Cum delectus eligendi eveniet hic magni numquam praesentium veniam? Ab adipisci architecto deleniti dicta ipsam nisi odio provident quod, similique sit! Ab asperiores aut distinctio ducimus eaque eius exercitationem fugiat id incidunt, inventore ipsam itaque, labore laborum nam nihil, qui reiciendis voluptatum. Illum molestiae molestias necessitatibus. Aspernatur dolor earum expedita illum in maxime modi, omnis placeat, tempora temporibus voluptate voluptatum.
-            </div>
+            
         </div>
     </div>
 </div>
@@ -161,7 +174,37 @@ function displayUser() {
         $(this).find('.dropdown').toggleClass('rotate');
       });
 
-     
+      load_sales(1);
+      load_sales(2);
+      load_data();
+
+
+
+     function load_sales(datatype = '') {
+
+
+
+        $.ajax({
+        url:"../actions/dashboardvalues.php",
+        method:"POST",
+        data:{datatype: datatype},
+        success:function(data)
+        {
+            if (datatype == 1) {
+                $('#salescount').text(data);
+            } else {
+                $('#salestotal').text(data);
+            }
+          
+        }
+      });
+
+     }
+
+
+
+
+
 
 
 
