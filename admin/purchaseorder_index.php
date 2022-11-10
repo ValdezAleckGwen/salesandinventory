@@ -342,7 +342,7 @@ function fill_unit_select_box_branch($connect)
       
 
       $.ajax({
-        url: '../actions/pomodal.php', //modal structure
+        url: '../actions/pomodaladmin.php', //modal structure
         type: 'post',
         data: {id: id},
         success: function(response){ 

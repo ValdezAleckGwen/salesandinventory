@@ -8,6 +8,7 @@ $id = $_POST['id'];
 
 $query = "SELECT 
 tblinventoryadjustment.id AS inventoryadj,
+tblinventoryadjustment.date AS calendar,
 tblproducts.id AS productid,
 tblproducts.name AS name,
 tblinventoryadjustmentitem.quantity AS quantity
@@ -61,15 +62,17 @@ $invents = $statement->fetchAll();
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
                             INV ADJ ID: <?php echo $invents[0]['inventoryadj']; ?>
                         </h4>
+
+                         <p class="fs18" >
+                             Date:  <?php echo $invents[0]['calendar']; ?>
+                       </p>
                     </div>
 
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
-                        <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                
-                            </h4>
-                        </div>
-                    </div>
+                    
+                      
+                           
+                        
+                    
 
   
 
