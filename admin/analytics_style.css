@@ -180,11 +180,19 @@ input{
 }
 
 .usericon{
+  /*text-align: right;*/
+  /*font-size: 20px;*/
+  /*margin: 10px 50px;*/
+  /*transform: translateX(110rem);*/
+  /*display: -webkit-inline-box;*/
   text-align: right;
   font-size: 20px;
-  margin: 10px 50px;
-  transform: translateX(110rem);
-  display: -webkit-inline-box;
+  margin: 25px 50px;
+  display: flex;
+  align-items: baseline;
+  justify-content: end;
+  flex-direction: row-reverse;
+  gap: 10px;
 }
 
 
