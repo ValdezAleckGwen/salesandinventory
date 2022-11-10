@@ -107,16 +107,22 @@ $userid = $purchases[0]['userid'];
                     <div style="display: inline;">
                         <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-muted">
+                            <h4 class="fs35 gorditaB text-uppercase mb-1">
+                                <?php echo $purchases[0]['suppliername']; ?>
+                            </h4>
+                            <p class="fs18 text-uppercase">
+                                <?php echo substr($purchases[0]['address'], 0, 39); ?>
 
-                    <div class="col-sm-6 text-muted">
-                        <h4 class="fs35 gorditaB text-uppercase mb-1">
-                            <?php echo $purchases[0]['suppliername']; ?>
-                        </h4>
-                        <p class="fs18 text-uppercase">
-                            <?php echo substr($purchases[0]['address'], 0, 39); ?>
-
-                        </p>
+                            </p>
+                            <div class="col-sm-6 text-muted">
+                                <p>Date: <?php echo $purchases[0]['purchasedate']; ?></p> 
+                            </div>
+                        </div>
                     </div>
+
+                    
 
                     <div class="col-sm-12 col-6 mt-sm-0 mt-4" style="display: inline;">
                         <h4 class="fs18 text-uppercase mb-2">
@@ -124,12 +130,10 @@ $userid = $purchases[0]['userid'];
                             <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            PO ID:  Date: <?php echo $purchases[0]['poid']; ?>
+                            PO ID: <?php echo $purchases[0]['poid']; ?>
                         </h4>
                        
-                        <p class="fs18" >
-                            Date: <?php echo $purchases[0]['purchasedate']; ?>
-                        </p> 
+                        
 
                     </div>
 

@@ -141,19 +141,19 @@ function displayUser() {
     <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
 
     <div class="content" style="margin-left: 350px;">
-        <div class="home-content">
+        <div class="container-fluid ">
             <div class="row">
-                <div class="col-xl m-3 h-50 p-5 bg-primary">
+                <div class="col m-3  p-5 bg-primary">
                     <h1 id="salestoday" class="headers">SALES FOR TODAY</h1>
                     <h1 id="salescount" class="headers">0</h1>
                 </div>
-                <div class="col-xl m-3 h-50 p-5 bg-success">
+                <div class="col m-3  p-5 bg-success">
                     <h1 id="totalsalestoday" class="headers">TOTAL SALES FOR TODAY </h1>
                     <h1 id="salestotal" class="headers">0</h1>
                 </div>
             </div>
             <div class="row">
-                <div class="container-fluid h-100 ">
+                <div class="container-fluid w-100 ">
                     <h3>LATEST SALES</h3>
                     <div border="1" class="table-repsonsive" id="dynamic_content"><?php include '../actions/fetchdasboardsales.php' ?></div>
                 </div>
