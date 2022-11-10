@@ -77,22 +77,15 @@ $userid = $deors[0]['userid'];
                             ISSUED BY:
                             <?php echo getFullName($userid); ?>
                         </h4>
+
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
                             DO ID: <?php echo $deors[0]['delivery']; ?>
                         </h4>
-                    </div>
-
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
-                        <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Invoice
-                            </h4>
-                            <p class="fs18">
+                        
+                        <p class="fs18">
                                 Date: <?php echo $deors[0]['deliverydate']; ?>
-                            </p>
-                        </div>
+                        </p>
                     </div>
-
 
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
