@@ -139,11 +139,16 @@ include '../actions/getdata.php';
         <form action="" method="post" id="tax-form">
         <label for="field1"><span>VAT %<span class="required">*</span></span></label> 
         
-            <input type="text" class="tax" name="tax" value=""/>
-        
-          <input type="submit" class="btn btn-primary" style="font-size: 16px; font-weight: 700;" id="submit">
+            <input type="text" class="tax" name="tax" value=""  />
+            
+          <input type="submit" class="btn btn-primary d-none" style="font-size: 16px; font-weight: 700;" id="submit">
         </form>
-       
+        <button class="btn btn-primary edit mt-1" style="font-size: 16px; font-weight: 700;">Edit</button>
+        <div class="validation d-none" id="validation">   
+            <label for="field1"><span>Email<span class="required">*</span></span></label> 
+            <input type="text" name="email" class="email" id="email" class="form-control">
+        </div>
+        
         
         </div>
      </div>
@@ -158,6 +163,34 @@ include '../actions/getdata.php';
 
     $('.tax').val(<?php echo getTax(); ?>);
 
+    $('.tax').prop('disabled', true);
+
+    $(document).on('click', '.edit', function() {
+        $('.validation').removeClass('d-none');
+        $('.edit').addClass('d-none');
+    });
+
+    $(document).on('keyup', '#email', function() {
+        var email = $(this).val();
+
+        $.ajax({
+            url: "../actions/checkadmin.php",
+            method: "POST",
+            data: {email:email},
+            success: function (data) {
+                
+                if (data == 1) {
+                    $('.tax').prop('disabled', false);
+                    $('#submit').removeClass('d-none');
+                }else {
+                    $('.tax').prop('disabled', true);
+                    $('#submit').addClass('d-none');
+                }
+
+            }
+        });
+    });    
+
     $('#tax-form').on('submit', function(event){    
         event.preventDefault();
         form_data = $(this).serialize();
@@ -169,6 +202,7 @@ include '../actions/getdata.php';
             data: form_data,
             success: function (data) {
                 alert(data)
+                location.reload();
 
             }
         });

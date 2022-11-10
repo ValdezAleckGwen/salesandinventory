@@ -1,35 +1,18 @@
 <?php 
 include 'database_connection.php';
-
+session_start();
 include 'getdata.php';
 
-$branchid = 'B-0000001';
+$id = $_SESSION['uid'];
 
-$query = "SELECT id as count FROM tblsales WHERE salesdate = '22-11-09'";
-
-$statement  = $connect->prepare($query);
-$statement->execute();
-
-$count = $statement->rowCount();
-
-
-echo $count;
-
-echo " ";
-
-$query = "SELECT SUM(total) as total FROM tblsales WHERE salesdate = '22-11-09'";
-
-$statement  = $connect->prepare($query);
-$statement->execute();
-
-$total = $statement->fetchAll();
-
-
-foreach ($total as $value) {
-	$total = $value['total'];
+$result = getQueryTwo('password', 'email', 'tblusers', 'id' , $id);
+foreach ($result as $r) {
+	$currentpassword =  $r['password'];
+	$currentemail =  $r['email'];
 }
 
-echo number_format($total, 2);
+echo $currentemail;
+echo $currentpassword;
 
 
 ?>
