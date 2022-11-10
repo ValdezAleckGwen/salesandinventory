@@ -143,11 +143,11 @@ function displayUser() {
     <div class="content" style="margin-left: 350px;">
         <div class="home-content">
             <div class="row">
-                <div class="col-sm m-3 h-50 p-5 bg-primary">
+                <div class="col-xl m-3 h-50 p-5 bg-primary">
                     <h1 id="salestoday" class="headers">SALES FOR TODAY</h1>
                     <h1 id="salescount" class="headers">0</h1>
                 </div>
-                <div class="col-sm m-3 h-50 p-5 bg-success">
+                <div class="col-xl m-3 h-50 p-5 bg-success">
                     <h1 id="totalsalestoday" class="headers">TOTAL SALES FOR TODAY </h1>
                     <h1 id="salestotal" class="headers">0</h1>
                 </div>
