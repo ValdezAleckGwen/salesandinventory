@@ -21,23 +21,6 @@ include '../x-function/redirect_if_notLogin.php';
 
 <!-- Start of Menu Proper -->
       <div class="menu">
-        <!-- Dashboard -->
-        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
-
-        <!-- Analytics -->
-        <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
-
-        <!-- Branch -->
-        <div class="item"><a href="branch_index.php"><i class="fa-solid fa-ballot"></i>Branch</a></div>
-
-        <!-- Category -->
-        <div class="item"><a href="category_index.php"><i class="fa-regular fa-table-cells-large"></i>Category</a></div>
-
-        <!-- Products -->
-        <div class="item"><a href="product_index.php"><i class="fa-regular fa-bag-shopping"></i>Products</a></div>
-
-        <!-- Users -->
-        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
 
         <!-- Inventory-->
         <div class="item">
@@ -55,18 +38,6 @@ include '../x-function/redirect_if_notLogin.php';
          <div class="sub-menu">
             <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
-          </div>
-        </div>
-        
-        <!-- Suppliers-->
-        <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
-
-        <!-- Payables-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
           </div>
         </div>
 
@@ -88,31 +59,17 @@ include '../x-function/redirect_if_notLogin.php';
           </div>
         </div>
 
-        <!-- Sales-->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
-         </div>
-        </div>
-
-        <!-- Reports-->
-        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
-
         <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
-            <a href="tax_index.php" class="sub-item"><i class="fa-regular fa-percent"></i>Tax Settings</a>
           </div>
         </div>
 
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
-        </div>
       </div>
     </div>
 
@@ -146,7 +103,7 @@ include '../x-function/redirect_if_notLogin.php';
 
         </div>
         <p style="font-size: 15px" id="info"></p>
-        <div align="center">
+        <div align="right">
           <button type="submit" class="btn btn-primary update" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
           <button type="button" class="btn btn-primary showold" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show Old Password</button>
           <button type="button" class="btn btn-primary shownew d-none" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show New Password</button>

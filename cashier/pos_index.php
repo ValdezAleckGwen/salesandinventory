@@ -68,7 +68,7 @@ function fill_unit_select_box($connect, $branchid)
 		}
 		
 	</style>
-	<body style="overflow-y: hidden">
+	<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
@@ -102,7 +102,7 @@ function fill_unit_select_box($connect, $branchid)
     <div class="main">
 
   	<div class="table-title">
-    		<h3>POINT OF SALES - <?php echo displayBranch($id); ?></h3></h3>
+    		<h3 style = "font-size: 55px";>POINT OF SALES - <?php echo displayBranch($id); ?></h3></h3>
 	</div>
 			<div class="card">
 				<div class="card-header">

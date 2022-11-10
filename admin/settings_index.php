@@ -140,13 +140,9 @@ include '../x-function/redirect_if_notLogin.php';
             <label for="oldpassword"><span>Input Old Password:<span class="required">*</span></span><input type="password" class="oldpassword" name="oldpassword" id="oldpassword" value="" /></label>
             <label for="newpassword" class="d-none newpw"><span>New Password:<span class="required">*</span></span><input type="password" class="newpassword" name="newpassword" id="newpassword" value="" required /></label>
 
-
-            
-            
-
         </div>
         <p style="font-size: 15px" id="info"></p>
-        <div align="center">
+        <div align="right">
           <button type="submit" class="btn btn-primary update" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
           <button type="button" class="btn btn-primary showold" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show Old Password</button>
           <button type="button" class="btn btn-primary shownew d-none" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show New Password</button>
