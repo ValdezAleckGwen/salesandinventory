@@ -40,7 +40,7 @@ else
 if($_POST['query'] != '')
 {
   $query .= '
-  WHERE tblsalesreturn.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE tblsalesreturn.salesid LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 

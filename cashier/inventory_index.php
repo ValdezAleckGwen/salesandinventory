@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once '../x-function/redirect_cashier.php';
 include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';

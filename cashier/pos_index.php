@@ -4,7 +4,7 @@ include '../actions/getdata.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
 include '../x-function/redirect_if_notLogin.php';
-
+include_once '../x-function/redirect_cashier.php';
 $id = $_SESSION['uid'];
 $branchid = getBranch($id);
 

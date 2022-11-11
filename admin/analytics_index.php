@@ -2,6 +2,7 @@
 session_start();
 include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
+include_once '../x-function/redirect_admin.php';
 
 function displayUser() {
   $output = '';

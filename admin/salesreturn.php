@@ -4,7 +4,7 @@ session_start();
 include '../actions/getdata.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
-
+include_once '../x-function/redirect_admin.php';
 
 $id = $_SESSION['uid'];
 $branchid = getBranch($id);

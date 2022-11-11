@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include '../x-function/redirect_if_notLogin.php';
+include_once '../x-function/redirect_stockmanager.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

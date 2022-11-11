@@ -69,14 +69,16 @@ $output = '
         <th class="text-center" style="border: 1px solid;">Supplier Name</th>
         <th class="text-center" style="border: 1px solid;">Branch</th>
         <th class="text-center" style="border: 1px solid;">Creator</th>
-        <th class="text-center" style="border: 1px solid;">Date</th>
         <th class="text-left" style="border: 1px solid;">Total (₱)</th>
+        <th class="text-left" style="border: 1px solid;">Status</th>
+        <th class="text-center" style="border: 1px solid;">Date</th>
   </tr>
 ';
 if($total_data > 0)
 {
   foreach($result as $row)
   {
+      
     $output .= '
     <tr class="data" data-id="'.$row["doid"].'">
       <td style="border: 1px solid;">'.$row["doid"].'</td>

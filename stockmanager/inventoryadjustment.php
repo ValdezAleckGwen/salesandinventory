@@ -6,6 +6,7 @@ include '../actions/getdata.php';
 include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
+include_once '../x-function/redirect_stockmanager.php';
 
 
 $id = $_SESSION['uid'];
