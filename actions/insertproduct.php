@@ -23,8 +23,8 @@ if(isset($_POST['save_product']))
     } else {
     
     $query = "
-    INSERT INTO tblproducts (id, name, supplier, category, price, markupPrice) 
-    VALUES (:id, :name, :supplier, :category, :price, :markup)
+    INSERT INTO tblproducts (id, name, supplier, category, price, markupPrice, active) 
+    VALUES (:id, :name, :supplier, :category, :price, :markup, 1)
     ";
 
     $statement  = $connect->prepare($query);

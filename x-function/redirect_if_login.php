@@ -1,7 +1,7 @@
 <?php
 
     if(!empty($_SESSION['uid']) ){
-        header("Location: index.php");
+        header("Location: ../login.php");
         die();
     }
 ?>
