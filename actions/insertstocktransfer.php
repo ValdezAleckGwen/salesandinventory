@@ -197,15 +197,15 @@ if(isset($_POST["item_id"]))
 			INSERT INTO tblinventory (id, productid, supplierid, branchid, quantity) VALUES (:id, :productid, :supplierid, :branchid, :quantity);
 			";
 
-		$itemquantity = $_POST["item_quantity"][$count];
-		$itemavailable  =$_POST["item_available"][$count];
-		$quantity  = 0;
-		$quantity = $itemavailable - $itemquantity;
-		if ($quantity < 0 ) {
-			$quantity = $itemavailable;
-		} else {
-			$quantity = $itemquantity;
-		}
+			$itemquantity = $_POST["item_quantity"][$count];
+			$itemavailable  =$_POST["item_available"][$count];
+			$quantity  = 0;
+			$quantity = $itemavailable - $itemquantity;
+			if ($quantity < 0 ) {
+				$quantity = $itemavailable;
+			} else {
+				$quantity = $itemquantity;
+			}
 
 
 

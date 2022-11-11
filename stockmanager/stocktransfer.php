@@ -68,6 +68,7 @@ function displayUser() {
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -89,8 +90,17 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
+          </div>
+        </div>
+
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
           </div>
         </div>
 
@@ -160,7 +170,7 @@ function displayUser() {
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch d-none" id="source_branch" ><option value="default">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<h5>Destination Branch</label>
+								<label>Destination Branch</label>
 								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Unit</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
 							</div>
 							<thead style=" display: block; ">
@@ -199,6 +209,29 @@ function displayUser() {
 
 $(document).ready(function(){
 	 $('#source_branch').unbind();
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".item_available");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Number of stocks to transfer insufficient');
+        	quantity.val('');
+        	
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
 
 	var count = 0;
 	//disable add first
@@ -363,9 +396,6 @@ $(document).ready(function(){
 		
         var currentRow = $(this).closest("tr");
         var inventoryid = $(this).val();
-
-        
-
         var name = currentRow.find(".item_name");
         var code = currentRow.find(".item_code");
         var quantity = currentRow.find(".item_available");

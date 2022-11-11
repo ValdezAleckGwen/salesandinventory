@@ -56,15 +56,15 @@ $total_filter_data = $statement->rowCount();
 
 $output = '
 <label>Total Records - '.$total_data.'</label>
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
         <th class="text-center" style="border: 1px solid;">Product ID</th>
         <th class="text-center" style="border: 1px solid;">Product Name</th>
         <th class="text-center" style="border: 1px solid;">Supplier</th>
         <th class="text-center" style="border: 1px solid;">Category</th>
-        <th class="text-left" style="border: 1px solid;">Price (₱)</th>
-        <th class="text-left" style="border: 1px solid;">Markup Price (₱)</th>
-        <th class="text-left" style="border: 1px solid;">Status</th>
+        <th class="text-center" style="border: 1px solid;">Price (₱)</th>
+        <th class="text-center" style="border: 1px solid;">Markup Price (₱)</th>
+        <th class="text-center" style="border: 1px solid;">Status</th>
         <th class="text-center" style="border: 1px solid;">Action</th>
   </tr>
 ';
@@ -86,8 +86,8 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["productname"].'</td>
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>
       <td style="border: 1px solid;">'.$row["categoryname"].'</td>
-      <td style="border: 1px solid;">'.$row["price"].'</td>
-      <td style="border: 1px solid;">'.$row["markupprice"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["price"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["markupprice"].'</td>
       <td style="border: 1px solid;">'.$status.'</td>
       <td class="text-center" style="border: 1px solid;"> 
         <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["productid"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 

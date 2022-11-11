@@ -1,5 +1,6 @@
 <?php
 require_once 'DbConnect.php';
+include_once 'getdata.php';
 
 if (isset($_POST['productid'])) {
 	$datatype = $_POST['dataType'];
@@ -7,7 +8,7 @@ if (isset($_POST['productid'])) {
 	switch ($datatype) {
 		case 1:
 			$inventoryid = $_POST['productid'];
-			if ($inventoryid != 0) {
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
@@ -39,34 +40,19 @@ if (isset($_POST['productid'])) {
 
 				
 				echo json_encode($data);
-			} else {
-				echo " ";
-			}	
+				
 
 			break;
 		
 		case 2:
-			$inventoryid = $_POST['productid'];
-			if ($inventoryid != 0) {
+			$productid = $_POST['productid'];
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
-					
-				$stmt = $conn->prepare("
-					SELECT tblinventory.id AS inventory, 
-					tblinventory.quantity AS count, 
-					tblproducts.id AS product, 
-					tblproducts.name AS name, 
-					tblproducts.price AS price 
+				$purchaseorderquery = "SELECT tblproducts.id AS productid, tblproducts.name AS name, tblproducts.price AS price FROM tblproducts WHERE tblproducts.id = :productid";
+				$stmt = $conn->prepare($purchaseorderquery);
 
-					FROM tblinventory 
-
-					INNER JOIN tblproducts 
-					ON tblinventory.productId=tblproducts.id 
-
-					WHERE tblproducts.id = :inventoryid
-					");
-
-				$stmt->execute([':inventoryid' => $inventoryid]);
+				$stmt->execute([':productid' => $productid]);
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				
 				foreach ($products as $product) {
@@ -80,16 +66,13 @@ if (isset($_POST['productid'])) {
 
 				
 				echo json_encode($data);
-			} else {
-				$data['status'] = 'all goods';
-				echo json_encode($data);
-			}	
+				
 
 			break;
 
 		case 3:
 		$poitemid = $_POST['productid'];
-			if ($poitemid != 0) {
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
@@ -132,15 +115,13 @@ if (isset($_POST['productid'])) {
 				
 				echo json_encode($data);
 
-			} else {
-				echo " ";
-			}	
+				
 
 			break;
 
 		case 4:
 		$id = $_POST['productid'];
-			if ($id != 0) {
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
@@ -176,9 +157,12 @@ if (isset($_POST['productid'])) {
 					
 					$data['productid'] = $do['productid'];
 					$data['doid'] = $do['doid'];
-					$data['branch'] = $do['branch'];
+					$branch = branchName($do['branch']);
+					$data['branch'] = substr($branch, 0,10);
 					$totalprice = $do['total'];
+					$totalprice = number_format($totalprice, 2);
 					$price = $do['price'];
+					$price = number_format($price, 2);
 					$data['total'] = filter_var($totalprice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['price'] = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$data['quantity'] = $do['quantity'];
@@ -189,15 +173,13 @@ if (isset($_POST['productid'])) {
 				
 				echo json_encode($data);
 
-			} else {
-				echo " ";
-			}	
+				
 
 			break;
 
 		case 5:
 			$inventoryid = $_POST['productid'];
-				if ($inventoryid != 0) {
+				
 					$db = new DbConnect;
 					$conn = $db->connect();
 						
@@ -227,15 +209,13 @@ if (isset($_POST['productid'])) {
 					
 					echo json_encode($data);
 					
-				} else {
-					echo "sadness";
-				}	
+					
 
 			break;
 
 		case 6:
 			$salesitemid = $_POST['productid'];
-				if ($salesitemid != 0) {
+				
 					$db = new DbConnect;
 					$conn = $db->connect();
 					
@@ -275,9 +255,7 @@ if (isset($_POST['productid'])) {
 					echo json_encode($data);
 
 					
-				} else {
-					echo "sadness";
-				}	
+					
 
 			break;
 
@@ -294,7 +272,7 @@ if (isset($_POST['productid'])) {
 
 
 } else {
-	echo "0";
+	echo "No data found";
 }
 
  ?>

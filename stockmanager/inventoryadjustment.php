@@ -77,8 +77,17 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
+          </div>
+        </div>
+
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
           </div>
         </div>
 
@@ -113,6 +122,7 @@ function displayUser() {
 
       </div>
     </div>
+
 		
 		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>
 
@@ -180,7 +190,7 @@ function displayUser() {
 
 $(document).ready(function(){
 
-	$
+	
 
 	var count = 0;
 	
@@ -329,7 +339,7 @@ $(document).ready(function(){
         var name = currentRow.find(".item_name");
         var quantity = currentRow.find(".item_quantity")
         $.ajax({
-            url: "../actions/fetchproductinfo.php",
+            url: "../actions/fetchinventoryinfo.php",
             method: "POST",
             data: {productid: productid, dataType: dataType},
             dataType: "JSON",

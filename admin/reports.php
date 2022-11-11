@@ -34,7 +34,7 @@
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
-      <div class="menu">
+       <div class="menu">
         <!-- Dashboard -->
         <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
 
@@ -68,12 +68,17 @@
          <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+
             <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+
           </div>
         </div>
         
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
+
+        <!-- Payables-->
+        <div class="item"><a href="payables_index.php"><i class="fa-regular fa-basket-shopping"></i>Payables</a></div>
 
         <!-- Delivery Order-->
         <div class="item">

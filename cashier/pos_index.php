@@ -66,6 +66,7 @@ function fill_unit_select_box($connect, $branchid)
 		.productidrow {
 			visibility: hidden;
 		}
+		
 	</style>
 	<body>
 		<!-- Start of sidebar -->
@@ -100,10 +101,9 @@ function fill_unit_select_box($connect, $branchid)
     </script>
     <div class="main">
 
-  
-    <h3 style="margin-top: 40px; font-weight: 600;">POINT OF SALES - <?php echo displayBranch($id); ?></h3><br>
-		<div class="container" style="margin-top: -39px;">
-			<br />
+  	<div class="table-title">
+    		<h3 style = "font-size: 55px";>POINT OF SALES - <?php echo displayBranch($id); ?></h3></h3>
+	</div>
 			<div class="card">
 				<div class="card-header">
 					<div class="float-start"><p >Enter Item Details</p></div>
@@ -122,12 +122,12 @@ function fill_unit_select_box($connect, $branchid)
 							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 								<thead style=" display: block; ">
 								<tr>
-									<th width="11.45%">Product Code</th>
-									<th width="40%">Product Name</th>
-									<th width="12%">Price</th>
-									<th width="10%">Available Quantity</th>
-									<th width="10%">Enter Quantity</th>
-									<th>Total Price</th>
+									<th width="13.9%">Product Code</th>
+									<th width="25%">Product Name</th>
+									<th width="14%">Price</th>
+									<th width="17%">Available Quantity</th>
+									<th width="14%">Enter Quantity</th>
+									<th width="13%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
 								</thead>
@@ -157,7 +157,7 @@ function fill_unit_select_box($connect, $branchid)
 								<div class="col col-sm-3" style="float: right;">
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Vattable Sale</span>
-									  <input type="text" class="form-control"name="vattable-sale" id="vattable-sale" aria-describedby="basic-addon3" readonly>
+									  <input type="text" class="form-control"name="vattable-sale" id="vattable-sale" aria-describedby="basic-addon3" style="text-align: right;" readonly>
 									</div>
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Vat</span>
@@ -178,6 +178,11 @@ function fill_unit_select_box($connect, $branchid)
 <script>
 
 $(document).ready(function(){
+
+	//input validation
+
+
+
 
 	var count = 0;
 	
@@ -238,7 +243,7 @@ $(document).ready(function(){
 
 		$('.item_quantity').each(function(){
 
-			if($(this).val() == '')
+			if($(this).val() == '' )
 			{
 
 				error += "<li>Enter Item Quantity at Row "+count+"</li>";
@@ -291,13 +296,14 @@ $(document).ready(function(){
 
 				success:function(data)
 				{
-					alert(data)
+					
 
 					if(!data)
 					{
 						alert("ERROR");
 
 					} else {
+						window.location = '../actions/salesmodal.php?id='+data;
 						$('#item_table').find('tr:gt(0)').remove();
 
 						$('#error').html('<div class="alert alert-success">Item Details Saved</div>');
@@ -373,13 +379,17 @@ $(document).ready(function(){
         var currentRow = $(this).closest("tr");
         var available = currentRow.find(".available_quantity");
         var quantity = currentRow.find(".item_quantity");
+        var itemtotal = currentRow.find(".item_total");
         var quantityval = $(this).val();
         quantityval = parseInt(quantityval);
         var availval = available.val();
         availval = parseInt(availval);
 
-        if (quantityval > availval) {
+        if (quantityval > availval || quantityval < 0) {
         	quantity.addClass("border border-2 border-danger");
+        	alert('Invalid Quantity input');
+        	itemtotal.val('');
+        	quantity.val('');
         } else {
         	quantity.removeClass("border border-2 border-danger");
         }
@@ -419,7 +429,7 @@ $(document).ready(function(){
 
 
 
-	$(document).on("change", ".item_quantity", function() {
+	$(document).on("keyup", ".item_quantity", function() {
 		var form_data = $('#insert_form').serialize();
 		console.log(form_data)
 		$.ajax({

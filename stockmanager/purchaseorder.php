@@ -83,7 +83,7 @@ function displayUser() {
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
-<!-- Start of Menu Proper -->
+<!-- Start of Menu Proper -->      
       <div class="menu">
 
         <!-- Inventory-->
@@ -91,8 +91,17 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
+          </div>
+        </div>
+
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
           </div>
         </div>
 
@@ -159,7 +168,7 @@ function displayUser() {
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</label>
+								<label for="supplier_id">Supplier:</label>
                                 <select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							
@@ -202,7 +211,19 @@ function displayUser() {
 
 $(document).ready(function(){
 
-	 
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#supplier_id', function() {
+		supplier = $(this).val();
+		branch = $('#branch_id').val();
+		
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
 
 	var count = 0;
 	

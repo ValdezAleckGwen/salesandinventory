@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include '../x-function/redirect_if_notLogin.php';
+include '../actions/getdata.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -13,7 +14,7 @@ include '../x-function/redirect_if_notLogin.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
   </head>
-  <body>
+<body style="overflow-y: hidden">
 
 
 <!-- Start of sidebar -->
@@ -61,6 +62,15 @@ include '../x-function/redirect_if_notLogin.php';
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -84,12 +94,12 @@ include '../x-function/redirect_if_notLogin.php';
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -126,14 +136,20 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="form-style-2">
         <div class="form-style-2-heading">TAX</div>
 
-        <form action="" method="post">
-        <label for="field1"><span>VAT<span class="required">*</span></span><input type="text"class="input-field" name="field1" value="12%" /></label>   
+        <form action="" method="post" id="tax-form">
+        <label for="field1"><span>VAT %<span class="required">*</span></span></label> 
         
-        <div align="left">
-          <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
-          <button type="button" class="btn btn-danger" style="font-size: 16px; font-weight: 700;"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
-        </div>
+            <input type="text" class="tax" name="tax" value=""  />
+            
+          <input type="submit" class="btn btn-primary d-none" style="font-size: 16px; font-weight: 700;" id="submit">
         </form>
+        <button class="btn btn-primary edit mt-1" style="font-size: 16px; font-weight: 700;">Edit</button>
+        <div class="validation d-none" id="validation">   
+            <label for="field1"><span>Email<span class="required">*</span></span></label> 
+            <input type="text" name="email" class="email" id="email" class="form-control">
+        </div>
+        
+        
         </div>
      </div>
   </div>
@@ -141,3 +157,60 @@ include '../x-function/redirect_if_notLogin.php';
 
   </body>
 </html>
+
+<script>
+   $(document).ready(function(){
+
+    $('.tax').val(<?php echo getTax(); ?>);
+
+    $('.tax').prop('disabled', true);
+
+    $(document).on('click', '.edit', function() {
+        $('.validation').removeClass('d-none');
+        $('.edit').addClass('d-none');
+    });
+
+    $(document).on('keyup', '#email', function() {
+        var email = $(this).val();
+
+        $.ajax({
+            url: "../actions/checkadmin.php",
+            method: "POST",
+            data: {email:email},
+            success: function (data) {
+                
+                if (data == 1) {
+                    $('.tax').prop('disabled', false);
+                    $('#submit').removeClass('d-none');
+                }else {
+                    $('.tax').prop('disabled', true);
+                    $('#submit').addClass('d-none');
+                }
+
+            }
+        });
+    });    
+
+    $('#tax-form').on('submit', function(event){    
+        event.preventDefault();
+        form_data = $(this).serialize();
+        console.log(form_data);
+
+        $.ajax({
+            url: "../actions/updatetax.php",
+            method: "POST",
+            data: form_data,
+            success: function (data) {
+                alert(data)
+                location.reload();
+
+            }
+        });
+        
+     }); 
+
+    
+}); 
+
+
+</script>

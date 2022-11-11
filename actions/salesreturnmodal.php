@@ -75,7 +75,7 @@ $userid = $salesreturn[0]['userid'];
                         </h4>
                     </div>
 
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
+                    <div>
                         <div>
                             <h4 class="fs35 gorditaB text-uppercase mb-1">
                                 Invoice

@@ -79,7 +79,7 @@ function displayUser() {
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<body>
+<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
@@ -127,6 +127,15 @@ function displayUser() {
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -150,12 +159,12 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -253,9 +262,42 @@ function displayUser() {
 
 $(document).ready(function(){
 
+
+	$('.add').prop('disabled', true);
+	
+
+	$(document).on('change', '#branch_id', function() {
+		branch = $(this).val();
+		supplier = $('#supplier_id').val();
+
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+	$(document).on('change', '#supplier_id', function() {
+		supplier = $(this).val();
+		branch = $('#branch_id').val();
+		
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+
+
 	var count = 0;
+
 	
 	$(document).on('click', '.add', function(){
+		var branch = $('#branch_id').val();
+
 
 		var form_data = $('#insert_form').serialize();
 		console.log(form_data)
@@ -353,7 +395,7 @@ $(document).ready(function(){
 
 				success:function(data)
 				{
-					alert(data)
+					
 
 					if(!data)
 					{
@@ -394,6 +436,34 @@ $(document).ready(function(){
 	
 	
 $(document).ready(function(){
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".po_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var itemtotal = currentRow.find(".item_total");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval || quantityval < 0) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Invalid Quantity input');
+        	itemtotal.val('');
+        	quantity.val('');
+        	
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
+
+
+
   
 	$(document).on("change", ".item_id", function  () {
 		
@@ -405,9 +475,14 @@ $(document).ready(function(){
         var itemid = currentRow.find(".item_code");
         var name = currentRow.find(".item_name");
         var price = currentRow.find(".item_price");
-        var quantity = currentRow.find(".quantity")
+        var quantity = currentRow.find(".po_quantity")
+
         var total = currentRow.find(".item_total")
         var actualPrice;
+        var totalPrice = currentRow.find(".item_total");
+        totalPrice.val('');
+        $('#total').val('');
+        quantity.val('');
         
         $.ajax({
             url: "../actions/fetchproductinfo.php",
@@ -421,12 +496,13 @@ $(document).ready(function(){
                 name.val(data.name); 
                 price.val(actualPrice);
                 quantity.val(data.quantity);	
-                total.val(data.total);
+                
                 
             }
         });
         return false;
     });
+
 	//
 
 	$(document).on("keyup", ".item_quantity", function() {

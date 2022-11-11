@@ -53,57 +53,16 @@ $userid = $purchases[0]['userid'];
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     </head>
 
-    <!-- Delete Function Jquery -->
-        <script>
-            $(document).ready(function () {
-
-                // Delete 
-                $(document).on('click', '.delete', function () {
-                    var el = this;
-
-                    // Delete id
-                    var deleteid = $(this).data('id');
-                    alert(deleteid);
-
-                    // Confirm box
-                    bootbox.confirm("Do you really want to delete record?", function (result) {
-
-                        if (result) {
-                            // AJAX Request
-                            $.ajax({
-                                url: '../actions/deletepo.php',
-                                type: 'POST',
-                                data: {deleteid: deleteid},
-                                success: function (response) {
-                                alert(response);
-
-                                    // Removing row from HTML Table
-                                    if (response == ' ok') {
-                                        bootbox.alert('Record deleted.');
-                                        $(el).closest('tr').css('background', 'tomato');
-                                        $(el).closest('tr').fadeOut(800, function () {
-                                            $(this).remove();
-                                        });
-
-                                    } else {
-                                        bootbox.alert('Record not deleted');
-                                    }
-
-                                }
-                            });
-                        }
-
-                    });
-
-                });
-            });
-        </script>
 
     <body>
 
             <div class="container" >
                 
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+                    </div>
+
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                             <?php echo $purchases[0]['suppliername']; ?>
@@ -120,21 +79,17 @@ $userid = $purchases[0]['userid'];
                             <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            PO ID:  Date: <?php echo $purchases[0]['poid']; ?>
+                            PO ID:  <?php echo $purchases[0]['poid']; ?>
                         </h4>
                     </div>
 
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
+                    
                         <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Purchase Order
-                            </h4>
                             <p class="fs18">
                                 Date: <?php echo $purchases[0]['purchasedate']; ?>
-
-                            </p>
+                           </p>
                         </div>
-                    </div>
+                   
 
   
 
@@ -219,12 +174,7 @@ $userid = $purchases[0]['userid'];
 
                             </table>
 
-                            <td class="text-center" style="border: 1px solid;"> 
-                                <button class="delete btn btn-danger btn-sm rounded-0" 
-                                    id="del_<?php echo $purhcase['poid'];?>"  data-id="<?php echo $purhcase['poid'];?>">
-                                    <i class="fa-solidfa-circle-minus">Delete</i>
-                                </button>
-                            </td>
+                           
                             
                         </div>
                     </div>

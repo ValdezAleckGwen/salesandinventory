@@ -8,6 +8,7 @@ $id = $_POST['id'];
 
 $query = "SELECT 
 tblinventoryadjustment.id AS inventoryadj,
+tblinventoryadjustment.date AS calendar,
 tblproducts.id AS productid,
 tblproducts.name AS name,
 tblinventoryadjustmentitem.quantity AS quantity
@@ -42,8 +43,11 @@ $invents = $statement->fetchAll();
     </head>
     <body>
 
-            <div class="container" style="pointer-events: none;">
+            <div class="container">
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i>Print</button>
+                    </div>
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                            <?php echo getCompanyName(); ?>
@@ -58,15 +62,17 @@ $invents = $statement->fetchAll();
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
                             INV ADJ ID: <?php echo $invents[0]['inventoryadj']; ?>
                         </h4>
+
+                         <p class="fs18" >
+                             Date:  <?php echo $invents[0]['calendar']; ?>
+                       </p>
                     </div>
 
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
-                        <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                
-                            </h4>
-                        </div>
-                    </div>
+                    
+                      
+                           
+                        
+                    
 
   
 
@@ -126,13 +132,7 @@ $invents = $statement->fetchAll();
 
                                    
                                 
-                                    <tr>
-                                        
-                                        
-                                        <td colspan="2" class="text-end border_sm_top"></td>
-                                        
-                                        
-                                    </tr>
+                                  
 
                                 </tfoot>
                             </table>

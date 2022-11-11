@@ -76,7 +76,7 @@ function displayUser() {
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<body>
+<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
@@ -122,6 +122,15 @@ function displayUser() {
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -145,12 +154,12 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -241,6 +250,34 @@ function displayUser() {
 <script>
 
 $(document).ready(function(){
+
+
+	$('.add').prop('disabled', true);
+	
+
+	$(document).on('change', '#branch_id', function() {
+		branch = $(this).val();
+		supplier = $('#supplier_id').val();
+
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+	$(document).on('change', '#supplier_id', function() {
+		supplier = $(this).val();
+		branch = $('#branch_id').val();
+		
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
 
 	 
 
@@ -373,7 +410,7 @@ $(document).ready(function(){
 
 				success:function(data)
 				{
-					alert(data)
+					
 
 					if(!data)
 					{
@@ -422,16 +459,21 @@ $(document).ready(function(){
         var name = currentRow.find(".item_name");
         var available = currentRow.find(".available_quantity");
         var actualPrice;
+        
         $.ajax({
+
+        	
             url: "../actions/fetchproductinfo.php",
             method: "POST",
             data: {productid: productid, dataType, dataType},
             dataType: "JSON",
             success: function (data) {
+            	console.log('egg')
                 actualPrice = data.price.replace(/^/, '₱');
                 available.val(data.available);
                 price.val(actualPrice);
                 name.val(data.name); 
+
             }
         });
         return false;
@@ -467,7 +509,7 @@ $(document).ready(function(){
 	});
 
 
-	$(document).on("change", ".item_quantity", function() {
+	$(document).on("keyup", ".item_quantity", function() {
 		var form_data = $('#insert_form').serialize();
 		
 		console.log(form_data)

@@ -14,7 +14,7 @@ include '../x-function/redirect_if_notLogin.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     
   </head>
-  <body>
+<body style="overflow-y: hidden">
 
 <!-- Start of sidebar -->
     <div class="side-bar">
@@ -61,6 +61,15 @@ include '../x-function/redirect_if_notLogin.php';
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -84,12 +93,12 @@ include '../x-function/redirect_if_notLogin.php';
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -126,14 +135,18 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="form-style-2">
         <div class="form-style-2-heading">SETTINGS</div>
 
-        <form action="" method="post">
-        <label for="field1"><span>Name:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="Jeremy Langcay" /></label>
-        <label for="field1"><span>Email:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="jeremylangcay@gmail.com" /></label>
-        <label for="field1"><span>Password<span class="required">*</span></span><input type="password" class="input-field" name="field1" value="123123213123123" /></label>
+        <form action="" method="post" id="insert_form">
+        <div>
+            <label for="oldpassword"><span>Input Old Password:<span class="required">*</span></span><input type="password" class="oldpassword" name="oldpassword" id="oldpassword" value="" /></label>
+            <label for="newpassword" class="d-none newpw"><span>New Password:<span class="required">*</span></span><input type="password" class="newpassword" name="newpassword" id="newpassword" value="" required /></label>
 
-        <div align="center">
-          <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
-          <button type="button" class="btn btn-danger" style="font-size: 16px; font-weight: 700;"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+        </div>
+        <p style="font-size: 15px" id="info"></p>
+        <div align="right">
+          <button type="submit" class="btn btn-primary update" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
+          <button type="button" class="btn btn-primary showold" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show Old Password</button>
+          <button type="button" class="btn btn-primary shownew d-none" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show New Password</button>
+          
         </div>
         </form>
         </div>
@@ -144,3 +157,88 @@ include '../x-function/redirect_if_notLogin.php';
 
   </body>
 </html>
+<script>
+   $(document).ready(function(){
+
+    $('.update').prop('disabled', true);
+
+    $(document).on('keyup', '#oldpassword', function () {
+        var oldpassword = $(this).val();
+        var datatype = 1;
+        $.ajax({
+            url: "../actions/checkpassword.php",
+            method: "POST",
+            data: {oldpassword : oldpassword, datatype: datatype},
+            
+            success: function (data) {
+                    
+                
+                if (data == 1) {
+                    $('.newpw').removeClass('d-none');
+                    $('.shownew').removeClass('d-none');
+                    $('.update').prop('disabled', false);
+                } else {
+                    $('.newpw').addClass('d-none');
+                    
+                }
+
+            }
+        });
+
+
+    });
+
+
+        $(document).on('mousedown', '.shownew', function () {
+            
+            $('.newpassword').prop('type', 'text');
+        }).on('mouseup mouseleave', function() {
+            $('.newpassword').prop('type', 'password');
+        });
+
+        $(document).on('mousedown', '.showold', function () {
+            
+            $('.oldpassword').prop('type', 'text');
+        }).on('mouseup mouseleave', function() {
+            $('.oldpassword').prop('type', 'password');
+        });
+
+
+    $('#insert_form').on('submit', function(event){
+
+        var form_data = $(this).serialize();
+        event.preventDefault();
+
+        var error = '';
+
+        count = 1;
+
+        
+
+        $.ajax({
+            url: "../actions/updatepassword.php",
+            method: "POST",
+            data: form_data,
+            
+            success: function (data) {
+                alert(data);
+
+            }
+        });
+
+        
+    });
+
+       
+
+
+
+
+
+
+
+    
+}); 
+
+
+</script>

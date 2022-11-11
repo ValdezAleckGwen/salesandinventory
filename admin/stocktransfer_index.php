@@ -37,8 +37,80 @@ function displayUser() {
     </head>
     
     </style>
-    <body>
-    <!-- Start of sidebar -->
+
+    <style>
+      @media print{@page {size: landscape}}
+      @media print {
+        .side-bar, .side-bar {
+          visibility: hidden !important;
+        }
+        title, title {
+          visibility: hidden !important;
+        }
+        .card, .card {
+          visibility: hidden !important;
+        }
+        
+        .title, .title * {
+          visibility: hidden; !important;
+        }
+        .usericon, .usericon {
+          visibility: hidden !important;
+        }
+        #submit_button, #submit_button {
+          visibility: hidden !important;
+        }
+        .tax-container, .tax-container {
+          visibility: hidden !important;
+        }
+        
+        #available, #available {
+          visibility: hidden !important;
+        }
+        .item_available, .item_available {
+          visibility: hidden !important;
+        }
+        #dynamic_content, #dynamic_content {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .title, .title {
+          visibility: hidden !important;
+        }
+        #salesmodal, #salesmodal {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        #stmodal, #stmodal {
+          visibility: hidden !important;
+        }
+        .modal-body, .modal-body {
+          visibility: visible;
+          position: absolute;
+          left:0;
+          top:0;
+          width:1%;
+          height:1%;
+          font-size: 10px;
+        }
+        
+
+        button, button * {
+          visibility: hidden !important;
+        }
+
+
+        
+
+      }
+    </style>
+
+<body style="overflow-y: hidden">
+<!-- Start of sidebar -->
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
@@ -83,6 +155,15 @@ function displayUser() {
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -106,12 +187,12 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -146,11 +227,10 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>STOCK TRANSFER</h3>
+        <h3 class="title">STOCK TRANSFER</h3>
         <div style="display: inline">
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
-        <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        <div align = right>
+            <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Stock Trasnfer Name"/></label>       
         </div>
           </div>
         </div>
@@ -215,6 +295,11 @@ function displayUser() {
     });
 
   });
+
+  //Print 
+  $(document).on('click', '.print', function() {
+      window.print();
+    });
 
     //Start of DO Modal
     $(document).on('click', '.data', function() {

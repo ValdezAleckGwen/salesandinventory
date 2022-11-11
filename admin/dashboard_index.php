@@ -30,7 +30,12 @@ function displayUser() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     
   </head>
-  <body>
+  <style type="text/css">
+      .headers {
+        text-align: center;
+      }
+  </style>
+  <body style="overflow-y: hidden">
 
 
 <!-- Start of sidebar -->
@@ -78,6 +83,15 @@ function displayUser() {
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -101,12 +115,12 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -124,50 +138,27 @@ function displayUser() {
       </div>
     </div>
     
-
- 
     <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
 
-    <div class="content">
-        <div class="home-content">
-          <h2 style="font-weight: 700">Dashboard</h2>
-          <hr>
-              <div class="overview-boxes">
-                <div class="box">
-                  <div class="right-side">
-                    <div class="box-topic">Total Sales Today</div>
-                    <div class="number">150</div>
-                  </div>
+    <div class="content" style="margin-left: 350px;">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col m-3  p-5 bg-primary">
+                    <h1 id="salestoday" class="headers">SALES FOR TODAY</h1>
+                    <h1 id="salescount" class="headers">0</h1>
                 </div>
-
-                <div class="box">
-                  <div class="right-side">
-                    <div class="box-topic">Total Orders Today</div>
-                    <div class="number">161</div>
-                  </div>
+                <div class="col m-3  p-5 bg-success">
+                    <h1 id="totalsalestoday" class="headers">TOTAL SALES FOR TODAY </h1>
+                    <h1 id="salestotal" class="headers">0</h1>
                 </div>
-
-                <div class="box">
-                  <div class="right-side">
-                    <div class="box-topic">Number of available products</div>
-                    <div class="number">1029</div>
-                  </div>
+            </div>
+            <div class="row">
+                <div class="container-fluid w-100 ">
+                    <h3>LATEST SALES</h3>
+                    <div border="1" class="table-repsonsive" id="dynamic_content"><?php include '../actions/fetchdasboardsales.php' ?></div>
                 </div>
-
-                <div class="box">
-                  <div class="right-side">
-                    <div class="box-topic">Pending Orders</div>
-                    <div class="number">44</div>
-                  </div>
-                  <br>
-                </div>
-                </div>
-           <div class="home-content">
-           		<h2 style="font-weight: 700">Analytics</h2>
-           		<hr>
-           		<br>
-           		<div class="center"><img src="assets/images/graph.png" style="width: 80%; height: 80%"></div>
-           	</div>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -183,7 +174,37 @@ function displayUser() {
         $(this).find('.dropdown').toggleClass('rotate');
       });
 
-     
+      load_sales(1);
+      load_sales(2);
+      load_data();
+
+
+
+     function load_sales(datatype = '') {
+
+
+
+        $.ajax({
+        url:"../actions/dashboardvalues.php",
+        method:"POST",
+        data:{datatype: datatype},
+        success:function(data)
+        {
+            if (datatype == 1) {
+                $('#salescount').text(data);
+            } else {
+                $('#salestotal').text(data);
+            }
+          
+        }
+      });
+
+     }
+
+
+
+
+
 
 
 

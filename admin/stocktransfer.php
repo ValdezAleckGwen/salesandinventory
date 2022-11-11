@@ -77,7 +77,7 @@ function displayUser() {
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<body>
+<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
@@ -123,6 +123,15 @@ function displayUser() {
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -146,12 +155,12 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -204,7 +213,7 @@ function displayUser() {
 							</div>
 							<div class="container m-1">
 								<label>Destination Branch:</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option>Select Branch</option></select>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Branch</option></select>
 							</div>
 							<thead style=" display: block; ">
 								<tr>
@@ -245,10 +254,27 @@ $(document).ready(function(){
 	var count = 0;
 	//disable add first
 	$('.add').prop('disabled', true);
-	$(document).on('change', '#source_branch', function() {
+	
+
+	$(document).on('change', '#destination_branch', function() {
 		destinationbranch = $(this).val();
-		if (destinationbranch == '') {
+		sourcebranch = $('#source_branch').val();
+
+		if (destinationbranch == '' || sourcebranch == '') {
 			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+	$(document).on('change', '#source_branch', function() {
+		sourcebranch = $(this).val();
+		destinationbranch = $('#destination_branch').val();
+		
+		if (destinationbranch == '' || sourcebranch == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
 		} else {
 			$('.add').prop('disabled', false); //enabled if there is value
 		}
@@ -263,7 +289,7 @@ $(document).ready(function(){
 		var form_data = $('#insert_form').serialize();
 		
 		$.ajax({
-        url: "../actions/addrow.php",
+        url: "../actions/addrowv2.php",
         method: "POST",
         data: form_data,
         success: function (data) {
@@ -402,8 +428,8 @@ $(document).ready(function(){
 
 	});
 
-	$(document).on("change", ".inventory_id", function  () {
-
+	$(document).on("change", ".item_id", function  () {
+        
         var currentRow = $(this).closest("tr");
         var inventoryid = $(this).val();
         var name = currentRow.find(".item_name");
@@ -416,6 +442,8 @@ $(document).ready(function(){
             data: {inventoryid: inventoryid},
             dataType: "JSON",
             success: function (data) {
+                
+                
             	quantity.val(data.quantity);
             	code.val(data.productid);
                 name.val(data.name); 

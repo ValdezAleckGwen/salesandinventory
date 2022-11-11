@@ -1,10 +1,10 @@
 <?php 
 include('database_connection.php');
 include('getdata.php');
-
-if (isset($_POST['id'])) {
+// this is the file where you can design inovice.Thanks buddy :)
+if (isset($_GET['id'])) { // it was post method check and i convert into Get
     
-$id = $_POST['id'];
+$id = ltrim($_GET['id'],' '); //same here but with ltrim method to remove space from left side
 
 $query = "SELECT 
 tblsales.id AS salesid,
@@ -48,14 +48,33 @@ $userid = $sales[0]['userid'];
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" href="favicon.png" type="image/svg">
     </head>
+    <style type="text/css" media="print">
+        @page 
+        {
+            size:  auto;   /* auto is the initial value */
+            margin: 0mm;  /* this affects the margin in the printer settings */
+        }
+        @media print{
+            .hide-in-print{
+                display: none;
+            }
+        }
+        
+    </style>
     <body>
 
-            <div class="container" style="pointer-events: none;">
+
+            <div class="container">
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <a href="../cashier/pos_index.php" class="hide-in-print" style="text-decoration: none; padding:5px; margin-right:5px; border-radius:10px;background:black;color:white;">Go Back to POS</a>
+                        <button onClick="window.print();" class="hide-in-print" type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+                    <!-- the windo.print() is used to print html page -->
+                    </div>
                     <div class="col-sm-6 text-muted">
-                        <h4 class="fs35 gorditaB text-uppercase mb-1">
+                        <h1 class="fs35 gorditaB text-uppercase mb-1">
                             <?php echo getCompanyName(); ?>
-                        </h4>
+                        </h1>
                         <p class="fs18 text-uppercase">
                             <?php echo getCompanyAddress(); ?>
                         </p>
@@ -81,22 +100,24 @@ $userid = $sales[0]['userid'];
                     </div>
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
-                            <table class="table">
+                            <table class="table table-bordered" style="width: 100%;">
+                            <!-- made width of table to 100% -->
                                 <tbody>
                                     <tr>
-                                        <th class="text-center">
+                                        <th style="text-align:left;">
+                                        <!-- all table heading alligned to left -->
                                             ITEM ID
                                         </th>
-                                        <th class="text-center">
+                                        <th style="text-align:left;">
                                             NAME
                                         </th>
-                                        <th class="text-center">
+                                        <th style="text-align:left;">
                                             QUANTITY
                                         </th>
-                                        <th class="text-center">
+                                        <th style="text-align:left;">
                                             PRICE
                                         </th>
-                                        <th class="text-center">
+                                        <th style="text-align:left;">
                                             TOTAL
                                         </th>
                                     </tr>

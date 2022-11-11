@@ -13,7 +13,7 @@ tblproducts.id as productid,
 tblproducts.name as productname,
 tblproducts.price as price,
 tblstocktransfer.userid as userid,
-tblstocktransfer.date AS stockdate,
+tblstocktransfer.stdate AS stockdate,
 tblstocktransferitem.quantity as quantity
 
 FROM tblstocktransfer 
@@ -49,8 +49,11 @@ $userid = $stocks[0]['userid'];
     </head>
     <body>
 
-            <div class="container" style="pointer-events: none;">
+            <div class="container">
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i>Print</button>
+                    </div>
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                             <?php echo getCompanyName(); ?>
@@ -65,25 +68,16 @@ $userid = $stocks[0]['userid'];
                             ISSUED BY: <?php echo getFullName($userid); ?>
 
                         </h4>
+
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center d-inline">
                             Stock Transfer ID: <?php echo $stocks[0]['stockid']; ?>
                         </h4>   
 
-                        <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Date: <?php echo $stocks[0]['stockdate']; ?>
-                        </h4>                     
+                         <p class="fs18" >
+                            Date: <?php echo $stocks[0]['stockdate']; ?>
+                        </p>                  
                     </div>
-
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
-                        <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Invoice
-                            </h4>
-                            <p class="fs18">
-                                Date: <?php echo $stocks[0]['stockdate']; ?>
-                            </p>
-                        </div>
-                    </div>
+                  
 
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">

@@ -20,6 +20,7 @@ if (isset($_POST['item_total'])) {
 
 
 	echo json_encode($data);
+	
 
 } else {
 	$data['status'] = 'no data found';

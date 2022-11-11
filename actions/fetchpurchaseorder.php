@@ -107,7 +107,7 @@ if ($permission == 1) {
         <th class="text-center" style="border: 1px solid;">Supplier</th>
         <th class="text-center" style="border: 1px solid;">Creator</th>
         <th class="text-left" style="border: 1px solid;">Date</th>
-        <th class="text-left" style="border: 1px solid;">Total(₱)</th>
+        <th class="text-right" class="text-left" style="border: 1px solid;">Total(₱)</th>
   </tr>
 ';
 }
@@ -136,7 +136,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["det"].'</td>
-      <td style="border: 1px solid;">'.$row["total"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
     }

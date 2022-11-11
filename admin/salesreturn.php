@@ -1,8 +1,14 @@
 <?php
 	
-//index.php	
+session_start();
+include '../actions/getdata.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
+
+
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+
 
 function fill_unit_select_box_sales($connect)
 {
@@ -20,7 +26,16 @@ function fill_unit_select_box_sales($connect)
 	return $output;
 }		
 
-//remove this if cookie is configured
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+}
 
 	
 ?>
@@ -40,33 +55,107 @@ function fill_unit_select_box_sales($connect)
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<body>
-		<!-- Start of sidebar -->
+<body>
+<!-- Start of sidebar -->
     <div class="side-bar">
       
-<!-- Start of Menu Proper -->
-      <div class="menu">
+<!-- Start of Menu Proper -->      <div class="menu">
+        <!-- Dashboard -->
+        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
 
-    <!-- Inventory-->
-        <div class="item"><a href="inventory_index.php"><i class="fa-regular fa-warehouse"></i>Inventory</a></div>
-       
+        <!-- Analytics -->
+        <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
 
-        <!-- Orders-->
-        <div class="item"><a href="orders_index.php"><i class="fa-regular fa-cart-shopping"></i>Orders</a></div>
+        <!-- Branch -->
+        <div class="item"><a href="branch_index.php"><i class="fa-solid fa-ballot"></i>Branch</a></div>
 
+        <!-- Category -->
+        <div class="item"><a href="category_index.php"><i class="fa-regular fa-table-cells-large"></i>Category</a></div>
 
-        <!-- Point of salesv2-->
-        <div class="item"><a href="posv2_index.php"><i class="fa-regular fa-calculator"></i>Point of Salesv2</a></div>
+        <!-- Products -->
+        <div class="item"><a href="product_index.php"><i class="fa-regular fa-bag-shopping"></i>Products</a></div>
+
+        <!-- Users -->
+        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
+
+        <!-- Inventory-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
+          </div>
+        </div>
+
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
+        
+        <!-- Suppliers-->
+        <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
+
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
+
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
+
+        <!-- Sales-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+         </div>
+        </div>
+
+        <!-- Reports-->
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+
+        <!-- Settings-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+            <a href="tax_index.php" class="sub-item"><i class="fa-regular fa-percent"></i>Tax Settings</a>
+          </div>
+        </div>
 
         <!-- Logout -->
-        <div class="item"><a href="../admin/login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
-
-        <div class="clearfix"></div>
-    <br/>
+        <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
         </div>
+      </div>
     </div>
-		<div class="usericon">Cashier <i class="fa-regular fa-user"></i></div>
+    
+	<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -77,48 +166,45 @@ function fill_unit_select_box_sales($connect)
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">SALES ADJUSTMENT</h3><br>
 		<div class="container">
-			<br />
+		  	<div class="table-title">
+		    	<h3>SALES ADJUSTMENT</h3>
+		    </div>			
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
 					<form method="post" id="insert_form">
 						<div class="table-repsonsive">
 							<span id="error"></span>
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
 								<label for="salesreturnid">Sales #:</label>
 								<input type="text" name="salesreturnid" class="input-field" value="<?php echo createId('tblsalesreturn'); ?>" id="salesreturnid" readonly>
 							</div>
+
 							<div class="container m-1">
 								<label for="salesid">Sales ID</h5>
-								<select name="salesid" class="p-2 col col-sm-2 form-control selectpicker salesid" id="salesid" data-live-search="true"><option value="">Select Sales</option><?php echo fill_unit_select_box_sales($connect); ?></select>
+								<select name="salesid" class="p-2 col col-sm-2 form-control selectpicker salesid" id="salesid" data-live-search="true" required><option value="">Select Sales</option><?php echo fill_unit_select_box_sales($connect); ?></select>
 							</div>
-							<!--remove this if cookie is configured-->
-
-							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 								<thead style=" display: block; ">
 								<tr>
-									<th width="23%">Sales ID</th>
-									<th width="16.3%">Product ID</th>
-									<th width="19.5%">Product Name</th>
-									<th width="10.8%">Price</th>
-									<th width="10%">Quantity</th>
-									<th width="15%">Total Price</th>
+									<th width="13.9%">Sales ID</th>
+									<th width="15.9%">Product ID</th>
+									<th width="23.6%">Product Name</th>
+									<th width="11%">Price</th>
+									<th width="8%">QTY</th>
+									<th width="8%">Quantity Adj.</th>
+									<th width="16%">Total Price</th>
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
-								</thead>
+							</thead>
 								<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
-							<tr>
-									
-								</tr>
-							</tbody>
+								<tr></tr></tbody>
 							<footer>
 							<div class="row">
-							
+
 							</footer>
+							</table>
 							
 							</table>
 								<div class="col-sm-6" style="float: left">
@@ -136,8 +222,39 @@ function fill_unit_select_box_sales($connect)
 <script>
 
 $(document).ready(function(){
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#salesid', function () {
+		salesid = $(this).val();
+		if (salesid == '') {
+			$('.add').prop('disabled', true);
+		} else {
+			$('.add').prop('disabled', false);
+		}
+	});
 
 
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".available_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval || quantityval <= 0 || quantityval == availval) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Invalid Quantity input');
+        	quantity.val('');
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
 
 
 	var count = 0;
@@ -293,7 +410,7 @@ $(document).ready(function(){
         var productcode = currentRow.find(".item_code");
         var name = currentRow.find(".item_name");
         var price = currentRow.find(".item_price");
-        var quantity = currentRow.find(".item_quantity");
+        var quantity = currentRow.find(".available_quantity");
         var total = currentRow.find(".item_total");
         var actualPrice;
 

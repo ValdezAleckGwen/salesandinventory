@@ -61,7 +61,7 @@ function fill_unit_select_box_branch($connect)
     </head>
     
     </style>
-    <body>
+<body style="overflow-y: hidden">
     <!-- Start of sidebar -->
     <div class="side-bar">
 
@@ -107,6 +107,15 @@ function fill_unit_select_box_branch($connect)
         <!-- Suppliers-->
         <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
         <!-- Delivery Order-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
@@ -130,12 +139,12 @@ function fill_unit_select_box_branch($connect)
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
         <!-- Reports-->
-        <div class="item"><a href="reports.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
         <!-- Settings-->
         <div class="item">
@@ -171,23 +180,25 @@ function fill_unit_select_box_branch($connect)
      <div class="flex-items">
        <div class="table-title">
         <h3>INVENTORY</h3>
-        <div class="container m-1">
-          <label for="supplier_id">Branch</label>
-          <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_Branch($connect); ?></select>
-        </div>
-        <div style="display: inline;">
-            
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>   
-        <div style="float: right;">
-                
-        </div>
-          </div>
-        </div>
-       
+           <div class="d-flex justify-content-between">
+               <div style="max-width: 250px" class="d-flex align-items-center">
+                   <label for="supplier_id"><span>Branch:&nbsp;</span></label>
+                   <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_Branch($connect); ?></select>
+               </div>
+               <div class="d-flex align-items-center">
+
+                   <label for="search_box"><span>Search&nbsp;</span></label><input class="" style="" type="text" name="search_box" id="search_box" value=""/>
+
+               </div>
+           </div>
+       </div>
+
         <div border='1' class='table-responsive' id="dynamic_content">
         <!--product content-->
         </div>
-        
+     </div>
+  </div>
+</div>
     </body>
 </html>
 <script>

@@ -28,7 +28,7 @@ else
   tblbranch.name as name,
   tblstocktransfer.destination as destination,
   tblbranch.name as name,
-  tblstocktransfer.date AS stockdate,
+  tblstocktransfer.stdate AS stockdate,
   tblusers.id as userid
 
   FROM tblstocktransfer
@@ -37,6 +37,8 @@ else
   ON tblstocktransfer.source = tblbranch.id 
   INNER JOIN tblusers
   ON tblstocktransfer.userid=tblusers.id
+  WHERE tblusers.branchid = '".$branchid."'
+  
   ";
 
 
@@ -48,7 +50,7 @@ if($_POST['query'] != '')
   ';
 }
 
-$query .= 'ORDER BY tblstocktransfer.id ASC ';
+$query .= 'ORDER BY tblstocktransfer.id DESC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 

@@ -28,7 +28,7 @@ function displayUser() {
 
         <title>Stock Manager - Delivery Order Index</title>
 
- 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
@@ -39,7 +39,81 @@ function displayUser() {
     </head>
     
     </style>
-    <body>
+
+     <style>
+      @media print{@page {size: landscape}}
+      @media print {
+        .side-bar, .side-bar {
+          visibility: hidden !important;
+        }
+        .card, .card {
+          visibility: hidden !important;
+        }
+        
+        #postitle, #postitle * {
+          visibility: hidden; !important;
+        }
+        .usericon, .usericon {
+          visibility: hidden !important;
+        }
+        #submit_button, #submit_button {
+          visibility: hidden !important;
+        }
+        .tax-container, .tax-container {
+          visibility: hidden !important;
+        }
+        
+        #available, #available {
+          visibility: hidden !important;
+        }
+        .item_available, .item_available {
+          visibility: hidden !important;
+        }
+        #dynamic_content, #dynamic_content {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .title, .title {
+          visibility: hidden !important;
+        }
+        .titlebar, .titlebar {
+          visibility: hidden !important;
+        }
+        #salesmodal, #salesmodal {
+          visibility: hidden !important;
+        }
+        #dropdown, #dropdown {
+          visibility: hidden !important;
+        }
+        #domodal, #domodal {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .modal-body, .modal-body {
+          visibility: visible;
+          position: absolute;
+          left:0;
+          top:0;
+          width:1%;
+          height:1%;
+          font-size: 10px;
+        }
+        
+
+        button, button * {
+          visibility: hidden !important;
+        }
+
+
+        
+
+      }
+    </style>
+    <body style="overflow-y: hidden">
     <!-- Start of sidebar -->
     <div class="side-bar">
 
@@ -51,8 +125,17 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i>Adjustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
+          </div>
+        </div>
+
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
           </div>
         </div>
 
@@ -89,6 +172,7 @@ function displayUser() {
     </div>
 
 
+
 <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
@@ -105,9 +189,11 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>DELIVERY ORDER</h3>
+        <h3 class="title">DELIVERY ORDER</h3>
         <div style="display: inline">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        <div  align = right>
+              <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Delivery Order ID"/></label>       
+            </div>
         </div>
           </div>
         </div>
@@ -163,6 +249,10 @@ function displayUser() {
       var page = $(this).data('page_number');
       var query = $('#search_box').val();
       load_data(page, query);
+    });
+
+    $(document).on('click', '.print', function() {
+      window.print();
     });
 
     $('#search_box').keyup(function(){
