@@ -1,17 +1,18 @@
 <?php 
-include 'getdata.php';
 include 'database_connection.php';
+session_start();
+include 'getdata.php';
 
-$doid = 'DO-0000005';
-$deliveryorders = getQueryTwo('poiid','quantity', 'tbldeliveryorderitem', 'doid', $doid);
+$id = $_SESSION['uid'];
 
-foreach ($deliveryorders as $deliveryorder) {
-    echo $deliveryorder['poiid'];
-    echo "\n";
-    echo $deliveryorder['quantity'];
-  }  
- 
+$result = getQueryTwo('password', 'email', 'tblusers', 'id' , $id);
+foreach ($result as $r) {
+	$currentpassword =  $r['password'];
+	$currentemail =  $r['email'];
+}
 
-  
+echo $currentemail;
+echo $currentpassword;
+
 
 ?>

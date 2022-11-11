@@ -64,7 +64,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>STOCK TRANSFER</title>
+		<title>Admin - Stock Transfer</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -77,42 +77,107 @@ function displayUser() {
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<body>
+<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
 <!-- Start of Menu Proper -->
       <div class="menu">
+        <!-- Dashboard -->
+        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
+
+        <!-- Analytics -->
+        <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
+
+        <!-- Branch -->
+        <div class="item"><a href="branch_index.php"><i class="fa-solid fa-ballot"></i>Branch</a></div>
+
+        <!-- Category -->
+        <div class="item"><a href="category_index.php"><i class="fa-regular fa-table-cells-large"></i>Category</a></div>
+
+        <!-- Products -->
+        <div class="item"><a href="product_index.php"><i class="fa-regular fa-bag-shopping"></i>Products</a></div>
+
+        <!-- Users -->
+        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
 
         <!-- Inventory-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
+        
+        <!-- Suppliers-->
+        <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
-        <!-- Delivery Order -->
-        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
 
-        <!-- Settings -->
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
+
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
+
+        <!-- Sales-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+         </div>
+        </div>
+
+        <!-- Reports-->
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+            <a href="tax_index.php" class="sub-item"><i class="fa-regular fa-percent"></i>Tax Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
+        </div>
       </div>
     </div>
+
 <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
@@ -124,11 +189,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3>STOCK TRANSFER</h3><br>
 		<div class="container">
-			<br />
+		  	<div class="table-title">
+		    	<h3>STOCK TRANSFER</h3>
+		    </div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -137,39 +201,43 @@ function displayUser() {
 						<div class="table-repsonsive">
 
 							<span id="error"></span>
-							<table class="table table-bordered" id="item_table">
+							<table class="table table-bordered" id="item_table" style="max-height: 150px; overflow-y: scroll !important;">
 							<div class="float-end">
 								<label for="po_number">ST #:</label>
 								<input type="text" name="stocktransfer_number" class="input-field" value="<?php echo createId('tblstocktransfer');  ?>" readonly>
 							</div>
 							<div class="row">
-
-								<div class="col-sm-7">
-									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-								</div>
 							<div class="container m-1">
-								<h5>Source Branch</label>
+								<label>Source Branch:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 								<select name="source_branch" class="p-2 col col-sm-2 form-control selectpicker source_branch" id="source_branch"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<div class="container m-1">
-								<h5>Destination Branch</label>
-								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch"><option>Select Branch</option><?php echo fill_unit_select_box_branch2($connect, $branchid); ?></select>
+								<label>Destination Branch:</label>
+								<select name="destination_branch" class="p-2 col col-sm-2 form-control selectpicker destination_branch" id="destination_branch" required><option value="">Select Branch</option></select>
 							</div>
-							
+							<thead style=" display: block; ">
 								<tr>
 									<th width="15%">Inventory Code</th>
 									<th width="15%">Product Code</th>
-									<th width="50%">Product Name</th>
+									<th width="40%">Product Name</th>
 									<th width="15%">Avaible Item</th>
 									<th width="15%">Item Transfer</th>
 									
 
 									<th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
 								</tr>
-								
+							</thead>
+							<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
+							<tr></tr></tbody>
+							<footer>
+							<div class="row">
+
+							</footer>
 							</div>
 							</table>
-							</div>
+							<div class="col-sm-6" style="float: left">
+									<input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
+								</div>
 						</div>
 					</form>
 					
@@ -184,7 +252,34 @@ $(document).ready(function(){
 	
 
 	var count = 0;
+	//disable add first
+	$('.add').prop('disabled', true);
 	
+
+	$(document).on('change', '#destination_branch', function() {
+		destinationbranch = $(this).val();
+		sourcebranch = $('#source_branch').val();
+
+		if (destinationbranch == '' || sourcebranch == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+	$(document).on('change', '#source_branch', function() {
+		sourcebranch = $(this).val();
+		destinationbranch = $('#destination_branch').val();
+		
+		if (destinationbranch == '' || sourcebranch == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+	//end of validation
 
 	
 
@@ -192,15 +287,15 @@ $(document).ready(function(){
 
 		
 		var form_data = $('#insert_form').serialize();
-		console.log(form_data);
+		
 		$.ajax({
-        url: "../actions/addrow.php",
+        url: "../actions/addrowv2.php",
         method: "POST",
         data: form_data,
         success: function (data) {
             
-        	$('#item_table').append(data);
-
+        	//$('#item_table').append(data);
+        	$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
 
             }
@@ -333,8 +428,8 @@ $(document).ready(function(){
 
 	});
 
-	$(document).on("change", ".inventory_id", function  () {
-
+	$(document).on("change", ".item_id", function  () {
+        
         var currentRow = $(this).closest("tr");
         var inventoryid = $(this).val();
         var name = currentRow.find(".item_name");
@@ -347,6 +442,8 @@ $(document).ready(function(){
             data: {inventoryid: inventoryid},
             dataType: "JSON",
             success: function (data) {
+                
+                
             	quantity.val(data.quantity);
             	code.val(data.productid);
                 name.val(data.name); 

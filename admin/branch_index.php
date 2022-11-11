@@ -25,7 +25,7 @@ function displayUser() {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Branch</title>
+    <title>Admin - Branch</title>
 
         <link rel="stylesheet" href="assets/style.css">
 
@@ -85,65 +85,79 @@ function displayUser() {
 
     
   </head>
-  <body>
+<body style="overflow-y: hidden">
 
 <!-- Start of sidebar -->
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
       <div class="menu">
+<!-- Dashboard -->
+      <div class="menu">
         <!-- Dashboard -->
-        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Dashboard</a></div>
+        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
 
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
 
         <!-- Branch -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>      
-
-        <!-- Products -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
-          </div>
-        </div>
+        <div class="item"><a href="branch_index.php"><i class="fa-solid fa-ballot"></i>Branch</a></div>
 
         <!-- Category -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
+        <div class="item"><a href="category_index.php"><i class="fa-regular fa-table-cells-large"></i>Category</a></div>
+
+        <!-- Products -->
+        <div class="item"><a href="product_index.php"><i class="fa-regular fa-bag-shopping"></i>Products</a></div>
+
+        <!-- Users -->
+        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
 
         <!-- Inventory-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
-        <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-
-        <!-- Delivery Order -->
-        <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
-
-
-        <!-- Suppliers-->
+        <!-- Stock Transfer-->
         <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
+        
+        <!-- Suppliers-->
+        <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
+
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
+
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
           </div>
         </div>
 
@@ -152,38 +166,28 @@ function displayUser() {
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
-        <!-- Payments -->
-        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <!-- Reports-->
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
-        <!-- Users -->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-user"></i>Users<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="user_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
-          </div>
-        </div>
-      
-
-        <!-- Settings -->
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="tax_index.php" class="sub-item"><i class="fa-solid fa-percent"></i>TAX</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+            <a href="tax_index.php" class="sub-item"><i class="fa-regular fa-percent"></i>Tax Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
+        </div>
       </div>
     </div>
-
     
     <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>  
     
@@ -207,15 +211,13 @@ function displayUser() {
         <h3>BRANCH</h3>
 
           <div style="display: inline;">
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userAddModal">
-                            Add Branch
-                        </button>
-            <button type="button" class="btn btn-success" style="font-size: 16px; font-weight: 700;"><i class="fa-regular fa-circle-check"></i> Save</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userAddModal" style="font-size: 16px; font-weight: 700;"> <i class="fa-solid fa-ballot"></i> Add Branch</button>
           </div>
-
+           
           <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>
+            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Branch Name" /></label>
           </div>
+           
         </div>
         
 
@@ -260,6 +262,7 @@ function displayUser() {
                     </div>
                 </div>
 
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Branch</button>
@@ -303,7 +306,19 @@ function displayUser() {
                     <label for="">CONTACT</label>
                     <input type="text" name="contact" class="form-control name" id="econtact" />
                 </div>
-
+                
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="active" value="1">
+                            <label class="form-check-label" for="flexRadioDefault1">Active</label>
+                        </div>
+                        <div class="col-sm">
+                            <input class="form-check-input" type="radio" name="active" id="inactive" value="0">
+                            <label class="form-check-label" for="flexRadioDefault1">Inactive</label>                
+                        </div>
+                    </div>
+                </div>
 
 
             <div class="modal-footer">
@@ -320,7 +335,7 @@ function displayUser() {
 
 <script>
 
-  // Pagination//
+  
   $(document).ready(function(){
     load_data(1);
 
@@ -343,11 +358,12 @@ function displayUser() {
       load_data(page, query);
     });
 
+    
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+      load_data(1, query);
     });
-
+     
   });
 
     // Add Function//
@@ -413,6 +429,11 @@ function displayUser() {
                 $('#ename').val(data.name);
                 $('#eaddress').val(data.branchaddress);
                 $('#econtact').val(data.contactnumber);
+                if (data.active == 1) {
+                    $('#active').attr('checked', true);
+                } else {
+                    $('#inactive').attr('checked', true);
+                }
                 $('#userEditModal').modal('show');
                         
                         
@@ -437,7 +458,7 @@ function displayUser() {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    alert(response);
+                    
                     var res = jQuery.parseJSON(response);
                     
                     if(res.status == 422) {
@@ -447,7 +468,7 @@ function displayUser() {
                     }else if(res.status == 200){
 
                         $('#errorMessage').addClass('d-none');
-                        $('#userAddModal').modal('hide');
+                        $('#userEditModal').modal('hide');
                         $('#editbranch')[0].reset();
 
                         alertify.set('notifier','position', 'top-right');
@@ -464,6 +485,7 @@ function displayUser() {
                     }
                 }
             });
+            location.reload();
 
         });
 </script>

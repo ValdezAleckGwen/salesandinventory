@@ -12,8 +12,8 @@ tblsupplier.name AS suppliername,
 tblsupplier.address AS address,
 tblproducts.id AS productid,
 tblproducts.name AS name,
-tblpurchaseorderitem.quantity AS quantity,
-tblpurchaseorderitem.total AS total,
+tblpurchaseorderitem.poquantity AS poquantity,
+tblpurchaseorderitem.pototal AS pototal,
 tblpurchaseorderitem.price AS price,
 tblpurchaseorder.date as purchasedate,
 tblpurchaseorder.total  AS grandtotal,
@@ -29,8 +29,6 @@ ON tblpurchaseorderitem.productid=tblproducts.id
 
 WHERE tblpurchaseorder.id = :id";
 
-
-
 $statement  = $connect->prepare($query);
 $statement->execute([
     ':id' => $id,
@@ -40,6 +38,9 @@ $statement->execute([
 $purchases = $statement->fetchAll();
 $userid = $purchases[0]['userid'];
 
+
+
+
 }
 
 ?>
@@ -48,17 +49,27 @@ $userid = $purchases[0]['userid'];
     <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" href="favicon.png" type="image/svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     </head>
+
+
     <body>
 
-            <div class="container" style="pointer-events: none;">
+            <div class="container" >
+                
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
+                    </div>
+
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                             <?php echo $purchases[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            <?php echo $purchases[0]['address']; ?>
+                            <?php echo substr($purchases[0]['address'], 0, 39); ?>
+
                         </p>
                     </div>
 
@@ -68,20 +79,17 @@ $userid = $purchases[0]['userid'];
                             <?php echo getFullName($userid); ?>
                         </h4>
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            PO ID: <?php echo $purchases[0]['poid']; ?>
+                            PO ID:  <?php echo $purchases[0]['poid']; ?>
                         </h4>
                     </div>
 
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
+                    
                         <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Invoice
-                            </h4>
                             <p class="fs18">
                                 Date: <?php echo $purchases[0]['purchasedate']; ?>
-                            </p>
+                           </p>
                         </div>
-                    </div>
+                   
 
   
 
@@ -100,38 +108,49 @@ $userid = $purchases[0]['userid'];
                                             NAME
                                         </th>
                                         <th class="text-center">
-                                            QUANTITY
+                                            PO QUANTITY
                                         </th>
                                         <th class="text-center">
                                             PRICE
                                         </th>
                                         <th class="text-center">
-                                            TOTAL
+                                            PO TOTAL
                                         </th>
+                                        
                                     </tr>
+
                                     <?php
                                     $output = '';
                                         foreach ($purchases as $purhcase) {
-                                        $output .= '<tr>';
+
+                                        $output .= '<tr class class="data" data-id="'.$purhcase["poid"].'">';
+
                                          $output .=  '<td>
                                                         <p>'.$purhcase['suppliername'].'</p>
-                                                    </td>';
+                                                      </td>';
+
                                         $output .=  '<td>
                                                         <p>'.$purhcase['productid'].'</p>
                                                     </td>';
+
                                         $output .= '<td>
-                                                <p>'.$purhcase['name'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['name'].'</p>
+                                                    </td>';
+
                                         $output .= '<td>
-                                                <p>'.$purhcase['quantity'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['poquantity'].'</p>
+                                                    </td>';
+
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$purhcase['price'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['price'].'</p>
+                                                    </td>';
                                         
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$purhcase['total'].'</p>
-                                            </td>';
+                                                        <p>'.$purhcase['pototal'].'</p>
+                                                    </td>';
+
+                                                 
+
                                         $output .= '</tr>';
                                         
                                         }
@@ -142,9 +161,7 @@ $userid = $purchases[0]['userid'];
                                 </tbody>
                                 <tfoot>
 
-                                   
-                                
-                                    <tr>
+                                   <tr>
                                         <td></td>
                                         <td></td>
                                         <td colspan="2" class="text-end border_sm_top"></td>
@@ -154,10 +171,15 @@ $userid = $purchases[0]['userid'];
                                         </td>
                                     </tr>
                                 </tfoot>
+
                             </table>
+
+                           
+                            
                         </div>
                     </div>
-                   
+                </div>
+            </div>
         <!-- invoice_page -->
 
         

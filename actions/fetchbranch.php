@@ -21,17 +21,19 @@ else
 }
 
 $query = "
-SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact FROM tblbranch WHERE active =1
+SELECT id AS branchid, name AS branchname, branchaddress AS address, contactnumber AS contact, active as active FROM tblbranch 
 ";
+
 
 if($_POST['query'] != '')
 {
+
   $query .= '
-  AND tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+   WHERE tblbranch.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
-$query .= 'ORDER BY tblbranch.id ASC ';
+$query .= ' ORDER BY tblbranch.name ASC ';
 
 $filter_query = $query . 'LIMIT '.$start.', '.$limit.'';
 
@@ -46,12 +48,13 @@ $total_filter_data = $statement->rowCount();
 
 $output = '
 <label>Total Records - '.$total_data.'</label>
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
         <th class="text-center" style="border: 1px solid;">Branch ID</th>
         <th class="text-center" style="border: 1px solid;">Branch Name</th>
         <th class="text-center" style="border: 1px solid;">Branch Address</th>
         <th class="text-center" style="border: 1px solid;">Contact Number</th>
+        <th class="text-center" style="border: 1px solid;">Status</th>
         <th class="text-center" style="border: 1px solid;">Action</th>
   </tr>
 ';
@@ -59,12 +62,19 @@ if($total_data > 0)
 {
   foreach($result as $row)
   {
+    $active = $row['active'];
+    if ($active == 1) {
+      $status = 'ACTIVE';
+    } else {
+      $status = 'INACTIVE';
+    }
     $output .= '
     <tr data-id="'.$row["branchid"].'">
       <td style="border: 1px solid;">'.$row["branchid"].'</td>
       <td style="border: 1px solid;">'.$row["branchname"].'</td>
       <td style="border: 1px solid;">'.$row["address"].'</td>
       <td style="border: 1px solid;">'.$row["contact"].'</td>
+      <td style="border: 1px solid;">'.$status.'</td>
       
       <td class="text-center" style="border: 1px solid;"> 
         <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["branchid"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 

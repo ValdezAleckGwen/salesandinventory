@@ -36,6 +36,7 @@ INNER JOIN tblsupplier
 ON tblpurchaseorder.supplierid=tblsupplier.id
 INNER JOIN tblusers 
 ON tblpurchaseorder.userid=tblusers.id
+WHERE tblpurchaseorder.active = 1
 ";
   
 } else {
@@ -63,7 +64,7 @@ WHERE tblusers.branchid = '".$branchid."'
 if($_POST['query'] != '')
 {
   $query .= '
-  AND tblpurchaseorder.name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  AND tblpurchaseorder.id LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
@@ -93,7 +94,7 @@ if ($permission == 1) {
         <th class="text-center" style="border: 1px solid;">Creator</th>
         <th class="text-left" style="border: 1px solid;">Date</th>
         <th class="text-left" style="border: 1px solid;">Total(₱)</th>
-        <th class="text-left" style="border: 1px solid;">Actions</th>
+        
   </tr>
 ';
 } else {
@@ -106,7 +107,7 @@ if ($permission == 1) {
         <th class="text-center" style="border: 1px solid;">Supplier</th>
         <th class="text-center" style="border: 1px solid;">Creator</th>
         <th class="text-left" style="border: 1px solid;">Date</th>
-        <th class="text-left" style="border: 1px solid;">Total(₱)</th>
+        <th class="text-right" class="text-left" style="border: 1px solid;">Total(₱)</th>
   </tr>
 ';
 }
@@ -124,7 +125,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["det"].'</td>
       <td style="border: 1px solid;">'.$row["total"].'</td>
-      <td class="text-center" style="border: 1px solid;"><button class="delete btn btn-danger" id="del_'.$row["poid"].'""><i class="fa-solid fa-circle-minus" ></i></button></td>
+      
     </tr>';
 
     } else {
@@ -135,7 +136,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["det"].'</td>
-      <td style="border: 1px solid;">'.$row["total"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
     }

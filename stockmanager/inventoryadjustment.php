@@ -36,11 +36,23 @@ function fill_unit_select_box_branch($connect, $branchid)
 	return $output;
 }
 
+function displayUser() {
+  $output = '';
+  if (isset($_SESSION['uid'])) {
+    $id = $_SESSION['uid'];
+    $userid = getId($id);
+    $firstname = getFirstname($id);
+    $output  .= '<p id="user" data-id="'.$userid.'">'.$firstname.'</p>';
+  }
+  return $output;
+}	
+
+
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>INVENTORY ADJUSTMENT</title>
+		<title>Stock Manager - Invetory Adjustment</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -64,24 +76,45 @@ function fill_unit_select_box_branch($connect, $branchid)
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
 
-        <!-- Delivery Order -->
-        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
 
-        <!-- Settings -->
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
+
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
@@ -89,7 +122,9 @@ function fill_unit_select_box_branch($connect, $branchid)
 
       </div>
     </div>
+
 		
+		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -100,11 +135,10 @@ function fill_unit_select_box_branch($connect, $branchid)
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">INVENTORY ADJUSTMENT</h3><br>
 		<div class="container">
-			<br />
+	  	<div class="table-title">
+	    	<h3>INVENTORY ADJUSTMENT</h3>
+	    </div>		
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -119,8 +153,8 @@ function fill_unit_select_box_branch($connect, $branchid)
 
 							<!--remove this if cookie is configured-->
 							<div class="container m-1">
-								<label for="branch_id">For Branch</h5>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id" disabled><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+                                <label>For Branch: <?php echo displayBranch($id); ?></label>
+								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id" readonly><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 								<thead style=" display: block; ">
 								<tr>
@@ -156,22 +190,19 @@ function fill_unit_select_box_branch($connect, $branchid)
 
 $(document).ready(function(){
 
-	$
+	
 
 	var count = 0;
 	
 	$(document).on('click', '.add', function(){
 
-		var id = $('#supplier_id').val();
 		
-		var branchid = $('#branch_id').val();
-		
-		count++;
-
+		var form_data = $('#insert_form').serialize();
+		console.log(form_data)
 		$.ajax({
         url: "../actions/addrowinventoryadjustment.php",
         method: "POST",
-        data: {id: id, branchid, branchid},
+        data: form_data,
         success: function (data) {
             
         	//$('#item_table').append(data);
@@ -308,7 +339,7 @@ $(document).ready(function(){
         var name = currentRow.find(".item_name");
         var quantity = currentRow.find(".item_quantity")
         $.ajax({
-            url: "../actions/fetchproductinfo.php",
+            url: "../actions/fetchinventoryinfo.php",
             method: "POST",
             data: {productid: productid, dataType: dataType},
             dataType: "JSON",

@@ -31,6 +31,7 @@ else
   ON tblinventoryadjustment.branchid=tblbranch.id
   INNER JOIN tblusers
   ON tblinventoryadjustment.auditid=tblusers.id
+  WHERE tblusers.branchid = '".$branchid."'
   ";
 
 
@@ -57,7 +58,7 @@ $total_filter_data = $statement->rowCount();
 
 $output = '
 <label>Total Records - '.$total_data.'</label>
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
         <th class="text-center" style="border: 1px solid;">Inventory Adjustment ID</th>
         <th class="text-center" style="border: 1px solid;">Branch</th>

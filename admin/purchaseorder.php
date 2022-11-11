@@ -26,7 +26,7 @@ function fill_unit_select_box_supplier($connect)
 	return $output;
 }		
 
-//remove this if cookie is configured
+
 
 function fill_unit_select_box_branch($connect)
 {
@@ -63,7 +63,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>PURCHASE ORDER</title>
+		<title>Admin - Purchase Order</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -76,42 +76,107 @@ function displayUser() {
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	</head>
-	<body>
+<body>
 		<!-- Start of sidebar -->
     <div class="side-bar">
       
 <!-- Start of Menu Proper -->
       <div class="menu">
+        <!-- Dashboard -->
+        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
+
+        <!-- Analytics -->
+        <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
+
+        <!-- Branch -->
+        <div class="item"><a href="branch_index.php"><i class="fa-solid fa-ballot"></i>Branch</a></div>
+
+        <!-- Category -->
+        <div class="item"><a href="category_index.php"><i class="fa-regular fa-table-cells-large"></i>Category</a></div>
+
+        <!-- Products -->
+        <div class="item"><a href="product_index.php"><i class="fa-regular fa-bag-shopping"></i>Products</a></div>
+
+        <!-- Users -->
+        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
 
         <!-- Inventory-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
+        
+        <!-- Suppliers-->
+        <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
 
-        <!-- Delivery Order -->
-        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
 
-        <!-- Settings -->
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
+
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
+
+        <!-- Sales-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+         </div>
+        </div>
+
+        <!-- Reports-->
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
+
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+            <a href="tax_index.php" class="sub-item"><i class="fa-regular fa-percent"></i>Tax Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
+        </div>
       </div>
     </div>
+
 <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
@@ -123,11 +188,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">PURCHASE ORDER</h3><br>
 		<div class="container">
-			<br />
+	  	<div class="table-title">
+	    	<h3>PURCHASE ORDER</h3>
+	    </div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -144,7 +208,7 @@ function displayUser() {
 								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id" id="branch_id"><option value="">Select Branch</option><?php echo fill_unit_select_box_branch($connect); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</label>
+								<label for="supplier_id">Supplier:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							
@@ -186,6 +250,34 @@ function displayUser() {
 <script>
 
 $(document).ready(function(){
+
+
+	$('.add').prop('disabled', true);
+	
+
+	$(document).on('change', '#branch_id', function() {
+		branch = $(this).val();
+		supplier = $('#supplier_id').val();
+
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+	$(document).on('change', '#supplier_id', function() {
+		supplier = $(this).val();
+		branch = $('#branch_id').val();
+		
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
 
 	 
 
@@ -271,20 +363,7 @@ $(document).ready(function(){
 
 		//validation no duplicate product allowed
 
-		$('.item_id').each(function(){
-			var	itemid1 = $(this).val();
 
-			$('.item_id').each(function(){
-			var itemid2 = $(this).val();
-
-				if (itemid1 == itemid2) {
-					error = "<li>Duplicate products not allowed</li>";
-					return false;
-				}
-
-			});
-
-		});
 
 		//end of validation
 
@@ -331,7 +410,7 @@ $(document).ready(function(){
 
 				success:function(data)
 				{
-					alert(data)
+					
 
 					if(!data)
 					{
@@ -380,16 +459,21 @@ $(document).ready(function(){
         var name = currentRow.find(".item_name");
         var available = currentRow.find(".available_quantity");
         var actualPrice;
+        
         $.ajax({
+
+        	
             url: "../actions/fetchproductinfo.php",
             method: "POST",
             data: {productid: productid, dataType, dataType},
             dataType: "JSON",
             success: function (data) {
+            	console.log('egg')
                 actualPrice = data.price.replace(/^/, '₱');
                 available.val(data.available);
                 price.val(actualPrice);
                 name.val(data.name); 
+
             }
         });
         return false;
@@ -425,7 +509,7 @@ $(document).ready(function(){
 	});
 
 
-	$(document).on("change", ".item_quantity", function() {
+	$(document).on("keyup", ".item_quantity", function() {
 		var form_data = $('#insert_form').serialize();
 		
 		console.log(form_data)

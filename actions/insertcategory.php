@@ -45,7 +45,7 @@ if(isset($_POST['save_category'])) {
 } else if(isset($_POST['edit_category'])) {
     $id = $_POST['id'];
     $name =  $_POST['name'];
-
+    $active =  $_POST['active'];
 
 
     if($name == NULL) {
@@ -58,14 +58,17 @@ if(isset($_POST['save_category'])) {
     
     $query = "
     UPDATE tblcategory 
-    SET name = :name
+
+    SET name = :name,
+    active = :active
     WHERE id = :id
     ";
 
     $statement  = $connect->prepare($query);
     $statement->execute([
         ':id' => $id,
-        ':name' => $name
+        ':name' => $name,
+        ':active' => $active
     ]);
 
     

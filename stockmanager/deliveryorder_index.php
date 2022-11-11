@@ -25,7 +25,10 @@ function displayUser() {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DELIVERY ORDER</title>
+
+        <title>Stock Manager - Delivery Order Index</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="../admin/assets/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
@@ -36,109 +39,130 @@ function displayUser() {
     </head>
     
     </style>
-    <body>
+
+     <style>
+      @media print{@page {size: landscape}}
+      @media print {
+        .side-bar, .side-bar {
+          visibility: hidden !important;
+        }
+        .card, .card {
+          visibility: hidden !important;
+        }
+        
+        #postitle, #postitle * {
+          visibility: hidden; !important;
+        }
+        .usericon, .usericon {
+          visibility: hidden !important;
+        }
+        #submit_button, #submit_button {
+          visibility: hidden !important;
+        }
+        .tax-container, .tax-container {
+          visibility: hidden !important;
+        }
+        
+        #available, #available {
+          visibility: hidden !important;
+        }
+        .item_available, .item_available {
+          visibility: hidden !important;
+        }
+        #dynamic_content, #dynamic_content {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .title, .title {
+          visibility: hidden !important;
+        }
+        .titlebar, .titlebar {
+          visibility: hidden !important;
+        }
+        #salesmodal, #salesmodal {
+          visibility: hidden !important;
+        }
+        #dropdown, #dropdown {
+          visibility: hidden !important;
+        }
+        #domodal, #domodal {
+          visibility: hidden !important;
+        }
+        .search, .search {
+          visibility: hidden !important;
+        }
+        .modal-body, .modal-body {
+          visibility: visible;
+          position: absolute;
+          left:0;
+          top:0;
+          width:1%;
+          height:1%;
+          font-size: 10px;
+        }
+        
+
+        button, button * {
+          visibility: hidden !important;
+        }
+
+
+        
+
+      }
+    </style>
+    <body style="overflow-y: hidden">
     <!-- Start of sidebar -->
     <div class="side-bar">
 
 <!-- Start of Menu Proper -->
       <div class="menu">
-        <!-- Dashboard -->
-        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Dashboard</a></div>
-
-        <!-- Analytics -->
-        <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
-
-        <!-- Branch -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="addbranch_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Branch</a>
-            <a href="editbranch_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Branch</a>
-          </div>
-        </div>              
-
-        <!-- Products -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="addproduct_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Products</a>
-            <a href="editproduct_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Products</a>
-          </div>
-        </div>
-
-        <!-- Category -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="addcategory_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Category</a>
-            <a href="editcategory_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Category</a>
-          </div>
-        </div>
 
         <!-- Inventory-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchase_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-
-        <!-- Delivery Order -->
-        <div class="item"><a href="delivery_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
-
-        <!-- Orders-->
-        <div class="item"><a href="orders_index.php"><i class="fa-regular fa-cart-shopping"></i>Orders</a></div>
-
-        <!-- Suppliers-->
+        <!-- Stock Transfer-->
         <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="addsuppliers_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Suppliers</a>
-            <a href="editsuppliers_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Suppliers</a>
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
           </div>
         </div>
 
-        <!-- Sales-->
+        <!-- Delivery Order-->
         <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
-         </div>
-        </div>
-
-        <!-- Payments -->
-        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
-
-        <!-- Users -->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-user"></i>Users<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="user_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="adduser_index.php" class="sub-item"><i class="fa-regular fa-circle-plus"></i>Add Users</a>
-            <a href="edituser_index.php" class="sub-item"><i class="fa-regular fa-pen-to-square"></i>Edit Users</a>
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
           </div>
         </div>
 
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
 
-        <!-- Audit Logs -->
-        <div class="item"><a href="audit_index.php"><i class="fa-regular fa-file-chart-pie"></i>Audit Logs</a></div>           
-
-        <!-- Settings -->
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="tax_index.php" class="sub-item"><i class="fa-solid fa-percent"></i>TAX</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
@@ -146,6 +170,7 @@ function displayUser() {
 
       </div>
     </div>
+
 
 
 <div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
@@ -164,11 +189,11 @@ function displayUser() {
   <div class="flex-container">
      <div class="flex-items">
        <div class="table-title">
-        <h3>DELIVERY ORDER</h3>
+        <h3 class="title">DELIVERY ORDER</h3>
         <div style="display: inline">
-            <button type="button" class="btn btn-dark" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i> Print</button>
-        <div style="float: right;">
-            <label><span>Search: </span><input type="text" name="search_box" id="search_box" value=""/></label>       
+        <div  align = right>
+              <label class="search"><span>Search: </span><input type="text" name="search_box" id="search_box" value="" placeholder="Search Delivery Order ID"/></label>       
+            </div>
         </div>
           </div>
         </div>
@@ -226,9 +251,13 @@ function displayUser() {
       load_data(page, query);
     });
 
+    $(document).on('click', '.print', function() {
+      window.print();
+    });
+
     $('#search_box').keyup(function(){
       var query = $('#search_box').val();
-      load_data(2, query);
+      load_data(1, query);
     });
 
   });

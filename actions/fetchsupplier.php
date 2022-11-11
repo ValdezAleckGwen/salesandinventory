@@ -1,18 +1,12 @@
 <?php
-
+session_start();
 include 'database_connection.php';
+include 'getdata.php';
 
-// function get_total_row($connect)
-// {
-//   $query = "
-//   SELECT * FROM tblcategory
-//   ";
-//   $statement = $connect->prepare($query);
-//   $statement->execute();
-//   return $statement->rowCount();
-// }
+$id = $_SESSION['uid'];
+$branchid = getBranch($id);
+$permission = getPermission($id);
 
-// $total_record = get_total_row($connect);
 
 $limit = '10';
 $page = 1;
@@ -27,13 +21,13 @@ else
 }
 
 $query = "
-SELECT id AS supplierid, name AS suppliername, contactnumber AS suppliercontact, emailAddress AS email, address AS address FROM tblsupplier WHERE active = 1
+SELECT id AS supplierid, name AS suppliername, contact AS suppliercontact, email AS email, address AS address, active as active FROM tblsupplier
 ";
 
 if($_POST['query'] != '')
 {
   $query .= '
-  AND name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
+  WHERE name LIKE "%'.str_replace(' ', '%', $_POST['query']).'%" 
   ';
 }
 
@@ -52,13 +46,14 @@ $total_filter_data = $statement->rowCount();
 
 $output = '
 <label>Total Records - '.$total_data.'</label>
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
     <th class="text-center" style="border: 1px solid;">ID</th>
     <th class="text-center" style="border: 1px solid;">Supplier Name</th>
     <th class="text-center" style="border: 1px solid;">Contact Number</th>
     <th class="text-center" style="border: 1px solid;">Email Address</th>
     <th class="text-center" style="border: 1px solid;">Address</th>
+    <th class="text-center" style="border: 1px solid;">Status</th>
     <th class="text-center" style="border: 1px solid;;">Actions</th>
   </tr>
 ';
@@ -66,14 +61,25 @@ if($total_data > 0)
 {
   foreach($result as $row)
   {
+    $active = $row['active'];
+    if ($active == 1) {
+      $status = 'ACTIVE';
+    } else {
+      $status = 'INACTIVE';
+    }
     $output .= '
-    <tr>
+    <tr data-id="'.$row["supplierid"].'">
       <td style="border: 1px solid;">'.$row["supplierid"].'</td>
       <td style="border: 1px solid;">'.$row["suppliername"].'</td>
-      <td style="border: 1px solid;border: 1px solid;">'.$row["suppliercontact"].'</td>
+      <td style="border: 1px solid; border: 1px solid;">'.$row["suppliercontact"].'</td>
       <td style="border: 1px solid;">'.$row["email"].'</td>
       <td style="border: 1px solid;">'.$row["address"].'</td>
-      <td class="text-center" style="border: 1px solid;"> <button class="btn btn-info" id="#" data-id="#"><i class="fa-solid fa-pen-to-square"> </i></button> <button class="delete btn btn-danger" id="del_'.$row["supplierid"].'" data-id="'.$row["supplierid"].'"><i class="fa-solid fa-circle-minus" ></i></button></td>
+      <td style="border: 1px solid;">'.$status.'</td>
+
+      <td class="text-center" style="border: 1px solid;"> 
+        <button class=" editusersbutton btn btn-info" id="edit" data-id="'.$row["supplierid"].'" ><i class="fa-solid fa-pen-to-square"></i></button> 
+        <button class="delete btn btn-danger" id="del_'.$row["supplierid"].'" data-id="'.$row["supplierid"].'"><i class="fa-solid fa-circle-minus" ></i></button>
+      </td>
     </tr>
     ';
   }
@@ -98,14 +104,15 @@ $total_links = ceil($total_data/$limit);
 $previous_link = '';
 $next_link = '';
 $page_link = '';
+$pagination_limit = 4;
 
 //echo $total_links;
 $page_array[] = null; //this is it pancit
 if($total_links > 4)
 {
-  if($page < 10)
+  if($page < $pagination_limit)
   {
-    for($count = 1; $count <= 10; $count++)
+    for($count = 1; $count <= $pagination_limit; $count++)
     {
       $page_array[] = $count;
     }
@@ -114,7 +121,7 @@ if($total_links > 4)
   }
   else
   {
-    $end_limit = $total_links - 10;
+    $end_limit = $total_links - $pagination_limit;
     if($page > $end_limit)
     {
       $page_array[] = 1;
@@ -158,7 +165,8 @@ for($count = 0; $count < count($page_array); $count++)
     $previous_id = $page_array[$count] - 1;
     if($previous_id > 0)
     {
-      $previous_link = '<li class="page-item"><a class="page-link"  href="javascript:void(0)" data-page_number="'.$previous_id.'">Previous</a></li>';
+      $previous_link = '<li class="page-item"><a class="page-link"   href="javascript:void(0)" data-page_number="'.$previous_id.'">Previous</a></li>';
+
     }
     else
     {
@@ -179,24 +187,28 @@ for($count = 0; $count < count($page_array); $count++)
     }
     else
     {
-      $next_link = '<li class="page-item"><a class="page-link" id="itlog" href="javascript:void(0)" data-page_number="'.$next_id.'">Next</a></li>';
+      $next_link = '<li class="page-item"><a class="page-link" href="javascript:void(0)" data-page_number="'.$next_id.'">Next</a></li>';
     }
   }
   else
   {
     if($page_array[$count] == '...')
     {
-      $page_link .= '
-      <li class="page-item disabled">
-          <a class="page-link" href="#">...</a>
-      </li>
-      ';
+     $page_link .= '
+        <li class="page-item disabled">
+                <a class="page-link" href="#">...</a>
+            </li>
+        ';
     }
     else
     {
-      // $page_link .= '
-      // <li class="page-item"><a class="page-link" id="itlog" href="javascript:void(0)" data-page_number="'.$page_array[$count].'">'.$page_array[$count].'</a></li>
-      // ';
+      if($page_array[$count] != ''){
+        $page_link .= '
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)" data-page_number="'.$page_array[$count].'">'.$page_array[$count].'</a></li>
+        ';
+        
+      }
     }
   }
 }

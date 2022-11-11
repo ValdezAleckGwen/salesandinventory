@@ -20,6 +20,7 @@ tbldeliveryorder.total  AS grandtotal,
 tbldeliveryorder.userid AS userid
 
 FROM tbldeliveryorder
+
 INNER JOIN tblsupplier
 ON tbldeliveryorder.supplierid=tblsupplier.id
 INNER JOIN tbldeliveryorderitem
@@ -27,7 +28,6 @@ ON tbldeliveryorderitem.doid=tbldeliveryorder.id
 INNER JOIN tblproducts
 ON tbldeliveryorderitem.productid=tblproducts.id
 WHERE tbldeliveryorder.id = :id";
-
 
 
 $statement  = $connect->prepare($query);
@@ -42,23 +42,33 @@ $userid = $deors[0]['userid'];
 }
 
 ?>
+
 <!DOCTYPE html> 
 <html lang="en">
     <head>
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" href="favicon.png" type="image/svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     </head>
+
+
+
     <body >
 
 
-            <div class="container" style="pointer-events: none;">
+            <div class="container">
                 <div class="row printme">
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn-dark print" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-print"></i>Print</button>
+                    </div>
                     <div class="col-sm-6 text-muted">
                         <h4 class="fs35 gorditaB text-uppercase mb-1">
                            <?php echo $deors[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            <?php echo $deors[0]['address']; ?>
+                            <?php echo substr($deors[0]['address'], 0, 39); ?>
                         </p>
                     </div>
 
@@ -67,22 +77,15 @@ $userid = $deors[0]['userid'];
                             ISSUED BY:
                             <?php echo getFullName($userid); ?>
                         </h4>
+
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
                             DO ID: <?php echo $deors[0]['delivery']; ?>
                         </h4>
-                    </div>
-
-                    <div class="col-6 text-muted mt-sm-0 mt-4 d-sm-none d-flex justify-content-end">
-                        <div>
-                            <h4 class="fs35 gorditaB text-uppercase mb-1">
-                                Invoice
-                            </h4>
-                            <p class="fs18">
+                        
+                        <p class="fs18">
                                 Date: <?php echo $deors[0]['deliverydate']; ?>
-                            </p>
-                        </div>
+                        </p>
                     </div>
-
 
                     <div class="col-sm-12 pt-4 pb-5 mb-5">
                         <div class="table-responsive-sm">
@@ -111,26 +114,33 @@ $userid = $deors[0]['userid'];
                                     <?php
                                     $output = '';
                                         foreach ($deors as $deor) {
-                                        $output .= '<tr>';
-                                         $output .=  '<td>
+
+                                        $output .= '<tr class class="data" data-id="'.$deor["delivery"].'">';
+
+                                         $output .= '<td>
                                                         <p>'.$deor['suppliername'].'</p>
                                                     </td>';
+
                                         $output .=  '<td>
                                                         <p>'.$deor['productid'].'</p>
                                                     </td>';
+
                                         $output .= '<td>
-                                                <p>'.$deor['name'].'</p>
-                                            </td>';
+                                                        <p>'.$deor['name'].'</p>
+                                                    </td>';
+
                                         $output .= '<td>
-                                                <p>'.$deor['quantity'].'</p>
-                                            </td>';
-                                        $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$deor['price'].'</p>
-                                            </td>';
+                                                        <p>'.$deor['quantity'].'</p>
+                                                    </td>';
+
+                                        $output .= '<td style = "border-bottom:4px solid">
+                                                        <p>'.$deor['price'].'</p>
+                                                    </td>';
                                         
-                                        $output .= '<td style = "border-bottom:5px solid">
-                                                <p>'.$deor['total'].'</p>
-                                            </td>';
+                                        $output .= '<td style = "border-bottom:4px solid">
+                                                        <p>'.$deor['total'].'</p>
+                                                    </td>';
+
                                         $output .= '</tr>';
                                         
                                         }
@@ -141,10 +151,7 @@ $userid = $deors[0]['userid'];
                                 </tbody>
                                 <tfoot>
 
-                                   
-                                    <tr>
-
-                                    </tr>
+                                   <tr></tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -156,9 +163,13 @@ $userid = $deors[0]['userid'];
                                     </tr>
                                 </tfoot>
                             </table>
+                            <td class="text-center" style="border: 1px solid;"> 
+
+                            </td>
                         </div>
                     </div>
-                   
+                </div>  
+            </div>     
         <!-- invoice_page -->
 
         

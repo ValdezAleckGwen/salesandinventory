@@ -9,6 +9,7 @@ if(isset($_POST['save_product']))
     $category =  $_POST['category'];
     $price =  $_POST['price'];
     $markup =  $_POST['markup'];
+    
 
 
 
@@ -65,6 +66,7 @@ if(isset($_POST['save_product']))
     $category =  $_POST['category'];
     $price =  $_POST['price'];
     $markup =  $_POST['markup'];
+    $active = $_POST['active'];
 
 
 
@@ -78,7 +80,7 @@ if(isset($_POST['save_product']))
     
     $query = "
     UPDATE tblproducts 
-    SET name = :name, supplier = :supplier, category = :category, price = :price, markupprice = :markupprice 
+    SET name = :name, supplier = :supplier, category = :category, price = :price, markupprice = :markupprice, active = :active
     WHERE id = :id
     ";
 
@@ -89,7 +91,8 @@ if(isset($_POST['save_product']))
         ':supplier' => $supplier,
         ':category' => $category,
         ':price' => $price,
-        ':markupprice' => $markup
+        ':markupprice' => $markup,
+        ':active' => $active
     ]);
 
     

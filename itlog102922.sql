@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2022 at 06:46 PM
+-- Generation Time: Oct 29, 2022 at 12:29 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -20,21 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `itlog`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblaudittrail`
---
-
-CREATE TABLE `tblaudittrail` (
-  `auditTrailId` int(254) NOT NULL,
-  `creatorId` int(254) NOT NULL,
-  `lastEditorId` int(254) NOT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp(),
-  `time` time NOT NULL DEFAULT current_timestamp(),
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -92,13 +77,33 @@ INSERT INTO `tblcategory` (`id`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblcompany`
+--
+
+CREATE TABLE `tblcompany` (
+  `companyid` int(1) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `phonenumber` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblcompany`
+--
+
+INSERT INTO `tblcompany` (`companyid`, `name`, `address`, `phonenumber`) VALUES
+(1, 'PC HUB', 'Malapit sa LRT Gilmore Station', 1234567891);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbldeliveryorder`
 --
 
 CREATE TABLE `tbldeliveryorder` (
   `id` varchar(20) NOT NULL,
   `supplierid` varchar(20) NOT NULL,
-  `total` double NOT NULL,
+  `total` decimal(20,2) DEFAULT NULL,
   `branchid` varchar(20) NOT NULL,
   `userid` varchar(20) NOT NULL,
   `date` date NOT NULL DEFAULT current_timestamp(),
@@ -112,7 +117,17 @@ CREATE TABLE `tbldeliveryorder` (
 --
 
 INSERT INTO `tbldeliveryorder` (`id`, `supplierid`, `total`, `branchid`, `userid`, `date`, `time`, `auditid`, `active`) VALUES
-('DO-0000001', 'S-0000003', 40000, 'B-0000004', 'U-0000001', '2022-10-03', '16:30:35', 'A-0000001', 0);
+('DO-0000001', 'S-0000003', '40000.00', 'B-0000004', 'U-0000001', '2022-10-03', '16:30:35', 'A-0000001', 0),
+('DO-0000002', 'S-0000004', '205900.00', 'B-0000001', 'U-0000008', '2022-10-26', '18:18:52', '', 0),
+('DO-0000003', 'S-0000004', '24790000.00', 'B-0000001', 'U-0000008', '2022-10-26', '18:19:27', '', 0),
+('DO-0000004', 'S-0000004', '16497000.00', 'B-0000001', 'U-0000008', '2022-10-26', '20:24:38', '', 0),
+('DO-0000005', 'S-0000004', '16497000.00', 'B-0000001', 'U-0000008', '2022-10-26', '20:25:27', '', 0),
+('DO-0000006', 'S-0000005', '19000.00', 'B-0000001', 'U-0000001', '2022-10-27', '21:00:46', '', 0),
+('DO-0000007', 'S-0000004', '164970.00', 'B-0000001', 'U-0000001', '2022-10-27', '21:05:17', '', 0),
+('DO-0000008', 'S-0000004', '3500.00', 'B-0000001', 'U-0000001', '2022-10-27', '21:06:46', '', 0),
+('DO-0000009', 'S-0000003', '15896.00', 'B-0000001', 'U-0000001', '2022-10-27', '21:12:28', '', 0),
+('DO-0000010', 'S-0000005', '38000.00', 'B-0000001', 'U-0000001', '2022-10-27', '21:14:02', '', 0),
+('DO-0000011', 'S-0000005', '18999.89', 'B-0000001', 'U-0000001', '2022-10-27', '22:47:14', '', 0);
 
 -- --------------------------------------------------------
 
@@ -123,21 +138,32 @@ INSERT INTO `tbldeliveryorder` (`id`, `supplierid`, `total`, `branchid`, `userid
 CREATE TABLE `tbldeliveryorderitem` (
   `id` varchar(20) NOT NULL,
   `doid` varchar(20) NOT NULL,
+  `poiid` varchar(20) NOT NULL,
   `poid` varchar(20) NOT NULL,
   `branchid` varchar(20) NOT NULL,
   `productid` varchar(20) NOT NULL,
-  `price` double NOT NULL,
+  `price` decimal(20,2) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
-  `total` int(11) NOT NULL,
-  `paid` tinyint(1) NOT NULL
+  `total` decimal(20,2) DEFAULT NULL,
+  `paid` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbldeliveryorderitem`
 --
 
-INSERT INTO `tbldeliveryorderitem` (`id`, `doid`, `poid`, `branchid`, `productid`, `price`, `quantity`, `total`, `paid`) VALUES
-('DI-0000001', 'DO-0000001', 'PO-0000002', 'B-0000004', 'P-0000054', 20000, 2, 40000, 0);
+INSERT INTO `tbldeliveryorderitem` (`id`, `doid`, `poiid`, `poid`, `branchid`, `productid`, `price`, `quantity`, `total`, `paid`, `active`) VALUES
+('DI-0000001', 'DO-0000001', '', 'PO-0000002', 'B-0000004', 'P-0000054', '20000.00', 2, '40000.00', 0, 0),
+('DI-0000002', 'DO-0000002', '', 'PO-0000005', 'B-0000001', 'P-0000083', '2059.00', 1, '205900.00', 1, 0),
+('DI-0000003', 'DO-0000003', '', 'PO-0000005', 'B-0000001', 'P-0000082', '247900.00', 1, '24790000.00', 0, 1),
+('DI-0000004', 'DO-0000005', 'PI-0000006', 'PO-0000005', 'B-0000001', 'P-0000081', '164970.00', 1, '16497000.00', 0, 0),
+('DI-0000005', 'DO-0000006', 'PI-0000009', 'PO-0000007', 'B-0000001', 'P-0000100', '19000.00', 1, '1900000.00', 0, 0),
+('DI-0000006', 'DO-0000007', 'PI-0000015', 'PO-0000012', 'B-0000001', 'P-0000081', '164970.00', 1, '164970.00', 0, 0),
+('DI-0000007', 'DO-0000008', 'PI-0000016', 'PO-0000013', 'B-0000001', 'P-0000089', '3500.00', 1, '3500.00', 0, 0),
+('DI-0000008', 'DO-0000009', 'PI-0000017', 'PO-0000014', 'B-0000001', 'P-0000062', '15896.00', 1, '15896.00', 0, 0),
+('DI-0000009', 'DO-0000010', 'PI-0000018', 'PO-0000015', 'B-0000001', 'P-0000100', '19000.00', 2, '38000.00', 0, 0),
+('DI-0000010', 'DO-0000011', 'PI-0000018', 'PO-0000015', 'B-0000001', 'P-0000100', '18999.89', 1, '18999.89', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -243,7 +269,7 @@ INSERT INTO `tblinventory` (`id`, `productid`, `supplierid`, `branchid`, `quanti
 ('I-0000083', 'P-0000078', 'S-0000003', 'B-0000002', 82),
 ('I-0000084', 'P-0000079', 'S-0000003', 'B-0000001', 46),
 ('I-0000085', 'P-0000080', 'S-0000003', 'B-0000003', 151),
-('I-0000086', 'P-0000082', 'S-0000004', 'B-0000001', 38),
+('I-0000086', 'P-0000082', 'S-0000004', 'B-0000001', 0),
 ('I-0000087', 'P-0000083', 'S-0000004', 'B-0000004', 74),
 ('I-0000088', 'P-0000084', 'S-0000004', 'B-0000002', 21),
 ('I-0000089', 'P-0000086', 'S-0000004', 'B-0000003', 940),
@@ -257,7 +283,7 @@ INSERT INTO `tblinventory` (`id`, `productid`, `supplierid`, `branchid`, `quanti
 ('I-0000097', 'P-0000096', 'S-0000005', 'B-0000003', 547),
 ('I-0000098', 'P-0000097', 'S-0000005', 'B-0000004', 23),
 ('I-0000099', 'P-0000099', 'S-0000005', 'B-0000002', 61),
-('I-0000100', 'P-0000100', 'S-0000005', 'B-0000001', 20),
+('I-0000100', 'P-0000100', 'S-0000005', 'B-0000001', 0),
 ('I-0000101', 'P-0000063', 'S-0000003', 'B-0000002', 2),
 ('I-0000102', 'P-0000082', 'S-0000004', 'B-0000004', 2),
 ('I-0000103', 'P-0000094', 'S-0000004', 'B-0000004', 10),
@@ -266,7 +292,10 @@ INSERT INTO `tblinventory` (`id`, `productid`, `supplierid`, `branchid`, `quanti
 ('I-0000106', 'P-0000001', 'S-0000001', 'B-0000002', 0),
 ('I-0000107', 'P-0000030', 'S-0000002', 'B-0000001', 5),
 ('I-0000108', 'P-0000023', 'S-0000002', 'B-0000002', 22),
-('I-0000109', 'P-0000081', 'S-0000004', 'B-0000002', 1);
+('I-0000109', 'P-0000081', 'S-0000004', 'B-0000002', 1),
+('I-0000110', 'P-0000083', 'S-0000004', 'B-0000001', 1),
+('I-0000111', 'P-0000089', 'S-0000004', 'B-0000001', 1),
+('I-0000112', 'P-0000062', 'S-0000003', 'B-0000001', 1);
 
 -- --------------------------------------------------------
 
@@ -322,23 +351,27 @@ INSERT INTO `tblinventoryadjustmentitem` (`id`, `invadjid`, `inventoryid`, `prod
 CREATE TABLE `tblpayableitem` (
   `id` varchar(20) NOT NULL,
   `payableid` varchar(20) NOT NULL,
+  `doiid` varchar(20) NOT NULL,
   `doid` varchar(20) NOT NULL,
   `supplierid` varchar(20) NOT NULL,
   `branchid` varchar(20) NOT NULL,
   `productid` varchar(20) NOT NULL,
   `price` double NOT NULL,
   `quantity` int(20) NOT NULL,
-  `total` double NOT NULL
+  `total` double NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tblpayableitem`
 --
 
-INSERT INTO `tblpayableitem` (`id`, `payableid`, `doid`, `supplierid`, `branchid`, `productid`, `price`, `quantity`, `total`) VALUES
-('PA-0000001', '', 'DO-0000002', 'S-0000003', 'B-0000002', 'P-0000063', 7350, 3, 14700),
-('PA-0000002', '', 'DO-0000015', 'S-0000004', 'B-0000004', 'P-0000082', 247900, 2, 495800),
-('PA-0000003', '', 'DO-0000015', 'S-0000004', 'B-0000004', 'P-0000094', 495, 10, 4950);
+INSERT INTO `tblpayableitem` (`id`, `payableid`, `doiid`, `doid`, `supplierid`, `branchid`, `productid`, `price`, `quantity`, `total`, `active`) VALUES
+('PA-0000001', '', '', 'DO-0000002', 'S-0000003', 'B-0000002', 'P-0000063', 7350, 3, 14700, 0),
+('PA-0000002', '', '', 'DO-0000015', 'S-0000004', 'B-0000004', 'P-0000082', 247900, 2, 495800, 0),
+('PA-0000003', '', '', 'DO-0000015', 'S-0000004', 'B-0000004', 'P-0000094', 495, 10, 4950, 0),
+('PA-0000004', 'PY-0000003', '', 'DO-0000002', 'S-0000004', 'B-0000001', 'P-0000083', 2059, 1, 205900, 0),
+('PA-0000005', 'PY-0000004', 'DI-0000003', 'DO-0000003', 'S-0000004', 'B-0000001', 'P-0000082', 247900, 1, 24790000, 0);
 
 -- --------------------------------------------------------
 
@@ -360,19 +393,9 @@ CREATE TABLE `tblpayables` (
 
 INSERT INTO `tblpayables` (`id`, `total`, `userid`, `date`, `active`) VALUES
 ('PY-0000001', 14700, 'U-0000001', '2022-10-01', 1),
-('PY-0000002', 500750, 'U-0000001', '2022-10-02', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblpermissions`
---
-
-CREATE TABLE `tblpermissions` (
-  `id` int(254) NOT NULL,
-  `name` varchar(29) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+('PY-0000002', 500750, 'U-0000001', '2022-10-02', 1),
+('PY-0000003', 205900, 'U-0000008', '2022-10-26', 1),
+('PY-0000004', 24790000, 'U-0000008', '2022-10-26', 0);
 
 -- --------------------------------------------------------
 
@@ -385,8 +408,8 @@ CREATE TABLE `tblproducts` (
   `name` varchar(69) NOT NULL,
   `supplier` varchar(29) NOT NULL,
   `category` varchar(15) NOT NULL,
-  `price` decimal(20,0) NOT NULL,
-  `markupPrice` varchar(20) NOT NULL,
+  `price` decimal(20,2) DEFAULT NULL,
+  `markupPrice` decimal(20,2) DEFAULT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -395,104 +418,104 @@ CREATE TABLE `tblproducts` (
 --
 
 INSERT INTO `tblproducts` (`id`, `name`, `supplier`, `category`, `price`, `markupPrice`, `active`) VALUES
-('P-0000001', 'Tecware Flatline Black TG mATX', 'S-0000001', 'C-0000001', '2090', '2299.00', 1),
-('P-0000002', 'Tecware Forge M Omni Matx Case Black White', 'S-0000001', 'C-0000001', '3050', '3355.00', 1),
-('P-0000003', 'Tecware Forge M2 Omni mATX Case Black ', 'S-0000001', 'C-0000001', '2290', '2519.00', 1),
-('P-0000004', 'Tecware Forge S Omni Black ATX TG 4*120mm', 'S-0000001', 'C-0000001', '2990', '3289.00', 1),
-('P-0000005', 'Tecware Forge L High-Airflow E-ATX', 'S-0000001', 'C-0000001', '4600', '5060.00', 1),
-('P-0000006', 'Tecware Phantom 87 Key RGB Mechanical Keyboard Red/Blue/Brown Switch', 'S-0000001', 'C-0000005', '2280', '2508.00', 1),
-('P-0000007', 'Tecware Spectre Pro, RGB Mechanical Keyboard, RGB LED (Outemu Brown)', 'S-0000001', 'C-0000005', '2400', '2640.00', 1),
-('P-0000008', 'Tecware B68 Wireless RGB 68-Key / 65% layout PBT Keycaps Mechanical G', 'S-0000001', 'C-0000005', '2895', '3184.50', 2),
-('P-0000009', 'Tecware B68+ RGB Backlit Wireless Mechanical Keyboard, 3 Mode, 68-Key', 'S-0000001', 'C-0000005', '3000', '3300.00', 2),
-('P-0000010', 'Tecware Veil 80 TKL Black 3 mode BT Wireless 75% Layout Mech Keyboard', 'S-0000001', 'C-0000005', '5110', '5621.00', 1),
-('P-0000011', 'Tecware Pulse Elite Wireless Gaming Mouse', 'S-0000001', 'C-0000005', '1750', '1925.00', 1),
-('P-0000012', 'Tecware EXO Wireless RGB Gaming Mouse ', 'S-0000001', 'C-0000005', '1750', '1925.00', 2),
-('P-0000013', 'Tecware Torque Pro RGB Gaming Mouse', 'S-0000001', 'C-0000005', '1450', '1595.00', 1),
-('P-0000014', 'Tecware IMPULSE PRO RGB Gaming Mouse', 'S-0000001', 'C-0000005', '1300', '1430.00', 1),
-('P-0000015', 'Tecware Q2 Gaming Headset', 'S-0000001', 'C-0000007', '940', '1,034.00', 1),
-('P-0000016', 'Tecware Q5 HD 7.1 Surround + Wide Band Mic RGB Premium Gaming Headset', 'S-0000001', 'C-0000007', '1800', '1980.00', 2),
-('P-0000017', 'Tecware Haste XL RGB Mousepad', 'S-0000001', 'C-0000005', '1100', '1210.00', 1),
-('P-0000018', 'Tecware Keyboard Wrist Pad Full 445x100x25mm', 'S-0000001', 'C-0000005', '499', '548.90', 1),
-('P-0000019', 'Tecware Alpha M mATX TG Chassis White ', 'S-0000001', 'C-0000001', '2680', '2948.00', 1),
-('P-0000020', 'Tecware Vega M Tempered Chassis', 'S-0000001', 'C-0000001', '1669', '1835.90', 1),
-('P-0000023', 'ASUS Maximus VI Hero', 'S-0000002', 'C-0000009', '7988', '8786.80', 2),
-('P-0000024', 'ASUS Prime H610M-E D4 Intel LGA 1700', 'S-0000002', 'C-0000009', '5560', '6116.00', 2),
-('P-0000025', 'Asus Prime Z690-A ATX LGA 1700 Motherboard', 'S-0000002', 'C-0000009', '15450', '16995.00', 2),
-('P-0000026', 'ASUS EX-B460M-V5 Intel B460 LGA 1200 mATX Motherboard', 'S-0000002', 'C-0000009', '5150', '5665.00', 2),
-('P-0000027', 'ASUS ZenBook 14 Ultra-Slim Laptop 14” FHD Display', 'S-0000002', 'C-0000003', '53183', '58501.30', 1),
-('P-0000028', 'ASUS VivoBook Pro 15 OLED Ultra Slim Laptop, 15.6” FHD OLED Display', 'S-0000002', 'C-0000003', '49499', '54448.90', 1),
-('P-0000029', 'ASUS TUF Gaming F17 Gaming Laptop, 17.3” 144Hz Full HD IPS-Type', 'S-0000002', 'C-0000003', '59900', '65890.00', 1),
-('P-0000030', 'ASUS ROG Strix G15 Advantage Edition Gaming Laptop, 15.6\" 300Hz FHD D', 'S-0000002', 'C-0000003', '109900', '120890.00', 2),
-('P-0000031', 'ASUS ROG G531GT-BI7N6 15.6\" FHD Gaming Laptop Computer', 'S-0000002', 'C-0000003', '86000', '94600.00', 2),
-('P-0000032', 'ROG Strix XG16AHP Portable 144Hz Gaming Monitor ', 'S-0000002', 'C-0000010', '36000', '39600.00', 1),
-('P-0000033', 'ASUS BE24EQK Business Monitor – 23.8 inch, Full HD, IPS, Frameless', 'S-0000002', 'C-0000010', '22354', '24589.40', 1),
-('P-0000034', 'TUF Gaming VG259QR Gaming Monitor – 24.5 inch Full HD (1920 x 1080), ', 'S-0000002', 'C-0000010', '15495', '17044.50', 2),
-('P-0000035', 'ASUS ROG SWIFT 360Hz PG259QNR eSports NVIDIA® G-SYNC', 'S-0000002', 'C-0000010', '42320', '46552.00', 2),
-('P-0000036', 'ASUS Dual Radeon™ RX 6600 8GB GDDR6', 'S-0000002', 'C-0000002', '24995', '27494.50', 1),
-('P-0000037', 'ASUS Dual Radeon™ RX 6700 XT 12GB GDDR6', 'S-0000002', 'C-0000002', '48999', '53898.90', 2),
-('P-0000038', 'ASUS TUF GAMING Radeon™ RX 6800 XT', 'S-0000002', 'C-0000002', '88799', '97678.90', 1),
-('P-0000039', 'ROG Strix GeForce RTX™ 3050 OC Edition 8GB GDDR6', 'S-0000002', 'C-0000002', '25000', '27500.00', 1),
-('P-0000040', 'ROG Strix GeForce RTX™ 3080 OC Edition 12GB', 'S-0000002', 'C-0000002', '59060', '64966.00', 1),
-('P-0000041', 'Intel® Core™ i7-12650HX Processor (24M Cache, up to 4.70 GHz)', 'S-0000002', 'C-0000004', '19000', '20900.00', 1),
-('P-0000042', 'Intel® Core™ i5-12500H Processor (18M Cache, up to 4.50 GHz)', 'S-0000002', 'C-0000004', '13000', '14300.00', 1),
-('P-0000043', 'Intel® Core™ i3-12100 Processor (12M Cache, up to 4.30 GHz)', 'S-0000002', 'C-0000004', '6290', '6919.00', 2),
-('P-0000044', 'AMD Ryzen™ 5 3600', 'S-0000002', 'C-0000004', '10500', '11550.00', 1),
-('P-0000045', 'AMD Ryzen™ 7 5700G', 'S-0000002', 'C-0000004', '15700', '17270.00', 1),
-('P-0000046', 'ASUS TUF Gaming K7 Optical-Mech Keyboard with IP56', 'S-0000002', 'C-0000005', '7685', '8453.00', 2),
-('P-0000047', 'ROG Strix Scope RX EVA Edition\r\n', 'S-0000002', 'C-0000005', '5405', '5945.50', 2),
-('P-0000048', 'ROG PBT Doubleshot Keycap Set for ROG RX Switches', 'S-0000002', 'C-0000005', '2069', '2,275.9', 1),
-('P-0000049', 'ROG Scabbard II EVA Edition', 'S-0000002', 'C-0000005', '995', '1094.50', 1),
-('P-0000050', 'ROG Sheath GUNDAM EDITION', 'S-0000002', 'C-0000005', '1300', '1430.00', 1),
-('P-0000051', 'AORUS GeForce RTX™ 3090 Ti XTREME WATERFORCE 24G', 'S-0000003', 'C-0000002', '220000', '242000.00', 1),
-('P-0000052', 'AORUS GeForce RTX™ 3080 XTREME WATERFORCE 10G (rev. 2.0)', 'S-0000003', 'C-0000002', '31000', '34100.00', 1),
-('P-0000053', 'AORUS GeForce RTX™ 3070 MASTER 8G (rev. 2.0)', 'S-0000003', 'C-0000002', '23000', '25300.00', 2),
-('P-0000054', 'AORUS GeForce RTX™ 3060 Ti MASTER 8G', 'S-0000003', 'C-0000002', '20000', '22000.00', 2),
-('P-0000055', 'AORUS GeForce® RTX 2080 SUPER™ WATERFORCE 8G', 'S-0000003', 'C-0000002', '25000', '27500.00', 1),
-('P-0000056', 'Radeon™ RX 6600 XT EAGLE 8G', 'S-0000003', 'C-0000002', '27000', '29700.00', 1),
-('P-0000057', 'Radeon™ RX 5600 XT WINDFORCE OC 6G', 'S-0000003', 'C-0000002', '58000', '63800.00', 1),
-('P-0000058', 'Radeon™ RX 5500 XT D6 8G (rev. 2.0)', 'S-0000003', 'C-0000002', '24000', '26400.00', 1),
-('P-0000059', 'Z690 AORUS XTREME WATERFORCE (rev. 1.0)', 'S-0000003', 'C-0000009', '58000', '63800.00', 1),
-('P-0000060', 'Z690 AORUS ELITE AX (rev. 1.x)', 'S-0000003', 'C-0000009', '15000', '16500.00', 1),
-('P-0000061', 'H610M S2 DDR4 (rev. 1.2)', 'S-0000003', 'C-0000009', '5200', '5720.00', 2),
-('P-0000062', 'Z690I AORUS ULTRA PLUS DDR4 (rev. 1.0)', 'S-0000003', 'C-0000009', '15895', '17484.50', 1),
-('P-0000063', 'B660M AORUS ELITE DDR4 (rev. 1.0)', 'S-0000003', 'C-0000009', '7350', '8085.00', 2),
-('P-0000064', 'Z690 AERO D (rev. 1.x)', 'S-0000003', 'C-0000009', '16500', '18150.00', 1),
-('P-0000065', 'B550M AORUS PRO AX (rev. 1.1)', 'S-0000003', 'C-0000009', '7800', '8580.00', 2),
-('P-0000066', 'X570SI AORUS PRO AX (rev. 1.1)', 'S-0000003', 'C-0000009', '13800', '15180.00', 1),
-('P-0000067', 'X570 AORUS XTREME (rev. 1.2)', 'S-0000003', 'C-0000009', '48500', '53350.00', 2),
-('P-0000068', 'AORUS C700 GLASS', 'S-0000003', 'C-0000001', '24499', '26948.90', 1),
-('P-0000069', 'AORUS C500 GLASS', 'S-0000003', 'C-0000001', '7199', '7918.90', 2),
-('P-0000070', 'AORUS C300 GLASS', 'S-0000003', 'C-0000001', '7380', '8118.00', 2),
-('P-0000071', 'AC300W (rev. 2.0)', 'S-0000003', 'C-0000001', '7295', '8024.50', 1),
-('P-0000072', 'AC300W Lite', 'S-0000003', 'C-0000001', '6750', '7424.00', 2),
-('P-0000073', 'XC700W ATX Full-tower PC Case \r\n', 'S-0000003', 'C-0000001', '16000', '17600.00', 2),
-('P-0000074', 'GIGABYTE Horus P2', 'S-0000003', 'C-0000001', '18590', '20449.00', 1),
-('P-0000075', 'AORUS RGB Memory DDR5 32GB (2x16GB) 6000MHz', 'S-0000003', 'C-0000006', '15995', '17594.50', 1),
-('P-0000076', 'AORUS RGB Memory 16GB (2x8GB) 3600MHz', 'S-0000003', 'C-0000006', '6699', '7368.90', 1),
-('P-0000077', 'DESIGNARE Memory 64GB (2x32GB) 3200MHz', 'S-0000003', 'C-0000006', '24720', '27192.00', 1),
-('P-0000078', 'GIGABYTE Memory 8GB (1x8GB) 2666MHz', 'S-0000003', 'C-0000006', '2300', '2530.00', 2),
-('P-0000079', 'AORUS Model X Gaming Desktop Computer', 'S-0000003', 'C-0000008', '142974', '157271.40', 2),
-('P-0000080', ' AORUS MODEL S Gaming PC Computer Desktop ', 'S-0000003', 'C-0000008', '126500', '139150.00', 1),
-('P-0000081', 'MSI Titan GT77 17.3\" UHD 120Hz Gaming Laptop', 'S-0000004', 'C-0000003', '164970', '181467.00', 1),
-('P-0000082', 'MSI Stealth GS77 17.3\" UHD 4K 120Hz Ultra Thin and Light Gaming Lapto', 'S-0000004', 'C-0000003', '247900', '272690.00', 2),
-('P-0000083', 'IMMERSE GV60 STREAMING MIC', 'S-0000004', 'C-0000005', '2059', '2264.90', 1),
-('P-0000084', 'MSI Immerse GH50 Wired Gaming Headset', 'S-0000004', 'C-0000005', '3060', '3366.00', 1),
-('P-0000085', 'MSI Gaming Vector GP66', 'S-0000004', 'C-0000003', '89670', '98637.00', 1),
-('P-0000086', ' MSI Raider GE76 12UHS-255 Gaming Laptop', 'S-0000004', 'C-0000003', '135150', '148665.00', 2),
-('P-0000087', 'MSI Clutch GM11 White Gaming Mouse - 5000 DPI', 'S-0000004', 'C-0000005', '895', '984.50', 2),
-('P-0000088', 'MSI DS502 Gaming Headset, Enhanced Virtual 7.1 Surround Sound', 'S-0000004', 'C-0000007', '4350', '4785.00', 1),
-('P-0000089', 'PERIPHERIQUE Gaming MSI IMMERSE GH10', 'S-0000004', 'C-0000007', '3499', '3848.90', 1),
-('P-0000090', 'MSI SPATIUM M480 PCIe 4.0 NVMe M.2 2TB Internal SSD', 'S-0000004', 'C-0000006', '9550', '10505.00', 1),
-('P-0000091', 'MSI SPATIUM M450 PCIe 4.0 NVMe M.2 1TB Internal Gaming SSD ', 'S-0000004', 'C-0000006', '3599', '3958.90', 1),
-('P-0000092', 'MSI SPATIUM M370 NVMe M.2 1TB Internal SSD', 'S-0000004', 'C-0000006', '8744', '9618.20', 1),
-('P-0000093', 'MSI Full HD 1920 x 1080 360Hz LED Backlit Gaming Monitor', 'S-0000004', 'C-0000010', '23645', '26009.50', 2),
-('P-0000094', 'MSI Agility GD20 Premium Gaming Mouse Pad', 'S-0000004', 'C-0000005', '495', '544.50', 1),
-('P-0000095', 'MSI MAG Z690 Tomahawk WiFi DDR4 Gaming Motherboard', 'S-0000004', 'C-0000009', '15799', '17378.90', 1),
-('P-0000096', 'MSI MPG Z690 Carbon WiFi Gaming Motherboard ', 'S-0000004', 'C-0000009', '19200', '21120.00', 1),
-('P-0000097', 'GALAX Gaming Headset (SNR-01)', 'S-0000005', 'C-0000007', '3200', '3520.00', 2),
-('P-0000098', 'GALAX GeForce® GTX 1660 Super X Edition (1-Click OC)', 'S-0000005', 'C-0000002', '23999', '26398.00', 2),
-('P-0000099', 'GALAX GeForce® GT 1030 DDR4 GALAX GeForce® GT 1030 DDR4', 'S-0000005', 'C-0000002', '4869', '5355.9', 1),
-('P-0000100', 'GALAX VI-01 Gaming Monitor Borderless 27 Inch / IPS / LED / HDR', 'S-0000005', 'C-0000010', '18999', '20898.00', 1);
+('P-0000001', 'Tecware Flatline Black TG mATX', 'S-0000001', 'C-0000001', '2091.55', '2299.42', 1),
+('P-0000002', 'Tecware Forge M Omni Matx Case Black White', 'S-0000001', 'C-0000001', '3050.33', '3355.51', 1),
+('P-0000003', 'Tecware Forge M2 Omni mATX Case Black ', 'S-0000001', 'C-0000001', '2290.67', '2519.23', 1),
+('P-0000004', 'Tecware Forge S Omni Black ATX TG 4*120mm', 'S-0000001', 'C-0000001', '2990.53', '3289.99', 1),
+('P-0000005', 'Tecware Forge L High-Airflow E-ATX', 'S-0000001', 'C-0000001', '4600.23', '5060.77', 1),
+('P-0000006', 'Tecware Phantom 87 Key RGB Mechanical Keyboard Red/Blue/Brown Switch', 'S-0000001', 'C-0000005', '2280.54', '2508.55', 1),
+('P-0000007', 'Tecware Spectre Pro, RGB Mechanical Keyboard, RGB LED (Outemu Brown)', 'S-0000001', 'C-0000005', '2400.67', '2640.88', 1),
+('P-0000008', 'Tecware B68 Wireless RGB 68-Key / 65% layout PBT Keycaps Mechanical G', 'S-0000001', 'C-0000005', '2895.23', '3185.44', 2),
+('P-0000009', 'Tecware B68+ RGB Backlit Wireless Mechanical Keyboard, 3 Mode, 68-Key', 'S-0000001', 'C-0000005', '3000.43', '3300.23', 2),
+('P-0000010', 'Tecware Veil 80 TKL Black 3 mode BT Wireless 75% Layout Mech Keyboard', 'S-0000001', 'C-0000005', '5110.78', '5621.29', 1),
+('P-0000011', 'Tecware Pulse Elite Wireless Gaming Mouse', 'S-0000001', 'C-0000005', '1750.55', '1925.45', 1),
+('P-0000012', 'Tecware EXO Wireless RGB Gaming Mouse ', 'S-0000001', 'C-0000005', '1750.88', '1925.11', 2),
+('P-0000013', 'Tecware Torque Pro RGB Gaming Mouse', 'S-0000001', 'C-0000005', '1450.23', '1595.66', 1),
+('P-0000014', 'Tecware IMPULSE PRO RGB Gaming Mouse', 'S-0000001', 'C-0000005', '1300.77', '1430.99', 1),
+('P-0000015', 'Tecware Q2 Gaming Headset', 'S-0000001', 'C-0000007', '940.23', '1000.56', 1),
+('P-0000016', 'Tecware Q5 HD 7.1 Surround + Wide Band Mic RGB Premium Gaming Headset', 'S-0000001', 'C-0000007', '1800.56', '1980.77', 2),
+('P-0000017', 'Tecware Haste XL RGB Mousepad', 'S-0000001', 'C-0000005', '1100.99', '1210.56', 1),
+('P-0000018', 'Tecware Keyboard Wrist Pad Full 445x100x25mm', 'S-0000001', 'C-0000005', '499.72', '549.79', 1),
+('P-0000019', 'Tecware Alpha M mATX TG Chassis White ', 'S-0000001', 'C-0000001', '2680.45', '2948.00', 1),
+('P-0000020', 'Tecware Vega M Tempered Chassis', 'S-0000001', 'C-0000001', '1669.67', '1836.44', 1),
+('P-0000023', 'ASUS Maximus VI Hero', 'S-0000002', 'C-0000009', '7988.11', '8787.22', 2),
+('P-0000024', 'ASUS Prime H610M-E D4 Intel LGA 1700', 'S-0000002', 'C-0000009', '5560.88', '6116.64', 2),
+('P-0000025', 'Asus Prime Z690-A ATX LGA 1700 Motherboard', 'S-0000002', 'C-0000009', '15450.66', '16995.32', 2),
+('P-0000026', 'ASUS EX-B460M-V5 Intel B460 LGA 1200 mATX Motherboard', 'S-0000002', 'C-0000009', '5150.77', '5665.77', 2),
+('P-0000027', 'ASUS ZenBook 14 Ultra-Slim Laptop 14” FHD Display', 'S-0000002', 'C-0000003', '53183.88', '58501.99', 1),
+('P-0000028', 'ASUS VivoBook Pro 15 OLED Ultra Slim Laptop, 15.6” FHD OLED Display', 'S-0000002', 'C-0000003', '49499.00', '54449.00', 1),
+('P-0000029', 'ASUS TUF Gaming F17 Gaming Laptop, 17.3” 144Hz Full HD IPS-Type', 'S-0000002', 'C-0000003', '59900.00', '65890.00', 1),
+('P-0000030', 'ASUS ROG Strix G15 Advantage Edition Gaming Laptop, 15.6\" 300Hz FHD D', 'S-0000002', 'C-0000003', '109900.00', '120890.00', 2),
+('P-0000031', 'ASUS ROG G531GT-BI7N6 15.6\" FHD Gaming Laptop Computer', 'S-0000002', 'C-0000003', '86000.55', '94600.77', 2),
+('P-0000032', 'ROG Strix XG16AHP Portable 144Hz Gaming Monitor ', 'S-0000002', 'C-0000010', '36000.88', '39600.99', 1),
+('P-0000033', 'ASUS BE24EQK Business Monitor – 23.8 inch, Full HD, IPS, Frameless', 'S-0000002', 'C-0000010', '22354.11', '24589.22', 1),
+('P-0000034', 'TUF Gaming VG259QR Gaming Monitor – 24.5 inch Full HD (1920 x 1080), ', 'S-0000002', 'C-0000010', '15495.45', '17045.99', 2),
+('P-0000035', 'ASUS ROG SWIFT 360Hz PG259QNR eSports NVIDIA® G-SYNC', 'S-0000002', 'C-0000010', '42320.23', '46552.44', 2),
+('P-0000036', 'ASUS Dual Radeon™ RX 6600 8GB GDDR6', 'S-0000002', 'C-0000002', '24995.65', '27495.73', 1),
+('P-0000037', 'ASUS Dual Radeon™ RX 6700 XT 12GB GDDR6', 'S-0000002', 'C-0000002', '48999.45', '53899.26', 2),
+('P-0000038', 'ASUS TUF GAMING Radeon™ RX 6800 XT', 'S-0000002', 'C-0000002', '88799.78', '97679.91', 1),
+('P-0000039', 'ROG Strix GeForce RTX™ 3050 OC Edition 8GB GDDR6', 'S-0000002', 'C-0000002', '25000.23', '27500.24', 1),
+('P-0000040', 'ROG Strix GeForce RTX™ 3080 OC Edition 12GB', 'S-0000002', 'C-0000002', '59060.56', '64966.72', 1),
+('P-0000041', 'Intel® Core™ i7-12650HX Processor (24M Cache, up to 4.70 GHz)', 'S-0000002', 'C-0000004', '19000.23', '20900.41', 1),
+('P-0000042', 'Intel® Core™ i5-12500H Processor (18M Cache, up to 4.50 GHz)', 'S-0000002', 'C-0000004', '13000.89', '14300.87', 1),
+('P-0000043', 'Intel® Core™ i3-12100 Processor (12M Cache, up to 4.30 GHz)', 'S-0000002', 'C-0000004', '6290.45', '6919.25', 2),
+('P-0000044', 'AMD Ryzen™ 5 3600', 'S-0000002', 'C-0000004', '10500.57', '11550.98', 1),
+('P-0000045', 'AMD Ryzen™ 7 5700G', 'S-0000002', 'C-0000004', '15700.99', '17270.45', 1),
+('P-0000046', 'ASUS TUF Gaming K7 Optical-Mech Keyboard with IP56', 'S-0000002', 'C-0000005', '7685.67', '8453.44', 2),
+('P-0000047', 'ROG Strix Scope RX EVA Edition\r\n', 'S-0000002', 'C-0000005', '5405.33', '5946.11', 2),
+('P-0000048', 'ROG PBT Doubleshot Keycap Set for ROG RX Switches', 'S-0000002', 'C-0000005', '2069.55', '3000.77', 1),
+('P-0000049', 'ROG Scabbard II EVA Edition', 'S-0000002', 'C-0000005', '995.88', '1095.99', 1),
+('P-0000050', 'ROG Sheath GUNDAM EDITION', 'S-0000002', 'C-0000005', '1300.34', '1430.45', 1),
+('P-0000051', 'AORUS GeForce RTX™ 3090 Ti XTREME WATERFORCE 24G', 'S-0000003', 'C-0000002', '220000.78', '242000.99', 1),
+('P-0000052', 'AORUS GeForce RTX™ 3080 XTREME WATERFORCE 10G (rev. 2.0)', 'S-0000003', 'C-0000002', '31000.67', '34100.77', 1),
+('P-0000053', 'AORUS GeForce RTX™ 3070 MASTER 8G (rev. 2.0)', 'S-0000003', 'C-0000002', '23000.99', '25300.55', 2),
+('P-0000054', 'AORUS GeForce RTX™ 3060 Ti MASTER 8G', 'S-0000003', 'C-0000002', '20000.88', '22000.77', 2),
+('P-0000055', 'AORUS GeForce® RTX 2080 SUPER™ WATERFORCE 8G', 'S-0000003', 'C-0000002', '25000.45', '27500.67', 1),
+('P-0000056', 'Radeon™ RX 6600 XT EAGLE 8G', 'S-0000003', 'C-0000002', '27000.77', '29700.66', 1),
+('P-0000057', 'Radeon™ RX 5600 XT WINDFORCE OC 6G', 'S-0000003', 'C-0000002', '58000.45', '63800.67', 1),
+('P-0000058', 'Radeon™ RX 5500 XT D6 8G (rev. 2.0)', 'S-0000003', 'C-0000002', '24000.25', '26400.34', 1),
+('P-0000059', 'Z690 AORUS XTREME WATERFORCE (rev. 1.0)', 'S-0000003', 'C-0000009', '58000.88', '63800.99', 1),
+('P-0000060', 'Z690 AORUS ELITE AX (rev. 1.x)', 'S-0000003', 'C-0000009', '15000.51', '16500.23', 1),
+('P-0000061', 'H610M S2 DDR4 (rev. 1.2)', 'S-0000003', 'C-0000009', '5200.45', '5720.77', 2),
+('P-0000062', 'Z690I AORUS ULTRA PLUS DDR4 (rev. 1.0)', 'S-0000003', 'C-0000009', '15895.99', '17485.11', 1),
+('P-0000063', 'B660M AORUS ELITE DDR4 (rev. 1.0)', 'S-0000003', 'C-0000009', '7350.56', '8085.76', 2),
+('P-0000064', 'Z690 AERO D (rev. 1.x)', 'S-0000003', 'C-0000009', '16500.45', '18150.55', 1),
+('P-0000065', 'B550M AORUS PRO AX (rev. 1.1)', 'S-0000003', 'C-0000009', '7800.23', '8580.78', 2),
+('P-0000066', 'X570SI AORUS PRO AX (rev. 1.1)', 'S-0000003', 'C-0000009', '13800.91', '15180.82', 1),
+('P-0000067', 'X570 AORUS XTREME (rev. 1.2)', 'S-0000003', 'C-0000009', '48500.56', '53350.67', 2),
+('P-0000068', 'AORUS C700 GLASS', 'S-0000003', 'C-0000001', '24499.35', '26949.41', 1),
+('P-0000069', 'AORUS C500 GLASS', 'S-0000003', 'C-0000001', '7199.67', '7919.29', 2),
+('P-0000070', 'AORUS C300 GLASS', 'S-0000003', 'C-0000001', '7380.55', '8118.98', 2),
+('P-0000071', 'AC300W (rev. 2.0)', 'S-0000003', 'C-0000001', '7295.21', '8025.55', 1),
+('P-0000072', 'AC300W Lite', 'S-0000003', 'C-0000001', '6750.11', '7424.22', 2),
+('P-0000073', 'XC700W ATX Full-tower PC Case \r\n', 'S-0000003', 'C-0000001', '16000.33', '17600.45', 2),
+('P-0000074', 'GIGABYTE Horus P2', 'S-0000003', 'C-0000001', '18590.67', '20449.87', 1),
+('P-0000075', 'AORUS RGB Memory DDR5 32GB (2x16GB) 6000MHz', 'S-0000003', 'C-0000006', '15995.21', '17595.55', 1),
+('P-0000076', 'AORUS RGB Memory 16GB (2x8GB) 3600MHz', 'S-0000003', 'C-0000006', '6699.98', '7369.52', 1),
+('P-0000077', 'DESIGNARE Memory 64GB (2x32GB) 3200MHz', 'S-0000003', 'C-0000006', '24720.65', '27192.75', 1),
+('P-0000078', 'GIGABYTE Memory 8GB (1x8GB) 2666MHz', 'S-0000003', 'C-0000006', '2300.55', '2530.44', 2),
+('P-0000079', 'AORUS Model X Gaming Desktop Computer', 'S-0000003', 'C-0000008', '142974.88', '157271.99', 2),
+('P-0000080', ' AORUS MODEL S Gaming PC Computer Desktop ', 'S-0000003', 'C-0000008', '126500.21', '139150.54', 1),
+('P-0000081', 'MSI Titan GT77 17.3\" UHD 120Hz Gaming Laptop', 'S-0000004', 'C-0000003', '164970.41', '181467.89', 1),
+('P-0000082', 'MSI Stealth GS77 17.3\" UHD 4K 120Hz Ultra Thin and Light Gaming Lapto', 'S-0000004', 'C-0000003', '247900.65', '272690.75', 2),
+('P-0000083', 'IMMERSE GV60 STREAMING MIC', 'S-0000004', 'C-0000005', '2059.41', '2265.23', 1),
+('P-0000084', 'MSI Immerse GH50 Wired Gaming Headset', 'S-0000004', 'C-0000005', '3060.98', '3366.05', 1),
+('P-0000085', 'MSI Gaming Vector GP66', 'S-0000004', 'C-0000003', '89670.55', '98637.02', 1),
+('P-0000086', ' MSI Raider GE76 12UHS-255 Gaming Laptop', 'S-0000004', 'C-0000003', '135150.53', '148665.05', 2),
+('P-0000087', 'MSI Clutch GM11 White Gaming Mouse - 5000 DPI', 'S-0000004', 'C-0000005', '895.21', '985.30', 2),
+('P-0000088', 'MSI DS502 Gaming Headset, Enhanced Virtual 7.1 Surround Sound', 'S-0000004', 'C-0000007', '4350.76', '4785.89', 1),
+('P-0000089', 'PERIPHERIQUE Gaming MSI IMMERSE GH10', 'S-0000004', 'C-0000007', '3499.51', '3849.54', 1),
+('P-0000090', 'MSI SPATIUM M480 PCIe 4.0 NVMe M.2 2TB Internal SSD', 'S-0000004', 'C-0000006', '9550.51', '10505.67', 1),
+('P-0000091', 'MSI SPATIUM M450 PCIe 4.0 NVMe M.2 1TB Internal Gaming SSD ', 'S-0000004', 'C-0000006', '3599.78', '3959.98', 1),
+('P-0000092', 'MSI SPATIUM M370 NVMe M.2 1TB Internal SSD', 'S-0000004', 'C-0000006', '8744.52', '9618.55', 1),
+('P-0000093', 'MSI Full HD 1920 x 1080 360Hz LED Backlit Gaming Monitor', 'S-0000004', 'C-0000010', '23645.67', '26010.89', 2),
+('P-0000094', 'MSI Agility GD20 Premium Gaming Mouse Pad', 'S-0000004', 'C-0000005', '495.54', '545.77', 1),
+('P-0000095', 'MSI MAG Z690 Tomahawk WiFi DDR4 Gaming Motherboard', 'S-0000004', 'C-0000009', '15799.44', '17379.23', 1),
+('P-0000096', 'MSI MPG Z690 Carbon WiFi Gaming Motherboard ', 'S-0000004', 'C-0000009', '19200.61', '21120.91', 1),
+('P-0000097', 'GALAX Gaming Headset (SNR-01)', 'S-0000005', 'C-0000007', '3200.23', '3520.05', 2),
+('P-0000098', 'GALAX GeForce® GTX 1660 Super X Edition (1-Click OC)', 'S-0000005', 'C-0000002', '23999.07', '26398.78', 2),
+('P-0000099', 'GALAX GeForce® GT 1030 DDR4 GALAX GeForce® GT 1030 DDR4', 'S-0000005', 'C-0000002', '4869.31', '5356.32', 1),
+('P-0000100', 'GALAX VI-01 Gaming Monitor Borderless 27 Inch / IPS / LED / HDR', 'S-0000005', 'C-0000010', '18999.89', '20898.77', 1);
 
 -- --------------------------------------------------------
 
@@ -504,19 +527,32 @@ CREATE TABLE `tblpurchaseorder` (
   `id` varchar(20) NOT NULL,
   `branchid` varchar(20) NOT NULL,
   `supplierid` varchar(20) NOT NULL,
-  `total` double NOT NULL,
+  `TOTAL` decimal(20,2) DEFAULT NULL,
   `userid` varchar(20) NOT NULL,
   `date` date NOT NULL DEFAULT current_timestamp(),
-  `time` time NOT NULL DEFAULT current_timestamp()
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tblpurchaseorder`
 --
 
-INSERT INTO `tblpurchaseorder` (`id`, `branchid`, `supplierid`, `total`, `userid`, `date`, `time`) VALUES
-('PO-0000001', 'B-0000004', 'S-0000003', 174000, 'U-0000001', '2022-10-03', '16:03:27'),
-('PO-0000002', 'B-0000004', 'S-0000003', 60000, 'U-0000001', '2022-10-03', '16:13:20');
+INSERT INTO `tblpurchaseorder` (`id`, `branchid`, `supplierid`, `TOTAL`, `userid`, `date`, `active`) VALUES
+('PO-0000001', 'B-0000004', 'S-0000003', '174000.00', 'U-0000001', '2022-10-03', 0),
+('PO-0000002', 'B-0000004', 'S-0000003', '60000.00', 'U-0000001', '2022-10-03', 0),
+('PO-0000003', 'B-0000003', 'S-0000003', '3100000.00', 'U-0000005', '2022-10-25', 0),
+('PO-0000004', 'B-0000003', 'S-0000005', '1600000.00', 'U-0000005', '2022-10-25', 0),
+('PO-0000005', 'B-0000001', 'S-0000004', '41492900.00', 'U-0000008', '2022-10-26', 0),
+('PO-0000006', 'B-0000001', 'S-0000005', '2540035.00', 'U-0000001', '2022-10-27', 0),
+('PO-0000007', 'B-0000001', 'S-0000005', '1899989.00', 'U-0000001', '2022-10-27', 0),
+('PO-0000008', 'B-0000001', 'S-0000005', '1460793.00', 'U-0000001', '2022-10-27', 0),
+('PO-0000009', 'B-0000001', 'S-0000004', '1486.62', 'U-0000001', '2022-10-27', 2),
+('PO-0000010', 'B-0000001', 'S-0000003', '220000.78', 'U-0000001', '2022-10-27', 1),
+('PO-0000011', 'B-0000001', 'S-0000005', '16139.08', 'U-0000001', '2022-10-27', 1),
+('PO-0000012', 'B-0000001', 'S-0000004', '164970.41', 'U-0000001', '2022-10-27', 1),
+('PO-0000013', 'B-0000001', 'S-0000004', '3499.51', 'U-0000001', '2022-10-27', 1),
+('PO-0000014', 'B-0000001', 'S-0000003', '15895.99', 'U-0000001', '2022-10-27', 1),
+('PO-0000015', 'B-0000001', 'S-0000005', '56999.67', 'U-0000001', '2022-10-27', 1);
 
 -- --------------------------------------------------------
 
@@ -532,15 +568,34 @@ CREATE TABLE `tblpurchaseorderitem` (
   `price` double NOT NULL,
   `quantity` int(11) NOT NULL,
   `poquantity` int(10) NOT NULL,
-  `total` double NOT NULL
+  `total` double NOT NULL,
+  `pototal` decimal(20,2) NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tblpurchaseorderitem`
 --
 
-INSERT INTO `tblpurchaseorderitem` (`id`, `poid`, `productid`, `branchid`, `price`, `quantity`, `poquantity`, `total`) VALUES
-('PI-0000001', 'PO-0000002', 'P-0000054', 'B-0000001', 20000, 1, 0, 20000);
+INSERT INTO `tblpurchaseorderitem` (`id`, `poid`, `productid`, `branchid`, `price`, `quantity`, `poquantity`, `total`, `pototal`, `active`) VALUES
+('PI-0000001', 'PO-0000002', 'P-0000054', 'B-0000001', 5.55, 1, 0, 20000, '0.00', 1),
+('PI-0000002', 'PO-0000003', 'P-0000052', 'B-0000003', 3100000, 1, 1, 3100000, '0.00', 1),
+('PI-0000003', 'PO-0000004', 'P-0000097', 'B-0000003', 3200, 5, 5, 16000, '0.00', 1),
+('PI-0000004', 'PO-0000005', 'P-0000083', 'B-0000001', 2059, 0, 1, -203841, '0.00', 1),
+('PI-0000005', 'PO-0000005', 'P-0000082', 'B-0000001', 247900, 0, 1, -24542100, '0.00', 0),
+('PI-0000006', 'PO-0000005', 'P-0000081', 'B-0000001', 164970, 0, 1, -16332030, '0.00', 1),
+('PI-0000007', 'PO-0000006', 'P-0000100', 'B-0000001', 18999.89, 1, 1, 18999.89, '0.00', 0),
+('PI-0000008', 'PO-0000006', 'P-0000097', 'B-0000001', 3200.23, 2, 2, 6400.46, '0.00', 0),
+('PI-0000009', 'PO-0000007', 'P-0000100', 'B-0000001', 18999.89, 0, 1, -1881000.11, '0.00', 1),
+('PI-0000010', 'PO-0000008', 'P-0000099', 'B-0000001', 4869.31, 3, 3, 14607.93, '0.00', 0),
+('PI-0000011', 'PO-0000009', 'P-0000094', 'B-0000001', 495.54, 3, 3, 1486.62, '0.00', 2),
+('PI-0000012', 'PO-0000010', 'P-0000051', 'B-0000001', 220000.78, 1, 1, 220000.78, '0.00', 1),
+('PI-0000013', 'PO-0000011', 'P-0000099', 'B-0000001', 4869.31, 2, 2, 9738.62, '0.00', 1),
+('PI-0000014', 'PO-0000011', 'P-0000097', 'B-0000001', 3200.23, 2, 2, 6400.46, '0.00', 1),
+('PI-0000015', 'PO-0000012', 'P-0000081', 'B-0000001', 164970.41, 0, 1, -16332029.59, '0.00', 1),
+('PI-0000016', 'PO-0000013', 'P-0000089', 'B-0000001', 3499.51, 0, 1, -346500.49, '0.00', 1),
+('PI-0000017', 'PO-0000014', 'P-0000062', 'B-0000001', 15895.99, 0, 1, 0, '15895.99', 1),
+('PI-0000018', 'PO-0000015', 'P-0000100', 'B-0000001', 0, 4, 3, 18999.89, '56999.67', 1);
 
 -- --------------------------------------------------------
 
@@ -860,6 +915,12 @@ ALTER TABLE `tblcategory`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tblcompany`
+--
+ALTER TABLE `tblcompany`
+  ADD PRIMARY KEY (`companyid`);
+
+--
 -- Indexes for table `tbldeliveryorder`
 --
 ALTER TABLE `tbldeliveryorder`
@@ -899,12 +960,6 @@ ALTER TABLE `tblpayableitem`
 -- Indexes for table `tblpayables`
 --
 ALTER TABLE `tblpayables`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tblpermissions`
---
-ALTER TABLE `tblpermissions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -982,12 +1037,6 @@ ALTER TABLE `tblusers`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `tblpermissions`
---
-ALTER TABLE `tblpermissions`
-  MODIFY `id` int(254) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbltax`

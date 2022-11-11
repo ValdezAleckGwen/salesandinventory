@@ -66,7 +66,7 @@ function displayUser() {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>DELIVERY ORDER</title>
+		<title>Stock Manager - Delivery Order</title>
 		<link rel="stylesheet" href="../admin/assets/style.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -90,24 +90,45 @@ function displayUser() {
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Inventory</a>
-            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Adustment</a>
-            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
-         <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
+        <!-- Stock Transfer-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
 
-        <!-- Delivery Order -->
-        <div class="item"><a href="dorder.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
 
-        <!-- Settings -->
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
+          </div>
+        </div>
+
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>User Info</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
@@ -115,6 +136,8 @@ function displayUser() {
 
       </div>
     </div>
+
+    
 		<div class="usericon"><?php echo displayUser(); ?> <i class="fa-regular fa-user"></i></div>   
 
     <script type="text/javascript">
@@ -126,11 +149,10 @@ function displayUser() {
     });
     </script>
     <div class="main">
-
-  
-    <h3 style="margin-top: 40px;">DELIVERY ORDER</h3><br>
 		<div class="container">
-			<br />
+		<div class="table-title">
+    		<h3>DELIVERY ORDER</h3>
+		</div>
 			<div class="card">
 				<div class="card-header">Enter Item Details</div>
 				<div class="card-body">
@@ -142,11 +164,11 @@ function displayUser() {
 								<input type="text" name="do_number" class="input-field" value="<?php echo createId('tblpurchaseorder'); ?>" id="do_number" readonly>
 							</div>
 							<div class="container m-1">
-								<label for="branch_id">For Branch: <?php echo displayBranch($id); ?></h5>
-								<select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
+                                <label for="branch_id">For Branch: <?php echo displayBranch($id); ?></h5>
+                                <select name="branch_id" class="p-2 col col-sm-2 form-control selectpicker branch_id d-none" id="branch_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_branch($connect, $branchid); ?></select>
 							</div>
 							<div class="container m-1">
-								<label for="supplier_id">Supplier</h5>
+                                <label for="supplier_id">Supplier</h5>
 								<select name="supplier_id" class="p-2 col col-sm-2 form-control selectpicker supplier_id" id="supplier_id"><option value="">Select Supplier</option><?php echo fill_unit_select_box_supplier($connect); ?></select>
 							</div>
 							<!--remove this if cookie is configured-->
@@ -164,7 +186,7 @@ function displayUser() {
 								</tr>
 								</thead>
 								<tbody id="add-row" style="display: block; height: 500px;overflow-y: auto;overflow-x: hidden;">
-							<tr>
+							    <tr>
 									
 								</tr>
 							</tbody>
@@ -180,7 +202,7 @@ function displayUser() {
 								<div class="col-sm-5" style="float: right">
 									<div class="input-group mb-3">
 									  <span class="input-group-text" id="basic-addon3">Total</span>
-									  <input type="text" name="total" id="total" class="form-control total" readonly/>
+									  <input type="text" name="total" id="total" class="form-control total" readonly required />
 									</div>
 								</div>					
 							</div>
@@ -195,6 +217,46 @@ function displayUser() {
 <script>
 
 $(document).ready(function(){
+	$('.add').prop('disabled', true);
+	$(document).on('change', '#supplier_id', function() {
+		supplier = $(this).val();
+		branch = $('#branch_id').val();
+		
+		if (branch == '' || supplier == '') {
+			$('.add').prop('disabled', true); //disabled if no value
+			
+		} else {
+			$('.add').prop('disabled', false); //enabled if there is value
+		}
+	});
+
+
+
+    $(document).on("change", ".item_quantity", function  () {
+        
+
+        var currentRow = $(this).closest("tr");
+        var available = currentRow.find(".po_quantity");
+        var quantity = currentRow.find(".item_quantity");
+        var itemtotal = currentRow.find(".item_total");
+        var quantityval = $(this).val();
+        quantityval = parseInt(quantityval);
+        var availval = available.val();
+        availval = parseInt(availval);
+
+        if (quantityval > availval || quantityval < 0) {
+        	quantity.addClass("border border-2 border-danger");
+        	alert('Invalid Quantity input');
+        	itemtotal.val('');
+        	quantity.val('');
+        	
+        } else {
+        	quantity.removeClass("border border-2 border-danger");
+        }
+       
+        
+    });
+
 
 	var count = 0;
 	
@@ -208,7 +270,8 @@ $(document).ready(function(){
         url: "../actions/addrowdeliveryorder.php",
         method: "POST",
         data: form_data,
-        success: function (data) {            
+        success: function (data) {
+            console.log(data)
 			$(data).insertAfter($("#add-row > tr").eq(0));
 			$('.selectpicker').selectpicker('refresh');
             }
@@ -341,9 +404,14 @@ $(document).ready(function(){
         var itemid = currentRow.find(".item_code");
         var name = currentRow.find(".item_name");
         var price = currentRow.find(".item_price");
-        var quantity = currentRow.find(".quantity")
+        var quantity = currentRow.find(".po_quantity")
+
         var total = currentRow.find(".item_total")
         var actualPrice;
+        var totalPrice = currentRow.find(".item_total");
+        totalPrice.val('');
+        $('#total').val('');
+        quantity.val('');
         
         $.ajax({
             url: "../actions/fetchproductinfo.php",

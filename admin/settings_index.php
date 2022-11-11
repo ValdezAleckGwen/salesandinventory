@@ -7,14 +7,14 @@ include '../x-function/redirect_if_notLogin.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARCI - Settings</title>
+    <title>Admin - Settings</title>
     <link rel="stylesheet" href="assets/styleaddedit.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     
   </head>
-  <body>
+<body style="overflow-y: hidden">
 
 <!-- Start of sidebar -->
     <div class="side-bar">
@@ -22,57 +22,69 @@ include '../x-function/redirect_if_notLogin.php';
 <!-- Start of Menu Proper -->
       <div class="menu">
         <!-- Dashboard -->
-        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Dashboard</a></div>
+        <div class="item"><a href="dashboard_index.php"><i class="fa-regular fa-house-blank"></i>Home</a></div>
 
         <!-- Analytics -->
         <div class="item"><a href="analytics_index.php"><i class="fa-solid fa-chart-mixed"></i>Analytics</a></div>
 
         <!-- Branch -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-solid fa-ballot"></i>Branch<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="branch_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>      
-
-        <!-- Products -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-bag-shopping"></i>Products<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="product_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
-          </div>
-        </div>
+        <div class="item"><a href="branch_index.php"><i class="fa-solid fa-ballot"></i>Branch</a></div>
 
         <!-- Category -->
-        <div class="item">
-          <a class="sub-btn"><i class="fa-regular fa-table-cells-large"></i>Category<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="category_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-          </div>
-        </div>
+        <div class="item"><a href="category_index.php"><i class="fa-regular fa-table-cells-large"></i>Category</a></div>
+
+        <!-- Products -->
+        <div class="item"><a href="product_index.php"><i class="fa-regular fa-bag-shopping"></i>Products</a></div>
+
+        <!-- Users -->
+        <div class="item"><a href="user_index.php"><i class="fa-regular fa-user"></i>Users</a></div>
 
         <!-- Inventory-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-warehouse"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="inventoryadj_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-box-circle-check"></i>Adjustment</a>
+            <a href="inventory_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="inventoryadjustment.php" class="sub-item"><i class="fa-regular fa-shelves"></i></i>Adjustment</a>
+            <a href="inventoryadjustment_index.php" class="sub-item"><i class="fa-regular fa-warehouse-full"></i></i>Adjustment Index</a>
           </div>
         </div>
 
-        <!-- Purchase Order -->
-        <div class="item"><a href="purchaseorder_index.php"><i class="fa-regular fa-file-invoice"></i>Purchase Order</a></div>
-
-        <!-- Delivery Order -->
-        <div class="item"><a href="deliveryorder_index.php"><i class="fa-regular fa-truck"></i>Delivery Order</a></div>
-
-
-        <!-- Suppliers-->
+        <!-- Stock Transfer-->
         <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-tag"></i>Suppliers<i class="fas fa-angle-right dropdown"></i></a>
+         <a class="sub-btn"><i class="fa-regular fa-box-circle-check"></i>Stock Transfer<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="suppliers_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="stocktransfer.php" class="sub-item"><i class="fa-regular fa-box-check"></i></i>Stock Transfer</a>
+          </div>
+        </div>
+        
+        <!-- Suppliers-->
+        <div class="item"><a href="suppliers_index.php"><i class="fa-regular fa-tag"></i>Suppliers</a></div>
+
+        <!-- Payables-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-money-check-dollar"></i>Payables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="payables_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="payment.php" class="sub-item"><i class="fa-regular fa-money-check-dollar"></i></i>Payments</a>
+          </div>
+        </div>
+
+        <!-- Delivery Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-truck"></i>Delivery Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="deliveryorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="dorder.php" class="sub-item"><i class="fa-regular fa-truck-ramp-box"></i></i>Delivery Order</a>
+          </div>
+        </div>
+
+        <!--Purchase Order-->
+        <div class="item">
+         <a class="sub-btn"><i class="fa-regular fa-file-invoice"></i>Purchase Order<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+            <a href="purchaseorder_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
+            <a href="purchaseorder.php" class="sub-item"><i class="fa-regular fa-receipt"></i>Purchase Order</a>
           </div>
         </div>
 
@@ -81,35 +93,26 @@ include '../x-function/redirect_if_notLogin.php';
          <a class="sub-btn"><i class="fa-regular fa-wallet"></i>Sales<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
          </div>
         </div>
 
-        <!-- Payments -->
-        <div class="item"><a href="payment_index.php"><i class="fa-solid fa-basket-shopping"></i>Payments</a></div>
+        <!-- Reports-->
+        <div class="item"><a href="report.php"><i class="fa-regular fa-file-chart-column"></i></i>Reports</a></div>
 
-        <!-- Users -->
-        <div class="item">
-         <a class="sub-btn"><i class="fa-regular fa-user"></i>Users<i class="fas fa-angle-right dropdown"></i></a>
-         <div class="sub-menu">
-            <a href="user_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-
-          </div>
-        </div>
-      
-
-        <!-- Settings -->
+        <!-- Settings-->
         <div class="item">
          <a class="sub-btn"><i class="fa-regular fa-gears"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
-            <a href="tax_index.php" class="sub-item"><i class="fa-solid fa-percent"></i>TAX</a>
-         </div>
+            <a href="settings_index.php" class="sub-item"><i class="fa-regular fa-user"></i>Account Settings</a>
+            <a href="tax_index.php" class="sub-item"><i class="fa-regular fa-percent"></i>Tax Settings</a>
+          </div>
         </div>
 
         <!-- Logout -->
         <div class="item"><a href="login.php"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a></div>
 
+        </div>
       </div>
     </div>
 
@@ -132,14 +135,18 @@ include '../x-function/redirect_if_notLogin.php';
         <div class="form-style-2">
         <div class="form-style-2-heading">SETTINGS</div>
 
-        <form action="" method="post">
-        <label for="field1"><span>Name:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="Jeremy Langcay" /></label>
-        <label for="field1"><span>Email:<span class="required">*</span></span><input type="text" class="input-field" name="field1" value="jeremylangcay@gmail.com" /></label>
-        <label for="field1"><span>Password<span class="required">*</span></span><input type="password" class="input-field" name="field1" value="123123213123123" /></label>
+        <form action="" method="post" id="insert_form">
+        <div>
+            <label for="oldpassword"><span>Input Old Password:<span class="required">*</span></span><input type="password" class="oldpassword" name="oldpassword" id="oldpassword" value="" /></label>
+            <label for="newpassword" class="d-none newpw"><span>New Password:<span class="required">*</span></span><input type="password" class="newpassword" name="newpassword" id="newpassword" value="" required /></label>
 
-        <div align="center">
-          <button type="button" class="btn btn-primary" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
-          <button type="button" class="btn btn-danger" style="font-size: 16px; font-weight: 700;"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+        </div>
+        <p style="font-size: 15px" id="info"></p>
+        <div align="right">
+          <button type="submit" class="btn btn-primary update" style="font-size: 16px; font-weight: 700;"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
+          <button type="button" class="btn btn-primary showold" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show Old Password</button>
+          <button type="button" class="btn btn-primary shownew d-none" style="font-size: 16px; font-weight: 700;"><i class="fa-solid fa-eye"></i></i> Show New Password</button>
+          
         </div>
         </form>
         </div>
@@ -150,3 +157,88 @@ include '../x-function/redirect_if_notLogin.php';
 
   </body>
 </html>
+<script>
+   $(document).ready(function(){
+
+    $('.update').prop('disabled', true);
+
+    $(document).on('keyup', '#oldpassword', function () {
+        var oldpassword = $(this).val();
+        var datatype = 1;
+        $.ajax({
+            url: "../actions/checkpassword.php",
+            method: "POST",
+            data: {oldpassword : oldpassword, datatype: datatype},
+            
+            success: function (data) {
+                    
+                
+                if (data == 1) {
+                    $('.newpw').removeClass('d-none');
+                    $('.shownew').removeClass('d-none');
+                    $('.update').prop('disabled', false);
+                } else {
+                    $('.newpw').addClass('d-none');
+                    
+                }
+
+            }
+        });
+
+
+    });
+
+
+        $(document).on('mousedown', '.shownew', function () {
+            
+            $('.newpassword').prop('type', 'text');
+        }).on('mouseup mouseleave', function() {
+            $('.newpassword').prop('type', 'password');
+        });
+
+        $(document).on('mousedown', '.showold', function () {
+            
+            $('.oldpassword').prop('type', 'text');
+        }).on('mouseup mouseleave', function() {
+            $('.oldpassword').prop('type', 'password');
+        });
+
+
+    $('#insert_form').on('submit', function(event){
+
+        var form_data = $(this).serialize();
+        event.preventDefault();
+
+        var error = '';
+
+        count = 1;
+
+        
+
+        $.ajax({
+            url: "../actions/updatepassword.php",
+            method: "POST",
+            data: form_data,
+            
+            success: function (data) {
+                alert(data);
+
+            }
+        });
+
+        
+    });
+
+       
+
+
+
+
+
+
+
+    
+}); 
+
+
+</script>

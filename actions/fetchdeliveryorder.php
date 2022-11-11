@@ -19,24 +19,7 @@ else
   $start = 0;
 }
 
-if ($permission == 1) {
-    $query = "
-  SELECT tbldeliveryorder.id AS doid, 
-  tblsupplier.name as suppliername,
-  tblbranch.name as branchname,
-  tblusers.lastname as username,
-  tbldeliveryorder.total as total,
-  tbldeliveryorder.date as ddate,
-  tbldeliveryorder.time as  ttime
-  FROM tbldeliveryorder 
-  INNER JOIN tblsupplier 
-  ON tbldeliveryorder.supplierid=tblsupplier.id
-  INNER JOIN tblbranch
-  ON tbldeliveryorder.branchid=tblbranch.id
-  INNER JOIN tblusers
-  ON tbldeliveryorder.userid=tblusers.id
-  ";
-} else {
+
     $query = "
   SELECT tbldeliveryorder.id AS doid, 
   tblsupplier.name as suppliername,
@@ -55,7 +38,7 @@ if ($permission == 1) {
   WHERE tblusers.branchid = '".$branchid."'
 
   ";
-}
+
 
 
 if($_POST['query'] != '')
@@ -80,7 +63,7 @@ $total_filter_data = $statement->rowCount();
 
 $output = '
 <label>Total Records - '.$total_data.'</label>
-<table class="table table-striped table-bordered" style="background: #CDCDCD; border-collapse: collapse;">
+<table class="table table-striped table-bordered" style="background: #f9f9f8; border-collapse: collapse;">
   <tr>
         <th class="text-center" style="border: 1px solid;">Delivery Order ID</th>
         <th class="text-center" style="border: 1px solid;">Supplier Name</th>
@@ -101,7 +84,7 @@ if($total_data > 0)
       <td style="border: 1px solid;">'.$row["branchname"].'</td>
       <td style="border: 1px solid;">'.$row["username"].'</td>
       <td style="border: 1px solid;">'.$row["ddate"].'</td>
-      <td style="border: 1px solid;">'.$row["total"].'</td>
+      <td class="text-right" style="border: 1px solid;">'.$row["total"].'</td>
     </tr>
     ';
   }

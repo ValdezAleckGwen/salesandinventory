@@ -12,13 +12,14 @@ if(isset($_POST["item_id"]))
 	$purchaseorderid = $_POST['po_number'];
 	$branchid = $_POST['branch_id'];
 	$supplierid = $_POST['supplier_id'];
-	$total = preg_replace('/[^0-9]/s', "",$_POST["total"]);
+	$total = $_POST["total"];
+	$total = filter_var($total, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$userid = $_SESSION['uid'];
-	$branchid = getBranch($userid);
+	
 
 	// create a sale
 	$salesquery = "
-	INSERT INTO tblpurchaseorder (id, supplierid, branchid, total, userid) VALUES (:purchaseorderid, :supplierid, :branchid, :total, :userid)
+	INSERT INTO tblpurchaseorder (id, supplierid, branchid, total, userid, active) VALUES (:purchaseorderid, :supplierid, :branchid, :total, :userid, 1)
 	";
 
 	$statement  = $connect->prepare($salesquery);
@@ -40,10 +41,10 @@ if(isset($_POST["item_id"]))
 
 		$query = "
 		INSERT INTO tblpurchaseorderitem 
-        (id, poid, productid, branchid, price, quantity, poquantity, total) 
-        VALUES (:purchaseorderitemid, :poid, :productid, :branchid, :price, :item_quantity, :poquantity, :totalprice)
+        (id, poid, productid, branchid, price, quantity, poquantity, total, pototal, active) 
+        VALUES (:purchaseorderitemid, :poid, :productid, :branchid, :price, :item_quantity, :poquantity, :totalprice, :pototal, 1)
 		";
-
+		
 		$purchaseorderitemid = createId('tblpurchaseorderitem'); //incrementing sales item id
 		$price = $_POST["item_price"][$count];
 		$price = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -62,7 +63,8 @@ if(isset($_POST["item_id"]))
 				':price'	        =>	$price,
 				':item_quantity'    =>	$item_quantity,
 				':poquantity'    	=>	$item_quantity,
-				':totalprice'	    =>	$totalprice
+				':totalprice'	    =>	$totalprice,
+				':pototal'	    	=>	$totalprice
 			)
 		);
 

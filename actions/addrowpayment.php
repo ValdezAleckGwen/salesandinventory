@@ -9,7 +9,7 @@ if (isset($_POST['supplier_id'])) {
 			$supplierid = $_POST['supplier_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
-			$query = "SELECT tbldeliveryorderitem.id AS doitemid, tbldeliveryorder.id AS doid, tbldeliveryorder.supplierid AS supplierid FROM tbldeliveryorderitem INNER JOIN tbldeliveryorder ON tbldeliveryorderitem.doid=tbldeliveryorder.id INNER JOIN tblsupplier ON tbldeliveryorder.supplierid=tblsupplier.id WHERE supplierid = '".$supplierid."' AND paid = 0";
+			$query = "SELECT tbldeliveryorderitem.id AS doitemid, tbldeliveryorder.id AS doid, tbldeliveryorder.supplierid AS supplierid FROM tbldeliveryorderitem INNER JOIN tbldeliveryorder ON tbldeliveryorderitem.doid=tbldeliveryorder.id INNER JOIN tblsupplier ON tbldeliveryorder.supplierid=tblsupplier.id WHERE supplierid = '".$supplierid."' AND paid = 0 AND tbldeliveryorderitem.active = 1";
 			if (isset($_POST["item_id"])) {
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {
 					$itemid = $_POST['item_id'][$count];
@@ -38,7 +38,7 @@ if (isset($_POST['supplier_id'])) {
 
 				$output .= '<td width="15.2%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity" readonly/></td>';
 
-				$output .= '<td width="16.2%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" readonly/></td>';
+				$output .= '<td width="16.2%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" style="text-align: right;" readonly/></td>';
 			
 				$output .= '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove" style="background-color: #BB2D3B; padding: .25rem .5rem;"><i class="fas fa-minus"></i></button></td>';
 

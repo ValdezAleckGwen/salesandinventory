@@ -7,6 +7,7 @@ if(isset($_POST['save_branch']))
     $name =  $_POST['name'];
     $address =  $_POST['address'];
     $contact =  $_POST['contact'];
+    
 
 
 
@@ -52,6 +53,7 @@ if(isset($_POST['save_branch']))
     $name =  $_POST['name'];
     $address =  $_POST['address'];
     $contact =  $_POST['contact'];
+    $active = $_POST['active'];
 
 
 
@@ -67,7 +69,8 @@ if(isset($_POST['save_branch']))
     UPDATE tblbranch
     SET name = :name,
         branchaddress = :branchaddress,
-        contactnumber = :contactnumber
+        contactnumber = :contactnumber,
+        active = :active
         
     WHERE id = :id
     ";
@@ -77,7 +80,8 @@ if(isset($_POST['save_branch']))
         ':id' => $id,
         ':name' => $name,
         ':branchaddress' => $address,
-        ':contactnumber' => $contact
+        ':contactnumber' => $contact,
+        ':active' => $active
     ]);
 
     

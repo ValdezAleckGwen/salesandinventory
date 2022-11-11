@@ -9,7 +9,7 @@ if (isset($_POST['supplier_id'])) {
 			$supplierid = $_POST['supplier_id'];
 			$db = new DbConnect;
 			$conn = $db->connect();
-			$query = "SELECT tblpurchaseorder.supplierid as supplierid, tblpurchaseorderitem.id as poitemid, tblpurchaseorderitem.branchid as branch, tblpurchaseorder.id as poid, tblpurchaseorderitem.quantity as quantity FROM tblpurchaseorder INNER JOIN tblpurchaseorderitem ON tblpurchaseorder.id=tblpurchaseorderitem.poid WHERE quantity > 0 AND supplierid = '".$supplierid."' AND tblpurchaseorderitem.branchid = '".$branchid."'";
+			$query = "SELECT tblpurchaseorder.supplierid as supplierid, tblpurchaseorderitem.id as poitemid, tblpurchaseorderitem.branchid as branch, tblpurchaseorder.id as poid, tblpurchaseorderitem.quantity as quantity FROM tblpurchaseorder INNER JOIN tblpurchaseorderitem ON tblpurchaseorder.id=tblpurchaseorderitem.poid WHERE quantity > 0 AND tblpurchaseorderitem.active = 1 AND supplierid = '".$supplierid."' AND tblpurchaseorderitem.branchid = '".$branchid."'";
 			
 			if (isset($_POST["item_id"])) {
 				for($count = 0; $count < count($_POST["item_id"]); $count++) {
@@ -23,21 +23,21 @@ if (isset($_POST['supplier_id'])) {
 				$output = '';
 				$output .= '<tr style="display: block;">';
 
-				$output .= '<td width="14.78%"><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Unit</option>';;
+				$output .= '<td width="14.55%"><select name="item_id[]" class="col col-sm-2 form-control selectpicker item_id" data-live-search="true"><option value="">Select Unit</option>';;
 				foreach ($poitems as $poitem) {
 				$output .= '<option value="'. $poitem['poitemid'] .'">'. $poitem['poitemid'] .'</option>';
 				}
 				$output .= '</select></td>';
-				$output .= '<td width="16.2%"><input type="text" name="po_id[]" class="col col-sm-5 form-control po_id" readonly/></td>';
-				$output .= '<td width="16.3%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
+				$output .= '<td width="15.1%"><input type="text" name="po_id[]" class="col col-sm-5 form-control po_id" readonly/></td>';
+				$output .= '<td width="15.3%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
 
-				$output .= '<td width="19.5%"><input type="text" name="item_name[]" class="col col-sm-2 form-control item_name" readonly/></td>';
+				$output .= '<td width="18.27%"><input type="text" name="item_name[]" class="col col-sm-2 form-control item_name" readonly/></td>';
 
-				$output .= '<td width="10.8%"><input type="text" name="item_price[]" class="col col-sm-1 form-control item_price" readonly/></td>';
+				$output .= '<td width="10.2%"><input type="text" name="item_price[]" class="col col-sm-1 form-control item_price" readonly/></td>';
 
-				$output .= '<td width="10%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity"/><p>quantity: </p><input type="number" name="po_quantity[]" class="quantity" readonly></td>';
+				$output .= '<td width="14.9%"><input type="number" name="item_quantity[]" class="col col-sm-2 form-control item_quantity"/><p>quantity: </p><input type="number" name="po_quantity[]" class="po_quantity" readonly></td>';
 
-				$output .= '<td width="15%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" readonly/></td>';
+				$output .= '<td width="14%"><input type="text" name="item_total[]" class="col col-sm-2 form-control item_total" style="text-align: right;" readonly/></td>';
 			
 				$output .= '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove" style="background-color: #BB2D3B; padding: .25rem .5rem;"><i class="fas fa-minus"></i></button></td>';
 
