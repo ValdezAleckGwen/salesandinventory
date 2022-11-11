@@ -9,7 +9,7 @@ $permission = getPermission($id);
 
 if (isset($_POST['inventoryid'])) {
 	$inventoryid = $_POST['inventoryid'];
-	if ($inventoryid != 0) {
+	if ($inventoryid != "0") {
 		$db = new DbConnect;
 		$conn = $db->connect();
 			
@@ -18,6 +18,7 @@ if (isset($_POST['inventoryid'])) {
 		$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
 		foreach ($products as $product) {
+		    $data['status'] = "Success";
 			$data['productid'] = $product['productid'];
 			$data['quantity'] = $product['count'];
 			$data['name'] = $product['name'];
@@ -26,11 +27,13 @@ if (isset($_POST['inventoryid'])) {
 		
 		echo json_encode($data);
 	} else {
-		echo "hays";
+		$data['status'] = "Inventory ID missing";
+		echo json_encode($data);
 	}
 	
 } else {
-	echo "0";
+	$data['status'] = "No data available";
+	echo json_encode($data);
 }
 
  ?>

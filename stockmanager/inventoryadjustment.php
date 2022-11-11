@@ -339,7 +339,7 @@ $(document).ready(function(){
         var name = currentRow.find(".item_name");
         var quantity = currentRow.find(".item_quantity")
         $.ajax({
-            url: "../actions/fetchproductinfo.php",
+            url: "../actions/fetchinventoryinfo.php",
             method: "POST",
             data: {productid: productid, dataType: dataType},
             dataType: "JSON",

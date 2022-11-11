@@ -1,0 +1,27 @@
+[10-Nov-2022 13:11:04 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/insertstocktransfer.php on line 123
+[10-Nov-2022 13:11:04 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/insertstocktransfer.php on line 203
+[10-Nov-2022 13:14:45 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 02:12:38 America/New_York] PHP Warning:  number_format() expects parameter 1 to be float, string given in /home/projagel/public_html/salesandinventory/actions/reportsales.php on line 67
+[11-Nov-2022 03:52:56 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchproductinfo.php on line 219
+[11-Nov-2022 03:54:09 America/New_York] PHP Notice:  Undefined index: category in /home/projagel/public_html/salesandinventory/actions/insertproduct.php on line 66
+[11-Nov-2022 03:54:20 America/New_York] PHP Notice:  Undefined index: category in /home/projagel/public_html/salesandinventory/actions/insertproduct.php on line 66
+[11-Nov-2022 05:07:00 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchinventoryinfo.php on line 28
+[11-Nov-2022 05:07:07 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchinventoryinfo.php on line 28
+[11-Nov-2022 05:07:10 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchinventoryinfo.php on line 28
+[11-Nov-2022 05:13:42 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 05:15:57 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchinventoryinfo.php on line 28
+[11-Nov-2022 05:16:00 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchinventoryinfo.php on line 28
+[11-Nov-2022 07:59:48 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 08:01:03 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtax.php on line 13
+[11-Nov-2022 08:01:04 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtax.php on line 13
+[11-Nov-2022 08:01:43 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchproductinfo.php on line 219
+[11-Nov-2022 08:02:35 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 08:07:28 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 08:11:17 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchproductinfo.php on line 219
+[11-Nov-2022 08:17:24 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchinventoryinfo.php on line 28
+[11-Nov-2022 08:17:27 America/New_York] PHP Notice:  Undefined variable: data in /home/projagel/public_html/salesandinventory/actions/fetchinventoryinfo.php on line 28
+[11-Nov-2022 08:18:42 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtax.php on line 13
+[11-Nov-2022 08:20:06 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 08:20:28 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 08:20:55 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtotal.php on line 10
+[11-Nov-2022 08:23:24 America/New_York] PHP Warning:  A non-numeric value encountered in /home/projagel/public_html/salesandinventory/actions/fetchtax.php on line 13

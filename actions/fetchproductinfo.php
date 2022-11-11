@@ -8,7 +8,7 @@ if (isset($_POST['productid'])) {
 	switch ($datatype) {
 		case 1:
 			$inventoryid = $_POST['productid'];
-			if ($inventoryid != 0) {
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
@@ -40,15 +40,13 @@ if (isset($_POST['productid'])) {
 
 				
 				echo json_encode($data);
-			} else {
-				echo " ";
-			}	
+				
 
 			break;
 		
 		case 2:
 			$productid = $_POST['productid'];
-			if ($productid != 0) {
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
 				$purchaseorderquery = "SELECT tblproducts.id AS productid, tblproducts.name AS name, tblproducts.price AS price FROM tblproducts WHERE tblproducts.id = :productid";
@@ -68,16 +66,13 @@ if (isset($_POST['productid'])) {
 
 				
 				echo json_encode($data);
-			} else {
-				$data['status'] = 'all goods';
-				echo json_encode($data);
-			}	
+				
 
 			break;
 
 		case 3:
 		$poitemid = $_POST['productid'];
-			if ($poitemid != 0) {
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
@@ -120,15 +115,13 @@ if (isset($_POST['productid'])) {
 				
 				echo json_encode($data);
 
-			} else {
-				echo " ";
-			}	
+				
 
 			break;
 
 		case 4:
 		$id = $_POST['productid'];
-			if ($id != 0) {
+			
 				$db = new DbConnect;
 				$conn = $db->connect();
 					
@@ -180,15 +173,13 @@ if (isset($_POST['productid'])) {
 				
 				echo json_encode($data);
 
-			} else {
-				echo " ";
-			}	
+				
 
 			break;
 
 		case 5:
 			$inventoryid = $_POST['productid'];
-				if ($inventoryid != 0) {
+				
 					$db = new DbConnect;
 					$conn = $db->connect();
 						
@@ -218,15 +209,13 @@ if (isset($_POST['productid'])) {
 					
 					echo json_encode($data);
 					
-				} else {
-					echo "sadness";
-				}	
+					
 
 			break;
 
 		case 6:
 			$salesitemid = $_POST['productid'];
-				if ($salesitemid != 0) {
+				
 					$db = new DbConnect;
 					$conn = $db->connect();
 					
@@ -266,9 +255,7 @@ if (isset($_POST['productid'])) {
 					echo json_encode($data);
 
 					
-				} else {
-					echo "sadness";
-				}	
+					
 
 			break;
 
@@ -285,7 +272,7 @@ if (isset($_POST['productid'])) {
 
 
 } else {
-	echo "0";
+	echo "No data found";
 }
 
  ?>
