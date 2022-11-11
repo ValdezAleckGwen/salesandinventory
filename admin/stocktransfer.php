@@ -429,7 +429,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on("change", ".item_id", function  () {
-
+        
         var currentRow = $(this).closest("tr");
         var inventoryid = $(this).val();
         var name = currentRow.find(".item_name");
@@ -442,6 +442,8 @@ $(document).ready(function(){
             data: {inventoryid: inventoryid},
             dataType: "JSON",
             success: function (data) {
+                
+                
             	quantity.val(data.quantity);
             	code.val(data.productid);
                 name.val(data.name); 

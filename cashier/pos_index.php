@@ -429,7 +429,7 @@ $(document).ready(function(){
 
 
 
-	$(document).on("change", ".item_quantity", function() {
+	$(document).on("keyup", ".item_quantity", function() {
 		var form_data = $('#insert_form').serialize();
 		console.log(form_data)
 		$.ajax({

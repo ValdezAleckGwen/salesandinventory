@@ -1,0 +1,59 @@
+[10-Nov-2022 13:02:15 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(13): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(141): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:43 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(13): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(141): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:45 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(13): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(141): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:46 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(13): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(141): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:48 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/analytics_index.php(10): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/analytics_index.php(137): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:53 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(13): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(141): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:54 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(13): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/dashboard_index.php(141): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:55 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/analytics_index.php(10): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/analytics_index.php(137): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:55 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:40
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/analytics_index.php(10): getId('U-0000001')
+#1 /home/projagel/public_html/salesandinventory/admin/analytics_index.php(137): displayUser()
+#2 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 40
+[10-Nov-2022 13:02:56 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/projagel/public_html/salesandinventory/actions/getdata.php:55
+Stack trace:
+#0 /home/projagel/public_html/salesandinventory/admin/category_index.php(9): getBranch('U-0000001')
+#1 {main}
+  thrown in /home/projagel/public_html/salesandinventory/actions/getdata.php on line 55
