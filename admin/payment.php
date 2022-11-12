@@ -7,6 +7,7 @@ include '../x-function/redirect_if_notLogin.php';
 include '../actions/adddata.php';
 include '../actions/database_connection.php';
 include_once '../x-function/redirect_admin.php';
+
 $id = $_SESSION['uid'];
 $branchid = getBranch($id);
 
@@ -134,6 +135,7 @@ function displayUser() {
          <div class="sub-menu">
             <a href="sales_index.php" class="sub-item"><i class="fa-regular fa-house-blank"></i>Dashboard</a>
             <a href="salesreturn.php" class="sub-item"><i class="fa-regular fa-arrow-turn-down-left"></i>Sales Return</a>
+            <a href="salesreturn_index.php" class="sub-item"><i class="fa-regular fa-wallet"></i>Sales Return Index</a>
          </div>
         </div>
 
@@ -193,8 +195,8 @@ function displayUser() {
 									<th width="15%">Item ID</th>
 									<th width="15%">DO ID</th>
 									<th width="12%">Branch</th>
-									<th width="15%">Product Code</th>
-									<!-- <th width="30%">Product Name</th> -->
+									<!-- <th width="15%">Product Code</th> -->
+									<th width="15%">Product Name</th>
 									<th width="15%">Price</th>
 									<th width="15%">Quantity</th>
 									<th width="14%">Total Price</th>
@@ -386,6 +388,7 @@ $(document).ready(function(){
         var currentRow = $(this).closest("tr");
         var productid = $(this).val();
         var doid = currentRow.find(".do_id");
+        var itemname = currentRow.find(".item_name");
         var itemid = currentRow.find(".item_code");
         var branch = currentRow.find(".item_branch");
         var name = currentRow.find(".item_name");
@@ -404,7 +407,9 @@ $(document).ready(function(){
             	
                 actualPrice = data.price.replace(/^/, '₱');
                 doid.val(data.doid);
-                itemid.val(data.name);
+                itemname.val(data.name);
+                itemid.val(data.productid);
+                
                 branch.val(data.branch);
                 price.val(actualPrice);
                 quantity.val(data.quantity);	
@@ -413,8 +418,8 @@ $(document).ready(function(){
                 digit = digit.replace(/,/g,'');
                 digit = parseFloat(digit);
                 grandtotal = grandtotal + digit;
-                console.log($.type(grandtotal));
-                console.log(grandtotal);
+                
+                
                 $('#total').val(grandtotal);
                 
             }

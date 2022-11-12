@@ -302,7 +302,7 @@ function displayUser() {
     $(document).on('click', '.data', function() {
       var id = $(this).data('id');
       
-
+      
       $.ajax({
         url: '../actions/payablemodal.php', //modal structure
         type: 'post',

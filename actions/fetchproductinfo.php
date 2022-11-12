@@ -170,6 +170,7 @@ if (isset($_POST['productid'])) {
 					$data['price'] = $price;
 					$data['quantity'] = $do['quantity'];
 					$data['name'] = $do['productname'];
+					$data['productid'] = $do['productid'];
 					
 				}
 

@@ -30,7 +30,8 @@ if (isset($_POST['supplier_id'])) {
 				$output .= '<td width="15%"><input type="text" name="do_id[]" class="col col-sm-5 form-control do_id" readonly/></td>';
 				
 				$output .= '<td width="12.1%"><input type="text" name="item_branch[]" class="col col-sm-5 form-control item_branch" readonly/></td>';	
-				$output .= '<td width="15.2%"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code" readonly/></td>';
+				$output .= '<td width="15.2%"><input type="text" name="item_name[]" class="col col-sm-5 form-control item_name" readonly/></td>';
+				$output .= '<td width="15.2%" class="d-none"><input type="text" name="item_code[]" class="col col-sm-5 form-control item_code " readonly /></td>';
 
 				
 

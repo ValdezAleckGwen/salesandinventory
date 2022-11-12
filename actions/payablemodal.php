@@ -1,35 +1,35 @@
 <?php 
-include('database_connection.php');
-include('getdata.php');
+include_once('database_connection.php');
+include_once('getdata.php');
 
 if (isset($_POST['id'])) {
     
 $id = $_POST['id'];
 
 $query = "SELECT 
-tblpayables.id AS payid,
-tbldeliveryorder.id as delivery,
-tblproducts.id AS productid,
-tblproducts.name AS name,
-tblsupplier.name AS suppliername,
-tblsupplier.address AS address,
-tblpayableitem.quantity AS quantity,
-tblpayableitem.total AS total,
-tblpayableitem.price AS price,
+tblpayables.id as payableid,
 tblpayables.payabledate as datepaid,
-tblpayables.total  AS grandtotal,
-tblpayables.userid AS userid
+tblpayableitem.id as itemid,
+tblpayableitem.price as price,
+tblpayableitem.quantity as quantity,
+tblpayables.total as grandtotal,
+tblpayables.userid as userid,
+tblsupplier.name as suppliername,
+tblsupplier.address as supaddress,
+tblpayableitem.total as total,
+tbldeliveryorderitem.id as doiid,
+tbldeliveryorderitem.doid as doid,
+tbldeliveryorderitem.productid as productid,
+tblproducts.name as productname
+
 
 FROM tblpayables
 
-INNER JOIN tblpayableitem
-ON tblpayableitem.payableid=tblpayables.id
-INNER JOIN tblproducts
-ON tblpayableitem.productid=tblproducts.id
-INNER JOIN tbldeliveryorder
-ON tblpayableitem.doid=tbldeliveryorder.id
-INNER JOIN tblsupplier
-ON tblpayableitem.supplierid=tblsupplier.id
+INNER JOIN tblpayableitem ON tblpayables.id=tblpayableitem.payableid
+INNER JOIN tbldeliveryorderitem ON tblpayables.id=tbldeliveryorderitem.paymentid
+INNER JOIN tblproducts ON tbldeliveryorderitem.productid=tblproducts.id
+INNER JOIN tblsupplier ON tblpayableitem.supplierid=tblsupplier.id
+
 
 WHERE tblpayables.id = :id";
 
@@ -116,7 +116,7 @@ $userid = $payables[0]['userid'];
                            <?php echo $payables[0]['suppliername']; ?>
                         </h4>
                         <p class="fs18 text-uppercase">
-                            <?php echo substr($payables[0]['address'], 0, 39); ?>
+                            <?php echo substr($payables[0]['supaddress'], 0, 39); ?>
                         </p>
                     </div>
 
@@ -132,7 +132,7 @@ $userid = $payables[0]['userid'];
                         </h4>
                         
                         <h4 class="fs22 text-uppercase mb-1 d-flex align-items-center">
-                            PAYABLES ID: <?php echo $payables[0]['payid']; ?>
+                            PAYABLES ID: <?php echo $payables[0]['payableid']; ?>
                         </h4>
 
                             <p class="fs18">
@@ -153,7 +153,7 @@ $userid = $payables[0]['userid'];
                                 <tbody>
                                     <tr>
                                         <th class="text-center">
-                                            DELIVERY ID
+                                            DELIVERY ORDER ID
                                         </th>
                                         
                                         <th class="text-center">
@@ -163,11 +163,12 @@ $userid = $payables[0]['userid'];
                                             NAME
                                         </th>
                                         <th class="text-center">
-                                            QUANTITY
-                                        </th>
-                                        <th class="text-center">
                                             PRICE
                                         </th>
+                                        <th class="text-center">
+                                            QUANTITY
+                                        </th>
+
                                         <th class="text-center">
                                             TOTAL
                                         </th>
@@ -175,11 +176,12 @@ $userid = $payables[0]['userid'];
                                     <?php
                                     $output = '';
                                         foreach ($payables as $payable) {
-
-                                        $output .= '<tr class class="data" data-id="'.$payable["payid"].'">';
+                                        $total = $payable['total'];
+                                        $total = number_format($total, 2);
+                                        $output .= '<tr>';
 
                                         $output .=  '<td>
-                                                        <p>'.$payable['delivery'].'</p>
+                                                        <p>'.$payable['doid'].'</p>
                                                     </td>';
                                    
                                         $output .=  '<td>
@@ -187,19 +189,19 @@ $userid = $payables[0]['userid'];
                                                     </td>';
 
                                         $output .= '<td>
-                                                        <p>'.$payable['name'].'</p>
+                                                        <p>'.substr($payable['productname'], 0, 30).'</p>
                                                     </td>';
 
                                         $output .= '<td>
-                                                        <p>'.$payable['quantity'].'</p>
+                                                        <p>'.$payable['price'].'</p>
                                                     </td>';
 
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                        <p>'.$payable['price'].'</p>
+                                                        <p>'.$payable['quantity'].'</p>
                                                     </td>';
                                         
                                         $output .= '<td style = "border-bottom:5px solid">
-                                                        <p>'.$payable['total'].'</p>
+                                                        <p>'.$total.'</p>
                                                     </td>';
 
                                         $output .= '</tr>';
@@ -230,8 +232,8 @@ $userid = $payables[0]['userid'];
 
                              <td class="text-center" style="border: 1px solid;"> 
                                 <button class="delete btn btn-danger btn-sm rounded-0" 
-                                    id="del_<?php echo $payable['payid'];?>"  
-                                    data-id="<?php echo $payable['payid'];?>">
+                                    id="del_<?php echo $payable['payableid'];?>"  
+                                    data-id="<?php echo $payable['payableid'];?>">
                                     <i class="fa-solidfa-circle-minus">Delete</i>
                                 </button>
                             </td>
